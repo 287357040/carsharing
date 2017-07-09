@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carsharing.server.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="com.carsharing.server.entity.User">
+		<id column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="openid" property="openid" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+		<result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="state" property="state" jdbcType="TINYINT" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, openid, nickname, headimgurl, sex, phone, create_time
+		,state,update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where user_id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="getCountByPhone" resultType="java.lang.Integer">
+		select count(phone) from t_user where phone=#{phone}
+	</select>
+	<select id="getOneByOpenid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select *
+		from t_user
+		where openid = #{openid,jdbcType=VARCHAR}
+	</select>
+	<select id="getOneByPhone" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select *
+		from t_user
+		where phone = #{phone,jdbcType=VARCHAR}
+	</select>
+	<select id="getUsersByPage" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select user_id,nickname,phone,create_time,update_time
+		from t_user
+		where user_id in (#{#userIds, jdbcType=VARCHAR})
+		order by create_time desc
+	</select>
+	<insert id="insertSelective" parameterType="com.carsharing.server.entity.User">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="openid != null">
+				openid,
+			</if>
+			<if test="nickname != null">
+				nickname,
+			</if>
+			<if test="headimgurl != null">
+				headimgurl,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="openid != null">
+				#{openid,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="headimgurl != null">
+				#{headimgurl,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=TINYINT},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">
+		update t_user
+		<set>
+			<if test="openid != null">
+				openid = #{openid,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="headimgurl != null">
+				headimgurl = #{headimgurl,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=TINYINT},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=INTEGER}
+	</update>
+	<update id="updatePhone">
+		update t_user
+		set phone = #{phone,jdbcType=VARCHAR}
+		where openid = #{openid,jdbcType=VARCHAR}
+	</update>
+	<!-- 查询所有的前端用户 程序内部使用 -->
+	<select id="getAllFrontUser" resultType="java.lang.String">
+		select
+		GROUP_CONCAT(user_id)
+		from t_user
+		where state= 1
+	</select>
+</mapper>
