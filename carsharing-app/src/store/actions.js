@@ -51,6 +51,12 @@ export default {
         zoomToAccuracy: true,     //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
         extensions: 'all'
       });
+
+      var map = new AMap.Map('container', {
+          resizeEnable: true,
+          zoom: 16
+      });
+      
       geolocation.getCurrentPosition(function (status, result) {
         // console.log(result)
         if(result.aois && result.aois.length>0 ){
@@ -81,11 +87,7 @@ export default {
       });
       geocoder.getLocation(state.position.city, function (status, result) {
         var center = [result.geocodes[0].location.lng, result.geocodes[0].location.lat]
-        var map = new AMap.Map('container', {
-          resizeEnable: true,
-          zoom: 16,
-          center: center
-        });
+        map.center = center;
         console.log(result)
         map.addControl(geocoder)
       });
