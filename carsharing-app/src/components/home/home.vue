@@ -1,20 +1,12 @@
 <template>
   <div id="app">
     <v-header></v-header>
-    <user-sider v-show="usersidebar"></user-sider>
     <router-view></router-view>
-    <v-mask v-show="ismask" :show="ismask"></v-mask>
-    <!--<v-footer></v-footer>-->
-    <!--<suggest v-if="suggest"></suggest>-->
-
   </div>
 </template>
 
 <script>
   import vHeader from './header.vue'
-  import vMask from '../Mask.vue'
-  import suggest from '../suggest/suggest.vue'
-  import userSider from '../userSidebar/sideBar.vue'
   import {mapActions, mapState} from 'vuex'
 
   // import vFooter from '@/components/footer.vue'
@@ -25,7 +17,6 @@
         'usersidebar',
         'checkTelephone',
         'ismask',
-        'suggest',
         'hasLocation'
       ])
     },
@@ -45,10 +36,7 @@
       ])
     },
     components: {
-      vHeader,
-      vMask,
-      suggest,
-      userSider
+      vHeader
     },
     mounted() {
       this.get_telephone();

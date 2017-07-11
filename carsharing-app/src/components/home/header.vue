@@ -31,6 +31,7 @@ import vHeaderNav from './Nav.vue'
 import vMoreList from './moreList.vue'
 import Icon from 'vue-awesome/components/Icon'
 import {mapGetters, mapActions} from 'vuex'
+
 export default {
   computed: {
     ...mapGetters([

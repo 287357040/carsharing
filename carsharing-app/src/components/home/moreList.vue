@@ -3,7 +3,7 @@
   <div class="list-wrapper" >
     <h1 class="list-title border-bottom-1px">全部服务</h1>
     <ul class="list-content border-bottom-1px">
-      <li class="list-item border-right-1px" v-for="item in navList">
+      <li class="list-item border-right-1px" :key="item" v-for="item in navList">
         <span class="list-link">
           <img :src="item.iconUrl" width="44px" height="24px" alt="">
           <p class="text"> {{item.name}} </p>

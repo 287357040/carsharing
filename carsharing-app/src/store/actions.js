@@ -1,9 +1,9 @@
 import mutations from './mutations'
 import Vue from 'vue'
 import state from './state'
-
 export default {
   // 手机号输入
+
   telephone_input({ commit  }) {
     commit('TELEPHONE_INPUT')
   },

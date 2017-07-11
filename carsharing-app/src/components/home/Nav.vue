@@ -15,6 +15,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+//import auth from '@/api/services/login.service'
+
 export default {
   computed: {
     navList() {
@@ -24,6 +26,7 @@ export default {
   methods: {
     switch_nav(index) {
       return this.$store.dispatch('switch_nav', index)
+      
     }
   }
 
@@ -92,5 +95,4 @@ a {
   color: #fc9153;
 }
 
-.navigator .nav-wrapper .tab-wrapper .tab-list .tab-item .tab-name.link-unactive {}
 </style>

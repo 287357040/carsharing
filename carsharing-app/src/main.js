@@ -12,7 +12,7 @@ import VueAxios from 'vue-axios'
 import AMap from 'vue-amap';
 
 Vue.use(MintUI);
-Vue.use(VueAxios, axios);
+
 
 Vue.config.productionTip = false;
 
