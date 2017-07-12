@@ -14,6 +14,7 @@
                 <br>
             </div>
             <button class="login-btn login-submit" @click="submitLogin()" >登录</button>
+            <mt-button type="primary">primary</mt-button>
         </div>
     </form>
 </template>
