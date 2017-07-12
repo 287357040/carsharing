@@ -10,7 +10,9 @@ import store from '@/store/index'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import AMap from 'vue-amap';
+import VueWebsocket from "vue-websocket";
 
+Vue.use(VueWebsocket);
 Vue.use(MintUI);
 
 

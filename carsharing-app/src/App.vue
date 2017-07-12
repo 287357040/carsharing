@@ -3,12 +3,7 @@
     <router-view></router-view>
   </div>
 </template>
-<script>
-
-</script>
-
-<style >
-@import 'assets/css/animate.css';
+<style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,3 +24,5 @@ ul {
   padding: 0;
 }
 </style>
+<script>
+</script>
