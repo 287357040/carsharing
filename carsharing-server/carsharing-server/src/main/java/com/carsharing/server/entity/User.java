@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
@@ -24,6 +25,8 @@ public class User implements Serializable {
     private boolean isDriver;
 
     private  int addressId;
+
+    private byte[] image;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
@@ -62,6 +65,7 @@ public class User implements Serializable {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+
     public int getSex() {
         return sex;
     }
@@ -116,6 +120,14 @@ public class User implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
 }

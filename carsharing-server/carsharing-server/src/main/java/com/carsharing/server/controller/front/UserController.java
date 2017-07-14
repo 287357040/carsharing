@@ -166,6 +166,19 @@ public class UserController extends AbstractController {
     }
 
     /**
+     * 增加朋友
+     *
+     */
+
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value="/addFriend")
+    public JsonResponse<String> addFriend(){
+
+        JsonResponse<String> result = new JsonResponse<String>();
+
+        return result;
+    }
+
+    /**
      * 增加评论
      *
      */
