@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <v-header></v-header>
-    <v-login></v-login>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import vHeader from './header.vue'
-import vLogin from '../login/login.vue'
+// import vLogin from '../login/login.vue'
 import { mapActions, mapState } from 'vuex'
 
 // import vFooter from '@/components/footer.vue'
@@ -17,10 +16,7 @@ export default {
 
   computed: {
     ...mapState([
-      'usersidebar',
-      'checkTelephone',
-      'ismask',
-      'hasLocation'
+      
     ])
   },
   created() {
@@ -46,8 +42,7 @@ export default {
     ])
   },
   components: {
-    vHeader,
-    vLogin
+    vHeader
   },
   mounted() {
     this.get_telephone();

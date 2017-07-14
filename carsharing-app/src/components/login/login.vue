@@ -1,32 +1,50 @@
 <template>
-    <form class="login" id="login" action="#" onsubmit="return false">
+    <form class="login" id="login" @submit="submitLogin()" onsubmit="return false">
         <div class="login-info">
-            <label for="employeeNumber">员工号</label>
-            <input id="employeeNumber" type="text" class="login-input" value="123456">
+            <label for="userId">员工号
+                <input id="userId" type="text" class="login-input" value="123456" v-model="userId">
+            </label>
             <br>
-            <label for="phoneNumber">手机号</label>
-            <input id="phoneNumber" type="text" class="login-input" value="182000000000">
+            <label for="mobile">手机号
+                <input id="mobile" type="text" class="login-input" value="182000000000" v-model="mobile">
+            </label>
             <a href="javascript:void(0)" @click="getCode()" class="login-btn">获取验证码</a>
             <br>
             <div id="input-code">
-                <input id="code" type="text" class="login-input" value="123456">
-                <label for="code">请输入验证码</label>
+                <label for="code">请输入验证码
+                    <input id="code" type="text" class="login-input" value="123456" v-model="code">
+                </label>
                 <br>
             </div>
-            <button class="login-btn login-submit" @click="submitLogin()" >登录</button>
-            <mt-button type="primary">primary</mt-button>
+            <button type="primary" class="login-btn login-submit">登录</button>
         </div>
+
+        <p style="margin-top: 200px; color: #000" >Websocket接收到的信息：<span v-bind="msg"></span></p>
     </form>
 </template>
 
 <script>
+import auth from '@/api/services/login.service'
+//没有考虑信息缓存
 export default {
+    data() {
+        return {
+            userId: "",
+            mobile: "",
+            code: "",
+            msg: ""
+        }
+    },
     methods: {
-        getCode () {
+        getCode() {
             document.getElementById('input-code').style.display = 'block';
         },
-        submitLogin (){
-            
+        submitLogin() {
+            auth.login({ userId: this.userId, mobile: this.mobile, code: this.code }).then((response) => {
+               console.log(response);
+            }, (response) => {
+                // 响应错误回调
+            });
         }
     }
 }
@@ -57,8 +75,7 @@ export default {
     margin-bottom: 20px;
 }
 
-.login-info .login-btn,
-.login-info .login-submit {
+.login-info .login-btn {
     margin-left: 5px;
     background: #fff;
     border-radius: 20px;
@@ -72,7 +89,9 @@ export default {
 .login-submit {
     padding: 5px 100px;
     margin-bottom: 10px;
+    color: #000;
 }
+
 #input-code {
     display: none;
 }

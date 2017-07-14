@@ -1,11 +1,15 @@
 /**
  * Created by lmz on 2017/7/11.
  */
-import { TestResource } from '@/api/http/host.interceptor'
+import { AuthResource } from '@/api/http/host.interceptor'
 
 export default {
     login: (user) => {
-        return TestResource.get({id: userId,accont: phoneNumber});
+        return AuthResource.get({
+            "userId": user.userId,
+            "mobile": user.mobile,
+            "code": user.code
+        })
     },
     logout: () => {
 
@@ -13,4 +17,8 @@ export default {
     getUserInfo: () => {
 
     }
+
 }
+
+
+
