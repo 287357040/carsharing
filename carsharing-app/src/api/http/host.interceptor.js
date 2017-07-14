@@ -32,4 +32,4 @@ Vue.http.interceptors.push((request, next) => {
 });
 
 //服务接口声明
-export const AuthResource = Vue.resource(API_ROOT + '/login')
+export const AuthResource = Vue.resource(API_ROOT + '/front/user/loginByCode')

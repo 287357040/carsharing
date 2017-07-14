@@ -8,9 +8,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import store from '@/store/index'
 import AMap from 'vue-amap';
-import VueWebsocket from "vue-websocket";
 
-// Vue.use(VueWebsocket);
 Vue.use(MintUI);
 
 
