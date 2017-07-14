@@ -1,5 +1,6 @@
 package com.carsharing.server.service.impl;
 
+import com.carsharing.server.entity.UserAddress;
 import com.github.pagehelper.PageHelper;
 import com.carsharing.server.entity.User;
 import com.carsharing.server.mapper.BaseDao;
@@ -23,29 +24,22 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Resource
     private UserMapper userMapper;
 
+
     @Override
     protected BaseDao<User> getMapper() {
         return userMapper;
     }
 
+
+
     @Override
-    public User getOneByOpenid(String openid) {
-        return userMapper.getOneByOpenid(openid);
+    public User getOneByPhone(String mobile) {
+        return userMapper.getOneByPhone(mobile);
     }
 
     @Override
-    public User getOneByPhone(String phone) {
-        return userMapper.getOneByPhone(phone);
-    }
-
-    @Override
-    public int updatePhone(String phone, String openid) {
-        return userMapper.updatePhone(phone, openid);
-    }
-
-    @Override
-    public int getCountByPhone(String phone) {
-        return userMapper.getCountByPhone(phone);
+    public String addCommonAddress(UserAddress address) {
+        return null;
     }
 
     public UserMapper getUserMapper() {
@@ -56,30 +50,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         this.userMapper = userMapper;
     }
 
-    @Override
-    public String getAllFrontUser() {
-        return userMapper.getAllFrontUser();
-    }
 
-    @Override
-    public PageResult<User> getUsersByUserIds(PageResult<User> page, String userIds) {
-        int pageNo = page.getPageNo();
-        int pageSize = page.getPageSize();
-        pageNo = pageNo == 0 ? 1 : pageNo;
-        pageSize = pageSize == 0 ? 10 : pageSize;
-        PageHelper.startPage(pageNo, pageSize);
-        return PageResult.toPageResult(this.getUsers(userIds), page);
-
-    }
-
-    private List<User> getUsers(String userIds) {
-        List<User> list = null;
-        try {
-            list = userMapper.getUsersByPage(userIds);
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-        }
-        return list;
-    }
 
 }

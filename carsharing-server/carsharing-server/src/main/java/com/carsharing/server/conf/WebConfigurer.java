@@ -23,8 +23,7 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
 //                .addPathPatterns("/admin/*/**");
         registry.addInterceptor(new QqWebInterceptor())
                 .addPathPatterns("/front/*/**").
-                excludePathPatterns("/front/user/user/checkCode").
-                excludePathPatterns("/front/user/user/getUserById");
+                excludePathPatterns("/front/user/loginByCode");
         super.addInterceptors(registry);
     }
 

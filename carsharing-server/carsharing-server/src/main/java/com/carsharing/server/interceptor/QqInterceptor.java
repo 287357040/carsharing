@@ -1,6 +1,5 @@
 package com.carsharing.server.interceptor;
 
-import com.carsharing.server.entity.Admin;
 import com.carsharing.server.util.SessionUtil;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

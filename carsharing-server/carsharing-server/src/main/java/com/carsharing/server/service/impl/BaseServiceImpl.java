@@ -69,7 +69,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public T selectByPrimaryKey(int id) {
+    public T selectByPrimaryKey(Object id) {
         T obj = null;
         try {
             obj = getMapper().selectByPrimaryKey(id);

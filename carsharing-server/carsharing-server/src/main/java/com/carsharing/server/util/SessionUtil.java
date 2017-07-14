@@ -1,6 +1,5 @@
 package com.carsharing.server.util;
 
-import com.carsharing.server.entity.Admin;
 import com.carsharing.server.entity.User;
 import org.apache.commons.lang3.StringUtils;
 

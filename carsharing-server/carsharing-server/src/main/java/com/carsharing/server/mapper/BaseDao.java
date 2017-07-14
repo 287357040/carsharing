@@ -76,7 +76,7 @@ public interface BaseDao<T> {
      * @throws Exception
      * @throws
      */
-    public T selectByPrimaryKey(int id);
+    public T selectByPrimaryKey(Object id);
 
     /**
      * 根据对象查询单个记录
