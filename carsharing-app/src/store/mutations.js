@@ -21,13 +21,7 @@ const TELEPHONE_INPUT = 'TELEPHONE_INPUT',
 export default {
   // 手机输入登录
   [TELEPHONE_INPUT](state) {
-    if (state.islogined) {
       state.usersidebar = true
-    } else {
-      state.checkTelephone = true;
-      state.ismask = true;
-    }
-
   },
   // 关闭遮罩层
   [CLOSE_MASK](state) {
