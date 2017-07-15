@@ -27,7 +27,6 @@ export default {
         checkTelephone,
         messageConfirm,
         commonMask
-        
     }
 }
 </script>

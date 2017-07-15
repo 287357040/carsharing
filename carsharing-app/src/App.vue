@@ -1,4 +1,5 @@
 <style lang="scss">
+@import 'assets/css/animate.css';
 @import 'src/styles/public.scss';
 @import 'src/styles/login.scss';
 @import 'src/styles/home.scss';
