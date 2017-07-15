@@ -16,13 +16,14 @@
       <p class="expain">约21.3km 打车需60元</p>
       <mt-button type="default" class="confirm-issue-btn">确认并发布</mt-button>
     </form>
-    <v-more-list></v-more-list>
+    <v-ride-info-card></v-ride-info-card>
   </div>
 </template>
 
 <script>
 import vHeader from './header.vue'
-import vMoreList from './moreList.vue'
+import vMoreRideInfo from './moreRideInfo.vue'
+import vRideInfoCard from '../public/rideInfoCard.vue'
 import { mapActions, mapState } from 'vuex'
 import vMask from '../Mask.vue'
 import vMine from '../mine/mine.vue'
@@ -46,7 +47,8 @@ export default {
   },
   components: {
     vHeader,
-    vMoreList,
+    vMoreRideInfo,
+    vRideInfoCard,
     vMask,
     vMine
   },
