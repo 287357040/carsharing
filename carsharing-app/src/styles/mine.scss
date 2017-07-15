@@ -1,0 +1,13 @@
+.sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 75%;
+    height: 100%;
+    box-shadow: 4px 0 18px 6px rgba(0, 0, 0, .12);
+    background-color: #fff;
+    z-index: 999;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+}

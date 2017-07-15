@@ -1,0 +1,238 @@
+.home-wrapper .banner-wrapper {
+  height: 20vh;
+  background: #FFB437;
+  box-shadow: 0 2px 5px 0 rgba(254, 144, 45, 0.68);
+}
+
+.home-wrapper .form-wrapper {
+  height: 40vh;
+  background: #fff;
+}
+
+.form-wrapper .field-msg {
+  border-bottom: 1px solid #D5D7E2;
+  box-sizing: border-box;
+}
+
+.field-msg .mint-field-core {
+  color: #A5A6AE;
+}
+
+.form-wrapper .setting-time,
+.form-wrapper .setting-num {
+  width: 50%;
+  border-right: 1px solid #D5D7E2;
+  box-sizing: border-box;
+  float: left;
+}
+
+.form-wrapper .accept-time,
+.form-wrapper .remark {
+  width: 50%;
+  box-sizing: border-box;
+  float: right;
+}
+
+.form-wrapper .expain {
+  margin: 0 auto;
+}
+
+.form-wrapper .confirm-issue-btn {
+  width: 54%;
+  background-color: #FE8A2C;
+  color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px 0 rgba(254, 144, 45, 0.68);
+}
+
+.home-wrapper .driver-issue {
+  height: 40vh;
+  background-color: #fff; 
+}
+
+.driver-issue .driver-message {
+  width: 100%;
+  height: auto;
+  padding: 20px auto;
+  background-color: #fff;
+}
+.driver-issue .msg-more {
+  width: 100%;
+  height:30px;
+  background-color: #D5D7E2;
+}
+.msg-more > h3 {
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #000;
+  float: left;
+  margin-left: 10px;
+}
+.msg-more .more {
+  float: right;
+  margin-right: 10px;
+  font-size: 10px;
+  color: #B1B1B1;
+  height: 30px;
+  line-height: 30px;
+}
+.driver-message .message-li {
+  border-bottom: 1px solid #D5D7E2;
+  box-sizing: border-box;
+  width: 100%;
+  height: 10em;
+}
+.driver-message .message-li .message-photo {
+    width: 30%;
+    height: 100%;
+    float: left;
+    
+}
+.driver-message .message-li .message-photo > img {
+    background: #666;
+    background-repeat: no-repeat;
+    //background-size:40px 40px;
+    width: 70px;
+    height: 70px; 
+}
+.driver-message .message-li .message-info {
+    width: 70%;
+    height: 100%;
+    float: right;
+}
+
+.message-info .info-row1 {
+    height: 30px;
+    margin: 5px auto 5px;
+    text-align: left;
+}
+.message-info .info-row1 > h2 {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+}
+
+
+
+//header
+.navigator-wrapper {
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 54px;
+}
+
+.navigator .nav-wrapper {
+  position: relative;
+  z-index: 50;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 54px;
+  background: transparent;
+}
+
+.navigator .nav-wrapper .tab-wrapper {
+  position: relative;
+  z-index: 50;
+  line-height: 54px;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.navigator .nav-wrapper .tab-wrapper .nav-mask {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
+  width: 14px;
+  pointer-events: none;
+}
+
+.navigator .nav-wrapper .tab-wrapper .mask-left {
+  left: 0;
+  background: -webkit-linear-gradient(left, #fff, hsla(0, 0%, 100%, 0));
+  background: linear-gradient(left, #fff, hsla(0, 0%, 100%, 0));
+}
+
+.navigator .nav-wrapper .tab-wrapper .mask-right {
+  right: 0;
+  background: -webkit-linear-gradient(right, #fff, hsla(0, 0%, 100%, 0));
+  background: linear-gradient(right, #fff, hsla(0, 0%, 100%, 0));
+}
+
+.navigator .nav-wrapper .avatar-wrapper {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 44px;
+  flex: 0 0 44px;
+  width: 44px;
+  padding-top: 19px;
+  z-index: 50;
+}
+
+.navigator .nav-wrapper .avatar-wrapper .avatar {
+  line-height: 14px;
+  padding: 0 12px 0 16px;
+}
+
+.border-bottom-1px,
+.border-left-1px,
+.border-right-1px,
+.border-top-1px {
+  position: relative;
+}
+
+.navigator .nav-wrapper .avatar-wrapper .avatar .mfic-person {
+  line-height: 1;
+  font-size: 18px;
+  color: #666;
+}
+
+.border-right-1px:after {
+  border-right: 1px solid #f5f5f5;
+  top: 0;
+  right: 0;
+  height: 100%;
+  transform-origin: right 0;
+}
+
+.avatar .icon {
+  color: #000;
+  font-size: 18px;
+}
+
+
+.navigator .nav-wrapper .more-wrapper {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 38px;
+  flex: 0 0 38px;
+  width: 38px;
+}
+
+.navigator .nav-wrapper .more-wrapper .more {
+  padding: 19px 16px 19px 6px;
+}
+
+.navigator .nav-wrapper .more-wrapper .more .icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+.navigator .list-mask {
+  position: fixed;
+  left: 0;
+  top: 55px;
+  bottom: 0;
+  z-index: 30;
+  width: 100%;
+  background-color: rgba(37, 38, 45, .4);
+}

@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home/home'
-import user from '@/components/login/login'
+import login from '@/components/login/login'
+import mine from '@/components/mine/mine'
 
 Vue.use(Router);
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      redirect: { name: 'home' }
+    },
     {
       path: '/home',
       name: 'home',
@@ -16,6 +21,16 @@ export default new Router({
       children: [
 
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
+     {
+      path: '/mine',
+      name: 'mine',
+      component: mine
     }
   ]
 })

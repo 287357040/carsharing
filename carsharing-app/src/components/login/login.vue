@@ -1,26 +1,34 @@
 <template>
-    <form class="login" id="login" @submit="submitLogin()" onsubmit="return false">
-        <div class="login-info">
-            <label for="userId">员工号
-                <input id="userId" type="text" class="login-input" value="123456" v-model="userId">
-            </label>
-            <br>
-            <label for="mobile">手机号
-                <input id="mobile" type="text" class="login-input" value="182000000000" v-model="mobile">
-            </label>
-            <a href="javascript:void(0)" @click="getCode()" class="login-btn">获取验证码</a>
-            <br>
-            <div id="input-code">
-                <label for="code">请输入验证码
-                    <input id="code" type="text" class="login-input" value="123456" v-model="code">
-                </label>
-                <br>
+    <div class="wrapper-login">
+        <div class="logo-area">
+            <div class="login-logo">
+                <div class="logo-style"></div>
+                <label class="title">恒生拼车</label>
             </div>
-            <button type="primary" class="login-btn login-submit">登录</button>
         </div>
-
-        <p style="margin-top: 200px; color: #000" >Websocket接收到的信息：<span v-bind="msg"></span></p>
-    </form>
+        <form id="form-login" name="form-login" @submit.prevent="onSubmit">
+            <div class="form-group">
+                <input class="form-input" placeholder="请输入您的工号" name="username" type="tel" autocomplete="off" required autofocus>
+            </div>
+            <div class="form-group">
+                <input class="form-input" placeholder="请输入您的密码" name="password" type="password" autocomplete="off" required value="">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input name="remember" type="checkbox">
+                    <label class="title">记住密码</label>
+                </label>
+            </div>
+            <mt-button type="default" class="login-btn">登录</mt-button>
+        </form>
+        <div class="faster-login">
+            <a>快捷登录</a>
+        </div>
+        <div class="new-driver">
+            <a>新司机加盟入口</a>
+            <i class="fa fa-angle-right fa-lg"></i>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -41,7 +49,7 @@ export default {
         },
         submitLogin() {
             auth.login({ userId: this.userId, mobile: this.mobile, code: this.code }).then((response) => {
-               console.log(response);
+                console.log(response);
             }, (response) => {
                 // 响应错误回调
             });
@@ -49,50 +57,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.login {
-    width: 100%;
-    height: 400px;
-    position: absolute;
-    top: 60px;
-    padding: 10px 0;
-    overflow: auto;
-}
-
-.login .login-info {
-    width: 400px;
-    height: auto;
-    left: 50%;
-    margin-left: -200px;
-    position: absolute;
-    border: 1px solid #ccc;
-    text-align: left;
-    padding-left: 20px;
-}
-
-.login-input {
-    margin-bottom: 20px;
-}
-
-.login-info .login-btn {
-    margin-left: 5px;
-    background: #fff;
-    border-radius: 20px;
-    border: 1px solid blue;
-}
-
-.login-btn {
-    padding: 5px 10px;
-}
-
-.login-submit {
-    padding: 5px 100px;
-    margin-bottom: 10px;
-    color: #000;
-}
-
-#input-code {
-    display: none;
-}
-</style>

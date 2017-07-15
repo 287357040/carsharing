@@ -8,6 +8,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import store from '@/store/index'
 import AMap from 'vue-amap';
+import '../static/font-awesome-4.7.0/css/font-awesome.min.css'
 
 Vue.use(MintUI);
 

@@ -1,0 +1,87 @@
+.wrapper-login #form-login {
+    padding: 10px;
+    bottom: 0;
+    box-sizing: border-box;
+    overflow: auto;
+    font-size: 12px;
+}
+
+.wrapper-login .logo-area {
+    width: 100%;
+    height: 30vh;
+}
+.logo-area .login-logo {
+    text-align: center; 
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-logo .logo-style {
+    background: #1B6CFF;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    opacity: .1;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -10%);
+}
+
+.login-logo .title {
+    font-size: 14px;
+    position: relative;
+    color: #FE8A2C;
+}
+#form-login .form-group {
+    width: 80%;
+    height: 40px;
+    position: relative;
+    left: 10%;
+    padding-bottom: 40px;
+    overflow: hidden;
+}
+.form-group .form-input {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 1px solid #D5D7E2;
+    box-sizing: border-box;
+    text-indent: 20px;
+    outline:none;
+}
+#form-login .checkbox {
+    width: 50%;
+    height: 40px;
+    position: relative;
+    border-bottom: 40px;
+    top: 10%;
+    left: 50%; 
+}
+.checkbox .title {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+#form-login .login-btn {
+    width: 54%;
+    position: relative;
+    background-color:#FE8A2C; 
+    color: #fff;
+    border-radius:20px;
+    box-shadow: 0 2px 5px 0 rgba(254,144,45,0.68); 
+}
+
+.faster-login {
+    margin-top: 40px;
+    color: #FE8A2C; 
+    font-size: 14px;
+}
+.new-driver {
+    margin-top: 40px;
+    color: #FE8A2C;
+    padding-bottom: 20px;
+    font-size: 14px;
+}
