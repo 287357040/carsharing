@@ -27,6 +27,7 @@ import vRideInfoCard from '../public/rideInfoCard.vue'
 import { mapActions, mapState } from 'vuex'
 import vMask from '../Mask.vue'
 import vMine from '../mine/mine.vue'
+import SockJS from 'sockjs-client' 
 
 // import vFooter from '@/components/footer.vue'
 // import mapState from 'vuex'
@@ -39,7 +40,20 @@ export default {
     ])
   },
   created() {
+    // http://localhost:8080/ 要替换为服务器地址，全局常量
+    var sock = new SockJS('http://localhost:8080/endpointSang');
+    sock.onopen = function() {
+        console.log('open');
+    };
+    sock.onmessage = function(e) {
+        console.log('message', e.data);
+    };
+    sock.onclose = function() {
+        console.log('close');
+    };
 
+    // sock.send('test');
+    // sock.close();
   },
   methods: {
     ...mapActions([

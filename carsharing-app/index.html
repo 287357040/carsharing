@@ -6,23 +6,10 @@
   <title>恒生拼车</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
-  <script type="text/javascript" src="./static/sockjs.min.js"></script>
-  <script type="text/javascript" src="./static/stomp.js"></script>
 </head>
 
 <body ontouchstart>
   <div id="app"></div>
   <!-- built files will be auto injected -->
-  <script>
-    var sock = new SockJS('http://192.168.153.157:8080/endpointSang');
-    var sockClient = Stomp.over(sock);
-
-    sockClient.connect({}, function (frame) {
-      console.log('connect');
-    })
-  </script>
 </body>
-
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=10837c0e2d120d95f130262e23520f91"></script>
-
 </html>

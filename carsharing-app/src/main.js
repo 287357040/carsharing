@@ -11,11 +11,8 @@ import AMap from 'vue-amap';
 import '../static/font-awesome-4.7.0/css/font-awesome.min.css'
 
 Vue.use(MintUI);
-
-
-Vue.config.productionTip = false;
-
 /* eslint-disable no-new */
+Vue.config.productionTip = false;
 
 let vm = new Vue({
   el: '#app',
