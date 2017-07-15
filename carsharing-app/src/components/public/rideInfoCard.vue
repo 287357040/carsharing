@@ -1,0 +1,47 @@
+<<template>
+    <div class="driver-issue">
+        <div class="msg-more">
+            <h3>最新司机发布</h3>
+            <a class="more">更多
+            <i class="fa fa-angle-double-right fa-lg"></i>
+          </a>
+        </div>
+        <ul class="driver-message">
+            <li class="message-li">
+                <div class="message-photo">
+                    <img></img>
+                </div>
+                <div class="message-info">
+                    <div class="info-row1">
+                        <h2>龚小敏</h2>
+                        <i></i>
+                    </div>
+                    <div class="info-row2">
+                        <p>下沙龙湖天街-恒生大厦 总行程40km</p>
+                    </div>
+                    <div class="info-row3">
+                        <p>7月12日上午7点下沙龙湖天街至恒生大厦，途径九堡大桥，萧山高速下江南大道，有没有一起拼车上班的。</p>
+                    </div>
+                    <div class="info-row4">
+                        <p>
+                            <span>2017-07-12-15:00:29</span>
+                            <span>信息</span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </template>
+    <script type="text/javascript">
+    export default {
+        data() {
+            return {
+
+            }
+        }
+    }
+</script>
+
+<style>
+</style>
