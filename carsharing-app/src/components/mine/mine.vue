@@ -1,11 +1,11 @@
 // "我的"首页
 <template>
   <div>
-    <template enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
+    <transition enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
       <div v-show="usersidebar" class="sidebar-container">
         <p style="color:#000">我的列表页面</p>
       </div>
-    </template>
+    </transition>
     <common-mask @click.native="close_usersidebar"></common-mask>
   </div>
 </template>

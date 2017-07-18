@@ -1,31 +1,21 @@
 <template>
     <div class="mask-container" >
         <common-mask v-show="$store.state.ismask"></common-mask>
-        <div class="login-popup showPopup animated zoomIn " style="margin-top: 0px; display: block; top: 241px;">
-            <check-telephone v-show="checkTelephone" ></check-telephone>
-            <message-confirm v-if="messageConfirm" ></message-confirm>
-        </div>
     </div>
 </template>
 <script>
 import {mapActions,mapState} from 'vuex'
-import checkTelephone from '@/components/checkTelephone.vue'
-import messageConfirm from '@/components/messageConfirm.vue'
 import commonMask from '@/components/commonMask.vue'
 export default {
   computed: {
     ...mapState([
-        'maskType',
-        'messageConfirm',
-        'checkTelephone'
+        'maskType'
         ])
   },
     methods: {
         ...mapActions(['switch_mask'])
     },
     components: {
-        checkTelephone,
-        messageConfirm,
         commonMask
     }
 }

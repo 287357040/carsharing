@@ -19,7 +19,7 @@
                     <label class="title">记住密码</label>
                 </label>
             </div>
-            <mt-button type="default" class="login-btn">登录</mt-button>
+            <mt-button type="default" class="login-btn linear-gradient-bg">登录</mt-button>
         </form>
         <div class="faster-login">
             <a>快捷登录</a>

@@ -1,16 +1,21 @@
 <template>
-  <div class="navigator-wrapper">
+  <div class="navigator-wrapper linear-gradient-bg">
     <div class="navigator">
       <div class="nav-wrapper" :class ="{shadow:shadowActive}">
         <div  class="avatar-wrapper" @click="telephone_input">
-          <div class="avatar border-right-1px">
-            <icon name="user"></icon>
+          <div class="avatar">
+            <i class="fa fa-user-o fa-lg"></i>
           </div>
         </div>
         <div class="tab-wrapper">
-          <div class="nav-mask mask-left"></div>
-          <div class="nav-mask mask-right"></div>
-          <div class="nav-mask">
+          <select class="passenger-owner-model">
+            <option selected value="passenger">乘客</option>
+            <option value="owner">车主</option>
+          </select>
+        </div>
+        <div class="message-wrapper" >
+          <div class="message">
+              <i class="fa fa-commenting fa-lg"></i>
           </div>
         </div>
       </div>
