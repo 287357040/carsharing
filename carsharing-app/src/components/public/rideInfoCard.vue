@@ -14,10 +14,18 @@
                 <div class="message-info">
                     <div class="info-row1">
                         <span>龚小敏</span>
-                        <i class="fa fa-mars"></i>
-                        <span class="completeness"></span>
+                        <i class="fa fa-mars mars-style"></i>
+                        <ul class="completeness">
+                            <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
+                        </ul>
+                        <p class="completeness-text">
+                            <span>1</span>/
+                            <span>4</span>
+                        </p>
+                        <i class="fa fa-plus-circle fa-lg plus-circle-style"></i>
                     </div>
                     <div class="info-row2">
+                        <i class="fa fa-map-marker icon-color"></i>
                         <span>下沙龙湖天街-恒生大厦</span>
                         <span>总行程40km</span>
                     </div>
@@ -36,3 +44,16 @@
         </ul>
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            seats: ['1', '2', '3', '4'],
+            numIsSeclect: 0
+        }
+    },
+    computed: {
+       
+    }
+}
+</script>

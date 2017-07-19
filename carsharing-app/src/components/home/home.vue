@@ -42,6 +42,7 @@
           </div>
           <div class="location-field  remark">
             <input type="text" class="remark-info info-text" placeholder="备注">
+            </input>
           </div>
         </div>
       </div>

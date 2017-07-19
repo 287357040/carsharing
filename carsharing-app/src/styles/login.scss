@@ -1,14 +1,12 @@
 .wrapper-login #form-login {
-    padding: 10px;
-    bottom: 0;
-    box-sizing: border-box;
     overflow: auto;
     font-size: 12px;
 }
 
 .wrapper-login .logo-area {
+    position: absolute;
     width: 100%;
-    height: 30vh;
+    height: 25%;
 }
 .logo-area .login-logo {
     text-align: center; 
@@ -40,7 +38,7 @@
     height: 40px;
     position: relative;
     left: 10%;
-    padding-bottom: 40px;
+    padding-bottom: 10%;
     overflow: hidden;
 }
 .form-group .form-input {
@@ -49,16 +47,46 @@
     border-radius: 20px;
     border: 1px solid #D5D7E2;
     box-sizing: border-box;
-    text-indent: 20px;
+    text-indent: 30px;
     outline:none;
+}
+.form-group > .form-icon {
+    position: absolute;
+    line-height: 40px;
+    padding-left: 10px;
+    color: #FE872B;
+}
+.margin-left-icon {
+    margin-left: -50%; 
+}
+.form-group .code-input {
+    width: 50%;
+    height: 100%;
+    border: 0;
+    text-indent: 30px;
+    outline: none;
+    float: left;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.form-group .get-code {
+    width: 50%;
+    height: 100%;
+    float: right;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.get-code > a {
+    font-size: 14px;
+    color: #FF9F1B;
+    height: 100%;
+    line-height: 40px;
 }
 #form-login .checkbox {
     width: 50%;
-    height: 40px;
-    position: relative;
-    border-bottom: 40px;
-    top: 10%;
-    left: 50%; 
+    height: auto;
+    padding-bottom: 10%;
+    padding-left: 50%; 
 }
 .checkbox .title {
     margin-left: 10px;
@@ -74,14 +102,28 @@
     box-shadow: 0 2px 5px 0 rgba(254,144,45,0.68); 
 }
 
-.faster-login {
-    margin-top: 40px;
+.change-login-style{
+    margin-top: 10%;
     color: #FE8A2C; 
     font-size: 14px;
 }
+.change-login-style > a,
+.change-login-style > a:focus,
+.change-login-style > a:hover,
+.change-login-style > a:active {
+    color: #FE8A2C; 
+}
 .new-driver {
-    margin-top: 40px;
+    margin-top: 10%;
     color: #FE8A2C;
-    padding-bottom: 20px;
     font-size: 14px;
+    box-sizing: border-box;
+}
+.login-switch-area {
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    bottom: 0px;
+    padding: 10px;
+    box-sizing: border-box;
 }

@@ -94,8 +94,18 @@
 }
 
 .passenger-owner-model {
-    border: 0;
+    border: none;
+    outline-style: none;
     background: transparent;
     color: #fff;
-    font-size: 18px;
+    font-size: 17px;
+    height: 26px;
+    line-height: 26px;
 }
+  .passenger-owner-model > option {
+    border: none;
+    background: transparent;
+    color:#fff;
+    font-size:17px;
+    height: auto; 
+  }
