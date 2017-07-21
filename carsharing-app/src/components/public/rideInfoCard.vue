@@ -1,8 +1,8 @@
 <template>
     <div class="driver-issue">
         <div class="msg-more">
-            <h3>最新司机发布</h3>
-            <a class="more">更多
+            <h3>{{listTitle}}</h3>
+            <a class="more" v-show="true">更多
                 <i class="fa fa-angle-double-right fa-lg"></i>
             </a>
         </div>
@@ -46,6 +46,7 @@
 export default {
     data() {
         return {
+            listTitle: '司机列表',
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0
         }

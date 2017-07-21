@@ -2,7 +2,7 @@
     position: absolute;
     width: 98%;
     height: 100%;
-    padding: 1%;
+    padding: 0 1%;
     background: #F4F4F4;
 }
 .home-wrapper .form-wrapper {
@@ -53,7 +53,7 @@
   box-shadow: 0 2px 5px 0 rgba(254,144,45,0.68);
 }
 
-.home-wrapper .driver-issue {
+.driver-issue {
   position: absolute;
   width: 98%;
   height: auto;
@@ -127,21 +127,23 @@
 }
 
 .setting-info .order-time,
-.setting-info .delay-time,
-.setting-info .order-population,
-.setting-info .remark {
+.setting-info .order-population {
   width: 50%;
 }
+.setting-info .order-population > i {
+  padding-left: 5px;
+}
+.setting-info .remark {
+  width:100%;
+}
 
-.setting-info .order-time,
-.setting-info .order-population {
+.setting-info .order-time {
   float: left;
   border-right: 1px solid #D5D7E2;
   box-sizing: border-box;
 }
 
-.setting-info .delay-time,
-.setting-info .remark {
+.setting-info .order-populationb {
   float: right;
 }
 .setting-info .remark :focus {
