@@ -58,14 +58,12 @@ export default {
       });
       
       geolocation.getCurrentPosition(function (status, result) {
-        // console.log(result)
         if(result.aois && result.aois.length>0 ){
           console.log(result)
           commit('SET_POSITON', result)
            map.addControl(geolocation);
         }else {
           if (state.hasLocation) {
-            // console.log(123)
             return false
           } else {
             state.ismask = true
@@ -88,7 +86,6 @@ export default {
       geocoder.getLocation(state.position.city, function (status, result) {
         var center = [result.geocodes[0].location.lng, result.geocodes[0].location.lat]
         map.center = center;
-        console.log(result)
         map.addControl(geocoder)
       });
 
@@ -108,7 +105,6 @@ export default {
     state.timeCount = true
     state.tipsContent = `${state.tips}秒后重发`
     // Interval = null
-    console.log(state.Interval)
     clearInterval(state.Interval)
     state.Interval = setInterval(() => {
       state.tips--
@@ -139,12 +135,10 @@ export default {
   },
   // 关闭侧边栏
   close_usersidebar({ commit }) {
-    console.log('actions')
     commit('CLOSE_USERSIDEBAR')
   },
   //地址输入提示
   autocomplete({ commit, state }, value) {
-    console.log(value)
     AMap.plugin('AMap.Autocomplete', function () {
       var autocomplete = new AMap.Autocomplete({})
       autocomplete.search(value, function (status, result) {

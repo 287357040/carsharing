@@ -1,15 +1,23 @@
 /**
  * Created by lmz on 2017/7/11.
  */
-import { AuthResource } from '@/api/http/host.interceptor'
+import { AuthLocationUrl } from '@/api/http/host.interceptor';
+import Vue from 'vue';
 
 export default {
-    login: (user) => {
-        return AuthResource.get({
-            "userId": user.userId,
-            "mobile": user.mobile,
-            "code": user.code
-        })
+    login: (user, cb) => {
+        Vue.http.post(
+            AuthLocationUrl,
+            {
+                "userNo": user.userNo,
+                "mobile": user.mobile,
+                "code": user.code
+            }
+        ).then((response) => {
+            cb(response);
+        }, (response) => {
+            // 响应错误回调
+        });
     },
     logout: () => {
 

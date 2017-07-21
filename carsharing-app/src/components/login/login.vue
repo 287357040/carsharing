@@ -6,9 +6,8 @@
                 <label class="title">恒生拼车</label>
             </div>
         </div>
-        
-        <mobile-login  v-if="isSelected" v-on:isMobileLogin="showStyle"></mobile-login>
-        <password-login v-else v-on:isMobileLogin="showStyle" ></password-login>
+        <password-login v-if="isSelected" v-on:isPasswordLogin="showStyle" ></password-login>
+        <mobile-login  v-else v-on:isPasswordLogin="showStyle"></mobile-login>
     </div>
 </template>
 
@@ -20,21 +19,10 @@ import mobileLogin from './mobileLogin'
 export default {
     data() {
         return {
-            userId: "",
-            mobile: "",
-            code: "",
-            msg: "",
             isSelected: false
         }
     },
     methods: {
-        submitLogin() {
-            auth.login({ userId: this.userId, mobile: this.mobile, code: this.code }).then((response) => {
-                console.log(response);
-            }, (response) => {
-                // 响应错误回调
-            });
-        },
         showStyle(data) {
             this.isSelected = data;
         }

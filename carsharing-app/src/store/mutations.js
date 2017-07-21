@@ -43,11 +43,8 @@ export default {
   },
   // 显示选址
   [SHOW_SUGGEST](state, key) {
-    // console.log(state)
     state.startOrEnd = key;
-    console.log(state.startOrEnd);
     state.suggest = state.suggest ? false : true;
-    console.log(state.suggest);
   },
   // 关闭选址
   [CLOSE_SUGGEST](state) {
@@ -59,15 +56,12 @@ export default {
   },
   // 选择城市
   [CHOOSE_CITY_NAME](state, index) {
-    // console.log(state.cityList[index.i].cityName[index.j])
     state.position.city = state.cityList[index.i].cityName[index.j];
     state.isChoosed = true;
-    console.log(state.position.city);
   },
   // 校验手机号
   [CHECK_TELEPHONE](state, telephone) {
     if (telephone) {
-      // console.log(telephone)
       var reg = /^1[3478]\d{9}$/;
       if (reg.test(telephone)) {
         state.isTelephoneVal = true;
@@ -81,7 +75,6 @@ export default {
   },
   // 显示验证码输入框
   [TOMESSAGECONFIRM](state, telephone) {
-    // console.log(1)
     state.checkTelephone = false;
     state.messageConfirm = true;
   },
@@ -101,11 +94,9 @@ export default {
   // 关闭侧边栏
   [CLOSE_USERSIDEBAR](state) {
     state.usersidebar = !state.usersidebar
-    console.log(state.usersidebar)
   },
   // 保存当前位置
   [SET_POSITON](state, result) {
-    console.log('postion')
     const position = {
       address: result.aois[0].name,
       city: result.addressComponent.city
@@ -117,17 +108,13 @@ export default {
 
     // state.position.address = result.aois[0].name
     // state.city = result.addressComponent.city
-    // console.log(state.position)
   },
   // 选址
   [CHOOSER_ADDRESS](state, index){
-    console.log(state.startOrEnd)
     if (state.startOrEnd == 'getOn') {
       state.address.start = state.autocompleteList[index].name
-      console.log(state.position.start)
     } else {
       state.address.end = state.autocompleteList[index].name
-      console.log(state.position.end)
     }
   },
   // 关闭定位错误提示
@@ -136,8 +123,6 @@ export default {
     state.location = false
   },
   [CLOSE_AUTOCOMPLETELIST] (state) {
-    console.log(1234)
     state.autocompleteList = []
-    console.log(state.autocompleteList)
   }
 }
