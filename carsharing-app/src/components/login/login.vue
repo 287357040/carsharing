@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper-login">
+    <div class="login-wrapper">
         <div class="logo-area">
             <div class="login-logo">
                 <div class="logo-style"></div>

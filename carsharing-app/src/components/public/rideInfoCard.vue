@@ -6,7 +6,7 @@
                 <i class="fa fa-angle-double-right fa-lg"></i>
             </a>
         </div>
-        <ul class="driver-message">
+        <ul class="driver-message clearfix">
             <li class="message-li">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
@@ -14,7 +14,10 @@
                 <div class="message-info">
                     <div class="info-row1">
                         <span>龚小敏</span>
+                        <i class="fa fa-plus-circle fa-lg plus-circle-style"></i>
                         <i class="fa fa-mars mars-style"></i>
+                    </div>
+                    <div class="info-row2">
                         <ul class="completeness">
                             <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
                         </ul>
@@ -22,15 +25,10 @@
                             <span>1</span>/
                             <span>4</span>
                         </p>
-                        <i class="fa fa-plus-circle fa-lg plus-circle-style"></i>
-                    </div>
-                    <div class="info-row2">
-                        <i class="fa fa-map-marker icon-color"></i>
-                        <span>下沙龙湖天街-恒生大厦</span>
-                        <span>总行程40km</span>
                     </div>
                     <div class="info-row3">
-                        <p>7月12日上午7点下沙龙湖天街至恒生大厦，途径九堡大桥，萧山高速下江南大道，有没有一起拼车上班的。</p>
+                        <p>7月12日上午7点</p>
+                        <p>下沙龙湖天街至恒生大厦</p>
                     </div>
                     <div class="info-row4">
                         <span>2017-07-12 15:00:29</span>

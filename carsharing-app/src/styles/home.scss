@@ -1,8 +1,16 @@
+.home-wrapper  {
+    position: absolute;
+    width: 98%;
+    height: 100%;
+    padding: 1%;
+    background: #F4F4F4;
+}
 .home-wrapper .form-wrapper {
   position: relative;
   height: auto;
   margin-top: 54px;
   background: #fff;
+  box-shadow: 0 2px 4px 0 #E2E3E5;
 }
 .form-wrapper .home-form {
   height: auto;
@@ -15,18 +23,39 @@
   color: #A5A6AE;
   clear: both;
 }
-
-.home-wrapper .confirm-issue-btn {
+.home-wrapper .search-issue-wrapper {
   position: relative;
-  width: 54%;
+  width: 100%;
+  height: 3.4%;
+  padding-bottom: 4%;
+}
+
+.search-issue-wrapper .comfirm-search-btn {
+  position: relative;
+  width: 32%;
+  color: #FE8F2D;
+  font-size: 14px;
+  margin-left: 9.7%;
+  background: rgba(255,213,180,0.50);
+  box-shadow: 0 2px 5px 0 rgba(254,144,45,0.68);
+  border-radius: 100px;
+  float: left;
+  box-sizing: border-box;
+}
+.search-issue-wrapper .confirm-issue-btn {
+  position: relative;
+  display: inline-block;
+  width: 32%;
   color: #fff;
-  border-radius: 20px;
-  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 100px;
+  background-image: linear-gradient(62deg, #FE872B 0%, #FFB437 100%);
+  box-shadow: 0 2px 5px 0 rgba(254,144,45,0.68);
 }
 
 .home-wrapper .driver-issue {
   position: absolute;
-  width: 100%;
+  width: 98%;
   height: auto;
   background-color: #fff; 
 }
@@ -160,7 +189,7 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
 
 .message-info .info-row1 {
     height: 30px;
-    margin: 1.2% auto 5px;
+    margin: 1.2% auto 0;
     text-align: left;
 }
 .message-info .info-row1 > span {
@@ -185,21 +214,24 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
   height: auto;
   text-align: left;
   font-size: 8px;
-  margin: 2px auto 5px;
+  margin: 0 auto 10px;
   color: #A5A6AE;
 }
 .icon-color {
   color: #FE872B;
 }
-.message-info .info-row2 :last-child {
-  margin-left: 10px;
-}
 .message-info .info-row3 {
   height: auto;
   text-align: left;
+  margin-bottom: 5px; 
   font-size: 12px;
-  margin-bottom: 20px; 
   color: #747579;
+  line-height: 24px;
+}
+.info-row3 :first-child {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
 }
 .message-info .info-row4 {
   height: auto;
@@ -214,10 +246,9 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
     margin-right: 10px;
     margin-left: 10px;
 }
-.info-row1 .completeness {
+.completeness {
     width: 60px;
     height: auto;
-    margin-left: 10px;
     display: inline-block;
 }
 .completeness .single {
@@ -229,7 +260,7 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
     display: inline-block;
 }
 .completeness .single-selected {
-  background: #37D0FF;
+  background: #17E394;
 }
 .completeness :first-child {
     border-top-left-radius: 100px;
@@ -245,7 +276,7 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
   color: #A5A6AE;
 }
 .completeness-text :first-child{
-  color: #37D0FF;
+  color: #17E394;
 }
 
 //修改datepicker组件

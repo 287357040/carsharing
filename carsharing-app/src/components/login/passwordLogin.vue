@@ -15,7 +15,7 @@
                     <label class="title">记住密码</label>
                 </label>
             </div>
-            <mt-button type="default" class="login-btn linear-gradient-bg">登录</mt-button>
+            <mt-button type="default" class="login-btn linear-gradient-bg" @click="passwordLogin">登录</mt-button>
         </form>
         <div class="change-login-style">
             <a href="javascript:void(0)" v-on:click="changeMobileLogin">快捷登录</a>
@@ -36,13 +36,16 @@ export default {
         }
     },
     methods: {
-        changeMobileLogin() {
+        changeMobileLogin: function() {
             this.$emit("isPasswordLogin", false);
         },
-        submitByPassword() {
+        submitByPassword: function() {
             auth.login({ userNo: this.userNo, password: this.password}, (res) => {
                 console.log(res);
             });
+        },
+         passwordLogin: function() {
+            
         }
 
     }

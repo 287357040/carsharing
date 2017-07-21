@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <mt-button type="default" class="login-btn linear-gradient-bg">验证并登录</mt-button>
+            <mt-button type="default" class="login-btn linear-gradient-bg" @click="mobileLogin">验证并登录</mt-button>
         </form>
         <div class="change-login-style">
             <a href="javascript:void(0)" v-on:click="changePasswordLogin">密码登录</a>
@@ -42,13 +42,16 @@ export default {
         }
     },
     methods: {
-        changePasswordLogin () {
+        changePasswordLogin: function() {
             this.$emit("isPasswordLogin", true );
         },
-        submitByMobile() {
+        submitByMobile: function() {
             auth.login({ userNo: this.userNo, mobile: this.mobile, code: this.code },(res)=>{
                 console.log(res);
             });
+        },
+        mobileLogin: function() {
+
         }
     }
 }
