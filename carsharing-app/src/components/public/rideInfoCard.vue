@@ -1,8 +1,8 @@
 <template>
     <div class="driver-issue">
         <div class="msg-more">
-            <h3>{{listTitle}}</h3>
-            <a class="more" v-show="true">更多
+            <h3>{{data.listTitle}}</h3>
+            <a class="more" v-show="isShowMore">更多
                 <i class="fa fa-angle-double-right fa-lg"></i>
             </a>
         </div>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="info-row2">
                         <ul class="completeness">
-                            <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
+                            <li class="single" :class="{'single-selected': index == data.numIsSeclect}" :key="item" v-for="(item,index) in data.seats"></li>
                         </ul>
                         <p class="completeness-text">
                             <span>1</span>/
@@ -46,9 +46,12 @@
 export default {
     data() {
         return {
-            listTitle: '司机列表',
-            seats: ['1', '2', '3', '4'],
-            numIsSeclect: 0
+            data: {
+                listTitle: '司机列表',
+                seats: ['1', '2', '3', '4'],
+                numIsSeclect: 0,
+            },
+            isShowMore: true
         }
     }
 }
