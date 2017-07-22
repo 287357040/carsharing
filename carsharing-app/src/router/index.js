@@ -2,9 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/home/home'
 import login from '@/components/login/login'
-import mine from '@/components/mine/mine'
 import awaitStatus from '@/components/status/awaitStatus'
 import mapLocation from '@/components/public/mapLocation'
+import owner from '@/components/mine/owner'
+import plateNum from '@/components/setting/plateNum'
 
 Vue.use(Router);
 
@@ -13,27 +14,34 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: { name: 'home' }
+      redirect: { name: 'login' }
     },
     {
       path: '/home',
       name: 'home',
-      component: home,
-      alias: '/' || '/home',
+      component: home
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login,
+      alias: '/' || '/login'
     },
     {
       path: '/await',
       component: awaitStatus,
     },
+   
     {
-      path: '/login',
-      name: 'login',
-      component: login
-    },
-    {
-      path: '/mine',
-      name: 'mine',
-      component: mine
+      path: '/owner',
+      name: 'owner',
+      component: owner,
+      children: [
+        {
+          path: '/owner/plateNum',
+          component: plateNum
+        }
+      ]
     },
     {
       path: '/mapLocation',

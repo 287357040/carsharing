@@ -103,6 +103,10 @@ export default {
     this.computedDatetime();
   },
   methods: {
+     show_suggest(key) {
+      this.$store.dispatch('show_suggest', key)
+      this.$router.push({ path: '/mapLocation' })
+    },
     openDatetimePicker() {
       this.datetimePopup = true;
     },

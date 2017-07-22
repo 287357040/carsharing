@@ -70,3 +70,33 @@ li {
   visibility: hidden;
   clear: both;
 }
+
+//修改popup picker插件样式
+.mint-popup {  
+    width: 100%;
+    height: 40%;  
+}
+.mint-popup .picker-toolbar {
+  border-bottom: 1px solid #D5D7E2;
+} 
+.picker {
+  height: 100% !important;
+}
+.picker .picker-items {
+  height: 100% !important;
+}
+.picker-center-highlight {
+  top: 27% !important; 
+}
+.mint-popup .picker-slot-wrapper, 
+.page-popup .mint-popup .picker-item {  
+    backface-visibility: hidden;
+    -webkit-backface-visibility:hidden;  
+} 
+.picker-center-highlight {
+  margin-top: 0 !important;
+}
+.picker-item.picker-selected {
+  font-size: 22px !important;
+  font-weight: 500;
+}

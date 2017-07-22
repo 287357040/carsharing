@@ -40,12 +40,6 @@ export default {
     // sock.send('test');
     // sock.close();
   },
-  methods: {
-    show_suggest(key) {
-      this.$store.dispatch('show_suggest', key)
-      this.$router.push({ path: '/mapLocation' })
-    }
-  },
   components: {
     vHeader,
     vForm,

@@ -16,7 +16,7 @@ export default {
         ).then((response) => {
             cb(response);
         }, (response) => {
-            // 响应错误回调
+            cb(response);
         });
     },
     logout: () => {
