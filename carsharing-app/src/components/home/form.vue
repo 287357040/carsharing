@@ -23,10 +23,10 @@
           <span class="info-text">{{'出行时间'}}</span>
           <!--预约时间弹窗-->
           <mt-popup v-model="datetimePopup" position="bottom" class="mint-popup">
-            <div class="picker-toolbar">
-              <span class="mint-datetime-action mint-datetime-cancel" @click="datetimeCancle">取消</span>
-              <span class="mint-datetime-action mint-datetime-title">出行时间</span>
-              <span class="mint-datetime-action mint-datetime-confirm" @click="datetimeConfirm">确定</span>
+            <div class="picker-toolbar clearfix">
+              <span class="mint-datetime-cancel" @click="datetimeCancle">取消</span>
+              <span class="mint-datetime-title">出行时间</span>
+              <span class="mint-datetime-confirm" @click="datetimeConfirm">确定</span>
             </div>
             <mt-picker :slots="datetimeSlots" @change="datetimeValueChange" :visible-item-count="4"></mt-picker>
           </mt-popup>
@@ -36,10 +36,10 @@
           <span class="info-text">{{data.seatsCounts || data.seatsDescription}}</span>
   
           <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-            <div class="picker-toolbar">
-              <span class="mint-datetime-action mint-datetime-cancel" @click="cancleSeats">取消</span>
-              <span class="mint-datetime-action mint-datetime-title">乘车人数</span>
-              <span class="mint-datetime-action mint-datetime-confirm" @click="selectSeats">确定</span>
+            <div class="picker-toolbar clearfix">
+              <span class="mint-datetime-cancel" @click="cancleSeats">取消</span>
+              <span class="mint-datetime-title">乘车人数</span>
+              <span class="mint-datetime-confirm" @click="selectSeats">确定</span>
             </div>
             <mt-picker :slots="seatSlots" @change="onValuesChange" :visible-item-count="4"></mt-picker>
           </mt-popup>

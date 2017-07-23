@@ -4,6 +4,20 @@
     <v-mask v-show="ismask" :show="ismask"></v-mask>
     <v-header></v-header>
     <v-form></v-form>
+    <section class="await-handle-order">
+     <h1>待处理行程</h1>
+        <div class="handle-order-content clearfix">
+          <i class="fa fa-building fa-lg await-icon-location"></i>
+          <div class="handle-order-text">
+            <h2>明天11:30</h2>
+            <p>恒生大厦A幢后门—九和路-地铁站</p>
+            </div>
+            <a class="await-details-arrow"><span>等待接单</span>
+            <i class="fa fa-angle-right fa-lg"></i></a>
+            
+            
+        </div>
+    </section>
     <ride-info-card></ride-info-card>
   </div>
 </template>
@@ -24,7 +38,7 @@ export default {
       'ismask'
     ])
   },
-  created: function() {
+  created: function () {
     // http://localhost:8080/ 要替换为服务器地址，全局常量
     // var sock = new SockJS('http://localhost:8080/endpointSang');
     // sock.onopen = function () {

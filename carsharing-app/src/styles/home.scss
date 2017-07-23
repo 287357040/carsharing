@@ -283,16 +283,70 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
 
 //修改datepicker组件
 
-.mint-datetime-action {
-  width: 30% !important;
+.mint-datetime-title, .mint-datetime-cancel, .mint-datetime-confirm {
+  text-align: center !important;
+  line-height: 40px;
 }
 .mint-datetime-title {
-    width: 34%;
+    display: inline-block;
+    width: 40% !important;
+    height: 100%;
     color: #A5A6AE !important;
 }
 .mint-datetime-cancel {
-  padding-left: 3%;
+  width: 30% !important;
+  float: left;
 }
 .mint-datetime-confirm {
-  padding-right: 3%;
+  width: 30% !important;
+  float: right;
+}
+
+.await-handle-order {
+    width: 100%;
+    height: 13%;
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px 0 #E2E3E5;
+}
+  .await-handle-order > h1 {
+    color: #333333;
+    width: 18.7%;
+    height: auto;
+    font-size: 14px;
+    padding: 1% 0 0 3%;
+  }
+  .await-handle-order .handle-order-content {
+    width: 100%;
+    height: 50%;
+    margin-top: 3%;
+  }
+
+ .handle-order-content > i.await-icon-location {
+   float: left;
+   margin-left: 2%;
+   margin-top: 1%;
+ }
+  .handle-order-content  .handle-order-text {
+    width: 60%;
+    height: 100%;
+    margin-left: 10%;
+  }
+.handle-order-text > h2{
+  font-size: 14px;
+  color: #333333;
+  line-height: 14px;
+  text-align: left;
+}
+.handle-order-text > p {
+  font-size: 12px;
+  color: #A5A6AE;
+  line-height: 14px;
+  text-align: left;
+}
+.await-details-arrow {
+  width: 25%;
+  float: right;
+  margin-top: -7%;
+  font-size: 12px;
+  color: #A5A6AE;
 }
