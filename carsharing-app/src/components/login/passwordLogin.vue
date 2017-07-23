@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-import auth from '@/api/services/login.service'
+import auth from '@/api/services/interface.service'
 export default {
     data: () => {
         return {

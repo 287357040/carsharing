@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import auth from '@/api/services/login.service'
+import auth from '@/api/services/interface.service'
 import Vue from 'vue';
 export default {
     data: () => {

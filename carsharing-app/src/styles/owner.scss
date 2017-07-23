@@ -39,7 +39,9 @@
 .border-bottom-style {
     border:1px solid rgba(213,215,226,0.20);
 }
-
+.car-info-list > a{
+    width: 100%;
+}
 .car-arrows {
     float: right;
     color: #D5D7E2;
@@ -83,7 +85,7 @@
     line-height: 40px;
     font-weight: 700;
     font-size: 18px;
-    margin-left: 3%;
+    margin-left: 6%;
 }
 .mint-plate-cancel,.mint-plate-confirm {
   color: #747579;

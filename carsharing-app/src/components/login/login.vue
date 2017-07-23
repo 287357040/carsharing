@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import auth from '@/api/services/login.service'
+import auth from '@/api/services/interface.service'
 import passwordLogin from './passwordLogin'
 import mobileLogin from './mobileLogin'
 //没有考虑信息缓存

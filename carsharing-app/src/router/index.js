@@ -31,17 +31,15 @@ export default new Router({
       path: '/await',
       component: awaitStatus,
     },
-   
+
     {
       path: '/owner',
       name: 'owner',
-      component: owner,
-      children: [
-        {
-          path: '/owner/plateNum',
-          component: plateNum
-        }
-      ]
+      component: owner
+    },
+    {
+      path: '/plateNum',
+      component: plateNum
     },
     {
       path: '/mapLocation',
