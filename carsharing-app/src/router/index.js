@@ -6,6 +6,7 @@ import awaitStatus from '@/components/status/awaitStatus'
 import mapLocation from '@/components/public/mapLocation'
 import owner from '@/components/mine/owner'
 import plateNum from '@/components/setting/plateNum'
+import brandModel from '@/components/setting/brandModel'
 
 Vue.use(Router);
 
@@ -40,6 +41,10 @@ export default new Router({
     {
       path: '/plateNum',
       component: plateNum
+    },
+    {
+      path: '/brandModel',
+      component: brandModel
     },
     {
       path: '/mapLocation',

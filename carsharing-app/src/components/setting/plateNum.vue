@@ -4,7 +4,7 @@
       <div class="navigator">
         <div class="nav-wrapper">
           <div class="avatar-wrapper">
-            <div class="avatar" @click="closePlateNum">
+            <div class="avatar" @click="goback">
               <i class="fa fa-angle-left fa-3x"></i>
             </div>
           </div>
@@ -21,9 +21,9 @@
   
       <mt-popup v-model="popupPlate" position="bottom" class="mint-popup">
         <div class="picker-toolbar">
-          <span class="mint-plate-action mint-plate-cancel" @click="canclePlate">取消</span>
-          <span class="mint-plate-action mint-plate-title">车牌号</span>
-          <span class="mint-plate-action mint-plate-confirm" @click="selectPlate">确定</span>
+          <span class="mint-plate-cancel" @click="canclePlate">取消</span>
+          <span class="mint-plate-title">车牌号</span>
+          <span class="mint-plate-confirm" @click="selectPlate">确定</span>
         </div>
         <mt-picker :slots="plateSlots" @change="cityChange" :visible-item-count="4"></mt-picker>
       </mt-popup>
@@ -71,8 +71,8 @@ export default {
     },
     cityChange: function () {
     },
-    closePlateNum: function () {
-        this.$router.push({path:'/owner'})
+    goback: function () {
+        this.$router.go(-1);
     }
   }
 }

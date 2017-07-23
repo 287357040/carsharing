@@ -71,7 +71,12 @@ li {
   clear: both;
 }
 
-//修改popup picker插件样式
+
+/**
+*修改 mint-ui组件样式
+*/
+
+//修改popup picker组件样式
 .mint-popup {  
     width: 100%;
     height: 40%;  
@@ -99,4 +104,23 @@ li {
 .picker-item.picker-selected {
   font-size: 22px !important;
   font-weight: 500;
+}
+
+//修改Index List 组件样式
+.mint-indexsection-index{
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: -0.35px;
+}
+.mint-cell-text {
+    font-size: 14px;
+    color: #747579;
+    letter-spacing: -0.35px;
+}
+.mint-indexlist-navitem {
+    font-family: PingFangSC-Regular;
+    font-size: 10px;
+    color: #333333;
+    letter-spacing: 0;
+    line-height: 16px;
 }
