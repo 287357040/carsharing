@@ -46,7 +46,7 @@ export default {
             this.$emit("isPasswordLogin", true);
         },
         submitByMobile: function () {
-            auth.login({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
+            auth.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
                 console.log(res);
                 if (res.status == 0) {
                     this.$router.push({path: '/home'})
