@@ -1,33 +1,33 @@
 <template>
     <div class="driver-issue">
         <div class="msg-more">
-            <h3>{{data.listTitle}}</h3>
-            <a class="more" v-show="isShowMore">更多
-                <i class="fa fa-angle-double-right fa-lg"></i>
+            <h3>{{listTitle}}</h3>
+            <a class="more" v-show="isShowMore">更多>>
+                <i class=""></i>
             </a>
         </div>
         <ul class="driver-message clearfix">
-            <li class="message-li">
+            <li class="message-li clearfix" :key="route" v-for="route in routeVO">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
                 </div>
                 <div class="message-info">
                     <div class="info-row1">
                         <span>龚小敏</span>
-                        <i class="fa fa-plus-circle fa-lg plus-circle-style"></i>
+                        <i class="icon-boy"></i>
                         <i class="fa fa-mars mars-style"></i>
                     </div>
                     <div class="info-row2">
                         <ul class="completeness">
-                            <li class="single" :class="{'single-selected': index == data.numIsSeclect}" :key="item" v-for="(item,index) in data.seats"></li>
+                            <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
                         </ul>
                         <p class="completeness-text">
-                            <span>1</span>/
-                            <span>4</span>
+                            <span>{{route.remainCount}}</span>/
+                            <span>{{route.takeCount}}</span>
                         </p>
                     </div>
                     <div class="info-row3">
-                        <p>7月12日上午7点</p>
+                        <p>{{route.startTime}}</p>
                         <p>下沙龙湖天街至恒生大厦</p>
                     </div>
                     <div class="info-row4">
@@ -43,16 +43,22 @@
     </div>
 </template>
 <script>
+import allData from '@/api/services/interface.service'
 export default {
     data() {
         return {
-            data: {
-                listTitle: '司机列表',
-                seats: ['1', '2', '3', '4'],
-                numIsSeclect: 0,
-            },
+            listTitle: '司机列表',
+            seats: ['1', '2', '3', '4'],
+            numIsSeclect: 0,
+            routeVO: [],
             isShowMore: true
         }
+    },
+    created: function () {
+        allData.matchRideDemandsByRoute((res) => {
+            this.routeVO = res.data.data.routeVO;
+            console.log(this.routeVO);
+        });
     }
 }
 </script>

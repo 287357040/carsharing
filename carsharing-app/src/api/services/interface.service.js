@@ -1,7 +1,7 @@
 /**
  * Created by lmz on 2017/7/11.
  */
-import Vue from 'vue';
+import Vue from 'vue'
 import {
     loginByCodeUrl,
     loginByAcctUrl,
@@ -32,7 +32,8 @@ import {
     getMessageUrl,
     getOrderUrl
 
-} from '@/api/http/host.config';
+} from '@/api/http/host.config'
+import '../http/host.interceptor'
 
 export default {
     loginByCode: (user, cb) => {
@@ -107,8 +108,14 @@ export default {
     getRideDemandsByRouteId: () => {
 
     },
-    matchRideDemandsByRoute: () => {
-
+    matchRideDemandsByRoute: (cb) => {
+        Vue.http.post('/api/getList')
+            .then(
+            (response) => {
+               cb(response);
+            }, (response) => { 
+                // 响应错误回调
+            })
     },
     publishNewRoute: () => {
 

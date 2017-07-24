@@ -4,14 +4,14 @@
       <div class="company-home-location clearfix">
         <div class="location-form border-bottom-1px" @click="show_suggest('getOn')">
           <div class="location-field">
-            <i class="icon-color fa fa-building fa-lg"></i>&nbsp;&nbsp;
+            <i class="icon-corporation" style="color: #FE872B"></i>&nbsp;&nbsp;
             <span class="location-title ">公司</span>
             <span class="location-address">{{'恒生电子'}}</span>
           </div>
         </div>
         <div class="location-form" @click="show_suggest('getOff')">
           <div class="location-field">
-            <i class="icon-color fa fa-home fa-lg"></i>&nbsp;&nbsp;
+            <i class="icon-home"></i>&nbsp;&nbsp;
             <span class="location-title ">回家</span>
             <span class="location-address">{{'金沙湖'}}</span>
           </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="setting-info clearfix">
         <div class="location-field order-time" @click="openDatetimePicker">
-          <i class="icon-color fa fa-clock-o fa-lg"></i>
+          <i class="icon-date"></i>
           <span class="info-text">{{'出行时间'}}</span>
           <!--预约时间弹窗-->
           <mt-popup v-model="datetimePopup" position="bottom" class="mint-popup">
@@ -32,7 +32,7 @@
           </mt-popup>
         </div>
         <div class="location-field order-population" @click="choiceSeats">
-          <i class="icon-color fa fa-user fa-lg"></i>
+          <i class="icon-Friends"></i>
           <span class="info-text">{{data.seatsCounts || data.seatsDescription}}</span>
   
           <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
@@ -48,7 +48,7 @@
       <div class="setting-info clearfix">
         
         <div class="location-field  remark">
-          <i class="icon-color fa fa-user fa-lg"></i>
+          <i class="icon-Stroke01"></i>
           <input type="text" class="remark-info info-text" placeholder="出行需求">
           </input>
         </div>

@@ -4,7 +4,7 @@
       <div class="nav-wrapper" :class="{shadow:shadowActive}">
         <div class="avatar-wrapper" @click="telephone_input">
           <div class="avatar">
-            <i class="fa fa-user-o fa-lg"></i>
+            <i class="icon-mine"></i>
           </div>
         </div>
         <div class="tab-wrapper">
@@ -15,7 +15,7 @@
         </div>
         <div class="message-wrapper">
           <div class="message">
-            <i class="fa fa-commenting fa-lg"></i>
+            <i class="icon-Information01"></i>
           </div>
         </div>
       </div>
