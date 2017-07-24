@@ -4,7 +4,7 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import { 
+import {
     publishRideDemandUrl,
     deleteRideDemandUrl,
     updateRideDemandUrl,
@@ -12,6 +12,29 @@ import {
     getRideDemandsByRouteIdUrl,
     matchRideDemandsByRouteUrl,
 } from '@/api/http/host.config'
-export  default{ 
-    
+export default {
+    publishRideDemand: () => {
+
+    },
+    deleteRideDemand: () => {
+
+    },
+    updateRideDemand: () => {
+
+    },
+    getRideDemands: () => {
+
+    },
+    getRideDemandsByRouteId: () => {
+
+    },
+    matchRideDemandsByRoute: (cb) => {
+        Vue.http.post('/api/getList')
+            .then(
+            (response) => {
+                cb(response);
+            }, (response) => {
+                // 响应错误回调
+            })
+    }
 }

@@ -4,13 +4,13 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import { 
+import {
     regToDriverUrl,
     inviteToRouteUrl,
     updateDriverInfoUrl
 } from '@/api/http/host.config'
-export default{ 
-     regToDriver: () => {
+export default {
+    regToDriver: () => {
 
     },
     inviteToRoute: () => {

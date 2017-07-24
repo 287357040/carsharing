@@ -4,13 +4,27 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import { 
+import {
     publishNewRouteUrl,
     deleteRouteUrl,
     startRouteUrl,
     finishRouteUrl,
     matchRideRouteByDemandUrl
 } from '@/api/http/host.config'
-export  default{ 
-    
+export default {
+    publishNewRoute: () => {
+
+    },
+    deleteRoute: () => {
+
+    },
+    startRoute: () => {
+
+    },
+    finishRoute: () => {
+
+    },
+    matchRideRouteByDemand: () => {
+
+    }
 }

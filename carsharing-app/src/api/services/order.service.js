@@ -5,6 +5,8 @@
 import Vue from 'vue'
 import '../http/host.interceptor'
 import { getOrderUrl } from '@/api/http/host.config'
-export  default{ 
-    
+export default {
+    getOrder: () => {
+
+    }
 }

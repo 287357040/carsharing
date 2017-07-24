@@ -4,7 +4,7 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import { 
+import {
     loginByCodeUrl,
     loginByAcctUrl,
     logoutUrl,

@@ -43,7 +43,7 @@
     </div>
 </template>
 <script>
-import allData from '@/api/services/interface.service'
+import allData from '@/api/services/demand.service'
 export default {
     data() {
         return {

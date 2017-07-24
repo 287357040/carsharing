@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import allData from '@/api/services/interface.service'
+import allData from '@/api/services/employee.service'
 import Vue from 'vue';
 export default {
     data: () => {

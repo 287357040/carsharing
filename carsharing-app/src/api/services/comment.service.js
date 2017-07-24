@@ -4,11 +4,19 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import { 
+import {
     addCommentUrl,
     delCommentUrl,
     getCommentUrl
 } from '@/api/http/host.config'
-export  default{ 
-    
+export default {
+    addComment: () => {
+
+    },
+    delComment: () => {
+
+    },
+    getComment: () => {
+
+    }
 }
