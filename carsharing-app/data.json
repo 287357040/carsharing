@@ -1,0 +1,55 @@
+{
+    "routeVO": [
+        {
+            "startArea": "",
+            "endArea": "",
+            "startPlace": "下沙龙湖天街",
+            "startLongitude": "",
+            "startLatitude": "",
+            "endPlace": "恒生大厦",
+            "endLongitude": "",
+            "endLatitude": "",
+            "startTime": "7月12号上午7点",
+            "takeCount": "4",
+            "remainCount": "1",
+            "state": "",
+            "rewards": "",
+            "describe": "",
+            "isHome": ""
+        },
+        {
+            "startArea": "",
+            "endArea": "",
+            "startPlace": "定安路地铁站",
+            "startLongitude": "",
+            "startLatitude": "",
+            "endPlace": "恒生大厦",
+            "endLongitude": "",
+            "endLatitude": "",
+            "startTime": "7月19号上午10点",
+            "takeCount": "2",
+            "remainCount": "2",
+            "state": "",
+            "rewards": "",
+            "describe": "",
+            "isHome": ""
+        },
+        {
+            "startArea": "",
+            "endArea": "",
+            "startPlace": "天城东路路口",
+            "startLongitude": "",
+            "startLatitude": "",
+            "endPlace": "江陵路",
+            "endLongitude": "",
+            "endLatitude": "",
+            "startTime": "7月20号下午3点",
+            "takeCount": "3",
+            "remainCount": "1",
+            "state": "",
+            "rewards": "",
+            "describe": "",
+            "isHome": ""
+        }
+    ]
+}
