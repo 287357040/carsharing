@@ -4,10 +4,10 @@
     <OHeader v-bind:headerText="headerText" />
     <div class="password">
       <mt-field placeholder="请输入密码" type="password">
-        <i class="fa fa-lock icon"></i>
+        <i class="icon-Password03"></i>
       </mt-field>
-      <mt-field placeholder="请输入密码" type="password">
-        <i class="fa fa-get-pocket icon"></i>
+      <mt-field placeholder="请再次输入密码" type="password">
+        <i class="icon-pass02"></i>
       </mt-field>
     </div>
     <div class="password-btn">

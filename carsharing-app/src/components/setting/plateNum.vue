@@ -5,7 +5,7 @@
         <div class="nav-wrapper">
           <div class="avatar-wrapper">
             <div class="avatar" @click="goback">
-              <i class="fa fa-angle-left fa-3x"></i>
+              <i class="icon-return"></i>
             </div>
           </div>
           <div class="tab-wrapper">
