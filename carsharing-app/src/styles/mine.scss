@@ -1,13 +1,381 @@
 .sidebar-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 75%;
+  height: 100%;
+  box-shadow: 4px 0 18px 6px rgba(0, 0, 0, .12);
+  background-color: #fff;
+  z-index: 999;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+}
+
+.siderbar-content {
+  width: 90%;
+  margin: 22px auto;
+}
+
+.siderbar-icon-content .telphone {
+  font-size: 14px;
+  display: block;
+  color: #A5A6AE;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.siderbar-icon-content .name {
+  margin-top: 5px;
+  display: block;
+  font-size: 16px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.nav-content {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.nav-content td {
+  width: 200px;
+  border: 1px solid #D5D7E2;
+  padding: 20px 10px 9px 10px;
+  cursor: pointer;
+}
+
+.nav-content .no-top-border {
+  border-top: 0px;
+}
+
+.nav-content .no-left-border {
+  border-left: 0px;
+}
+
+.nav-content .no-right-border {
+  border-right: 0px;
+}
+
+.nav-content .no-bottom-border {
+  border-bottom: 0px;
+}
+
+.nav-content .iconname {
+  display: block;
+  margin: 11px auto 9px;
+  color: #FE872B;
+}
+
+//我的订单样式
+.order-bacgroud {
+  background-color: #F4F4F4;
+  height: 100%;
+}
+
+.order-container {
+  padding-top: 81px;
+}
+
+.order-container-bgcolor {
+  background-color: #fff;
+}
+
+.order-content {
+  margin-bottom: 15px;
+  margin-left: 16px;
+  text-align: left;
+}
+.order-content .icon-Stroke01::before
+{
+  color: #FE872B;
+}
+.order-content .txt-content {
+  margin-left: 14px;
+  color: #747579;
+  font-weight: bold;
+}
+
+.order-content .ico {
+  color: #FE872B;
+}
+
+.order-driver-spilter {
+  height: 0px;
+  border: 1px solid #D5D7E2;
+  opacity: 0.2;
+  width: 100%;
+}
+
+.order-wait-driver {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  color: #FE872B;
+  background-color: #fff;
+}
+
+.history-order-title {
+  display: block;
+  color: #747579;
+  font-weight: bold;
+  margin-left: 15px;
+  text-align: left;
+  margin-top: 0px;
+  height: 35px;
+  padding-top: 5px;
+}
+
+.history-order-content {
+  margin-left: 0px;
+  padding-left: 15px;
+  padding-top: 15px;
+  color: #747579;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.history-order-content .icon-date::before
+{
+  color: #D5D7E2;
+}
+
+.history-order-content .txt-content {
+  margin-left: 14px;
+  color: #747579;
+  font-weight: bold;
+}
+
+.history-order-content .txt-content-color {
+  color: #000;
+}
+
+.history-order-content .ico {
+  color: #D5D7E2;
+}
+.history-order-content .txt-content-addr
+{
+    padding-top:15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.txt-content-addr .ico
+{
+    margin-left: 15px;
+    padding-top: 3px;
+}
+
+.right
+{
+    float: right;
+}
+.left
+{
+  float: left;
+}
+//我的好友
+.friend-bacgroud {
+background-color: #F4F4F4;  
+}
+
+.friend-container {
+  padding-top: 56px;
+  text-align: left;
+}
+.friend-container .mint-cell
+{
+  border-bottom: 1px solid #F4F4F4;
+}
+.friend-container .mint-indexsection-index
+ {
+background-color: #F4F4F4;
+ }
+.friend-container .mint-indexlist-content
+{
+  margin-right: 0px;
+}
+.friend-container .mint-cell-value
+{
+  position: absolute;
+  left: 0;
+}
+.friend-container .mint-indexlist-nav
+{
+  background-color: transparent;
+  border-left: 0px;
+}
+.friend-container .showModel-btn
+{
+  position: absolute;
+  width: 355px;
+  height: 50px;
+}
+.friend-telphone-icon
+{
+  border-radius: 17px;
+  height: 35px;
+  width: 35px;
+  margin:10px; 
+}
+.friend-telphone-iconame
+{
+ font-size: 14px;
+ color: #747579;
+ position: relative;
+ top: 15px;
+}
+
+.telphone-detail{
+  margin: 30px 18px 15px 20px;
+}
+.telphone-detail .telphone-detail-icon
+{
+  margin: 0px auto;
+  height: 64px;
+  width: 64px;
+  border-radius: 32px;
+}
+.telphone-detail .telphone-detail-iconame{
+  color:#333333;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.telphone-detail .other-info
+{
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.other-info .icon
+{  
+    background-color:#00E089;
+    padding: 5px;
+    border-radius: 12px;
+    color: #fff;
+
+}
+//拼车指南
+.mine-container {
+  padding-top: 56px;
+  height: 100%;
+}
+.mine-container-bgcolor
+{
+background-color: #f4f4f4;
+}
+.mine-container .guid
+{
+  text-align: left;
+  margin:  11px 18px 0px 23px; 
+  color:  #747579;
+}
+.guid h3
+{
+  margin-bottom: 12px;
+  color: #000;
+}
+
+//密码设置
+.password
+{
+  background-color: #fff;
+  box-shadow: 0 2px 5px 0 #E2E3E5;
+}
+.password .mint-cell
+{
+  border-bottom: 1px solid #f4f4f4;
+}
+.password .mint-field-core
+{
+  padding-left: 25px;
+} 
+.password .mint-field-other
+{ 
+  position:inherit;
+}
+.password .icon
+{
+  position: absolute;
+  left: 10px;
+  line-height: 0px;
+  color: #FE872B;
+}
+.password-btn
+{
+  position: absolute;
+      bottom: 0;
+      width: 100%;
+}
+.password-btn .mint-button{
+  position: relative;
+    width: 300px;
+    height: 42px;
+    border-radius: 25px;
+   background:linear-gradient(58deg, #FFB437 0%, #FE872B 100%); 
+   box-shadow: 0 2px 5px 0 #FE902D;
+   color: #fff;
+}
+
+//意见反馈
+.feedback .submit-btn
+{
     position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 75%;
-    height: 100%;
-    box-shadow: 4px 0 18px 6px rgba(0, 0, 0, .12);
+    top: 18px;
+    z-index: 100;
+    right: 15px;
+    color: #fff;
+    font-size: 14px;
+}
+
+//我的评价
+.header
+{
+  background-image:  url(/static/img/toper.d698a80.png);
+  height: 250px;
+  background-repeat: no-repeat;
+  box-shadow:none;
+}
+.valuation 
+{
+  z-index: 12;
+  position: relative;
+}
+.valuation-content
+{
+    text-align: left;
     background-color: #fff;
-    z-index: 999;
-    -webkit-animation-duration: .5s;
-    animation-duration: .5s;
+    margin: 20px 20px 0px 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+    color: #333333 ;
+    box-shadow: 0px 1px 7px 0px #FE902D;
+}
+.valuation-content img
+{
+    float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin: 18px 34px 18px 39px;
+}
+.valuation-content .nickname
+{
+  display: block;
+}
+.valuation-content .comment
+{
+    display: block;
+    width: 200px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.valuation .haed-title
+{
+  margin-top: 15px;
+  color: #fff;
 }

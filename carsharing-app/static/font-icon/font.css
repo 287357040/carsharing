@@ -119,14 +119,18 @@
   margin-left: -1em;
   color: rgb(0, 0, 0);
 }
+.icon-owner
+{
+  font-size: 30px;
+} 
 .icon-owner .path1:before {
   content: "\e913";
-  color: rgb(0, 0, 0);
+ color: rgb(255, 180, 55);
 }
 .icon-owner .path2:before {
   content: "\e914";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 180, 55);
   opacity: 0.1;
 }
 .icon-owner .path3:before {

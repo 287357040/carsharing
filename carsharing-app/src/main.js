@@ -9,8 +9,11 @@ import 'mint-ui/lib/style.css'
 import store from '@/store/index'
 import AMap from 'vue-amap'
 import '../static/font-icon/font.css'
+import iView from 'iview';
+import 'iview/dist/styles/iview.css'; 
 
 Vue.use(MintUI);
+Vue.use(iView);
 /* eslint-disable no-new */
 Vue.config.productionTip = false;
 

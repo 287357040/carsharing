@@ -7,6 +7,13 @@ import mapLocation from '@/components/public/mapLocation'
 import owner from '@/components/mine/owner'
 import plateNum from '@/components/setting/plateNum'
 import brandModel from '@/components/setting/brandModel'
+import password from '@/components/mine/password'
+import guide from '@/components/mine/guide'
+import friend from '@/components/mine/friend'
+import feedback from '@/components/mine/feedback'
+import route from '@/components/mine/route'
+import valuation from '@/components/mine/valuation'
+import order from '@/components/mine/order'
 
 Vue.use(Router);
 
@@ -49,6 +56,42 @@ export default new Router({
     {
       path: '/mapLocation',
       component: mapLocation
+    },
+    {
+      path: '/password',
+      name: 'password',
+      component: password
+    },
+     {
+      path: '/guide',
+      name: 'guide',
+      component: guide
+    },
+     {
+      path: '/friend',
+      name: 'friend',
+      component: friend
+    },
+     {
+      path: '/feedback',
+      name: 'feedback',
+      component: feedback
+    },
+     {
+      path: '/route',
+      name: 'route',
+      component: route
+    },
+     {
+      path: '/valuation',
+      name: 'valuation',
+      component: valuation
+    },
+     {
+      path: '/order',
+      name: 'order',
+      component: order
     }
+
   ]
 })
