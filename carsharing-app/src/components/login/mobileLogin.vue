@@ -6,11 +6,11 @@
                 <input class="form-input" placeholder="请输入您的工号" name="userNo" v-model="data.userNo" type="tel" autocomplete="off" maxlength="5" required autofocus>
             </div>
             <div class="form-group">
-                <i class="fa fa-mobile fa-2x form-icon"></i>
+                <i class="icon-shouji form-icon"></i>
                 <input class="form-input" placeholder="请输入您的手机号" name="mobile" type="tel" v-model="data.mobile" autocomplete="off" required value="" maxlength="11">
             </div>
             <div class="form-group">
-                <i class="icon-Information01 form-icon margin-left-icon"></i>
+                <i class="icon-yanzhengma form-icon margin-left-icon"></i>
                 <div class="form-input">
                     <input class="code-input" placeholder="请输入验证码" name="code" type="tel" autocomplete="off" v-model="data.code" required maxlength="4">
                     <div class="get-code">

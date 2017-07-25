@@ -47,11 +47,10 @@
 </template>
 <script>
 import allData from '@/api/services/demand.service'
-import bus from '@/scripts/eventBus'
 export default {
     data() {
         return {
-            listTitle: '乘客列表',
+            listTitle: '司机列表',
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
             routeVO: [],
@@ -61,7 +60,7 @@ export default {
     created: function () {
         allData.matchRideDemandsByRoute((res) => {
             this.routeVO = res.data.data.routeVO;
-        });
+        })
     },
     computed: {
         getNowFormatDate: function () {

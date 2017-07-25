@@ -8,8 +8,8 @@
           </div>
         </div>
         <div class="tab-wrapper">
-          <select class="passenger-owner-model">
-            <option>乘客</option>
+          <select class="passenger-owner-model" v-model="identity">
+            <option selected>乘客</option>
             <option>车主</option>
           </select>
         </div>
@@ -23,28 +23,30 @@
   </div>
 </template>
 <script>
-import Icon from 'vue-awesome/components/Icon'
 import { mapGetters, mapActions } from 'vuex'
-
+import bus from '@/scripts/eventBus'
 export default {
   data: () => {
     return {
       identity: '乘客'
     }
   },
+  watch: {
+      identity: function(val){
+          this.$emit('identityName',val);
+      }
+  },
   computed: {
     ...mapGetters([
       'shadowActive',
-
     ])
-  },
-  components: {
-    Icon
   },
   methods: {
     ...mapActions([
       'telephone_input'
-    ])
+    ]),
+    
+
   }
 }
 </script>

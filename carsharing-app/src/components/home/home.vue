@@ -2,9 +2,9 @@
   <div class="home-wrapper">
     <v-mine v-show="usersidebar"></v-mine>
     <v-mask v-show="ismask" :show="ismask"></v-mask>
-    <v-header></v-header>
+    <v-header v-on:identityName="switchIdentity"></v-header>
     <v-form></v-form>
-    <section class="await-handle-order">
+    <section class="await-handle-order" v-show="false">
      <h1>待处理行程</h1>
         <div class="handle-order-content clearfix">
           <i class="icon-Countdown await-icon-location"></i>
@@ -16,7 +16,8 @@
             <i class="icon-Level-Down"></i></a>
         </div>
     </section>
-    <ride-info-card></ride-info-card>
+    <driver-info-card v-if="isSwitchDriver"></driver-info-card>
+    <ride-info-card v-else></ride-info-card>
   </div>
 </template>
 
@@ -24,12 +25,19 @@
 import vHeader from './header.vue'
 import vForm from './form.vue'
 import rideInfoCard from '../public/rideInfoCard.vue'
+import driverInfoCard from '../public/driverInfoCard.vue'
 import { mapActions, mapState } from 'vuex'
 import vMask from '../Mask.vue'
 import vMine from '../mine/mine.vue'
 import SockJS from 'sockjs-client'
+ 
 
 export default {
+  data: () => {
+    return {
+      isSwitchDriver: false
+    }
+  },
   computed: {
     ...mapState([
       'usersidebar',
@@ -52,10 +60,18 @@ export default {
     // sock.send('test');
     // sock.close();
   },
+  methods: {
+    switchIdentity: function(val){
+      console.log(val);
+      if(val == '车主')  this.isSwitchDriver = true;
+      else if (val == '乘客') this.isSwitchDriver = false;
+    }
+  },
   components: {
     vHeader,
     vForm,
     rideInfoCard,
+    driverInfoCard,
     vMask,
     vMine
   },

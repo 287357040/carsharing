@@ -26,11 +26,11 @@
 
 .icon-shouji:before {
   content: "\e93e";
-  color: #c4c4c4;
+  color: #FE872B;
 }
 .icon-yanzhengma:before {
   content: "\e93f";
-  color: #c4c4c4;
+  color: #FE872B;
 }
 .icon-telephone:before {
   content: "\e900";
@@ -171,7 +171,7 @@
 }
 .icon-Information01:before {
   content: "\e91e";
-  color: #FE872B;
+  color: #FFFDFD;
 }
 .icon-icon-yaoqing .path1:before {
   content: "\e91f";
