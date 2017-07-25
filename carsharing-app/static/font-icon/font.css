@@ -40,6 +40,10 @@
   content: "\e901";
   color: #FE872B;
 }
+.icon-Stroke
+{
+  font-size: 30px;
+}
 .icon-Stroke .path1:before {
   content: "\e902";
   color: rgb(254, 135, 43);
@@ -53,7 +57,7 @@
 .icon-Stroke .path3:before {
   content: "\e904";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+ color: rgb(254, 135, 43);
 }
 .icon-Selected:before {
   content: "\e905";
@@ -65,7 +69,7 @@
 }
 .icon-return:before {
   content: "\e907";
-  color: #bebebe;
+  color: #fff;
 }
 .icon-ren .path1:before {
   content: "\e908";
@@ -103,7 +107,11 @@
 .icon-pass02 .path2:before {
   content: "\e90f";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: #FE872B;
+}
+.icon-pass01
+{
+  font-size: 30px;
 }
 .icon-pass01 .path1:before {
   content: "\e910";
@@ -112,12 +120,12 @@
 .icon-pass01 .path2:before {
   content: "\e911";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: #FE872B;
 }
 .icon-pass01 .path3:before {
   content: "\e912";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: #FE872B;
 }
 .icon-owner
 {
@@ -125,12 +133,12 @@
 } 
 .icon-owner .path1:before {
   content: "\e913";
- color: rgb(255, 180, 55);
+  color: #FE872B;
 }
 .icon-owner .path2:before {
   content: "\e914";
   margin-left: -1em;
-  color: rgb(255, 180, 55);
+  color: #FE872B;
   opacity: 0.1;
 }
 .icon-owner .path3:before {
@@ -143,6 +151,10 @@
   margin-left: -1em;
   color: rgb(255, 180, 55);
 }
+.icon-My-Order
+{
+  font-size: 30px;
+}
 .icon-My-Order .path1:before {
   content: "\e917";
   color: rgb(254, 243, 233);
@@ -150,12 +162,12 @@
 .icon-My-Order .path2:before {
   content: "\e918";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 180, 55);
 }
 .icon-My-Order .path3:before {
   content: "\e919";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 180, 55);
 }
 .icon-mine:before {
   content: "\e91a";
@@ -190,9 +202,13 @@
   content: "\e921";
   color: #FE872B;
 }
+.icon-Guide {
+  font-size: 30px;
+}
+
 .icon-Guide .path1:before {
   content: "\e922";
-  color: rgb(0, 0, 0);
+  color: #FE872B;
 }
 .icon-Guide .path2:before {
   content: "\e923";
@@ -239,6 +255,10 @@
   margin-left: -1em;
   color: rgb(255, 246, 235);
 }
+.icon-grade
+{
+  font-size: 30px;
+}
 .icon-grade .path1:before {
   content: "\e92c";
   color: rgb(254, 243, 233);
@@ -246,7 +266,7 @@
 .icon-grade .path2:before {
   content: "\e92d";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: rgb(254, 135, 43);
 }
 .icon-grade .path3:before {
   content: "\e92e";
@@ -261,15 +281,18 @@
 .icon-grade .path5:before {
   content: "\e930";
   margin-left: -1em;
-  color: rgb(0, 0, 0);
+  color: rgb(254, 135, 43);
 }
 .icon-girl:before {
   content: "\e931";
   color: #ff6e61;
 }
+.icon-Friends{
+  font-size: 30px;
+}
 .icon-Friends .path1:before {
   content: "\e932";
-  color: rgb(0, 0, 0);
+   color: rgb(254, 135, 43);
 }
 .icon-Friends .path2:before {
   content: "\e933";
@@ -286,9 +309,13 @@
   content: "\e935";
   color: #bebebe;
 }
+.icon-Feedback
+{
+  font-size: 30px;
+}
 .icon-Feedback .path1:before {
   content: "\e936";
-  color: rgb(0, 0, 0);
+  color: #FE872B;
 }
 .icon-Feedback .path2:before {
   content: "\e937";
