@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carsharing.server.mapper.RideDemandMapper">
+    <resultMap id="BaseResultMap" type="com.carsharing.server.entity.RideDemand">
+        <id column="demand_id" property="demandId" jdbcType="INTEGER"/>
+        <result column="user_no" property="userNo" jdbcType="VARCHAR"/>
+        <result column="start_place" property="startPlace" jdbcType="VARCHAR"/>
+        <result column="end_place" property="end_place" jdbcType="VARCHAR"/>
+        <result column="rider_count" property="riderCount" jdbcType="SMALLINT"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="wait_time" property="waitTime" jdbcType="SMALLINT"/>
+        <result column="rewards" property="rewards" jdbcType="INTEGER"/>
+        <result column="start_longitude" property="startLongitude" jdbcType="DOUBLE"/>
+        <result column="start_latitude" property="startLatitude" jdbcType="DOUBLE"/>
+        <result column="end_longitude" property="endLongitude" jdbcType="DOUBLE"/>
+        <result column="end_latitude" property="endLatitude" jdbcType="DOUBLE"/>
+        <result column="is_home" property="isHome" jdbcType="TINYINT"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="describe" property="state" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        demand_id, user_no, route_id, start_place, end_place,rider_count, start_time,wait_time,rewards, start_longitude
+        ,end_longitude,end_latitude,is_home,state,describe
+    </sql>
+    <select id="getRideDemandsByUserNo" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_demand
+        where user_no = #{userNo,jdbcType=VARCHAR} and state = #{state,jdbcType=TINYINT}
+    </select>
+
+    <select id="getRideDemandsByRouteId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_demand
+        where route_id = #{route_id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.carsharing.server.entity.RideDemand">
+        insert into t_demand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userNo != null">
+                user_no,
+            </if>
+            <if test="startPlace != null">
+                start_place,
+            </if>
+            <if test="endPlace != null">
+                end_place,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="riderCount != null">
+                rider_count,
+            </if>
+            <if test="waitTime != null">
+                wait_time,
+            </if>
+            <if test="rewards != null">
+                rewards,
+            </if>
+            <if test="startArea != null">
+                start_area,
+            </if>
+            <if test="startLongitude != null">
+                start_longitude,
+            </if>
+            <if test="startLatitude != null">
+                start_latitude,
+            </if>
+            <if test="endArea != null">
+                end_area,
+            </if>
+            <if test="endLongitude != null">
+                end_longitude,
+            </if>
+            <if test="endLatitude != null">
+                end_latitude,
+            </if>
+            <if test="isHome != null">
+                is_home,
+            </if>
+            <if test="describe != null">
+                describe,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userNo != null">
+                #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="startPlace != null">
+                #{startPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="endPlace != null">
+                #{endPlace,jdbcType=VARCHAR},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="riderCount != null">
+                #{riderCount,jdbcType=INTEGER},
+            </if>
+            <if test="waitTime != null">
+                #{waitTime,jdbcType=INTEGER},
+            </if>
+            <if test="rewards != null">
+                #{rewards,jdbcType=INTEGER},
+            </if>
+            <if test="startArea != null">
+                #{startArea,jdbcType=VARCHAR},
+            </if>
+            <if test="startLongitude != null">
+                #{startLongitude,jdbcType=DOUBLE},
+            </if>
+            <if test="startLatitude != null">
+                #{startLatitude,jdbcType=DOUBLE},
+            </if>
+            <if test="endArea != null">
+                #{endArea,jdbcType=VARCHAR},
+            </if>
+            <if test="endLongitude != null">
+                #{endLongitude,jdbcType=DOUBLE},
+            </if>
+            <if test="endLatitude != null">
+                #{endLatitude,jdbcType=DOUBLE},
+            </if>
+            <if test="isHome != null">
+                #{isHome,jdbcType=TINYINT},
+            </if>
+            <if test="describe != null">
+                #{describe,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -10,5 +10,5 @@ public interface UserService extends BaseService<User> {
 
     public User getOneByPhone(String mobile);
 
-    public String addCommonAddress(UserAddress address);
+    public int addCommonAddress(UserAddress address);
 }

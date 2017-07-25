@@ -1,9 +1,61 @@
 package com.carsharing.server.entity;
 
+import java.util.Date;
+
 /**
  * Created by hucl on 2017/7/14.
  * 评论信息实体
  *
  */
 public class Comment {
+
+    private int commentId;
+
+    private String content;
+
+    private String userNo;
+
+    private Date commentTime;
+
+    private int demandId;
+
+    public int getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(int commentId) {
+        this.commentId = commentId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
+    }
+
+    public Date getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
+    }
+
+    public int getDemandId() {
+        return demandId;
+    }
+
+    public void setDemandId(int demandId) {
+        this.demandId = demandId;
+    }
 }

@@ -2,13 +2,16 @@ package com.carsharing.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by hucl on 2017/7/12.
  */
-public class UserAddress {
+public class UserAddress implements Serializable {
     private int addressId;
+
+    private int addressType;
 
     private String address;
 
@@ -18,7 +21,7 @@ public class UserAddress {
 
     private double latitude;
 
-    private  String userNum;
+    private  String userNo;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
@@ -29,6 +32,14 @@ public class UserAddress {
 
     public int getAddressId() {
         return addressId;
+    }
+
+    public int getAddressType() {
+        return addressType;
+    }
+
+    public void setAddressType(int addressType) {
+        this.addressType = addressType;
     }
 
     public void setAddressId(int addressId) {
@@ -67,12 +78,12 @@ public class UserAddress {
         this.latitude = latitude;
     }
 
-    public String getUserNum() {
-        return userNum;
+    public String getUserNo() {
+        return userNo;
     }
 
-    public void setUserNum(String userNum) {
-        this.userNum = userNum;
+    public void setUserNo(String userNum) {
+        this.userNo = userNum;
     }
 
     public Date getCreateTime() {
