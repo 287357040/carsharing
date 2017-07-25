@@ -38,8 +38,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public String addCommonAddress(UserAddress address) {
-        return null;
+    public int addCommonAddress(UserAddress address) {
+        return 0;
     }
 
     public UserMapper getUserMapper() {
