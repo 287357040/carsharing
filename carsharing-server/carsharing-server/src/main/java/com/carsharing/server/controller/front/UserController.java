@@ -9,9 +9,7 @@ import com.carsharing.server.util.SessionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,46 +27,44 @@ public class UserController extends AbstractController {
     * 通过手机验证码的方式登录
     * */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByCode")
-    @SendTo("/topic/callback")
-    public JsonResponse<String> loginByCode(String userId, String mobile, Integer code,
-                                            HttpServletRequest request) {
-        JsonResponse<String> result = new JsonResponse<String>(
+//    @SendTo("/topic/callback")
+    public JsonResponse<User> loginByCode(@RequestBody User frmUser,
+                                          HttpServletRequest request) {
+        JsonResponse<User> result = new JsonResponse<User>(
                 SystemCode.FAILURE);
-        // 检验验证码
-        // 模拟环境，1234则验证通过
-        if (1234 != code) {
-            result.setMsg("验证码错误!");
-            return result;
-        }
+        //
+        // 检验验证码 模拟环境，验证通过
         result.setRes(SystemCode.SUCCESS);
         try {
             if (result.getRes() == SystemCode.SUCCESS) {
                 // by yucs
                 if (SessionUtil.getUser(request) == null) {
                     lo.info("用户为空...");
-                    User user = userService.getOneByPhone(mobile);
+                    User user = userService.getOneByPhone(frmUser.getMobile());
                     if (user == null) {
                         User model = new User();
-                        model.setUserNum(userId);
-                        model.setMobile(mobile);
+                        model.setUserNo(frmUser.getUserNo());
+                        model.setMobile(frmUser.getMobile());
                         model.setCreateTime(new Date());
                         model.setUpdateTime(new Date());
-                        model.setUserName("Jim");
                         userService.insertSelective(model);
-                        model = userService.getOneByPhone(mobile);
+                        model = userService.getOneByPhone(frmUser.getMobile());
                         SessionUtil.setUser(request, model);
+                        result.setObj(model);
                     } else {
                         SessionUtil.setUser(request, user);
+                        result.setObj(user);
                     }
                     result.setRes(SystemCode.SUCCESS);
                 } else {
                     lo.info("用户不为空..."
-                            + SessionUtil.getUser(request).getUserNum());
+                            + SessionUtil.getUser(request).getUserNo());
                     User user = userService.selectByPrimaryKey(SessionUtil
-                            .getUser(request).getUserNum());
-                    user.setMobile(mobile);
+                            .getUser(request).getUserNo());
+                    user.setMobile(user.getMobile());
                     userService.updateByPrimaryKeySelective(user);
                     SessionUtil.setUser(request, user);
+                    result.setObj(user);
                 }
                 result.setRes(SystemCode.SUCCESS);
             }
@@ -80,32 +76,36 @@ public class UserController extends AbstractController {
 
         return result;
     }
+
     /**
+     * 根据账号密码登录
+     *
      * @param request
-     * @param user    根据账号密码登录
+     * @param frmUser
      * @return adminName, password
      */
     //@GetMapping("/toLogin")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByAcct")
-    private JsonResponse<User> toLogin(HttpServletRequest request, User user) {
+    private JsonResponse<User> toLogin(HttpServletRequest request, @RequestBody User frmUser) {
         JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
-//        User model = userService.selectByPrimaryKey(user.getUserNum());
-//        if (model != null) {
-//            // 登录成功
-//            SessionUtil.setUser(request, model);
-////            request.getSession().setAttribute("adaYangphone", model.getPhone());
-//            result.setRes(SystemCode.SUCCESS);
-//
-//        }
-//
+
+        User model = userService.selectByPrimaryKey(frmUser.getUserNo());
+        if (null == model) {
+            result.setRes(SystemCode.NO_OBJ_ERROR_PASS);
+            return result;
+        } else if (!model.getPassword().equals(frmUser.getPassword())) {
+            result.setRes(SystemCode.WRONG_PASSWORD);
+            return result;
+        }
+        SessionUtil.setUser(request, frmUser);
+        result.setRes(SystemCode.SUCCESS);
         return result;
     }
 
     /**
      * @param request
-     * @return adminName, password
+     * @return
      */
-    //@GetMapping("/logout")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/logout")
     public JsonResponse<User> logout(HttpServletRequest request) {
         JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
@@ -123,10 +123,64 @@ public class UserController extends AbstractController {
      * @return String
      * 用户登录后，设置用户信息
      */
-    @RequestMapping(method = {RequestMethod.POST}, value = "/setUserInfo")
-    public JsonResponse<String> setUserInfo(User user,HttpServletRequest request){
-        JsonResponse<String> result = new JsonResponse<String>(
-                SystemCode.FAILURE);
+    @RequestMapping(method = {RequestMethod.POST}, value = "/updateUserInfo")
+    public JsonResponse<String> setUserInfo(User user, HttpServletRequest request) {
+
+        JsonResponse<String> result = new JsonResponse<String>(SystemCode.FAILURE);
+        User baseUser = SessionUtil.getUser(request);
+        if (null != user.getBirth())
+            baseUser.setBirth(user.getBirth());
+        if (null != user.getUserName())
+            baseUser.setUserName(user.getUserName());
+        if (null != user.getDepartment())
+            baseUser.setUserName(user.getDepartment());
+        if (null != user.getPassword())
+            baseUser.setPassword(user.getPassword());
+
+        baseUser.setSex(user.getSex());
+        baseUser.setUpdateTime(new Date());
+
+        try {
+            userService.updateByPrimaryKeySelective(baseUser);
+            result.setRes(SystemCode.SUCCESS);
+        } catch (Exception e) {
+            lo.error("修改用户信息失败", e);
+            logError(request, "[修改用户信息失败]", e);
+        }
+        return result;
+    }
+
+    /**
+     * @param oldPasswrod
+     * @param newPassword
+     * @param request
+     * @return String
+     * 用户登录后，设置用户信息
+     */
+    @RequestMapping(method = {RequestMethod.POST}, value = "/changePassword")
+    public JsonResponse<String> changePassword(String oldPasswrod, String newPassword, HttpServletRequest request) {
+
+        JsonResponse<String> result = new JsonResponse<String>(SystemCode.FAILURE);
+        User baseUser = SessionUtil.getUser(request);
+
+        User serveUser = userService.selectByPrimaryKey(baseUser.getUserNo());
+
+        if (null != serveUser.getPassword()) {
+            // 如果现有密码与旧密码一致
+            if (oldPasswrod.equals(serveUser.getPassword())) {
+                serveUser.setPassword(newPassword);
+
+                try {
+                    userService.updateByPrimaryKeySelective(serveUser);
+                    result.setRes(SystemCode.SUCCESS);
+                } catch (Exception e) {
+                    lo.error("修改密码失败", e);
+                    logError(request, "[修改密码失败]", e);
+                }
+            } else {
+                result.setRes(SystemCode.WRONG_PASSWORD);
+            }
+        }
         return result;
     }
 
@@ -134,7 +188,7 @@ public class UserController extends AbstractController {
      * 获取用户详情
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getUserByNo")
-    public JsonResponse<User> getUserByNo(String userNum,
+    public JsonResponse<User> getUserByNo(String userNo,
                                           HttpServletRequest request) {
         JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
         lo.info("getUserByNo...");
@@ -143,7 +197,7 @@ public class UserController extends AbstractController {
             result.setRes(SystemCode.NO_LOGIN);
             return result;
         } else {
-            user = userService.selectByPrimaryKey(user.getUserNum());
+            user = userService.selectByPrimaryKey(user.getUserNo());
             if (user != null) {
                 result.setRes(SystemCode.SUCCESS);
                 result.setObj(user);
@@ -154,41 +208,15 @@ public class UserController extends AbstractController {
 
 
     /**
-     *
-     * 发布乘车需求
-     */
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value="/publishRideRequirement")
-    public JsonResponse<String> publishRideRequirement(){
-
-        JsonResponse<String> result = new JsonResponse<String>();
-
-        return result;
-    }
-
-    /**
      * 增加朋友
-     *
      */
-
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value="/addFriend")
-    public JsonResponse<String> addFriend(){
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/addFriend")
+    public JsonResponse<String> addFriend() {
 
         JsonResponse<String> result = new JsonResponse<String>();
 
         return result;
     }
 
-    /**
-     * 增加评论
-     *
-     */
-
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value="/addComment")
-    public JsonResponse<String> addComment(){
-
-        JsonResponse<String> result = new JsonResponse<String>();
-
-        return result;
-    }
 
 }

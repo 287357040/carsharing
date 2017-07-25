@@ -8,7 +8,7 @@ import java.util.Map;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
-    private String userNum;
+    private String userNo;
 
     private  String userName;
 
@@ -19,6 +19,10 @@ public class User implements Serializable {
     private int sex;
 
     private Date birth;
+
+    private int carpoolCount;
+
+    private  int orderCount;
 
     private String department;
 
@@ -34,12 +38,12 @@ public class User implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
-    public String getUserNum() {
-        return userNum;
+    public String getUserNo() {
+        return userNo;
     }
 
-    public void setUserNum(String userNum) {
-        this.userNum = userNum;
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
     }
 
     public String getUserName() {
@@ -82,6 +86,22 @@ public class User implements Serializable {
         this.birth = birth;
     }
 
+    public int getCarpoolCount() {
+        return carpoolCount;
+    }
+
+    public void setCarpoolCount(int carpoolCount) {
+        this.carpoolCount = carpoolCount;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
     public String getDepartment() {
         return department;
     }
@@ -90,11 +110,11 @@ public class User implements Serializable {
         this.department = department;
     }
 
-    public boolean isDriver() {
+    public boolean getIsDriver() {
         return isDriver;
     }
 
-    public void setDriver(boolean driver) {
+    public void setIsDriver(boolean driver) {
         isDriver = driver;
     }
 
