@@ -31,12 +31,6 @@ li {
   width: 100%;
   height: 100%
 }
-.wrapper-login, .home-wrapper  {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-}
 
 //全局主题颜色
 .linear-gradient-bg {
@@ -45,10 +39,6 @@ li {
   background: -o-linear-gradient(58deg, #FFB437 0%, #FE872B 100%);
   background: -moz-linear-gradient(58deg, #FFB437 0%, #FE872B 100%);
   box-shadow: 0 2px 5px 0 rgba(254, 144, 45, 0.68);
-}
-
-.icon-color {
-   color:#FE872B;
 }
 
 .border-bottom-1px:after,
@@ -75,4 +65,58 @@ li {
   height: 0;
   visibility: hidden;
   clear: both;
+}
+
+
+/**
+*修改 mint-ui组件样式
+*/
+
+//修改popup picker组件样式
+.mint-popup {  
+    width: 100%;
+    height: 40%;  
+}
+.mint-popup .picker-toolbar {
+  border-bottom: 1px solid #D5D7E2;
+} 
+.picker {
+  height: 100% !important;
+}
+.picker .picker-items {
+  height: 100% !important;
+}
+.picker-center-highlight {
+  top: 27% !important; 
+}
+.mint-popup .picker-slot-wrapper, 
+.page-popup .mint-popup .picker-item {  
+    backface-visibility: hidden;
+    -webkit-backface-visibility:hidden;  
+} 
+.picker-center-highlight {
+  margin-top: 0 !important;
+}
+.picker-item.picker-selected {
+  font-size: 22px !important;
+  font-weight: 500;
+}
+
+//修改Index List 组件样式
+.mint-indexsection-index{
+    font-size: 14px;
+    color: #333333;
+    letter-spacing: -0.35px;
+}
+.mint-cell-text {
+    font-size: 14px;
+    color: #747579;
+    letter-spacing: -0.35px;
+}
+.mint-indexlist-navitem {
+    font-family: PingFangSC-Regular;
+    font-size: 10px;
+    color: #333333;
+    letter-spacing: 0;
+    line-height: 16px;
 }

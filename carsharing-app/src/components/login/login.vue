@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper-login">
+    <div class="login-wrapper">
         <div class="logo-area">
             <div class="login-logo">
                 <div class="logo-style"></div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import auth from '@/api/services/login.service'
+import auth from '@/api/services/employee.service'
 import passwordLogin from './passwordLogin'
 import mobileLogin from './mobileLogin'
 //没有考虑信息缓存

@@ -5,6 +5,8 @@
   @import 'src/styles/header.scss';
   @import 'src/styles/home.scss';
   @import 'src/styles/mine.scss';
+  @import 'src/styles/await.scss';
+  @import 'src/styles/owner.scss';
 </style>
 <template>
   <div id="app">

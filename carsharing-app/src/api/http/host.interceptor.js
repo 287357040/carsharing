@@ -31,5 +31,4 @@ Vue.http.interceptors.push((request, next) => {
     });
 });
 
-//服务接口声明
-export const AuthLocationUrl = API_ROOT + '/front/user/loginByCode';
+

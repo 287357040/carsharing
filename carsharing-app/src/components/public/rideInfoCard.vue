@@ -1,36 +1,34 @@
 <template>
     <div class="driver-issue">
         <div class="msg-more">
-            <h3>最新司机发布</h3>
-            <a class="more">更多
-                <i class="fa fa-angle-double-right fa-lg"></i>
+            <h3>{{listTitle}}</h3>
+            <a class="more" v-show="isShowMore">更多>>
+                <i class=""></i>
             </a>
         </div>
-        <ul class="driver-message">
-            <li class="message-li">
+        <ul class="driver-message clearfix">
+            <li class="message-li clearfix" :key="route" v-for="route in routeVO">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
                 </div>
                 <div class="message-info">
                     <div class="info-row1">
                         <span>龚小敏</span>
+                        <i class="icon-boy"></i>
                         <i class="fa fa-mars mars-style"></i>
+                    </div>
+                    <div class="info-row2">
                         <ul class="completeness">
                             <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
                         </ul>
                         <p class="completeness-text">
-                            <span>1</span>/
-                            <span>4</span>
+                            <span>{{route.remainCount}}</span>/
+                            <span>{{route.takeCount}}</span>
                         </p>
-                        <i class="fa fa-plus-circle fa-lg plus-circle-style"></i>
-                    </div>
-                    <div class="info-row2">
-                        <i class="fa fa-map-marker icon-color"></i>
-                        <span>下沙龙湖天街-恒生大厦</span>
-                        <span>总行程40km</span>
                     </div>
                     <div class="info-row3">
-                        <p>7月12日上午7点下沙龙湖天街至恒生大厦，途径九堡大桥，萧山高速下江南大道，有没有一起拼车上班的。</p>
+                        <p>{{route.startTime}}</p>
+                        <p>下沙龙湖天街至恒生大厦</p>
                     </div>
                     <div class="info-row4">
                         <span>2017-07-12 15:00:29</span>
@@ -45,12 +43,22 @@
     </div>
 </template>
 <script>
+import allData from '@/api/services/demand.service'
 export default {
     data() {
         return {
+            listTitle: '司机列表',
             seats: ['1', '2', '3', '4'],
-            numIsSeclect: 0
+            numIsSeclect: 0,
+            routeVO: [],
+            isShowMore: true
         }
+    },
+    created: function () {
+        allData.matchRideDemandsByRoute((res) => {
+            this.routeVO = res.data.data.routeVO;
+            console.log(this.routeVO);
+        });
     }
 }
 </script>

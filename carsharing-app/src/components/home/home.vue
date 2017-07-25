@@ -3,81 +3,26 @@
     <v-mine v-show="usersidebar"></v-mine>
     <v-mask v-show="ismask" :show="ismask"></v-mask>
     <v-header></v-header>
-    <form class="form-wrapper clearfix">
-      <div class="home-form clearfix">
-        <div class="company-home-location clearfix">
-          <div class="location-form border-bottom-1px" @click="show_suggest('getOn')">
-            <div class="location-field">
-              <i class="icon-color fa fa-building fa-lg"></i>&nbsp;&nbsp;
-              <span class="location-title ">公司</span>
-              <span class="location-address">{{'恒生电子'}}</span>
+    <v-form></v-form>
+    <section class="await-handle-order">
+     <h1>待处理行程</h1>
+        <div class="handle-order-content clearfix">
+          <i class="icon-Countdown await-icon-location"></i>
+          <div class="handle-order-text">
+            <h2>明天11:30</h2>
+            <p>恒生大厦A幢后门—九和路-地铁站</p>
             </div>
-          </div>
-          <div class="location-form" @click="show_suggest('getOff')">
-            <div class="location-field">
-              <i class="icon-color fa fa-home fa-lg"></i>&nbsp;&nbsp;
-              <span class="location-title ">回家</span>
-              <span class="location-address">{{'金沙湖'}}</span>
-            </div>
-          </div>
+            <a class="await-details-arrow"><span>等待接单</span>
+            <i class="icon-Level-Down"></i></a>
         </div>
-        <div class="setting-info clearfix">
-          <div class="location-field order-time" @click="openDatetimePicker">
-            <i class="icon-color fa fa-clock-o fa-lg"></i>
-            <span class="info-text">{{'今天(周四)7:10'}}</span>
-            <!--预约时间弹窗-->
-            <mt-popup v-model="datetimePopup" position="bottom" class="mint-popup">
-              <div class="picker-toolbar">
-                <span class="mint-datetime-action mint-datetime-cancel" @click="datetimeCancle">取消</span>
-                <span class="mint-datetime-action mint-datetime-title">出发时间</span>
-                <span class="mint-datetime-action mint-datetime-confirm" @click="datetimeConfirm">确定</span>
-              </div>
-              <mt-picker :slots="datetimeSlots" @change="datetimeValueChange" :visible-item-count="4"></mt-picker>
-            </mt-popup>
-  
-          </div>
-          <div class="location-field delay-time" @click="openTimePicker">
-            <p class="info-text">{{data.delayTime || '可接受时间范围'}}</p>
-            <!--延迟时间-->
-            <mt-popup v-model="delaytimePopup" position="bottom" class="mint-popup">
-              <div class="picker-toolbar">
-                <span class="mint-datetime-action mint-datetime-cancel" @click="delaytimeCancle">取消</span>
-                <span class="mint-datetime-action mint-datetime-title">延迟时间</span>
-                <span class="mint-datetime-action mint-datetime-confirm" @click="delaytimeConfirm">确定</span>
-              </div>
-              <mt-picker :slots="delaytimeSlots" @change="delaytimeValueChange" :visible-item-count="4"></mt-picker>
-            </mt-popup>
-          </div>
-        </div>
-        <div class="setting-info clearfix">
-          <div class="location-field order-population" @click="choiceSeats">
-            <i class="icon-color fa fa-users fa-lg"></i>
-            <span class="info-text">{{data.seatsCounts || '同行的几人？'}}</span>
-  
-            <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-              <div class="picker-toolbar">
-                <span class="mint-datetime-action mint-datetime-cancel" @click="cancleSeats">取消</span>
-                <span class="mint-datetime-action mint-datetime-title">乘车人数</span>
-                <span class="mint-datetime-action mint-datetime-confirm" @click="selectSeats">确定</span>
-              </div>
-              <mt-picker :slots="seatSlots" @change="onValuesChange" :visible-item-count="4"></mt-picker>
-            </mt-popup>
-          </div>
-          <div class="location-field  remark">
-            <input type="text" class="remark-info info-text" placeholder="备注">
-            </input>
-          </div>
-        </div>
-      </div>
-      <p class="expain">约21.3km 打车需60元</p>
-      <mt-button type="default" class="confirm-issue-btn linear-gradient-bg">查询</mt-button>
-    </form>
+    </section>
     <ride-info-card></ride-info-card>
   </div>
 </template>
 
 <script>
 import vHeader from './header.vue'
+import vForm from './form.vue'
 import rideInfoCard from '../public/rideInfoCard.vue'
 import { mapActions, mapState } from 'vuex'
 import vMask from '../Mask.vue'
@@ -85,48 +30,13 @@ import vMine from '../mine/mine.vue'
 import SockJS from 'sockjs-client'
 
 export default {
-  data: () => {
-    return {
-      data: {
-        departureTime: '',
-        delayTime: '',
-        seatsCounts: ''
-      },
-      popupVisible: false,
-      datetimePopup: false,
-      delaytimePopup: false,
-      seatSlots: [{ values: ['1', '2', '3', '4'] }],
-      datetimeSlots: [
-        {
-          flex: 1,
-          values: [],
-          className: 'slot1',
-          textAlign: 'center'
-        },
-        {
-          flex: 1,
-          values: [],
-          className: 'slot2',
-          textAlign: 'center'
-        },
-        {
-          flex: 1,
-          values: [],
-          className: 'slot3',
-          textAlign: 'center'
-        }
-      ],
-      delaytimeSlots: [{ values: ['5分钟', '10分钟', '15分钟', '20分钟', '25分钟', '30分钟'] }]
-
-    }
-  },
   computed: {
     ...mapState([
       'usersidebar',
       'ismask'
     ])
   },
-  created: function() {
+  created: function () {
     // http://localhost:8080/ 要替换为服务器地址，全局常量
     // var sock = new SockJS('http://localhost:8080/endpointSang');
     // sock.onopen = function () {
@@ -141,69 +51,10 @@ export default {
 
     // sock.send('test');
     // sock.close();
-
-    this.computedDatetime()
-  },
-  methods: {
-    show_suggest(key) {
-      this.$store.dispatch('show_suggest', key)
-      this.$router.push({ path: '/mapLocation' })
-    },
-    openDatetimePicker() {
-      this.datetimePopup = true;
-    },
-    choiceSeats: function () {
-      this.popupVisible = true;
-    },
-    openTimePicker() {
-      this.delaytimePopup = true;
-    },
-    cancleSeats: function () {
-      this.popupVisible = false;
-    },
-    selectSeats: function () {
-      this.popupVisible = false;
-      this.data.seatsCounts = 1;
-    },
-    datetimeCancle: function () {
-      this.datetimePopup = false;
-    },
-    datetimeConfirm: function () {
-      this.datetimePopup = false;
-    },
-    delaytimeCancle: function () {
-      this.delaytimePopup = false;
-    },
-    delaytimeConfirm: function () {
-      this.delaytimePopup = false;
-    },
-    onValuesChange: function () {
-
-    },
-    datetimeValueChange: function () {
-
-    },
-    delaytimeValueChange: function () {
-
-    },
-    computedDatetime: function() {
-      var date = new Date();
-      for(let i=0; i<5; i++) {
-        let someDates = (date.getMonth()+1) +'月'+(date.getDate() + i)+ '日';
-         this.datetimeSlots[0].values.push(someDates);
-      }
-      // for(let i=0;i<(24-date.getHours());i++) {
-      //   let someHours = (date.getHours()+i)+'点';
-      //   this.datetimeSlots[1].values.push(someHours);
-      // }
-      // for(let i=0;i<60;i+5) {
-      //     let someMinutes =  (date.getMinutes()+ i)+'分';
-      //     this.datetimeSlots[2].values.push(someMinutes);
-      // }
-    }
   },
   components: {
     vHeader,
+    vForm,
     rideInfoCard,
     vMask,
     vMine
