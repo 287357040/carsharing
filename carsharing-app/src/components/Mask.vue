@@ -32,7 +32,7 @@ export default {
     margin-left: -133px;
     z-index: 666;
     width: 267px;
-    box-sizing: border-box;
+    box-sizing: border-box; 
     border-radius: 2px;
     background: #fff;
     font-family: PingFang SC, STHeitiSC-Light, Helvetica-Light, arial, sans-serif;
