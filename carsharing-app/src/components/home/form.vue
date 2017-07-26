@@ -43,9 +43,9 @@
               <span class="mint-datetime-cancel" @click.stop="cancleSeats">取消</span>
               <span class="mint-datetime-title">乘车人数</span>
             </div>
-           <ul class="seats-choice-area">
-             <li :key="item" v-for="item in seatSlots" class="seat-li">{{item}}</li>
-             </ul>
+            <ul class="seats-choice-area">
+              <li :key="item" v-for="item in seatSlots" class="seat-li">{{item}}</li>
+            </ul>
           </mt-popup>
         </div>
       </div>

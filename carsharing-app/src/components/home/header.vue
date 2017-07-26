@@ -25,22 +25,25 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import bus from '@/scripts/eventBus'
+import Store from '@/scripts/store'
+
 export default {
   data: () => {
     return {
-      identity: '乘客'
+      identity: '乘客',
+      userInfo: ''
     }
   },
-  created: function(){
-    let isDriver = bus.$on('isDriver');
-      if(isDriver) {
-        this.identity = '司机';
-      }
+  created: function () {
+    this.userInfo = Store.fetch();
+    if (this.userInfo.isDriver) {
+       this.identity = '司机';
+    }
   },
   watch: {
-      identity: function(val){
-          this.$emit('identityName',val);
-      }
+    identity: function (val) {
+      this.$emit('identityName', val);
+    }
   },
   computed: {
     ...mapGetters([
@@ -51,7 +54,7 @@ export default {
     ...mapActions([
       'telephone_input'
     ]),
-    
+
 
   }
 }

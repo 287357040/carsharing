@@ -83,7 +83,7 @@
     width: 40% !important;
     color: #333 !important;
     text-align: center !important;
-    line-height: 40px;
+    line-height: 50px;
     font-weight: 700;
     font-size: 18px;
 }
@@ -91,7 +91,7 @@
   width: 30% !important;
   color: #747579;
   text-align: center;
-  line-height: 40px;
+  line-height: 50px;
 }
 .mint-plate-cancel {
     width: 30% !important;
@@ -126,4 +126,26 @@
     z-index: 999;
     -webkit-animation-duration: .5s;
     animation-duration: .5s;
+}
+
+.car-color-choice {
+    height: 14em;
+    box-sizing: content-box;
+    overflow-y: auto;
+}
+.car-color-choice .color-mark {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    padding-left: 1em;
+    margin-right: 1em;
+    border: 1px solid #979797;
+}
+.car-color-choice .color-li {
+    text-align: left;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 1em;
+    border-bottom:1px solid #e7e7e7;
+    color: #747579;
 }

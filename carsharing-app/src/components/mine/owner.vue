@@ -23,7 +23,7 @@
         <div class="owner-classify">
             <p class="info-safety-tips">你的信息公用于平台审核，绝不外泄</p>
             <ul class="main-info">
-                <li class="car-info-list border-bottom-style"  @click="choicePlate">
+                <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
                         <i class="fa fa-angle-right fa-lg car-arrows"></i>
@@ -46,7 +46,11 @@
                 <span class="mint-plate-action mint-plate-title">车辆颜色</span>
                 <span class="mint-plate-action mint-plate-confirm" @click="selectColor">确定</span>
             </div>
-            <mt-picker :slots="colorSlots" @change="colorChange" :visible-item-count="4"></mt-picker>
+            <ul class="car-color-choice">
+                
+                <li :key="item" v-for="item in colorSlots" class="color-li">
+                    <span :style="{background:item.value}" class="color-mark"></span>{{item.name}}</li>
+            </ul>
         </mt-popup>
     </div>
 </template>
@@ -60,12 +64,17 @@ export default {
             },
             popupColor: false,
             colorSlots: [
-                {
-                    flex: 1,
-                    values: ['黑色', '白色', '银灰色', '红色', '香槟色'],
-                    className: 'slot1',
-                    textAlign: 'left'
-                },
+                { name: '黑色', value: "#000000" },
+                { name: '白色', value: "#FFFFFF" },
+                { name: '银灰色', value:"#C0C0C0" },
+                { name: '红色', value: "#FF0000" },
+                { name: '绿色', value: "#00FF00" },
+                { name: '黑色', value: "#000000" },
+                { name: '黑色', value: "#000000" },
+                { name: '黑色', value: "#000000" },
+                { name: '黑色', value: "#000000" },
+                { name: '黑色', value: "#000000" },
+                { name: '黑色', value: "#000000" }
             ]
         }
     },
@@ -73,22 +82,22 @@ export default {
         goback: function () {
             this.$router.go(-1);
         },
-        choicePlate: function() {
-            this.$router.push({path:'/plateNum'})
+        choicePlate: function () {
+            this.$router.push({ path: '/plateNum' })
         },
-         choiceBrand: function() {
-            this.$router.push({path:'/brandModel'})
+        choiceBrand: function () {
+            this.$router.push({ path: '/brandModel' })
         },
         openPopupColor: function () {
             this.popupColor = true;
         },
-        cancleColor: function() {
+        cancleColor: function () {
             this.popupColor = false;
         },
-        selectColor: function() {
+        selectColor: function () {
             this.popupColor = false;
         },
-        colorChange: function() {
+        colorChange: function () {
 
         }
     }

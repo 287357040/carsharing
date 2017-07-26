@@ -289,15 +289,17 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
     display: inline-block;
     width: 40% !important;
     height: 100%;
-    color: #A5A6AE !important;
+    color: #333333 !important;
 }
 .mint-datetime-cancel {
   width: 30% !important;
   float: left;
+  color: #747579;
 }
 .mint-datetime-confirm {
   width: 30% !important;
   float: right;
+  color: #747579;
 }
 
 .await-handle-order {
@@ -354,6 +356,7 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
 
 .seats-choice-area {
   height: auto;
+  box-sizing: content-box;
 }
 .seats-choice-area .seat-li {
     text-align: center;

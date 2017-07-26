@@ -19,8 +19,7 @@ import {
 export default {
     loginByCode: (user, cb) => {
         Vue.http.post(
-            //loginByCodeUrl,
-            '/api/getList',
+            loginByCodeUrl,
             {
                 'userNo': user.userNo,
                 'mobile': user.mobile,

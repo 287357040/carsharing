@@ -17,8 +17,9 @@
         </div>
     </section>
 
-    <ride-info-card v-if="isSwitch"></ride-info-card>
-    <driver-info-card v-else></driver-info-card>
+    <driver-info-card v-if="isSwitch"></driver-info-card>
+    <ride-info-card v-else></ride-info-card>
+    
   </div>
 </template>
 
@@ -31,7 +32,6 @@ import { mapActions, mapState } from 'vuex'
 import vMask from '../Mask.vue'
 import vMine from '../mine/mine.vue'
 import SockJS from 'sockjs-client'
- 
 
 export default {
   data: () => {
@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     switchIdentity: function(val){
-      console.log(val);
       if(val == '司机')  this.isSwitch = true;
       else if (val == '乘客') this.isSwitch = false;
     }
