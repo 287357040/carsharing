@@ -283,7 +283,7 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
 
 .mint-datetime-title, .mint-datetime-cancel, .mint-datetime-confirm {
   text-align: center !important;
-  line-height: 40px;
+  line-height: 50px;
 }
 .mint-datetime-title {
     display: inline-block;
@@ -350,4 +350,17 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
   float: right;
   font-size: 12px;
   color: #A5A6AE;
+}
+
+.seats-choice-area {
+  height: auto;
+}
+.seats-choice-area .seat-li {
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 0.8em;
+    border-bottom:1px solid #e7e7e7; 
+}
+.seats-choice-area .seat-li:last-child {
+  border-bottom: 0; 
 }

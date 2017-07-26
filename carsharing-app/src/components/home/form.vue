@@ -42,9 +42,10 @@
             <div class="picker-toolbar clearfix">
               <span class="mint-datetime-cancel" @click.stop="cancleSeats">取消</span>
               <span class="mint-datetime-title">乘车人数</span>
-              <span class="mint-datetime-confirm" @click.stop="selectSeats">确定</span>
             </div>
-            <mt-picker :slots="seatSlots" @change="onNumberOfPeopleChange" :visible-item-count="4"></mt-picker>
+           <ul class="seats-choice-area">
+             <li :key="item" v-for="item in seatSlots" class="seat-li">{{item}}</li>
+             </ul>
           </mt-popup>
         </div>
       </div>
@@ -76,7 +77,7 @@ export default {
       popupVisible: false,
       datetimePopup: false,
       delaytimePopup: false,
-      seatSlots: [{ values: ['1人', '2人', '3人', '4人'] }],
+      seatSlots: ['1人', '2人', '3人', '4人'],
       datetimeSlots: [
         {
           flex: 1,
@@ -115,10 +116,6 @@ export default {
     },
     cancleSeats: function () {
       this.popupVisible = false;
-    },
-    selectSeats: function (picker, values) {
-      this.popupVisible = false;
-      this.data.seatsCounts = values[0];
     },
     datetimeCancle: function () {
       this.datetimePopup = false;

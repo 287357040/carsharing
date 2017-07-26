@@ -24,6 +24,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-del:before {
+  content: "\e942";
+  color: #d5d7e2;
+}
+.icon-start03:before {
+  content: "\e943";
+  color: #aeaeae;
+}
 .icon-shouji:before {
   content: "\e93e";
   color: #FE872B;
