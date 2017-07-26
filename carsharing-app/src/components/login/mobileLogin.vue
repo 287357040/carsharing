@@ -10,7 +10,7 @@
                 <input class="form-input" placeholder="请输入您的手机号" name="mobile" type="tel" v-model="mobile" autocomplete="off" required value="" maxlength="11">
             </div>
             <div class="form-group">
-                <i class="icon-yanzhengma form-icon margin-left-icon"></i>
+                <span class="icon-yanzhengma form-icon margin-left-icon"></span>
                 <div class="form-input">
                     <input class="code-input" placeholder="请输入验证码" name="code" type="tel" autocomplete="off" v-model="code" required maxlength="4">
                     <div class="get-code">

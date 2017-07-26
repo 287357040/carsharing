@@ -11,7 +11,7 @@ import {
     updateUserInfoUrl,
     updateUserIconUrl,
     joinRouteUrl,
-    changpasswordUrl,
+    changePasswordUrl,
     addNewAddressUrl,
     updateAddressUrl
 } from '@/api/http/host.config'
@@ -56,8 +56,17 @@ export default {
     joinRoute: () => {
 
     },
-    changpassword: () => {
-
+    changePassword: (user, cb) => {
+        Vue.http.post(
+            changePasswordUrl,
+            {
+                'password': user.password
+            }
+        ).then((response) => {
+            cb(response);
+        }, (response) => {
+            //响应失败执行
+        });
     },
     addNewAddress: () => {
 

@@ -23,7 +23,7 @@ export const updateUserIconUrl = API_ROOT + '/front/user/updateUserIcon';
 export const joinRouteUrl = API_ROOT + '/front/user/joinRoute';
 
 //修改密码
-export const changpasswordUrl = API_ROOT + '/front/user/changpassword';
+export const changePasswordUrl = API_ROOT + '/front/user/changePassword';
 
 //当前登录用户设置地址
 export const addNewAddressUrl = API_ROOT + '/front/useraddress/addNewAddress';

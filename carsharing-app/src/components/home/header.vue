@@ -13,7 +13,7 @@
             <option>司机</option>
           </select>
         </div>
-        <div class="message-wrapper">
+        <div class="message-wrapper" @click="openMessagePage">
           <div class="message">
             <i class="icon-Information01"></i>
           </div>
@@ -54,8 +54,9 @@ export default {
     ...mapActions([
       'telephone_input'
     ]),
-
-
+    openMessagePage: function() {
+        this.$router.push({path: './message'});
+    }
   }
 }
 </script>
