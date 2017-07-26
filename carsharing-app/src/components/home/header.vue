@@ -10,7 +10,7 @@
         <div class="tab-wrapper">
           <select class="passenger-owner-model" v-model="identity">
             <option selected>乘客</option>
-            <option>车主</option>
+            <option>司机</option>
           </select>
         </div>
         <div class="message-wrapper">
@@ -30,6 +30,12 @@ export default {
     return {
       identity: '乘客'
     }
+  },
+  created: function(){
+    let isDriver = bus.$on('isDriver');
+      if(isDriver) {
+        this.identity = '司机';
+      }
   },
   watch: {
       identity: function(val){

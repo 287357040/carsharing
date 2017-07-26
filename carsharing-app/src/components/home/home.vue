@@ -16,8 +16,9 @@
             <i class="icon-Level-Down"></i></a>
         </div>
     </section>
-    <driver-info-card v-if="isSwitchDriver"></driver-info-card>
-    <ride-info-card v-else></ride-info-card>
+
+    <ride-info-card v-if="isSwitch"></ride-info-card>
+    <driver-info-card v-else></driver-info-card>
   </div>
 </template>
 
@@ -35,7 +36,7 @@ import SockJS from 'sockjs-client'
 export default {
   data: () => {
     return {
-      isSwitchDriver: false
+      isSwitch: false
     }
   },
   computed: {
@@ -63,8 +64,8 @@ export default {
   methods: {
     switchIdentity: function(val){
       console.log(val);
-      if(val == '车主')  this.isSwitchDriver = true;
-      else if (val == '乘客') this.isSwitchDriver = false;
+      if(val == '司机')  this.isSwitch = true;
+      else if (val == '乘客') this.isSwitch = false;
     }
   },
   components: {

@@ -28,6 +28,7 @@
 
 <script>
 import allData from '@/api/services/employee.service'
+import bus from '@/scripts/eventBus'
 import Vue from 'vue';
 export default {
     data: () => {
@@ -51,6 +52,7 @@ export default {
                 console.log(res.data.data.UserVO);
                 this.resData = res.data.data.UserVO;
                 if (this.resData.isDriver == 1) {
+                    bus.$emit('isDriver',1);
                     this.$router.push({path: '/home'})
                 } else {
                     alert('请输入正确的工号和手机号！！！');

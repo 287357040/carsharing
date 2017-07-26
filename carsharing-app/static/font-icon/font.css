@@ -81,12 +81,12 @@
 }
 .icon-ren .path1:before {
   content: "\e908";
-  color: rgb(27, 107, 255);
+  color: #FE872B;
 }
 .icon-ren .path2:before {
   content: "\e909";
-  margin-left: -1em;
-  color: rgb(27, 107, 255);
+  margin-left: -1.5em;
+  color: #FE872B;
   opacity: 0.5;
 }
 .icon-Password03 .path1:before {

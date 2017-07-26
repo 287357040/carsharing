@@ -32,7 +32,10 @@
           </mt-popup>
         </div>
         <div class="location-field order-population" @click="choiceSeats">
-          <i class="icon-ren"></i>
+          <span class="icon-ren" style="padding-left:10px">
+            <span class="path1"></span>
+            <span class="path2"></span>
+          </span>
           <span class="info-text">{{data.seatsCounts || data.seatsDescription}}</span>
   
           <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
