@@ -73,9 +73,6 @@
 <script>
 import { IndexList, IndexSection } from 'mint-ui';
 import OHeader from '@/components/mine/header.vue'
-window.onload = function(){
-  document.getElementsByClassName('mint-indexlist-content')[0].style.marginRight ="0px";
-};
 export default {
     components: {
         IndexList,

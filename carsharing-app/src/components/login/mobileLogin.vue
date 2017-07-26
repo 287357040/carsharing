@@ -1,6 +1,6 @@
 <template>
     <div class="login-switch-area">
-        <form id="form-login" name="form-login">
+        <form id="form-login" name="form-login" v-on:submit.prevent="submitByMobile">
             <div class="form-group">
                 <i class="icon-job-number form-icon"></i>
                 <input class="form-input" placeholder="请输入您的工号" name="userNo" v-model="data.userNo" type="tel" autocomplete="off" maxlength="5" required autofocus>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <mt-button type="default" class="login-btn linear-gradient-bg" @click="submitByMobile">验证并登录</mt-button>
+            <mt-button type="default" class="login-btn linear-gradient-bg">验证并登录</mt-button>
         </form>
         <div class="change-login-style" v-show="isHavePassword">
             <a href="javascript:void(0)" v-on:click="changePasswordLogin">密码登录</a>
@@ -37,6 +37,7 @@ export default {
                 mobile: "",
                 code: ""
             },
+            resData : {},
             isHavePassword: false
             
         }
@@ -47,8 +48,9 @@ export default {
         },
         submitByMobile: function () {
             allData.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
-                console.log(res);
-                if (res.status == 0) {
+                console.log(res.data.data.UserVO);
+                this.resData = res.data.data.UserVO;
+                if (this.resData.isDriver == 1) {
                     this.$router.push({path: '/home'})
                 } else {
                     alert('请输入正确的工号和手机号！！！');

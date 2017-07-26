@@ -51,5 +51,18 @@
             "describe": "",
             "isHome": ""
         }
-    ]
+    ],
+    "UserVO": {
+        "userNo": "21424",
+        "userName": "朱良明",
+        "mobile": "18796753523",
+        "sex": "男",
+        "birth": "0809",
+        "carpoolCount": "",
+        "orderCount": "",
+        "department": "经济管理部",
+        "isDriver": "1",
+        "image": "",
+        "isFirst": "1"
+    }
 }

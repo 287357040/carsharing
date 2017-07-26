@@ -28,6 +28,14 @@
   content: "\e93e";
   color: #FE872B;
 }
+.icon-start01:before {
+  content: "\e93f";
+  color: #aeaeae;
+}
+.icon-start02:before {
+  content: "\e940";
+  color: #bebebe;
+}
 .icon-yanzhengma:before {
   content: "\e93f";
   color: #FE872B;
