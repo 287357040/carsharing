@@ -1,5 +1,5 @@
 <template>
-  <form class="form-wrapper clearfix">
+  <form class="form-wrapper clearfix" onsubmit="return false">
     <div class="home-form clearfix">
       <div class="company-home-location clearfix">
         <div class="location-form border-bottom-1px" @click="show_suggest('getOn')">
@@ -20,7 +20,7 @@
       <div class="setting-info clearfix">
         <div class="location-field order-time" @click="openDatetimePicker">
           <i class="icon-date"></i>
-          <span class="info-text">{{'出行时间'}}</span>
+          <span class="info-text">{{departureTime || '出行时间'}}</span>
           <!--预约时间弹窗-->
           <mt-popup v-model="datetimePopup" position="bottom" class="mint-popup">
             <div class="picker-toolbar clearfix">
@@ -31,12 +31,12 @@
             <mt-picker :slots="datetimeSlots" @change="onDatetimeChange" :visible-item-count="4"></mt-picker>
           </mt-popup>
         </div>
-        <div class="location-field order-population" @click="choiceSeats">
+        <div class="location-field order-population" @click="openSeatsPicker">
           <span class="icon-ren" style="padding-left:10px">
             <span class="path1"></span>
             <span class="path2"></span>
           </span>
-          <span class="info-text">{{data.seatsCounts || data.seatsDescription}}</span>
+          <span class="info-text">{{seatsCounts || seatsDescription}}</span>
   
           <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
             <div class="picker-toolbar clearfix">
@@ -44,7 +44,7 @@
               <span class="mint-datetime-title">乘车人数</span>
             </div>
             <ul class="seats-choice-area">
-              <li :key="item" v-for="item in seatSlots" class="seat-li">{{item}}</li>
+              <li :key="item" v-for="item in seatSlots" class="seat-li" @click.stop="choiceSeats(item)">{{item}}</li>
             </ul>
           </mt-popup>
         </div>
@@ -68,12 +68,10 @@
 export default {
   data: () => {
     return {
-      data: {
-        departureTime: '',
-        delayTime: '',
-        seatsCounts: '',
-        seatsDescription: '同行的几人？'
-      },
+      departureTime: '',
+      seatsCounts: '',
+      seatsDescription: '同行的几人？',
+      dateTime : '',
       popupVisible: false,
       datetimePopup: false,
       delaytimePopup: false,
@@ -111,26 +109,35 @@ export default {
     openDatetimePicker() {
       this.datetimePopup = true;
     },
-    choiceSeats: function () {
+    openSeatsPicker: function () {
       this.popupVisible = true;
     },
     cancleSeats: function () {
       this.popupVisible = false;
+    },
+    choiceSeats: function(item) {
+      this.popupVisible = false;
+      this.seatsCounts = item;
     },
     datetimeCancle: function () {
       this.datetimePopup = false;
     },
     datetimeConfirm: function () {
       this.datetimePopup = false;
+      this.departureTime = this.dateTime;
     },
     onNumberOfPeopleChange: function (picker, values) {
       this.data.seatsCounts = values[0];
     },
     onDatetimeChange: function (picker, values) {
+      if (!values.includes(undefined)) {
+        this.dateTime = values[0] + ' ' + values[1].substring(0, 2) + ':' + values[2].substring(0, 2);
+      }
 
     },
     computedDatetime: function () {
       var date = new Date();
+      //处理日期
       for (let i = 0; i < 10; i++) {
         let someDates = (date.getMonth() + 1) + '月' + (date.getDate() + i) + '日';
         if (i == 0) {
@@ -142,14 +149,15 @@ export default {
         }
         this.datetimeSlots[0].values.push(someDates);
       }
+      //处理小时
       for (let i = 0; i < (24 - date.getHours()); i++) {
         let someHours = (date.getHours() + i) + '点';
         this.datetimeSlots[1].values.push(someHours);
       }
 
+      //处理分钟
       var currentMinute = date.getMinutes();
       var newArry = [];
-
       var minutesArry = new Array(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55);
       for (let i = 0; i < minutesArry.length; i++) {
         if (currentMinute > minutesArry[i] && currentMinute < minutesArry[i + 1]) {
