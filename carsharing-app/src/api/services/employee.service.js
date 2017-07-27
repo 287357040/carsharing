@@ -60,7 +60,7 @@ export default {
         Vue.http.post(
             changePasswordUrl,
             {
-                'password': user.password
+                'password': user.password,
             }
         ).then((response) => {
             cb(response);

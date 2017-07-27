@@ -5,21 +5,23 @@
     <v-header v-on:identityName="switchIdentity"></v-header>
     <v-form></v-form>
     <section class="await-handle-order" v-show="false">
-     <h1>待处理行程</h1>
-        <div class="handle-order-content clearfix">
-          <i class="icon-Countdown await-icon-location"></i>
-          <div class="handle-order-text">
-            <h2>明天11:30</h2>
-            <p>恒生大厦A幢后门—九和路-地铁站</p>
-            </div>
-            <a class="await-details-arrow"><span>等待接单</span>
-            <i class="icon-Level-Down"></i></a>
+      <h1>待处理行程</h1>
+      <div class="handle-order-content clearfix">
+        <i class="icon-Countdown await-icon-location"></i>
+        <div class="handle-order-text">
+          <h2>明天11:30</h2>
+          <p>恒生大厦A幢后门—九和路-地铁站</p>
         </div>
+        <a class="await-details-arrow">
+          <span>等待接单</span>
+          <i class="icon-Level-Down"></i>
+        </a>
+      </div>
     </section>
-
-    <driver-info-card v-if="isSwitch"></driver-info-card>
-    <ride-info-card v-else></ride-info-card>
-    
+  
+    <ride-info-card v-if="isSwitch"></ride-info-card>
+    <driver-info-card v-else></driver-info-card>
+  
   </div>
 </template>
 
@@ -62,8 +64,8 @@ export default {
     // sock.close();
   },
   methods: {
-    switchIdentity: function(val){
-      if(val == '司机')  this.isSwitch = true;
+    switchIdentity: function (val) {
+      if (val == '司机') this.isSwitch = true;
       else if (val == '乘客') this.isSwitch = false;
     }
   },

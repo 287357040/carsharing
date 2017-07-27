@@ -21,13 +21,13 @@
             <mt-button type="default" class="login-btn linear-gradient-bg" submit>验证并登录</mt-button>
         </form>
         <div class="change-login-style" v-show="isHavePassword">
-            <a href="javascript:void(0)" v-on:click="changePasswordLogin">密码登录</a>
+            <a href="javascript:void(0)" v-on:click="changeLoginType">密码登录</a>
         </div>
     </div>
 </template>
 
 <script>
-import allData from '@/api/services/employee.service'
+import apiAuthHandler from '@/api/services/employee.service'
 import bus from '@/scripts/eventBus'
 import Vue from 'vue';
 import Store from '@/scripts/store'
@@ -41,11 +41,11 @@ export default {
         }
     },
     methods: {
-        changePasswordLogin: function () {
+        changeLoginType: function () {
             this.$emit("isPasswordLogin", true);
         },
         submitByMobile: function () {
-            allData.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
+            apiAuthHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
                 // console.log(res);
                 if (res.body.res == 1) {
                     this.$router.push({ path: '/home' });

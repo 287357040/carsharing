@@ -6,7 +6,7 @@
         <div class="siderbar-content">
           <div class="siderbar-icon-content">
             <div>
-              <img width="90px" height="90px" src="../../assets/img/QQ截图20170715141851.png" />
+              <img width="97px" height="81px" src="../../assets/img/QQ截图20170715141851.png" />
             </div>
             <span class="name">龚小敏</span>
             <span class="telphone">13588779900</span>

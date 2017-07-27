@@ -8,10 +8,9 @@
           </div>
         </div>
         <div class="tab-wrapper">
-          <select class="passenger-owner-model" v-model="identity">
-            <option selected>乘客</option>
-            <option>司机</option>
-          </select>
+          <a class="passenger-owner-model-value" @click="switchIdentity">{{identity}}
+            <span class="icon-Filter"></span>
+          </a>
         </div>
         <div class="message-wrapper" @click="openMessagePage">
           <div class="message">
@@ -20,6 +19,9 @@
         </div>
       </div>
     </div>
+    <ul class="passenger-owner-model" v-show="isShowIdentity">
+      <li @click="choiceIndentity">{{secondIdentity}}</li>
+    </ul>
   </div>
 </template>
 <script>
@@ -31,13 +33,16 @@ export default {
   data: () => {
     return {
       identity: '乘客',
-      userInfo: ''
+      secondIdentity: '司机',
+      userInfo: '',
+      isShowIdentity: false
     }
   },
   created: function () {
     this.userInfo = Store.fetch();
     if (this.userInfo.isDriver) {
-       this.identity = '司机';
+      this.identity = '司机';
+      this.secondIdentity = '乘客';
     }
   },
   watch: {
@@ -54,8 +59,17 @@ export default {
     ...mapActions([
       'telephone_input'
     ]),
-    openMessagePage: function() {
-        this.$router.push({path: './message'});
+    openMessagePage: function () {
+      this.$router.push({ path: './message' });
+    },
+    switchIdentity: function() {
+      this.isShowIdentity = true;
+    },
+    choiceIndentity: function() {
+      let temp = this.identity;
+      this.identity = this.secondIdentity;
+      this.secondIdentity = temp;
+      this.isShowIdentity = false;
     }
   }
 }
