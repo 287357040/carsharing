@@ -33,20 +33,21 @@
 
 .search-issue-wrapper .comfirm-search-btn {
   position: relative;
-  width: 32%;
+  width: 34%;
   color: #FE8F2D;
   font-size: 14px;
   margin-left: 9.7%;
   background: rgba(255,213,180,0.50);
   box-shadow: 0 2px 5px 0 rgba(254,144,45,0.68);
   border-radius: 100px;
+  border: 1px solid #FE8F2D;
   float: left;
   box-sizing: border-box;
 }
 .search-issue-wrapper .confirm-issue-btn {
   position: relative;
   display: inline-block;
-  width: 32%;
+  width: 34%;
   color: #fff;
   font-size: 14px;
   border-radius: 100px;
@@ -319,19 +320,16 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
   .await-handle-order .handle-order-content {
     width: 100%;
     height: 45%;
-    margin-top: 1%;
+    margin-top: 2%;
     padding-bottom: 1%;
   }
 
  .handle-order-content > i.await-icon-location {
-   float: left;
-   margin-left: 2%;
-   margin-top: 1%;
+   margin-left: -2em;
+  margin-top: 0.7em;
  }
   .handle-order-content  .handle-order-text {
-    width: 60%;
     height: 100%;
-    margin-left: 10%;
     display: inline-block;
   }
 .handle-order-text > h2{

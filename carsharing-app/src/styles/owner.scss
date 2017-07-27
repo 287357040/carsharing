@@ -72,7 +72,6 @@
 }
 .plate-number-wrapper .input-plate {
     width: 40%;
-    border: 0;
     outline: none;
     font-size: 16px;
     color: #747579;
@@ -134,8 +133,6 @@
     overflow-y: auto;
 }
 .car-color-choice .color-mark {
-    width: 5px;
-    height: 5px;
     border-radius: 50%;
     padding-left: 1em;
     margin-right: 1em;

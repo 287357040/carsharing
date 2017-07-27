@@ -37,7 +37,7 @@ export default new Router({
       alias: '/' || '/login'
     },
     {
-      path: '/await',
+      path: '/awaitStatus',
       component: awaitStatus,
     },
 

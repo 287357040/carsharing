@@ -57,10 +57,10 @@
         </div>
       </div>
     </div>
-    <p class="expain">约21.3km 打车需60元</p>
+    <p class="expain">约<span>21.3km</span> 打车需<span>60元</span></p>
     <div class="search-issue-wrapper">
       <mt-button type="default" class="comfirm-search-btn">查询</mt-button>
-      <mt-button type="default" class="confirm-issue-btn linear-gradient-bg">发布</mt-button>
+      <mt-button type="default" class="confirm-issue-btn linear-gradient-bg" @click="issueRoute">发布</mt-button>
     </div>
   </form>
 </template>
@@ -74,7 +74,6 @@ export default {
       dateTime : '',
       popupVisible: false,
       datetimePopup: false,
-      delaytimePopup: false,
       seatSlots: ['1人', '2人', '3人', '4人'],
       datetimeSlots: [
         {
@@ -158,6 +157,7 @@ export default {
       //处理分钟
       var currentMinute = date.getMinutes();
       var newArry = [];
+      var newStr = '';
       var minutesArry = new Array(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55);
       for (let i = 0; i < minutesArry.length; i++) {
         if (currentMinute > minutesArry[i] && currentMinute < minutesArry[i + 1]) {
@@ -166,7 +166,6 @@ export default {
           newArry = minutesArry;
         }
       }
-      var newStr = '';
       for (let i = 0; i < newArry.length; i++) {
         if (newArry[i] <= 5) {
           newStr = '0' + newArry[i] + '分';
@@ -175,6 +174,9 @@ export default {
         }
         this.datetimeSlots[2].values.push(newStr);
       }
+    },
+    issueRoute: function() {
+      this.$emit("isShowAwaittingOrder",true);
     }
   }
 }

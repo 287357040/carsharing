@@ -36,7 +36,7 @@
                     <div class="info-row4">
                         <span>{{getNowFormatDate}}</span>
                         <p>
-                            <i class="fa fa-commenting fa-lg"></i>
+                            <i class="icon-Information02"></i>
                             <span>信息</span>
                         </p>
                     </div>

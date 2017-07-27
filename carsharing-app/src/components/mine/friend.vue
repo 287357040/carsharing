@@ -63,7 +63,7 @@
                 </div>
                 <div class="other-info">
                     <span >联系电话：135 8877 9900 </span>
-                    <i class="fa fa-phone right icon"></i>
+                    <i class="icon-telephone"></i>
                 </div>
             </div>
         </mt-popup>

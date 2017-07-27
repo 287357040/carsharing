@@ -3,16 +3,16 @@
     <v-mine v-show="usersidebar"></v-mine>
     <v-mask v-show="ismask" :show="ismask"></v-mask>
     <v-header v-on:identityName="switchIdentity"></v-header>
-    <v-form></v-form>
-    <section class="await-handle-order" v-show="false">
+    <v-form v-on:isShowAwaittingOrder="showAwaittingOrder"></v-form>
+    <section class="await-handle-order" v-show="showAwaitOrderStatus">
       <h1>待处理行程</h1>
       <div class="handle-order-content clearfix">
-        <i class="icon-Countdown await-icon-location"></i>
+        <i class="timerWrap icon-Countdown await-icon-location"></i>
         <div class="handle-order-text">
-          <h2>明天11:30</h2>
-          <p>恒生大厦A幢后门—九和路-地铁站</p>
+          <h2>{{orderTime}}</h2>
+          <p>{{orderAddress}}</p>
         </div>
-        <a class="await-details-arrow">
+        <a class="await-details-arrow" @click="toStatusPage">
           <span>等待接单</span>
           <i class="icon-Level-Down"></i>
         </a>
@@ -38,7 +38,10 @@ import SockJS from 'sockjs-client'
 export default {
   data: () => {
     return {
-      isSwitch: false
+      isSwitch: false,
+      showAwaitOrderStatus: false,
+      orderTime: '明天11:30',
+      orderAddress: '恒生大厦A幢后门—九和路地铁站'
     }
   },
   computed: {
@@ -67,6 +70,12 @@ export default {
     switchIdentity: function (val) {
       if (val == '司机') this.isSwitch = true;
       else if (val == '乘客') this.isSwitch = false;
+    },
+    showAwaittingOrder: function() {
+      this.showAwaitOrderStatus = true;
+    },
+    toStatusPage: function() {
+        this.$router.push({path:'/awaitStatus'});
     }
   },
   components: {
