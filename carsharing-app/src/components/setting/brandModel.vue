@@ -53,6 +53,7 @@ export default {
       this.isShowBrandModel = true;
     },
     goback: function() {
+      console.log(this);
       this.$router.go(-1);
     }
   }

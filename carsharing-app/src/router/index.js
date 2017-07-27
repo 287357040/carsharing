@@ -14,7 +14,7 @@ import feedback from '@/components/mine/feedback'
 import route from '@/components/mine/route'
 import valuation from '@/components/mine/valuation'
 import order from '@/components/mine/order'
-import message  from '@/components/message/info'
+import message from '@/components/message/info'
 
 Vue.use(Router);
 
@@ -63,41 +63,40 @@ export default new Router({
       name: 'password',
       component: password
     },
-     {
+    {
       path: '/guide',
       name: 'guide',
       component: guide
     },
-     {
+    {
       path: '/friend',
       name: 'friend',
       component: friend
     },
-     {
+    {
       path: '/feedback',
       name: 'feedback',
       component: feedback
     },
-     {
+    {
       path: '/route',
       name: 'route',
       component: route
     },
-     {
+    {
       path: '/valuation',
       name: 'valuation',
       component: valuation
     },
-     {
+    {
       path: '/order',
       name: 'order',
       component: order
-     },
+    },
     {
       path: '/message',
       name: 'message',
       component: message
-    } 
-
+    }
   ]
 })
