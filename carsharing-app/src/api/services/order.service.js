@@ -6,7 +6,20 @@ import Vue from 'vue'
 import '../http/host.interceptor'
 import { getOrderUrl } from '@/api/http/host.config'
 export default {
-    getOrder: () => {
-
-    }
-}
+  getCurrentOrder: callback => {
+    Vue.http.get("/api/getCurrentOrder").then(
+      res => {
+        callback(res.data.data);
+      },
+      respose => {}
+    );
+  },
+  getHistoryOrderList: callback => {
+    Vue.http.get("/api/getHistoryOrderList").then(
+      res => {
+        callback(res.data.data);
+      },
+      respose => {}
+    );
+  }
+};

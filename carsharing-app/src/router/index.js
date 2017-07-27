@@ -14,7 +14,12 @@ import feedback from '@/components/mine/feedback'
 import route from '@/components/mine/route'
 import valuation from '@/components/mine/valuation'
 import order from '@/components/mine/order'
+<<<<<<< HEAD
 import message from '@/components/message/info'
+=======
+import message  from '@/components/message/info'
+import details  from '@/components/message/details'
+>>>>>>> f2d39911a18a5a3ec20ac0d505c879d328926b59
 
 Vue.use(Router);
 
@@ -97,6 +102,16 @@ export default new Router({
       path: '/message',
       name: 'message',
       component: message
+<<<<<<< HEAD
     }
+=======
+    },
+    {
+      path: '/details',
+      name: 'details',
+      component: details
+    }  
+
+>>>>>>> f2d39911a18a5a3ec20ac0d505c879d328926b59
   ]
 })
