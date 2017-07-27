@@ -4,14 +4,14 @@
     <OHeader v-bind:headerText="headerText" />
     <div class="password">
       <mt-field placeholder="请输入密码" type="password" v-model="password">
-        <span class="icon-Password03">
-          <span class="path3"></span>
-        </span>
+        <span class="icon-Password03 icon">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                </span>
       </mt-field>
       <mt-field placeholder="请再次输入密码" type="password" v-model="again_password">
-        <span class="icon-pass02">
-          <span class="path2"></span>
-        </span>
+        <span class="icon-pass02 icon">
+                <span class="path1"></span><span class="path2"></span>
+                </span>
       </mt-field>
     </div>
     <div class="password-btn">

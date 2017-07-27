@@ -15,6 +15,7 @@ import route from '@/components/mine/route'
 import valuation from '@/components/mine/valuation'
 import order from '@/components/mine/order'
 import message  from '@/components/message/info'
+import details  from '@/components/message/details'
 
 Vue.use(Router);
 
@@ -97,7 +98,12 @@ export default new Router({
       path: '/message',
       name: 'message',
       component: message
-    } 
+    },
+    {
+      path: '/details',
+      name: 'details',
+      component: details
+    }  
 
   ]
 })

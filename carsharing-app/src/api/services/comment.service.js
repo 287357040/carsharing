@@ -16,7 +16,12 @@ export default {
     delComment: () => {
 
     },
-    getComment: () => {
+    getCommentList: (callback) => {
+        Vue.http.get('/api/getCommentList').
+        then((res)=>{
+            callback(res.data.data)
+        },(respose)=>{
 
+        });
     }
 }

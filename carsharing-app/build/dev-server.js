@@ -22,13 +22,47 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 
-var appData = require('../data.json')
+var appData = require('../data.json');
+var friendList = appData.friendList;
+var historyOrderList = appData.historyOrderList;
+var currentOrder = appData.currentOrder;
+var commentList = appData.commentList;
+var messageInfoList = appData.messageInfoList;
 var apiRoutes = express.Router();
 apiRoutes.post('/getList', function (req, res) {
   res.json({
     data: appData
   })
-})
+});
+
+apiRoutes.get('/getFriendList', function (req, res) {
+  res.json({
+    data: friendList
+  })
+});
+
+apiRoutes.get('/getHistoryOrderList', function (req, res) {
+  res.json({
+    data: historyOrderList
+  })
+});
+apiRoutes.get('/getCurrentOrder', function (req, res) {
+  res.json({
+    data: currentOrder
+  })
+});
+apiRoutes.get('/getCommentList', function (req, res) {
+  res.json({
+    data: commentList
+  })
+});
+apiRoutes.get('/getMessageInfoList', function (req, res) {
+  res.json({
+    data: messageInfoList
+  })
+});
+
+
 app.use('/api',apiRoutes);
 
 var compiler = webpack(webpackConfig)

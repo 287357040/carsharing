@@ -4,7 +4,7 @@
     <OHeader v-bind:headerText="headerText" />
     <div class="password">
       <a @click="show_suggest('getOn')">
-      <mt-field  >
+      <mt-field  placeholder="公司" >
         <span class="icon-corporation icon" >
                 
         </span>
@@ -13,7 +13,7 @@
       </a>
 
       <a  @click="show_suggest('getOff')">
-      <mt-field>
+      <mt-field placeholder="家">
         <!-- <i class="fa fa-get-pocket icon"></i> -->
         <span class="icon-home icon"  >
                 

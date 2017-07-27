@@ -6,7 +6,12 @@ import Vue from 'vue'
 import '../http/host.interceptor'
 import { getMessageUrl } from '@/api/http/host.config'
 export default {
-    getMessage: () => {
-
-    }
-}
+  getMessageInfoList: callback => {
+    Vue.http.get("/api/getMessageInfoList").then(
+      res => {
+        callback(res.data.data);
+      },
+      respose => {}
+    );
+  }
+};

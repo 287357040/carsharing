@@ -1,49 +1,167 @@
 //我的评价
 <template>
   <div class="mine-container mine-container-bgcolor">
-    <OHeader v-bind:headerText="headerText" class="header"/>
+    <OHeader v-bind:headerText="headerText" style="z-index:20;box-shadow: none;" />
+    <div class="valuation-title linear-gradient-bg" style="z-index:20;box-shadow: 0 0px 1px 0 rgba(254, 144, 45, 0.68);;">
+      <div class="haed-title">综合评分</div>
+      <Star v-bind:score="compositeScore" />
+      <div>
+  
+      </div>
+      <div class="haed-title">共有
+        <strong>56</strong>条评论</div>
+    </div>
+    <div class="header" :style="{backgroundImage: 'url(' + img + ')'}" />
     <div class="valuation">
-    <div class="haed-title">综合评分</div>
-    <Rate disabled v-model="valueDisabled" class="haed-title"></Rate>
-    <div class="haed-title">共有<strong>56</strong>条评论</div>
-    <div class="valuation-content">
-        <img src="../../assets/img/touxiang2.png" />
-        <div >
+      <!-- <div class="valuation-content">
+          <img src="../../assets/img/touxiang2.png" />
+          <div>
             <span class="nickname">毛毛头</span>
             <span class="comment">下雨天，依然来车很准时，赞！</span>
-            <Rate disabled v-model="valueDisabled"></Rate>
+            <Star v-bind:score="compositeScore" class="left" />
+            <span class="detail-title right">综合评分(5.0)</span>
+            <div class="comment-star-detail">
+              <div>
+                <span class="detail-title left">1、是否守时</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">2、车内是否整洁</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">3、文明用语</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">4、车技如何</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
         <div class="valuation-content">
-        <img src="../../assets/img/touxiang2.png" />
-        <div >
+          <img src="../../assets/img/touxiang2.png" />
+          <div>
             <span class="nickname">毛毛头</span>
             <span class="comment">下雨天，依然来车很准时，赞！</span>
-            <Rate disabled v-model="valueDisabled"></Rate>
+            <Star v-bind:score="compositeScore" style="display:inline-block;" />
+            <span class="detail-title right">综合评分(5.0)</span>
+            <div class="comment-star-detail">
+              <div>
+                <span class="detail-title left">1、是否守时</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">2、车内是否整洁</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">3、文明用语</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">4、车技如何</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+        <div class="valuation-content">
+          <img src="../../assets/img/touxiang2.png" />
+          <div>
+            <span class="nickname">毛毛头</span>
+            <span class="comment">下雨天，依然来车很准时，赞！</span>
+            <Star v-bind:score="compositeScore" style="display:inline-block;" />
+            <span class="detail-title right">综合评分(5.0)</span>
+            <div class="comment-star-detail">
+              <div>
+                <span class="detail-title left">1、是否守时</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">2、车内是否整洁</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">3、文明用语</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+              <div>
+                <span class="detail-title left">4、车技如何</span>
+                <Star v-bind:score="compositeScore" />
+              </div>
+            </div>
+          </div>
+        </div> -->
+      <a v-for="item in commentList" v-bind:key="item">
+        <div class="valuation-content" @click="show_detail(item)">
+          <img :src="item.imgSrc" />
+          <div>
+            <span class="nickname">{{item.nickname}}</span>
+            <span class="comment">{{item.comment}}</span>
+            <Star v-bind:score="compositeScore" style="display:inline-block;" />
+            <span class="detail-title right" :style="{display:item.isShowDetail}">综合评分(5.0)</span>
+            <div class="comment-star-detail" :style="{display:item.isShowDetail}">
+              <div>
+                <span class="detail-title left">1、是否守时</span>
+                <Star v-bind:score="item.detailScore.time" />
+              </div>
+              <div>
+                <span class="detail-title left">2、车内是否整洁</span>
+                <Star v-bind:score="item.detailScore.clean" />
+              </div>
+              <div>
+                <span class="detail-title left">3、文明用语</span>
+                <Star v-bind:score="item.detailScore.words" />
+              </div>
+              <div>
+                <span class="detail-title left">4、车技如何</span>
+                <Star v-bind:score="item.detailScore.cartech" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </template>
 <script>
 import OHeader from '@/components/mine/header.vue'
+import Star from '@/components/public/starScore.vue'
+import commentService from '@/api/services/comment.service'
 export default {
-  data(){
+  data() {
     return {
-      headerText : "我的评价",
-      valueDisabled: 2
+      headerText: "我的评价",
+      valueDisabled: 2,
+      img: require('../../assets/img/toper.png'),
+      compositeScore: 3.5,
+      commentList: [],
     }
-  }
-  ,
+  },
   components: {
-    OHeader
+    OHeader,
+    Star
   },
   methods: {
     show_suggest(key) {
-        alert("333");
       this.$store.dispatch('show_suggest', key)
       this.$router.push({ path: '/mapLocation' })
+    },
+    show_detail(model) {
+      for(var item in this.commentList)
+      {
+         this.commentList[item].isShowDetail="none";
+      }
+      model.isShowDetail = "inline-block";
     }
+  },
+  created: function () {
+    commentService.getCommentList((data) => {
+      this.commentList = data;
+    });
+
   }
 }
 </script>
