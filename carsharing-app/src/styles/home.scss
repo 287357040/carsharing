@@ -202,17 +202,12 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
     font-size: 16px;
     color: #333333;
 }
-.message-info .info-row1 .mars-style {
-  padding: 0;
-  border-radius: 3px;
-  background: #37D0FF;
-  color:#fff;
-}
-.message-info .info-row1 .plus-circle-style {
+
+.message-info .info-row1 .add-location {
   float: right;
   margin-right: 2.7%;
   line-height: 30px;
-  color: #FE872B;
+  font-size: 20px;
 }
 .message-info .info-row2 {
   height: auto;

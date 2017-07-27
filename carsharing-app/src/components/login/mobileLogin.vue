@@ -5,9 +5,15 @@
                 <i class="icon-job-number form-icon"></i>
                 <input class="form-input" placeholder="请输入您的工号" name="userNo" v-model="userNo" type="tel" autocomplete="off" maxlength="5" required autofocus>
             </div>
+            <div class="error-hint">
+                <span v-show="false">工号输入错误，请重新输入</span>
+            </div>
             <div class="form-group">
                 <i class="icon-shouji form-icon"></i>
                 <input class="form-input" placeholder="请输入您的手机号" name="mobile" type="tel" v-model="mobile" autocomplete="off" required value="" maxlength="11">
+            </div>
+            <div class="error-hint">
+                <span v-show="telephoneError">手机号输入错误，请重新输入</span>
             </div>
             <div class="form-group">
                 <span class="icon-yanzhengma form-icon margin-left-icon"></span>
@@ -18,6 +24,9 @@
                     </div>
                 </div>
             </div>
+            <div class="error-hint">
+                <span v-show="false">验证码输入错误，请重新输入</span>
+            </div>
             <mt-button type="default" class="login-btn linear-gradient-bg" submit>验证并登录</mt-button>
         </form>
         <div class="change-login-style" v-show="isHavePassword">
@@ -27,7 +36,7 @@
 </template>
 
 <script>
-import apiAuthHandler from '@/api/services/employee.service'
+import apiHandler from '@/api/services/employee.service'
 import bus from '@/scripts/eventBus'
 import Vue from 'vue';
 import Store from '@/scripts/store'
@@ -37,7 +46,8 @@ export default {
             userNo: "",
             mobile: "",
             code: "",
-            isHavePassword: false
+            isHavePassword: false,
+            telephoneError: false
         }
     },
     methods: {
@@ -45,7 +55,11 @@ export default {
             this.$emit("isPasswordLogin", true);
         },
         submitByMobile: function () {
-            apiAuthHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
+            let loginCheck = this.checkPhone();
+            if (!loginCheck) {
+                return;
+            }
+            apiHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
                 // console.log(res);
                 if (res.body.res == 1) {
                     this.$router.push({ path: '/home' });
@@ -57,6 +71,18 @@ export default {
                     this.code = '';
                 }
             });
+        },
+        checkPhone: function () {
+            var self = this;
+            if (!(/^1[34578]\d{9}$/.test(this.mobile))) {
+                self.telephoneError = true;
+                setTimeout(() => {
+                    self.telephoneError = false;
+                }, 2000)
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

@@ -44,10 +44,13 @@
     height: 40px;
     position: relative;
     left: 10%;
-    padding-bottom: 10%;
+    padding-bottom: 5%;
     overflow: hidden;
     box-sizing: content-box;
-;
+}
+#form-login .error-hint {
+    padding-bottom: 5%;
+    color: #FF6E61;
 }
 .form-group .form-input {
     width: 100%;

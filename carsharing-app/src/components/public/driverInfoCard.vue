@@ -15,7 +15,7 @@
                     <div class="info-row1">
                         <span>龚小敏</span>
                         <i class="icon-boy"></i>
-                        <i class="fa fa-mars mars-style"></i>
+                        <i class="icon-add add-location" @click="addToCar"></i>
                     </div>
                     <div class="info-row2">
                         <ul class="completeness">
@@ -47,6 +47,7 @@
 </template>
 <script>
 import allData from '@/api/services/demand.service'
+import { MessageBox } from 'mint-ui'
 export default {
     data() {
         return {
@@ -82,8 +83,17 @@ export default {
             return this.currentdate;
         }
     },
-    methods: function () {
-
+    methods: {
+        addToCar: () => {
+            var driverName = '龚小敏';
+            console.log(driverName);
+            MessageBox({
+                title: '您确定要加入'+driverName+'的车吗？',
+                message: '人数',
+                showInput: true,
+                showCancelButton: true
+            });
+        }
     }
 }
 </script>
