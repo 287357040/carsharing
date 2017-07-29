@@ -33,6 +33,11 @@ public class RideRouteServiceImpl extends BaseServiceImpl<RideRoute> implements 
     }
 
     @Override
+    public List<RideRoute> getNormalStateRideRoutes() {
+        return rideRouteMapper.getNormalStateRideRoutes();
+    }
+
+    @Override
     protected BaseDao<RideRoute> getMapper() {
         return rideRouteMapper;
     }

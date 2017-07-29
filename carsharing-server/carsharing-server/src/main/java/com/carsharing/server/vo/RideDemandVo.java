@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class RideDemandVo implements Serializable {
 
-    private int matchDegree;
+    private Integer matchDegree;
 
-    private int demandId;
+    private Integer demandId;
 
     private String userNo;
 
@@ -55,7 +55,7 @@ public class RideDemandVo implements Serializable {
 
     private String describe;
 
-    public int getMatchDegree() {
+    public Integer getMatchDegree() {
         return matchDegree;
     }
 
@@ -63,7 +63,7 @@ public class RideDemandVo implements Serializable {
         this.matchDegree = matchDegree;
     }
 
-    public int getDemandId() {
+    public Integer getDemandId() {
         return demandId;
     }
 
@@ -252,7 +252,7 @@ public class RideDemandVo implements Serializable {
         endLongitude = demand.getEndLongitude();
         startLatitude = demand.getStartLatitude();
         endLatitude = demand.getEndLatitude();
-        isHome = demand.isHome();
+        isHome = demand.getIsHome();
         riderCount = demand.getRiderCount();
         waitTime = demand.getWaitTime();
         rewards = demand.getRewards();
