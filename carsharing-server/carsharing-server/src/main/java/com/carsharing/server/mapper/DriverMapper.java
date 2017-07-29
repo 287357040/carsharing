@@ -12,4 +12,7 @@ public interface DriverMapper extends BaseDao<Driver> {
 
     public List<Driver> selectByUserNo(String userNo);
 
+    public boolean insertService(Driver driver);
+
+    public boolean updateService(Driver driver);
 }

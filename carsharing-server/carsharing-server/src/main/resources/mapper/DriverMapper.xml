@@ -24,7 +24,7 @@
 		from t_driver_info
 		where user_no = #{id,jdbcType=VARCHAR}
 	</select>
-	<insert id="regToDriver" parameterType="com.carsharing.server.entity.Driver">
+	<insert id="insertService" parameterType="com.carsharing.server.entity.Driver">
 		insert into t_driver_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="userNo != null">
@@ -98,6 +98,39 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="updateService" parameterType="com.carsharing.server.entity.Driver">
+		update t_driver_info
+		<set>
+			<if test="region != null">
+				region = #{region,jdbcType=VARCHAR},
+			</if>
+			<if test="carLicense != null">
+				car_license = #{carLicense,jdbcType=VARCHAR},
+			</if>
+			<if test="userLicense != null">
+				user_license = #{userLicense,jdbcType=VARCHAR},
+			</if>
+			<if test="licenseDate != null">
+				license_date = #{licenseDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="validDate != null">
+				valid_date = #{validDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="carNo != null">
+				car_no = #{carNo,jdbcType=VARCHAR},
+			</if>
+			<if test="color != null">
+				color = #{color,jdbcType=VARCHAR},
+			</if>
+			<if test="brand != null">
+				brand = #{brand,jdbcType=VARCHAR},
+			</if>
+			<if test="model != null">
+				model = #{model,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_no = #{userNo,jdbcType=VARCHAR}
+	</update>
 	<!--<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">-->
 		<!--update t_user-->
 		<!--<set>-->

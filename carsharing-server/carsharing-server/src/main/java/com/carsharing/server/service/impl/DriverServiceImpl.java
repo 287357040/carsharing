@@ -30,8 +30,13 @@ public class DriverServiceImpl extends BaseServiceImpl<Driver> implements Driver
     }
 
     @Override
-    public Driver regToDriver(Driver driver) {
-       return  driverMapper.insertSelective(driver)
+    public void insertService(Driver driver) {
+         driverMapper.insertService(driver);
+    }
+
+    @Override
+    public void updateService(Driver driver) {
+        driverMapper.updateService(driver);
     }
 
     @Override

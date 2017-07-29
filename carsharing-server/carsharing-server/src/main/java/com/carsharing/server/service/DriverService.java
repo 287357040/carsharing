@@ -11,7 +11,8 @@ import java.util.List;
  */
 public interface DriverService extends BaseService<Driver> {
 
-    public Driver regToDriver(Driver driver);
+    public void insertService(Driver driver);
+    public void updateService(Driver driver);
 
     public List<Driver> selectByUserNo(String userNo);
 }
