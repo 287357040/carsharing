@@ -21,7 +21,7 @@
         </div>
         <div class="input-wrapper">
             <label for="username">昵称</label>
-            <input id="username" type="username" v-model="nickName" />
+            <input id="username" type="username" v-model="nickName"  placeholder="请输入昵称"/>
             <a id="clearInput" @click="clearInput()">x</a>
         </div>
     </div>
