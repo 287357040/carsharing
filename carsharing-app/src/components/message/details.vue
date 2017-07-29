@@ -1,4 +1,4 @@
-//消息详情
+//????
 <template>
   <div class="mine-container">
     <OHeader v-bind:headerText="headerText" />
@@ -21,7 +21,7 @@ import allData from '@/api/services/employee.service'
 export default {
   data(){
     return {
-      headerText : "消息详情",
+      headerText : "????",
       password: '',
       again_password: ''
     }

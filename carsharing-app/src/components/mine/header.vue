@@ -36,7 +36,7 @@ export default {
       'telephone_input'
     ]),
     backto_homepage(key) {
-      this.$router.push({ path: '/home' })
+      this.$router.go(-1);
     }
   }
 }

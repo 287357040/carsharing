@@ -9,5 +9,5 @@ import java.util.List;
  * Created by hucl on 2017/7/18.
  */
 public interface RideRouteMapper extends BaseDao<RideRoute> {
-
+    public List<RideRoute> getNormalStateRideRoutes();
 }

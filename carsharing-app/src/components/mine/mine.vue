@@ -4,9 +4,9 @@
     <template enter-active-class="animated fadeInLeft" leave-active-class="animated fadeOutRight">
       <div v-show="usersidebar" class="sidebar-container">
         <div class="siderbar-content">
-          <div class="siderbar-icon-content">
+          <div class="siderbar-icon-content" @click="toAccountInfo">
             <div>
-              <img width="97px" height="81px" src="../../assets/img/QQ截图20170715141851.png" />
+              <img width="97px" height="81px" src="../../assets/img/photo.png" />
             </div>
             <span class="name">龚小敏</span>
             <span class="telphone">13588779900</span>
@@ -119,7 +119,10 @@ export default {
   methods: {
     ...mapActions([
       'close_usersidebar'
-    ])
+    ]),
+    toAccountInfo: function(){
+      this.$router.push({path:'/accountInfo'});
+    }
   },
   mounted() {
     // console.log(this.telephone)
