@@ -60,8 +60,7 @@ export default {
                 return;
             }
             apiHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
-                // console.log(res);
-                if (res.body.res == 1) {
+                if (res.loginStatus == "1") {
                     this.$router.push({ path: '/home' });
                     Store.save(res);
                 } else {

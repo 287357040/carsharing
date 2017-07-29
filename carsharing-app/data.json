@@ -324,5 +324,10 @@
             "content": "大恒生为了解决小伙伴们上班出行，特此推出恒生滴滴让你再也不用愁赶不上班车迟到而发愁了……",
             "time": "2017-07-12 15:00:29"
         }
-    ]
+    ],
+    "driverEvaluation ":
+    {
+        "compositeScore" : 2,
+        "commentTotal" : 30
+    }
 }
