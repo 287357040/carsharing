@@ -4,7 +4,7 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import {HttpResHelper} from '../'
+import { HttpResHelper } from '../'
 
 import {
     publishNewRouteUrl,
@@ -14,19 +14,71 @@ import {
     matchRideRoutesByDemandUrl
 } from '@/api/http/host.config'
 export default {
-    publishNewRoute: (route,res) => {
-
+    publishNewRoute: (route, success, err) => {
+        Vue.http.post(publishNewRouteUrl,
+            {
+                'startArea':route.startArea, // 起始区县
+                'endArea': route.endArea, // 终点区县
+                'startPlace':route.startPlace, // 起始地址
+                'startLongitude':route.startLongitude, // 起始经度
+                'startLatitude':route.startLatitude, // 起始纬度
+                'endPlace': route.endPlace, // 终点地址
+                'endLongitude': route.endLongitude, // 终点经度
+                'endLatitude': route.endLatitude, // 终点纬度
+                'startTime': route.startTime, // 发车时间
+                'takeCount': route.riderCount, // 车座位数量 默认4
+                'waitTime': route.waitTime, // 能够等待时间
+                'describe': route.describe, // 备注
+                'isHome':route.isHome // 是否到家服务 默认 0
+            })
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response,success, err);
+            })
     },
-    deleteRoute: (routeId,res) => {
-
+    deleteRoute: (routeId, success, err) => {
+        Vue.http.post(deleteRouteUrl,
+            {
+                'routeId': routeId
+            })
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response,success, err);
+            })
     },
-    startRoute: (routeId,res) => {
-
+    startRoute: (routeId, success, err) => {
+        Vue.http.post(startRouteUrl,
+            {
+                'routeId': routeId
+            })
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response,success, err);
+            })
     },
-    finishRoute: (routeId,res) => {
-
+    finishRoute: (routeId, success, err) => {
+        Vue.http.post(finishRouteUrl,
+            {
+                'routeId': routeId
+            })
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success,err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response,success,err);
+            })
     },
-    matchRideRoutesByDemand: (demand,cb) => {
+    matchRideRoutesByDemand: (demand, success, err) => {
         Vue.http.post(matchRideRoutesByDemandUrl,
             {
                 'endArea': demand.endArea,
@@ -36,14 +88,14 @@ export default {
                 'startTime': demand.startTime,
                 'riderCount': demand.riderCount,
                 'waitTime': demand.waitTime,
-                'rewards':demand.rewards
+                'rewards': demand.rewards
             })
             .then(
             (response) => {
-                HttpResHelper.resHandle(response,cb);
+                HttpResHelper.resHandle(response, success, err);
             }, (response) => {
                 // 响应错误回调
-                HttpResHelper.resHandle(response);
+                HttpResHelper.resHandle(response,success, err);
             })
-    }   
+    }
 }

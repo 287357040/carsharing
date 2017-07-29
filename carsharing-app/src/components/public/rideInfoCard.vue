@@ -60,8 +60,11 @@ export default {
         }
     },
     created: function () {
-        routeService.matchRideRoutesByDemand((res) => {
+        routeService.matchRideRoutesByDemand(demand,function(data) {
             this.routeVO = res;
+        },function(err){
+            err.code
+            err.errorMsg
         });
     },
     computed: {
