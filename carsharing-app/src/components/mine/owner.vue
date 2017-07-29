@@ -26,17 +26,17 @@
                 <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
-                        <i class="fa fa-angle-right fa-lg car-arrows"></i>
+                        <span class="icon-Level-Down ico right"></span>
                     </router-link>
     
                 </li>
                 <li class="car-info-list border-bottom-style" @click="choiceBrand">
                     <span>品牌型号</span>
-                    <i class="fa fa-angle-right fa-lg car-arrows"></i>
+                    <span class="icon-Level-Down ico right"></span>
                 </li>
                 <li class="car-info-list" @click="openPopupColor">
                     <span>车辆颜色</span>
-                    <i class="fa fa-angle-right fa-lg car-arrows"></i>
+                    <span class="icon-Level-Down ico right"></span>
                 </li>
             </ul>
         </div>

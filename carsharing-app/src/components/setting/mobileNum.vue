@@ -21,7 +21,7 @@
         </div>
         <div class="input-wrapper">
             <label for="mobileNum">手机号码</label>
-            <input id="mobileNum" type="tel" v-model="mobileNum"></input>
+            <input id="mobileNum" type="tel" v-model="mobileNum" placeholder="请输入手机号"></input>
             <a id="clearInput" @click="clearInput()">x</a>
         </div>
     </div>
