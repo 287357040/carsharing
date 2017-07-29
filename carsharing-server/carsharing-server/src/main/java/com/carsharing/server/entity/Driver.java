@@ -1,34 +1,36 @@
 package com.carsharing.server.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by hucl on 2017/7/12.
  * 司机信息实体
  */
-public class Driver {
-    private String user_no;
-    private String user_name;
+
+public class Driver implements Serializable {
+    private String userNo;
+    private String userName;
     private String region;
-    private String car_license;
-    private String user_license;
-    private Date license_date;
-    private Date valid_date;
-    private String car_no;
+    private String carLicense;
+    private String userLicense;
+    private Date licenseDate;
+    private Date validDate;
+    private String carNo;
     private String color;
     private String brand;
     private String model;
-    public void setUser_no(String user_no){
-        this.user_no=user_no;
+    public void setUserNo(String userNo){
+        this.userNo=userNo;
     }
-    public String getUser_no(){
-        return user_no;
+    public String getUserNo(){
+        return userNo;
     }
-    public void setUser_name(String user_name){
-        this.user_name=user_name;
+    public void setUserName(String userName){
+        this.userName=userName;
     }
-    public String getUser_name(){
-        return user_name;
+    public String getUserName(){
+        return userName;
     }
     public void setRegion(String region){
         this.region=region;
@@ -36,35 +38,35 @@ public class Driver {
     public String getRegion(){
         return region;
     }
-    public void setCar_license(String car_license){
-        this.car_license=car_license;
+    public void setCarLicense(String carLicense){
+        this.carLicense=carLicense;
     }
-    public String getCar_license(){
-        return car_license;
+    public String getCarLicense(){
+        return carLicense;
     }
-    public void setUser_license(String user_license){
-        this.user_license=user_license;
+    public void setUserLicense(String userLicense){
+        this.userLicense=userLicense;
     }
-    public String getUser_license(){
-        return user_license;
+    public String getUserLicense(){
+        return userLicense;
     }
-    public void setLicense_date(Date license_date){
-        this.license_date=license_date;
+    public void setLicenseDate(Date licenseDate){
+        this.licenseDate=licenseDate;
     }
-    public Date getLicense_date(){
-        return license_date;
+    public Date getLicenseDate(){
+        return licenseDate;
     }
-    public void setValid_date(Date valid_date){
-        this.valid_date=valid_date;
+    public void setValidDate(Date validDate){
+        this.validDate=validDate;
     }
-    public Date getValid_date(){
-        return valid_date;
+    public Date getValidDate(){
+        return validDate;
     }
-    public void setCar_no(String car_no){
-        this.car_no=car_no;
+    public void setCarNo(String carNo){
+        this.carNo=carNo;
     }
-    public String getCar_no(){
-        return car_no;
+    public String getCarNo(){
+        return carNo;
     }
     public void setColor(String color){
         this.color=color;

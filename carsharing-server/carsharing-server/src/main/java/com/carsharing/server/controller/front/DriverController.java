@@ -1,5 +1,6 @@
 package com.carsharing.server.controller.front;
 
+import com.carsharing.server.entity.Driver;
 import com.carsharing.server.service.DriverService;
 import com.carsharing.server.service.UserService;
 import com.carsharing.server.util.JsonResponse;
@@ -26,9 +27,9 @@ public class DriverController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST},value = "/regToDriver")
-    public JsonResponse<String> regToDriver(){
+    public JsonResponse<Driver> regToDriver(){
 
-        JsonResponse<String> result = new JsonResponse<String>();
+        JsonResponse<Driver> result = new JsonResponse<Driver>();
 
         return result;
     }
