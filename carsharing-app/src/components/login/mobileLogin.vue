@@ -46,7 +46,7 @@ export default {
             userNo: "",
             mobile: "",
             code: "",
-            isHavePassword: false,
+            isHavePassword: true,
             telephoneError: false
         }
     },
