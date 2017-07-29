@@ -23,7 +23,9 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
 //                .addPathPatterns("/admin/*/**");
         registry.addInterceptor(new QqWebInterceptor())
                 .addPathPatterns("/front/*/**").
-                excludePathPatterns("/front/user/loginByCode");
+                excludePathPatterns("/front/user/loginByCode")
+                .excludePathPatterns("/front/user/loginByAcct")
+                .excludePathPatterns("/front/user/logout");
         super.addInterceptors(registry);
     }
 
@@ -36,8 +38,8 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-   public ThreadPoolTaskExecutor threadPoolTaskExecutor(){
-        ThreadPoolTaskExecutor  threadPoolTaskExecutor=new ThreadPoolTaskExecutor();
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
         //核心线程数
         threadPoolTaskExecutor.setCorePoolSize(10);
         //最大线程数
@@ -48,6 +50,6 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
         threadPoolTaskExecutor.setKeepAliveSeconds(300);
         //主线程直接执行该任务，执行完之后尝试添加下一个任务到线程池中，可以有效降低向线程池内添加任务的速度
         threadPoolTaskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-        return  threadPoolTaskExecutor;
+        return threadPoolTaskExecutor;
     }
 }

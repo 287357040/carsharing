@@ -23,4 +23,12 @@ public interface RideDemandService extends BaseService<RideDemand> {
      */
     public List<RideDemand> getRideDemandsByRouteId(int routeId);
 
+    /**
+     *
+     * @param state 状态
+     * @return
+     */
+    public List<RideDemand> getRideDemandsByState(int state);
+
+
 }
