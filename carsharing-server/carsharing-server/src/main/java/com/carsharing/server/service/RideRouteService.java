@@ -22,4 +22,10 @@ public interface RideRouteService extends BaseService<RideRoute> {
      * @return
      */
     public List<RideDemand> getRideRouteByDemand(RideDemand demand);
+
+    /**
+     * 获取发布中的路线集合
+     * @return 路线集合
+     */
+    public List<RideRoute> getNormalStateRideRoutes();
 }

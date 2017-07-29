@@ -9,91 +9,10 @@
   
       </div>
       <div class="haed-title">共有
-        <strong>56</strong>条评论</div>
+        <strong>{{commentTotal}}</strong>条评论</div>
     </div>
     <div class="header" :style="{backgroundImage: 'url(' + img + ')'}" />
     <div class="valuation">
-      <!-- <div class="valuation-content">
-          <img src="../../assets/img/touxiang2.png" />
-          <div>
-            <span class="nickname">毛毛头</span>
-            <span class="comment">下雨天，依然来车很准时，赞！</span>
-            <Star v-bind:score="compositeScore" class="left" />
-            <span class="detail-title right">综合评分(5.0)</span>
-            <div class="comment-star-detail">
-              <div>
-                <span class="detail-title left">1、是否守时</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">2、车内是否整洁</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">3、文明用语</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">4、车技如何</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="valuation-content">
-          <img src="../../assets/img/touxiang2.png" />
-          <div>
-            <span class="nickname">毛毛头</span>
-            <span class="comment">下雨天，依然来车很准时，赞！</span>
-            <Star v-bind:score="compositeScore" style="display:inline-block;" />
-            <span class="detail-title right">综合评分(5.0)</span>
-            <div class="comment-star-detail">
-              <div>
-                <span class="detail-title left">1、是否守时</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">2、车内是否整洁</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">3、文明用语</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">4、车技如何</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="valuation-content">
-          <img src="../../assets/img/touxiang2.png" />
-          <div>
-            <span class="nickname">毛毛头</span>
-            <span class="comment">下雨天，依然来车很准时，赞！</span>
-            <Star v-bind:score="compositeScore" style="display:inline-block;" />
-            <span class="detail-title right">综合评分(5.0)</span>
-            <div class="comment-star-detail">
-              <div>
-                <span class="detail-title left">1、是否守时</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">2、车内是否整洁</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">3、文明用语</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-              <div>
-                <span class="detail-title left">4、车技如何</span>
-                <Star v-bind:score="compositeScore" />
-              </div>
-            </div>
-          </div>
-        </div> -->
       <a v-for="item in commentList" v-bind:key="item">
         <div class="valuation-content" @click="show_detail(item)">
           <img :src="item.imgSrc" />
@@ -136,7 +55,8 @@ export default {
       headerText: "我的评价",
       valueDisabled: 2,
       img: require('../../assets/img/toper.png'),
-      compositeScore: 3.5,
+      compositeScore:0,
+      commentTotal :0,
       commentList: [],
     }
   },
@@ -160,6 +80,10 @@ export default {
   created: function () {
     commentService.getCommentList((data) => {
       this.commentList = data;
+    });
+    commentService.getDriverEvaluation((data) => {
+      this.compositeScore = data.compositeScore;
+       this.commentTotal = data.commentTotal;
     });
 
   }

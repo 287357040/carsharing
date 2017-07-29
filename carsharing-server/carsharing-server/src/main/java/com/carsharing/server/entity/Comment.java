@@ -19,12 +19,22 @@ public class Comment {
 
     private int demandId;
 
+    private int routeId;
+
     public int getCommentId() {
         return commentId;
     }
 
     public void setCommentId(int commentId) {
         this.commentId = commentId;
+    }
+
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public String getContent() {

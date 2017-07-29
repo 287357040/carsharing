@@ -172,11 +172,11 @@ public class RideRoute implements Serializable {
         this.endLatitude = endLatitude;
     }
 
-    public boolean isHome() {
+    public boolean getIsHome() {
         return isHome;
     }
 
-    public void setHome(boolean home) {
+    public void setIsHome(boolean home) {
         isHome = home;
     }
 

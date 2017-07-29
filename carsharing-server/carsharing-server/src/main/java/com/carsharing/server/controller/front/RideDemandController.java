@@ -193,7 +193,7 @@ public class RideDemandController extends AbstractController {
         if(resDemandList.size()>0) {
             Collections.sort(resDemandList, new Comparator<RideDemandVo>() {
                 public int compare(RideDemandVo arg0, RideDemandVo arg1) {
-                    return new Integer(arg1.getMatchDegree()).compareTo(arg0.getMatchDegree());
+                    return arg1.getMatchDegree().compareTo(arg0.getMatchDegree());
                 }
             });
         }

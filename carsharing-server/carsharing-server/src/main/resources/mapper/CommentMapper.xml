@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carsharing.server.mapper.CommentMapper">
+	<resultMap id="BaseResultMap" type="com.carsharing.server.entity.Comment">
+		<id column="comment_id" property="commentId" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="user_no" property="userNo" jdbcType="VARCHAR" />
+		<result column="demand_id" property="demandId" jdbcType="VARCHAR" />
+		<result column="comment_time" property="commentTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		comment_id, user_name,content, user_no,demand_id,comment_time
+	</sql>
+	<select id="selectByDemandId" resultMap="BaseResultMap"
+			parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_comment
+		where demand_id = #{demandId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByRouteId" resultMap="BaseResultMap"
+			parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_comment
+		where route_id = #{routeId,jdbcType=VARCHAR}
+	</select>
+	<insert id="insertService" parameterType="com.carsharing.server.entity.Comment">
+		insert into t_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="userNo != null">
+				user_no,
+			</if>
+			<if test="demandId != null">
+				demand_id,
+			</if>
+			<if test="commentTime != null">
+				comment_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				#{user_name,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="userNo != null">
+				#{user_no,jdbcType=VARCHAR},
+			</if>
+			<if test="demandId != null">
+				#{demand_id,jdbcType=VARCHAR},
+			</if>
+			<if test="commentTime != null">
+				#{comment_time,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="deleteService" parameterType="com.carsharing.server.entity.Comment">
+		delete t_comment
+		where comment_id = #{comment_id,jdbcType=INTEGER}
+	</update>
+	<!--<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">-->
+		<!--update t_user-->
+		<!--<set>-->
+			<!--<if test="openid != null">-->
+				<!--openid = #{openid,jdbcType=VARCHAR},-->
+			<!--</if>-->
+			<!--<if test="nickname != null">-->
+				<!--nickname = #{nickname,jdbcType=VARCHAR},-->
+			<!--</if>-->
+			<!--<if test="headimgurl != null">-->
+				<!--headimgurl = #{headimgurl,jdbcType=VARCHAR},-->
+			<!--</if>-->
+			<!--<if test="sex != null">-->
+				<!--sex = #{sex,jdbcType=VARCHAR},-->
+			<!--</if>-->
+			<!--<if test="phone != null">-->
+				<!--phone = #{phone,jdbcType=VARCHAR},-->
+			<!--</if>-->
+			<!--<if test="createTime != null">-->
+				<!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
+			<!--</if>-->
+			<!--<if test="state != null">-->
+				<!--state = #{state,jdbcType=TINYINT},-->
+			<!--</if>-->
+			<!--<if test="updateTime != null">-->
+				<!--update_time = #{updateTime,jdbcType=TIMESTAMP},-->
+			<!--</if>-->
+		<!--</set>-->
+		<!--where user_id = #{userId,jdbcType=INTEGER}-->
+	<!--</update>-->
+	<!--<update id="updatePhone">-->
+		<!--update t_user-->
+		<!--set phone = #{phone,jdbcType=VARCHAR}-->
+		<!--where openid = #{openid,jdbcType=VARCHAR}-->
+	<!--</update>-->
+	<!--&lt;!&ndash; 查询所有的前端用户 程序内部使用 &ndash;&gt;-->
+	<!--<select id="getAllFrontUser" resultType="java.lang.String">-->
+		<!--select-->
+		<!--GROUP_CONCAT(user_id)-->
+		<!--from t_user-->
+		<!--where state= 1-->
+	<!--</select>-->
+
+</mapper>

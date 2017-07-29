@@ -123,7 +123,7 @@
 				update_time = #{updateTime,jdbcType=TIMESTAMP},
 			</if>
 		</set>
-		where user_no = #{userNo,jdbcType=INTEGER}
+		where user_no = #{userNo,jdbcType=VARCHAR}
 	</update>
 	<!--<update id="updatePhone">-->
 		<!--update t_user-->

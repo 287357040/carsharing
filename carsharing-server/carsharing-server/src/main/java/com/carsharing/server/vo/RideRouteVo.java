@@ -1,21 +1,17 @@
-package com.carsharing.server.entity;
+package com.carsharing.server.vo;
 
+import com.carsharing.server.entity.RideRoute;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by hucl on 2017/7/14.
- * 乘车需求实体
- */
-public class RideDemand implements Serializable {
+public class RideRouteVo {
 
-    private int demandId;
+    private Integer matchDegree;
+
+    private Integer routeId;
 
     private String userNo;
-
-    private  int routeId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date startTime;
@@ -48,20 +44,26 @@ public class RideDemand implements Serializable {
 
     private int riderCount;
 
-    private int waitTime;
-
-    private int rewards;
+    private int remainCount;
 
     private int state;
 
     private String describe;
 
-    public int getDemandId() {
-        return demandId;
+    public Integer getMatchDegree() {
+        return matchDegree;
     }
 
-    public void setDemandId(int demandId) {
-        this.demandId = demandId;
+    public void setMatchDegree(int matchDegree) {
+        this.matchDegree = matchDegree;
+    }
+
+    public Integer getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public String getUserNo() {
@@ -70,14 +72,6 @@ public class RideDemand implements Serializable {
 
     public void setUserNo(String userNo) {
         this.userNo = userNo;
-    }
-
-    public int getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
     }
 
     public Date getStartTime() {
@@ -184,11 +178,11 @@ public class RideDemand implements Serializable {
         this.endLatitude = endLatitude;
     }
 
-    public boolean getIsHome() {
+    public boolean isHome() {
         return isHome;
     }
 
-    public void setIsHome(boolean home) {
+    public void setHome(boolean home) {
         isHome = home;
     }
 
@@ -200,20 +194,12 @@ public class RideDemand implements Serializable {
         this.riderCount = riderCount;
     }
 
-    public int getWaitTime() {
-        return waitTime;
+    public int getRemainCount() {
+        return remainCount;
     }
 
-    public void setWaitTime(int waitTime) {
-        this.waitTime = waitTime;
-    }
-
-    public int getRewards() {
-        return rewards;
-    }
-
-    public void setRewards(int rewards) {
-        this.rewards = rewards;
+    public void setRemainCount(int remainCount) {
+        this.remainCount = remainCount;
     }
 
     public int getState() {
@@ -231,4 +217,29 @@ public class RideDemand implements Serializable {
     public void setDescribe(String describe) {
         this.describe = describe;
     }
+
+    public RideRouteVo(RideRoute route) {
+
+        this.routeId = route.getRouteId();
+        this.userNo = route.getUserNo();
+        this.startTime = route.getStartTime();
+        this.startProvince = route.getStartProvince();
+        this.endProvince = route.getEndProvince();
+        this.startCity = route.getStartCity();
+        this.endCity = route.getEndCity();
+        this.startArea = route.getStartArea();
+        this.endArea = route.getEndArea();
+        this.startPlace = route.getStartPlace();
+        this.endPlace = route.getEndPlace();
+        this.startLongitude = route.getStartLatitude();
+        this.endLongitude = route.getEndLongitude();
+        this.startLatitude = route.getStartLatitude();
+        this.endLatitude = route.getEndLatitude();
+        this.isHome = route.getIsHome();
+        this.riderCount = route.getRiderCount();
+        this.remainCount = route.getRemainCount();
+        this.state = route.getState();
+        this.describe = route.getDescribe();
+    }
+
 }

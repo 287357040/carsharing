@@ -3,6 +3,7 @@ package com.carsharing.server.service.impl;
 import com.carsharing.server.entity.Driver;
 import com.carsharing.server.mapper.BaseDao;
 import com.carsharing.server.mapper.DriverMapper;
+import com.carsharing.server.mapper.UserMapper;
 import com.carsharing.server.service.DriverService;
 import com.carsharing.server.util.JsonResponse;
 import org.apache.log4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by hucl on 2017/7/12.
@@ -28,7 +30,27 @@ public class DriverServiceImpl extends BaseServiceImpl<Driver> implements Driver
     }
 
     @Override
-    public JsonResponse<Driver> regToDriver(String mobile) {
-        return null;
+    public void insertService(Driver driver) {
+         driverMapper.insertService(driver);
     }
+
+    @Override
+    public void updateService(Driver driver) {
+        driverMapper.updateService(driver);
+    }
+
+    @Override
+    public List<Driver> selectByUserNo(String user_No) {
+        return driverMapper.selectByUserNo(user_No);
+    }
+
+
+    public DriverMapper getDriverMapper() {
+        return driverMapper;
+    }
+
+    public void setDriverMapper(DriverMapper driverMapper) {
+        this.driverMapper = driverMapper;
+    }
+
 }
