@@ -19,14 +19,14 @@ import {
 export default {
     loginByCode: (user, cb) => {
         Vue.http.post(
-            "/api/loginByCode",//loginByCodeUrl,
+            loginByCodeUrl,
             {
                 'userNo': user.userNo,
                 'mobile': user.mobile,
                 'code': user.code
             }
         ).then((response) => {
-            cb(response.data.data);
+            cb(response.data);
         }, (response) => {
             //响应失败执行
         });

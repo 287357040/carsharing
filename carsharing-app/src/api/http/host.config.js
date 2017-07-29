@@ -1,7 +1,7 @@
 /**
  * Created by lmz on 2017/7/11.
  */
-const IP = 'http://192.168.153.157:8080';
+const IP = 'http://localhost:8080';
 export const API_ROOT = (process.env.NODE_ENV === 'production') ? IP : IP;
 
 //用户手机验证码登录
@@ -59,19 +59,19 @@ export const getRideDemandsByRouteIdUrl = API_ROOT + '/front/demand/getRideDeman
 export const matchRideDemandsByRouteUrl = API_ROOT + '/front/demand/matchRideDemandsByRoute';
 
 //司机发布拼车路线
-export const publishNewRouteUrl = API_ROOT + '/front/demand/publishNewRoute';
+export const publishNewRouteUrl = API_ROOT + '/front/route/publishNewRoute';
 
 //司机取消自己的拼车路线
-export const deleteRouteUrl = API_ROOT + '/front/demand/deleteRoute'; 
+export const deleteRouteUrl = API_ROOT + '/front/route/deleteRoute'; 
 
 //司机开始拼车订单
-export const startRouteUrl = API_ROOT + '/front/demand/startRoute';
+export const startRouteUrl = API_ROOT + '/front/route/startRoute';
 
 //司机结束拼车订单
-export const finishRouteUrl = API_ROOT + '/front/demand/finishRoute';
+export const finishRouteUrl = API_ROOT + '/front/route/finishRoute';
 
 //根据需求信息来找到匹配拼车路线
-export const matchRideRouteByDemandUrl = API_ROOT + '/front/demand/matchRideRouteByDemand';
+export const matchRideRoutesByDemandUrl = API_ROOT + '/front/route/matchRideRoutesByDemand';
 
 //增加评论(对司机发布的路线评论）
 export const addCommentUrl = API_ROOT + '/front/comment/addComment';

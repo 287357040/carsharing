@@ -46,7 +46,8 @@
     </div>
 </template>
 <script>
-import allData from '@/api/services/demand.service'
+import demandService from '@/api/services/demand.service'
+import routeService from '@/api/services/route.service'
 import bus from '@/scripts/eventBus'
 export default {
     data() {
@@ -59,8 +60,8 @@ export default {
         }
     },
     created: function () {
-        allData.matchRideDemandsByRoute((res) => {
-            this.routeVO = res.data.data.routeVO;
+        routeService.matchRideRoutesByDemand((res) => {
+            this.routeVO = res;
         });
     },
     computed: {

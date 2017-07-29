@@ -16,7 +16,9 @@ Vue.http.options.root = '/root'
 Vue.http.interceptors.push((request, next) => {
     //这里对请求体进行处理
     if (request.method != 'GET') {
-        request.headers = request.headers || {}
+        request.headers = request.headers || {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
     }
 
     request.credentials = true;

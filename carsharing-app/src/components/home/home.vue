@@ -38,7 +38,7 @@ import SockJS from 'sockjs-client'
 export default {
   data: () => {
     return {
-      isSwitch: false,
+      isSwitch: true,
       showAwaitOrderStatus: false,
       orderTime: '明天11:30',
       orderAddress: '恒生大厦A幢后门—九和路地铁站'

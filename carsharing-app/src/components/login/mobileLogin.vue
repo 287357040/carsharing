@@ -59,10 +59,10 @@ export default {
             if (!loginCheck) {
                 return;
             }
-            apiHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (res) => {
-                if (res.loginStatus == "1") {
+            apiHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (data) => {
+                if (data.res == 1) {
                     this.$router.push({ path: '/home' });
-                    Store.save(res);
+                    Store.save(data.obj);
                 } else {
                     alert('请正确填写员工号和手机号！');
                     this.userNo = '';

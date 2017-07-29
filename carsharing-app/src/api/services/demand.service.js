@@ -28,11 +28,20 @@ export default {
     getRideDemandsByRouteId: () => {
 
     },
-    matchRideDemandsByRoute: (cb) => {
-        Vue.http.post('/api/getList')
+    matchRideDemandsByRoute: (route,cb) => {
+        Vue.http.post(matchRideDemandsByRouteUrl,
+            {
+                'endArea': route.endArea,
+                'endLongitude': route.endLongitude,                
+                'endLatitude': route.endLatitude,
+                'startTime':route.startTime,
+                'riderCount':route.riderCount,
+                'waitTime':route.waitTime
+            })
             .then(
             (response) => {
-                cb(response);
+                if (response)
+                    cb(response.data);
             }, (response) => {
                 // 响应错误回调
             })
