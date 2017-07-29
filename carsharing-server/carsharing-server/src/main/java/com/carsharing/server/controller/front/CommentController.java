@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/front/comment")
 public class CommentController extends AbstractController {
-    private Logger lo = Logger.getLogger(UserController.class);
+    private Logger lo = Logger.getLogger(CommentController.class);
     @Resource
     private CommentService commentService;
     /**
@@ -69,12 +69,13 @@ public class CommentController extends AbstractController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST},value = "/getCommentByRouteId")
-    public JsonResponse<String> getCommentByRouteId(int routeId, HttpServletRequest request){
-        JsonResponse<String> result = new JsonResponse<String>(SystemCode.FAILURE);
+    public JsonResponse<List<Comment>> getCommentByRouteId(int routeId, HttpServletRequest request){
+        JsonResponse<List<Comment>> result = new JsonResponse<List<Comment>>(SystemCode.FAILURE);
 
         try {
           List<Comment> commentList=  commentService.selectByRouteId(routeId);
             result.setRes(SystemCode.SUCCESS);
+            result.setObj(commentList);
         }
         catch (Exception e)
         {
@@ -89,13 +90,14 @@ public class CommentController extends AbstractController {
      * 查看评论，通过routeId
      * @return
      */
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST},value = "/getCommentByRouteId")
-    public JsonResponse<String> getCommentByDemandId(int demandId, HttpServletRequest request){
-        JsonResponse<String> result = new JsonResponse<String>(SystemCode.FAILURE);
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST},value = "/getCommentByDemandId")
+    public JsonResponse<List<Comment>> getCommentByDemandId(int demandId, HttpServletRequest request){
+        JsonResponse<List<Comment>> result = new JsonResponse<List<Comment>>(SystemCode.FAILURE);
 
         try {
             List<Comment> commentList=  commentService.selectByDemandId(demandId);
             result.setRes(SystemCode.SUCCESS);
+            result.setObj(commentList);
         }
         catch (Exception e)
         {

@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/front/driver")
 public class DriverController extends AbstractController {
-    private Logger lo = Logger.getLogger(UserController.class);
+    private Logger lo = Logger.getLogger(DriverController.class);
     @Resource
     private DriverService driverService;
 
