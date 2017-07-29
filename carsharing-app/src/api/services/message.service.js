@@ -4,14 +4,32 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
-import { getMessageUrl } from '@/api/http/host.config'
+import {
+  getMessageUrl,
+  UpdateMessageUrl
+} from '@/api/http/host.config'
 export default {
-  getMessageInfoList: callback => {
-    Vue.http.get("/api/getMessageInfoList").then(
-      res => {
-        callback(res.data.data);
-      },
-      respose => {}
-    );
+  getMessageInfoList: (success, err) => {
+    Vue.http.get(getMessageUrl)
+      .then(
+      (response) => {
+        HttpResHelper.resHandle(response, success, err);
+      }, (response) => {
+        // 响应错误回调
+        HttpResHelper.resHandle(response, success, err);
+      })
+  },
+  UpdateMessageState: (state, success, err) => {
+    // state 0 ：未读 1：已读 2删除
+    Vue.http.post(UpdateMessageUrl, {
+      'state': state
+    }).then(
+      (response) => {
+        HttpResHelper.resHandle(response, success, err);
+      }, (response) => {
+        // 响应错误回调
+        HttpResHelper.resHandle(response, success, err);
+      })
   }
+
 };
