@@ -1,7 +1,6 @@
 package com.carsharing.server.mapper;
 
 import com.carsharing.server.entity.Comment;
-import com.carsharing.server.entity.Driver;
 
 import java.util.List;
 

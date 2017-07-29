@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by hucl on 2017/7/12.
  */
-public interface CommentService extends BaseService<Driver> {
+public interface CommentService extends BaseService<Comment> {
 
     public void insertService(Comment Comment);
     public void deleteService(int comment_id);
