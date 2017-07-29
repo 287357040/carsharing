@@ -36,6 +36,13 @@
         from t_demand
         where route_id = #{route_id,jdbcType=INTEGER}
     </select>
+    <select id="getRideDemandsByState" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_demand
+        where state = #{state,jdbcType=INTEGER}
+        order by add_time
+    </select>
 
     <insert id="insertSelective" parameterType="com.carsharing.server.entity.RideDemand">
         insert into t_demand

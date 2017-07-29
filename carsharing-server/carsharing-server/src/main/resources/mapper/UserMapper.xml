@@ -17,7 +17,7 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		user_no, user_name,password, sex,birth,carpool_count.order_count, department,is_driver,mobile, create_time
+		user_no, user_name,password, sex,birth,carpool_count,order_count, department,is_driver,mobile, create_time
 		,update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -98,36 +98,33 @@
 			</if>
 		</trim>
 	</insert>
-	<!--<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">-->
-		<!--update t_user-->
-		<!--<set>-->
-			<!--<if test="openid != null">-->
-				<!--openid = #{openid,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="nickname != null">-->
-				<!--nickname = #{nickname,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="headimgurl != null">-->
-				<!--headimgurl = #{headimgurl,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="sex != null">-->
-				<!--sex = #{sex,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="phone != null">-->
-				<!--phone = #{phone,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="createTime != null">-->
-				<!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
-			<!--</if>-->
-			<!--<if test="state != null">-->
-				<!--state = #{state,jdbcType=TINYINT},-->
-			<!--</if>-->
-			<!--<if test="updateTime != null">-->
-				<!--update_time = #{updateTime,jdbcType=TIMESTAMP},-->
-			<!--</if>-->
-		<!--</set>-->
-		<!--where user_id = #{userId,jdbcType=INTEGER}-->
-	<!--</update>-->
+	<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">
+		update t_user
+		<set>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="department != null">
+				department = #{department,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where user_no = #{userNo,jdbcType=INTEGER}
+	</update>
 	<!--<update id="updatePhone">-->
 		<!--update t_user-->
 		<!--set phone = #{phone,jdbcType=VARCHAR}-->

@@ -42,4 +42,9 @@ public class RideDemandServiceImpl extends BaseServiceImpl<RideDemand> implement
 
         return rideDemandMapper.getRideDemandsByRouteId(routeId);
     }
+
+    @Override
+    public List<RideDemand> getRideDemandsByState(int state) {
+        return rideDemandMapper.getRideDemandsByState(state);
+    }
 }

@@ -10,5 +10,4 @@ import java.util.List;
  */
 public interface RideRouteMapper extends BaseDao<RideRoute> {
 
-
 }
