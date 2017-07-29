@@ -23,5 +23,13 @@ export default {
         },(respose)=>{
 
         });
-    }
+    },
+    getDriverEvaluation: callback => {
+    Vue.http.get("/api/getDriverEvaluation").then(
+      res => {
+        callback(res.data.data);
+      },
+      respose => {}
+    );
+  }
 }

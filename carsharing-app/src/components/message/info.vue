@@ -1,8 +1,6 @@
-//个人信息
 <template>
     <div class="mine-container mine-container-bgcolor">
         <OHeader v-bind:headerText="headerText" />
-        <div class="submit-btn">提交</div>
         <div class="infolist" v-for="item in messageInfoList" v-bind:key="item" @click="show_detail(item)">
             <div class="icon"></div>
             <div class="info-content">
@@ -20,7 +18,7 @@ import messageService from '@/api/services/message.service'
 export default {
     data() {
         return {
-            headerText: "信息",
+            headerText: "消息列表",
             messageInfoList: []
         }
     }

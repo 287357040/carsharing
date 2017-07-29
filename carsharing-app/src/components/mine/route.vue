@@ -20,6 +20,10 @@
         </span>
       </mt-field>
       </a>
+  
+      <div class="password-btn">
+        <mt-button @click.stop="savePassword">保存</mt-button>
+      </div>
     </div>
   </div>
 </template>

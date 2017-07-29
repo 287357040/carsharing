@@ -11,6 +11,8 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
+var bodyParser = require('body-parser')
+var multer = require('multer')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -21,6 +23,9 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+//app.use(multer()); // for parsing multipart/form-data
 
 var appData = require('../data.json');
 var friendList = appData.friendList;
@@ -28,6 +33,8 @@ var historyOrderList = appData.historyOrderList;
 var currentOrder = appData.currentOrder;
 var commentList = appData.commentList;
 var messageInfoList = appData.messageInfoList;
+var driverEvaluation = appData.driverEvaluation;
+var userVO = appData.UserVO;
 var apiRoutes = express.Router();
 apiRoutes.post('/getList', function (req, res) {
   res.json({
@@ -56,10 +63,27 @@ apiRoutes.get('/getCommentList', function (req, res) {
     data: commentList
   })
 });
+apiRoutes.get('/getDriverEvaluation', function (req, res) {
+  res.json({
+    data: commentList
+  })
+});
 apiRoutes.get('/getMessageInfoList', function (req, res) {
   res.json({
-    data: messageInfoList
+    data: driverEvaluation
   })
+});
+apiRoutes.post('/loginByCode', function (req, res) {
+   if (req.body.userNo == userVO.userNo && req.body.mobile == userVO.mobile && req.body.code == "2") {
+     res.json({ data:{
+       model : userVO,
+       loginStatus : "1"
+     }});
+   } else {
+     res.json({ data:{
+       loginStatus : "0"
+     }});
+   }
 });
 
 
