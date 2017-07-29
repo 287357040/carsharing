@@ -84,15 +84,20 @@ export default {
         }
     },
     methods: {
-        addToCar: () => {
+        addToCar: function() {
             var driverName = '龚小敏';
-            console.log(driverName);
             MessageBox({
-                title: '您确定要加入'+driverName+'的车吗？',
+                title: '您确定要加入' + driverName + '的车吗？',
                 message: '人数',
                 showInput: true,
+                inputType: 'number',
                 showCancelButton: true
-            });
+            }).then(
+                action => {
+                    if (action == 'confirm') {
+                        this.$router.push({ path: '/order' });
+                    }
+                });
         }
     }
 }

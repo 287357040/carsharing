@@ -14,8 +14,12 @@ import feedback from '@/components/mine/feedback'
 import route from '@/components/mine/route'
 import valuation from '@/components/mine/valuation'
 import order from '@/components/mine/order'
+<<<<<<< HEAD
+import message from '@/components/message/info'
+=======
 import message  from '@/components/message/info'
 import details  from '@/components/message/details'
+>>>>>>> f2d39911a18a5a3ec20ac0d505c879d328926b59
 
 Vue.use(Router);
 
@@ -64,40 +68,43 @@ export default new Router({
       name: 'password',
       component: password
     },
-     {
+    {
       path: '/guide',
       name: 'guide',
       component: guide
     },
-     {
+    {
       path: '/friend',
       name: 'friend',
       component: friend
     },
-     {
+    {
       path: '/feedback',
       name: 'feedback',
       component: feedback
     },
-     {
+    {
       path: '/route',
       name: 'route',
       component: route
     },
-     {
+    {
       path: '/valuation',
       name: 'valuation',
       component: valuation
     },
-     {
+    {
       path: '/order',
       name: 'order',
       component: order
-     },
+    },
     {
       path: '/message',
       name: 'message',
       component: message
+<<<<<<< HEAD
+    }
+=======
     },
     {
       path: '/details',
@@ -105,5 +112,6 @@ export default new Router({
       component: details
     }  
 
+>>>>>>> f2d39911a18a5a3ec20ac0d505c879d328926b59
   ]
 })

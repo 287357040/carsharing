@@ -40,9 +40,10 @@ public class UserController extends AbstractController {
                 // by yucs
                 if (SessionUtil.getUser(request) == null) {
                     lo.info("用户为空...");
-                    User user = userService.getOneByPhone(frmUser.getMobile());
+                    User user = userService.selectByPrimaryKey(frmUser.getUserNo());
                     if (user == null) {
                         User model = new User();
+                        model.setIsFirst(true);
                         model.setUserNo(frmUser.getUserNo());
                         model.setMobile(frmUser.getMobile());
                         model.setCreateTime(new Date());
@@ -52,6 +53,7 @@ public class UserController extends AbstractController {
                         SessionUtil.setUser(request, model);
                         result.setObj(model);
                     } else {
+                        user.setIsFirst(false);
                         SessionUtil.setUser(request, user);
                         result.setObj(user);
                     }
@@ -151,36 +153,27 @@ public class UserController extends AbstractController {
     }
 
     /**
-     * @param oldPasswrod
-     * @param newPassword
+     * @param password
      * @param request
      * @return String
      * 用户登录后，设置用户信息
      */
     @RequestMapping(method = {RequestMethod.POST}, value = "/changePassword")
-    public JsonResponse<String> changePassword(String oldPasswrod, String newPassword, HttpServletRequest request) {
+    public JsonResponse<String> changePassword(@RequestParam("password") String password, HttpServletRequest request) {
 
         JsonResponse<String> result = new JsonResponse<String>(SystemCode.FAILURE);
         User baseUser = SessionUtil.getUser(request);
 
         User serveUser = userService.selectByPrimaryKey(baseUser.getUserNo());
-
-        if (null != serveUser.getPassword()) {
-            // 如果现有密码与旧密码一致
-            if (oldPasswrod.equals(serveUser.getPassword())) {
-                serveUser.setPassword(newPassword);
-
-                try {
-                    userService.updateByPrimaryKeySelective(serveUser);
-                    result.setRes(SystemCode.SUCCESS);
-                } catch (Exception e) {
-                    lo.error("修改密码失败", e);
-                    logError(request, "[修改密码失败]", e);
-                }
-            } else {
-                result.setRes(SystemCode.WRONG_PASSWORD);
-            }
+        serveUser.setPassword(password);
+        try {
+            userService.updateByPrimaryKeySelective(serveUser);
+            result.setRes(SystemCode.SUCCESS);
+        } catch (Exception e) {
+            lo.error("修改密码失败", e);
+            logError(request, "[修改密码失败]", e);
         }
+
         return result;
     }
 

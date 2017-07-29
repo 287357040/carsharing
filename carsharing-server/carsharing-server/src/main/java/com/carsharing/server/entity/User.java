@@ -2,13 +2,14 @@ package com.carsharing.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
-    private String userNo;
+   @Id private String userNo;
 
     private  String userName;
 
@@ -27,6 +28,8 @@ public class User implements Serializable {
     private String department;
 
     private boolean isDriver;
+
+    private boolean isFirst;
 
     private  int addressId;
 
@@ -150,4 +153,11 @@ public class User implements Serializable {
         this.image = image;
     }
 
+    public boolean getIsFirst() {
+        return isFirst;
+    }
+
+    public void setIsFirst(boolean first) {
+        isFirst = first;
+    }
 }

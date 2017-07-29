@@ -83,9 +83,8 @@ public class RideRouteController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/matchRideRouteByDemand")
-    public JsonResponse<List<RideRoute>> matchRideRouteByDemand(RideRoute demand) {
+    public JsonResponse<List<RideRoute>> matchRideRouteByDemand(RideDemand demand) {
         JsonResponse<List<RideRoute>> result = new JsonResponse<List<RideRoute>>(SystemCode.FAILURE);
-
         return result;
     }
 }
