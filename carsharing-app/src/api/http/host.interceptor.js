@@ -3,22 +3,21 @@
  */
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import {API_ROOT} from './host.config'
+import { API_ROOT } from './host.config'
 
 Vue.use(VueResource)
 Vue.http.options.crossOrigin = true //表示是否跨域
 Vue.http.options.credentials = true //表示跨域请求时是否需要凭证
-Vue.http.options.xhr = {withCredentials: true}
+Vue.http.options.xhr = { withCredentials: true }
 Vue.http.options.root = '/root'
 
+Vue.http.options.emulateJSON = true;
 //Vue.http.headers.common['bbb'] = 'bbb'
 
 Vue.http.interceptors.push((request, next) => {
     //这里对请求体进行处理
     if (request.method != 'GET') {
-        request.headers = request.headers || {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        }
+        request.headers = request.headers || {}
     }
 
     request.credentials = true;

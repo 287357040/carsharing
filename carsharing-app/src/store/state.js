@@ -41,5 +41,6 @@ export default {
       VerificationNum: ''
     }],
   navList: navList,
-  cityList: cityList
+  cityList: cityList,
+  isLogin:0, 
 }

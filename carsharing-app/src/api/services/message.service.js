@@ -22,7 +22,7 @@ export default {
   UpdateMessageState: (state, success, err) => {
     // state 0 ：未读 1：已读 2删除
     Vue.http.post(UpdateMessageUrl, {
-      'state': state
+      state: state
     }).then(
       (response) => {
         HttpResHelper.resHandle(response, success, err);

@@ -4,6 +4,7 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
+import { HttpResHelper } from '../'
 import {
     addCommentUrl,
     delCommentUrl,
@@ -13,8 +14,8 @@ export default {
     addComment: (comment,success,err) => {
         Vue.http.post(addCommentUrl,
             {
-                'remandId': comment.remandId,
-                'content': comment.content
+                remandId: comment.remandId,
+                content: comment.content
             })
             .then(
             (response) => {
@@ -27,7 +28,7 @@ export default {
     delComment: (commendId,success,err) => {
         Vue.http.post(delCommentUrl,
             {
-                'remandId': commendId
+                remandId: commendId
             })
             .then(
             (response) => {

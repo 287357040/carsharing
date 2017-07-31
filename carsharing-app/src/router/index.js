@@ -19,10 +19,10 @@ import details  from '@/components/message/details'
 import accountInfo  from '@/components/setting/accountInfo'
 import mobileNum  from '@/components/setting/mobileNum'
 import nickName  from '@/components/setting/nickName'
-
+import store from '../store' 
 Vue.use(Router);
 
-export default new Router({
+var router = new Router({
   mode: 'history',
   routes: [
     {
@@ -32,7 +32,8 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: home
+      component: home,
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
@@ -43,81 +44,116 @@ export default new Router({
     {
       path: '/awaitStatus',
       component: awaitStatus,
+      meta: { requiresAuth: true }
     },
 
     {
       path: '/owner',
       name: 'owner',
-      component: owner
+      component: owner,
+      meta: { requiresAuth: true }
     },
     {
       path: '/plateNum',
-      component: plateNum
+      component: plateNum,
+      meta: { requiresAuth: true }
     },
     {
       path: '/brandModel',
-      component: brandModel
+      component: brandModel,
+      meta: { requiresAuth: true }
     },
     {
       path: '/accountInfo',
-      component: accountInfo
+      component: accountInfo,
+      meta: { requiresAuth: true }
     },
     {
       path: '/mobileNum',
-      component: mobileNum
+      component: mobileNum,
+      meta: { requiresAuth: true }
     },
     {
       path: '/nickName',
-      component: nickName
+      component: nickName,
+      meta: { requiresAuth: true }
     },
     {
       path: '/mapLocation',
-      component: mapLocation
+      component: mapLocation,
+      meta: { requiresAuth: true }
     },
     {
       path: '/password',
       name: 'password',
-      component: password
+      component: password,
+      meta: { requiresAuth: true }
     },
     {
       path: '/guide',
       name: 'guide',
-      component: guide
+      component: guide,
+      meta: { requiresAuth: true }
     },
     {
       path: '/friend',
       name: 'friend',
-      component: friend
+      component: friend,
+      meta: { requiresAuth: true }
     },
     {
       path: '/feedback',
       name: 'feedback',
-      component: feedback
+      component: feedback,
+      meta: { requiresAuth: true }
     },
     {
       path: '/route',
       name: 'route',
-      component: route
+      component: route,
+      meta: { requiresAuth: true }
     },
     {
       path: '/valuation',
       name: 'valuation',
-      component: valuation
+      component: valuation,
+      meta: { requiresAuth: true }
     },
     {
       path: '/order',
       name: 'order',
-      component: order
+      component: order,
+      meta: { requiresAuth: true }
     },
     {
       path: '/message',
       name: 'message',
-      component: message
+      component: message,
+      meta: { requiresAuth: true }
     },
     {
       path: '/details',
       name: 'details',
-      component: details
+      component: details,
+      meta: { requiresAuth: true }
     }  
   ]
 })
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (store.state.isLogin==0) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
+})
+
+export default router 

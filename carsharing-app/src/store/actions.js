@@ -153,5 +153,8 @@ export default {
   },
   close_autocompletelist({ commit }) {
     commit('CLOSE_AUTOCOMPLETELIST')
+  },
+  set_login_state({commit},data){
+    commit('SET_LOGIN_STATE',data)     
   }
 }

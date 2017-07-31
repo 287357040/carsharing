@@ -17,19 +17,19 @@ export default {
     publishNewRoute: (route, success, err) => {
         Vue.http.post(publishNewRouteUrl,
             {
-                'startArea':route.startArea, // 起始区县
-                'endArea': route.endArea, // 终点区县
-                'startPlace':route.startPlace, // 起始地址
-                'startLongitude':route.startLongitude, // 起始经度
-                'startLatitude':route.startLatitude, // 起始纬度
-                'endPlace': route.endPlace, // 终点地址
-                'endLongitude': route.endLongitude, // 终点经度
-                'endLatitude': route.endLatitude, // 终点纬度
-                'startTime': route.startTime, // 发车时间
-                'takeCount': route.riderCount, // 车座位数量 默认4
-                'waitTime': route.waitTime, // 能够等待时间
-                'describe': route.describe, // 备注
-                'isHome':route.isHome // 是否到家服务 默认 0
+                startArea:route.startArea, // 起始区县
+                endArea: route.endArea, // 终点区县
+                startPlace:route.startPlace, // 起始地址
+                startLongitude:route.startLongitude, // 起始经度
+                startLatitude:route.startLatitude, // 起始纬度
+                endPlace: route.endPlace, // 终点地址
+                endLongitude: route.endLongitude, // 终点经度
+                endLatitude: route.endLatitude, // 终点纬度
+                startTime: route.startTime, // 发车时间
+                takeCount: route.riderCount, // 车座位数量 默认4
+                waitTime: route.waitTime, // 能够等待时间
+                describe: route.describe, // 备注
+                isHome:route.isHome // 是否到家服务 默认 0
             })
             .then(
             (response) => {
@@ -42,7 +42,7 @@ export default {
     deleteRoute: (routeId, success, err) => {
         Vue.http.post(deleteRouteUrl,
             {
-                'routeId': routeId
+                routeId: routeId
             })
             .then(
             (response) => {
@@ -55,7 +55,7 @@ export default {
     startRoute: (routeId, success, err) => {
         Vue.http.post(startRouteUrl,
             {
-                'routeId': routeId
+                routeId: routeId
             })
             .then(
             (response) => {
@@ -68,7 +68,7 @@ export default {
     finishRoute: (routeId, success, err) => {
         Vue.http.post(finishRouteUrl,
             {
-                'routeId': routeId
+                routeId: routeId
             })
             .then(
             (response) => {
@@ -81,14 +81,14 @@ export default {
     matchRideRoutesByDemand: (demand, success, err) => {
         Vue.http.post(matchRideRoutesByDemandUrl,
             {
-                'endArea': demand.endArea,
-                'endPlace': demand.endPlace,
-                'endLongitude': demand.endLongitude,
-                'endLatitude': demand.endLatitude,
-                'startTime': demand.startTime,
-                'riderCount': demand.riderCount,
-                'waitTime': demand.waitTime,
-                'rewards': demand.rewards
+                endArea: demand.endArea,
+                endPlace: demand.endPlace,
+                endLongitude: demand.endLongitude,
+                endLatitude: demand.endLatitude,
+                startTime: demand.startTime,
+                riderCount: demand.riderCount,
+                waitTime: demand.waitTime,
+                rewards: demand.rewards
             })
             .then(
             (response) => {

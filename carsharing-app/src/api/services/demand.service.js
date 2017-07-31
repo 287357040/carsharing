@@ -4,6 +4,7 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
+import { HttpResHelper } from '../'
 import {
     publishRideDemandUrl,
     deleteRideDemandUrl,
@@ -16,20 +17,20 @@ export default {
     publishRideDemand: (demand, success, err) => {
         Vue.http.post(publishRideDemandUrl,
             {
-                'startArea': demand.startArea, // 起始区县
-                'endArea': demand.endArea, // 终点区县
-                'startPlace': demand.startPlace, // 起始地址
-                'startLongitude': demand.startLongitude, // 起始经度
-                'startLatitude': demand.startLatitude, // 起始纬度
-                'endPlace': demand.endPlace, // 终点地址
-                'endLongitude': demand.endLongitude, // 终点经度
-                'endLatitude': demand.endLatitude, // 终点纬度
-                'startTime': demand.startTime, // 发车时间
-                'riderCount': demand.riderCount, // 车座位数量 默认4
-                'waitTime': demand.waitTime, // 能够等待时间
-                'describe': demand.describe, // 备注
-                'rewards': demand, rewards, // 打赏金 
-                'isHome': demand.isHome // 是否到家服务 默认 0
+                startArea: demand.startArea, // 起始区县
+                endArea: demand.endArea, // 终点区县
+                startPlace: demand.startPlace, // 起始地址
+                startLongitude: demand.startLongitude, // 起始经度
+                startLatitude: demand.startLatitude, // 起始纬度
+                endPlace: demand.endPlace, // 终点地址
+                endLongitude: demand.endLongitude, // 终点经度
+                endLatitude: demand.endLatitude, // 终点纬度
+                startTime: demand.startTime, // 发车时间
+                riderCount: demand.riderCount, // 车座位数量 默认4
+                waitTime: demand.waitTime, // 能够等待时间
+                describe: demand.describe, // 备注
+                rewards: demand, rewards, // 打赏金 
+                isHome: demand.isHome // 是否到家服务 默认 0
             })
             .then(
             (response) => {
@@ -42,7 +43,7 @@ export default {
     deleteRideDemand: (remandId, success, err) => {
         Vue.http.post(deleteRideDemandUrl,
             {
-                'remandId': remandId
+                remandId: remandId
             })
             .then(
             (response) => {
@@ -70,7 +71,7 @@ export default {
         // state -1 时为全查
         Vue.http.post(getRideDemandsUrl,
             {
-                'state': state
+                state: state
             })
             .then(
             (response) => {
@@ -83,7 +84,7 @@ export default {
     getRideDemandsByRouteId: (routeId,success, err) => {
         Vue.http.post(getRideDemandsByRouteIdUrl,
             {
-                'routeId': routeId
+                routeId: routeId
             })
             .then(
             (response) => {
@@ -96,12 +97,12 @@ export default {
     matchRideDemandsByRoute: (route, cb) => {
         Vue.http.post(matchRideDemandsByRouteUrl,
             {
-                'endArea': route.endArea,
-                'endLongitude': route.endLongitude,
-                'endLatitude': route.endLatitude,
-                'startTime': route.startTime,
-                'riderCount': route.riderCount,
-                'waitTime': route.waitTime
+                endArea: route.endArea,
+                endLongitude: route.endLongitude,
+                endLatitude: route.endLatitude,
+                startTime: route.startTime,
+                riderCount: route.riderCount,
+                waitTime: route.waitTime
             })
             .then(
             (response) => {

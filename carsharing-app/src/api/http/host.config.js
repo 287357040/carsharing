@@ -1,7 +1,7 @@
 /**
  * Created by lmz on 2017/7/11.
  */
-const IP = 'http://localhost:8080';
+const IP = 'http://47.94.194.81:8080/carsharing';
 export const API_ROOT = (process.env.NODE_ENV === 'production') ? IP : IP;
 
 //用户手机验证码登录
@@ -62,7 +62,7 @@ export const matchRideDemandsByRouteUrl = API_ROOT + '/front/demand/matchRideDem
 export const publishNewRouteUrl = API_ROOT + '/front/route/publishNewRoute';
 
 //司机取消自己的拼车路线
-export const deleteRouteUrl = API_ROOT + '/front/route/deleteRoute'; 
+export const deleteRouteUrl = API_ROOT + '/front/route/deleteRoute';
 
 //司机开始拼车订单
 export const startRouteUrl = API_ROOT + '/front/route/startRoute';
@@ -94,6 +94,7 @@ export const getCommentUrl = API_ROOT + '/front/comment/getComment';
 
 //查看信息
 export const getMessageUrl = API_ROOT + '/front/message/getMessage';
-
+//更新状态信息
+export const UpdateMessageUrl = API_ROOT + '/front/message/UpdateMessage';
 //查看我的订单列表
 export const getOrderUrl = API_ROOT + '/front/message/getOrder';

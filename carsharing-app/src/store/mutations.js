@@ -16,12 +16,12 @@ const TELEPHONE_INPUT = 'TELEPHONE_INPUT',
   CHOOSER_ADDRESS = 'CHOOSER_ADDRESS',
   CLOSE_LOCATION_ERROR = 'CLOSE_LOCATION_ERROR',
   WEB_ERROR = 'WEB_ERROR',
-  CLOSE_AUTOCOMPLETELIST = 'CLOSE_AUTOCOMPLETELIST';
-
+  CLOSE_AUTOCOMPLETELIST = 'CLOSE_AUTOCOMPLETELIST',
+  SET_LOGIN_STATE = 'SET_LOGIN_STATE';
 export default {
   // 手机输入登录
   [TELEPHONE_INPUT](state) {
-      state.usersidebar = true
+    state.usersidebar = true
   },
   // 关闭遮罩层
   [CLOSE_MASK](state) {
@@ -110,7 +110,7 @@ export default {
     // state.city = result.addressComponent.city
   },
   // 选址
-  [CHOOSER_ADDRESS](state, index){
+  [CHOOSER_ADDRESS](state, index) {
     if (state.startOrEnd == 'getOn') {
       state.address.start = state.autocompleteList[index].name
     } else {
@@ -118,11 +118,14 @@ export default {
     }
   },
   // 关闭定位错误提示
-  [CLOSE_LOCATION_ERROR] (state) {
+  [CLOSE_LOCATION_ERROR](state) {
     state.ismask = false
     state.location = false
   },
-  [CLOSE_AUTOCOMPLETELIST] (state) {
+  [CLOSE_AUTOCOMPLETELIST](state) {
     state.autocompleteList = []
+  },
+  [SET_LOGIN_STATE](state,data){
+    state.isLogin  = data;
   }
 }
