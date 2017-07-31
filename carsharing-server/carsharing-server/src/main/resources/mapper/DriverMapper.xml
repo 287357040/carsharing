@@ -17,7 +17,7 @@
 	<sql id="Base_Column_List">
 		user_no, user_name,region, car_license,user_license,license_date,valid_date, car_no,color,brand, model
 	</sql>
-	<select id="selectByUserNo" resultMap="BaseResultMap"
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 			parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -33,7 +33,7 @@
 			<if test="userName != null">
 				user_name,
 			</if>
-			<if test="Region != null">
+			<if test="region != null">
 				region,
 			</if>
 			<if test="carLicense != null">
@@ -71,20 +71,20 @@
 			<if test="region != null">
 				#{region,jdbcType=VARCHAR},
 			</if>
-			<if test="car_license != null">
+			<if test="carLicense != null">
 				#{carLicense,jdbcType=VARCHAR},
 			</if>
-			<if test="user_license != null">
+			<if test="userLicense != null">
 				#{userLicense,jdbcType=VARCHAR},
 			</if>
-			<if test="license_date != null">
+			<if test="licenseDate != null">
 				#{licenseDate,jdbcType=TIMESTAMP},
 			</if>
-			<if test="valid_date != null">
+			<if test="validDate != null">
 				#{validDate,jdbcType=TIMESTAMP},
 			</if>
 
-			<if test="car_no != null">
+			<if test="carNo != null">
 				#{carNo,jdbcType=VARCHAR},
 			</if>
 			<if test="color != null">
@@ -131,47 +131,5 @@
 		</set>
 		where user_no = #{userNo,jdbcType=VARCHAR}
 	</update>
-	<!--<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">-->
-		<!--update t_user-->
-		<!--<set>-->
-			<!--<if test="openid != null">-->
-				<!--openid = #{openid,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="nickname != null">-->
-				<!--nickname = #{nickname,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="headimgurl != null">-->
-				<!--headimgurl = #{headimgurl,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="sex != null">-->
-				<!--sex = #{sex,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="phone != null">-->
-				<!--phone = #{phone,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="createTime != null">-->
-				<!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
-			<!--</if>-->
-			<!--<if test="state != null">-->
-				<!--state = #{state,jdbcType=TINYINT},-->
-			<!--</if>-->
-			<!--<if test="updateTime != null">-->
-				<!--update_time = #{updateTime,jdbcType=TIMESTAMP},-->
-			<!--</if>-->
-		<!--</set>-->
-		<!--where user_id = #{userId,jdbcType=INTEGER}-->
-	<!--</update>-->
-	<!--<update id="updatePhone">-->
-		<!--update t_user-->
-		<!--set phone = #{phone,jdbcType=VARCHAR}-->
-		<!--where openid = #{openid,jdbcType=VARCHAR}-->
-	<!--</update>-->
-	<!--&lt;!&ndash; 查询所有的前端用户 程序内部使用 &ndash;&gt;-->
-	<!--<select id="getAllFrontUser" resultType="java.lang.String">-->
-		<!--select-->
-		<!--GROUP_CONCAT(user_id)-->
-		<!--from t_user-->
-		<!--where state= 1-->
-	<!--</select>-->
 
 </mapper>

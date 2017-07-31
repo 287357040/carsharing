@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by hucl on 2017/7/19.
@@ -31,12 +32,34 @@ public class UserAddressController extends AbstractController {
     @Resource
     private UserAddressService userAddressService;
 
+
+    /**
+     * 查询员工地址
+     * @return
+     */
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/queryAddress")
+    public JsonResponse<List<UserAddress>> queryAddress(HttpServletRequest request) {
+
+        JsonResponse<List<UserAddress>> result = new JsonResponse<List<UserAddress>>(SystemCode.FAILURE);
+        User user = SessionUtil.getUser(request);
+
+        try{
+            List<UserAddress> addrs = userAddressService.queryAddress(user.getUserNo());
+            result.setObj(addrs);
+            result.setRes(SystemCode.SUCCESS);
+        }catch(Exception e){
+            lo.error("修改地址失败", e);
+            logError(request, "[修改地址失败]", e);
+        }
+        return result;
+    }
+
     /**
      * 新增员工常用地址
      * @return
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/addNewAddress")
-    public JsonResponse<Integer> addNewAddress(@RequestBody UserAddress userAddress, HttpServletRequest request) {
+    public JsonResponse<Integer> addNewAddress(UserAddress userAddress, HttpServletRequest request) {
         JsonResponse<Integer> result = new JsonResponse<Integer>(SystemCode.FAILURE);
         User user = SessionUtil.getUser(request);
         if (userAddress == null) {
@@ -61,7 +84,7 @@ public class UserAddressController extends AbstractController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/updateAddress")
-    public JsonResponse<Integer> updateAddress(@RequestBody UserAddress userAddress, HttpServletRequest request) {
+    public JsonResponse<Integer> updateAddress(UserAddress userAddress, HttpServletRequest request) {
 
         JsonResponse<Integer> result = new JsonResponse<Integer>(SystemCode.FAILURE);
         User user = SessionUtil.getUser(request);

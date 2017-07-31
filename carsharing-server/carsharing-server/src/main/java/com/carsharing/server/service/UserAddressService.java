@@ -10,5 +10,6 @@ import java.util.List;
  * Created by hucl on 2017/7/21.
  */
 public interface UserAddressService extends BaseService<UserAddress>{
-    public UserAddress getAddressByUserNo(String userNo);
+
+    List<UserAddress> queryAddress(String userNo);
 }

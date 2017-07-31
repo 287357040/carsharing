@@ -14,5 +14,4 @@ public interface DriverService extends BaseService<Driver> {
     public void insertService(Driver driver);
     public void updateService(Driver driver);
 
-    public List<Driver> selectByUserNo(String userNo);
 }

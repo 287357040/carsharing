@@ -6,23 +6,21 @@ import com.carsharing.server.entity.RideDemand;
 import com.carsharing.server.entity.RideRoute;
 import com.carsharing.server.entity.User;
 import com.carsharing.server.service.RideDemandService;
+import com.carsharing.server.service.UserService;
 import com.carsharing.server.util.JsonResponse;
 import com.carsharing.server.util.PositionUtil;
 import com.carsharing.server.util.SessionUtil;
 import com.carsharing.server.vo.RideDemandVo;
 import org.apache.log4j.Logger;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.Position;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by hucl on 2017/7/19.
@@ -36,15 +34,20 @@ public class RideDemandController extends AbstractController {
     @Resource
     private RideDemandService rideDemandService;
 
+    @Resource
+    private UserService userService;
     /**
      * 发布乘车需求
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/publishRideDemand")
-    public JsonResponse<Integer> publishRideRequirement(@RequestBody RideDemand demand, HttpServletRequest request) {
+    public JsonResponse<Integer> publishRideRequirement(RideDemand demand, HttpServletRequest request) {
 
         JsonResponse<Integer> result = new JsonResponse<Integer>(SystemCode.FAILURE);
 
+        User user = SessionUtil.getUser(request);
+
         try {
+            demand.setUserNo(user.getUserNo());
             rideDemandService.insertSelective(demand);
             result.setRes(SystemCode.SUCCESS);
         } catch (Exception e) {
@@ -157,10 +160,10 @@ public class RideDemandController extends AbstractController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/matchRideDemandsByRoute")
-    public JsonResponse<List<RideDemandVo>> matchRideDemandsByRoute(@RequestBody RideRoute route, HttpServletRequest request) {
+    public JsonResponse<List<RideDemandVo>> matchRideDemandsByRoute(RideRoute route, HttpServletRequest request) {
         JsonResponse<List<RideDemandVo>> result = new JsonResponse<List<RideDemandVo>>(SystemCode.FAILURE);
 
-        User user = SessionUtil.getUser(request);
+        User user = userService.selectByPrimaryKey( SessionUtil.getUser(request).getUserNo());
         // 先不从服务器去判断用户是否是司机
         if(!user.getIsDriver()){
             result.setRes(SystemCode.NO_PRI);
@@ -198,6 +201,7 @@ public class RideDemandController extends AbstractController {
             });
         }
         result.setObj(resDemandList);
+        result.setRes(SystemCode.SUCCESS);
         return result;
     }
 

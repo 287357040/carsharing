@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.carsharing.server.mapper.UserAddressMapper">
 	<resultMap id="BaseResultMap" type="com.carsharing.server.entity.UserAddress">
-		<id column="address_id" property="addresId" jdbcType="INTEGER" />
+		<id column="address_id" property="addressId" jdbcType="INTEGER" />
 		<result column="address_type" property="addressType" jdbcType="TINYINT" />
 		<result column="address" property="address" jdbcType="VARCHAR" />
 		<result column="area" property="area" jdbcType="VARCHAR" />
@@ -13,7 +13,7 @@
 	<sql id="Base_Column_List">
 		address_id, address_type,address, area,longitude,latitude,user_no
 	</sql>
-	<select id="getAddressByUserNo" resultMap="BaseResultMap"
+	<select id="queryAddressByUserNo" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -64,9 +64,9 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.UserAddress">
-		update t_user
+		update t_user_address
 		<set>
-			<if test="openid != null">
+			<if test="address != null">
 				address = #{address,jdbcType=VARCHAR},
 			</if>
 			<if test="area != null">

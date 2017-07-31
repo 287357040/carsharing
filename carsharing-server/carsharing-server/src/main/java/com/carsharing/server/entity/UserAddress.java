@@ -8,6 +8,7 @@ import java.util.Date;
 /**
  * Created by hucl on 2017/7/12.
  */
+@SuppressWarnings("serial")
 public class UserAddress implements Serializable {
     private int addressId;
 

@@ -17,13 +17,13 @@ public class User implements Serializable {
 
     private String mobile;
 
-    private int sex;
+    private Integer sex;
 
     private Date birth;
 
-    private int carpoolCount;
+    private Integer carpoolCount;
 
-    private  int orderCount;
+    private  Integer orderCount;
 
     private String department;
 
@@ -31,7 +31,7 @@ public class User implements Serializable {
 
     private boolean isFirst;
 
-    private  int addressId;
+    private  Integer addressId;
 
     private byte[] image;
 
@@ -73,11 +73,11 @@ public class User implements Serializable {
         this.mobile = mobile;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -89,19 +89,19 @@ public class User implements Serializable {
         this.birth = birth;
     }
 
-    public int getCarpoolCount() {
+    public Integer getCarpoolCount() {
         return carpoolCount;
     }
 
-    public void setCarpoolCount(int carpoolCount) {
+    public void setCarpoolCount(Integer carpoolCount) {
         this.carpoolCount = carpoolCount;
     }
 
-    public int getOrderCount() {
+    public Integer getOrderCount() {
         return orderCount;
     }
 
-    public void setOrderCount(int orderCount) {
+    public void setOrderCount(Integer orderCount) {
         this.orderCount = orderCount;
     }
 
@@ -121,11 +121,11 @@ public class User implements Serializable {
         isDriver = driver;
     }
 
-    public int getAddressId() {
+    public Integer getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Integer addressId) {
         this.addressId = addressId;
     }
 

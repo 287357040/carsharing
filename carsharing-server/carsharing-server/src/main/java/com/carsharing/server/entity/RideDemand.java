@@ -9,13 +9,14 @@ import java.util.Date;
  * Created by hucl on 2017/7/14.
  * 乘车需求实体
  */
+@SuppressWarnings("serial")
 public class RideDemand implements Serializable {
 
-    private int demandId;
+    private Integer demandId;
 
     private String userNo;
 
-    private  int routeId;
+    private  Integer routeId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date startTime;
@@ -46,21 +47,21 @@ public class RideDemand implements Serializable {
 
     private boolean isHome;
 
-    private int riderCount;
+    private Integer riderCount;
 
-    private int waitTime;
+    private Integer waitTime;
 
-    private int rewards;
+    private Integer rewards;
 
-    private int state;
+    private Integer state;
 
     private String describe;
 
-    public int getDemandId() {
+    public Integer getDemandId() {
         return demandId;
     }
 
-    public void setDemandId(int demandId) {
+    public void setDemandId(Integer demandId) {
         this.demandId = demandId;
     }
 
@@ -72,11 +73,11 @@ public class RideDemand implements Serializable {
         this.userNo = userNo;
     }
 
-    public int getRouteId() {
+    public Integer getRouteId() {
         return routeId;
     }
 
-    public void setRouteId(int routeId) {
+    public void setRouteId(Integer routeId) {
         this.routeId = routeId;
     }
 
@@ -192,35 +193,35 @@ public class RideDemand implements Serializable {
         isHome = home;
     }
 
-    public int getRiderCount() {
+    public Integer getRiderCount() {
         return riderCount;
     }
 
-    public void setRiderCount(int riderCount) {
+    public void setRiderCount(Integer riderCount) {
         this.riderCount = riderCount;
     }
 
-    public int getWaitTime() {
+    public Integer getWaitTime() {
         return waitTime;
     }
 
-    public void setWaitTime(int waitTime) {
+    public void setWaitTime(Integer waitTime) {
         this.waitTime = waitTime;
     }
 
-    public int getRewards() {
+    public Integer getRewards() {
         return rewards;
     }
 
-    public void setRewards(int rewards) {
+    public void setRewards(Integer rewards) {
         this.rewards = rewards;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 

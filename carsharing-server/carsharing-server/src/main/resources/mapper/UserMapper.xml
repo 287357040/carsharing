@@ -110,6 +110,9 @@
 			<if test="password != null">
 				password = #{password,jdbcType=VARCHAR},
 			</if>
+			<if test="isDriver != null">
+				is_driver = #{isDriver,jdbcType=VARCHAR},
+			</if>
 			<if test="sex != null">
 				sex = #{sex,jdbcType=VARCHAR},
 			</if>

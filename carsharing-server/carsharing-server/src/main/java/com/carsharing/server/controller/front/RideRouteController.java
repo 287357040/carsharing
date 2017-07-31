@@ -57,6 +57,7 @@ public class RideRouteController extends AbstractController {
             return result;
         }
         try {
+//            route.setUserNo(user.getUserNo());
             rideRouteService.insertSelective(route);
             result.setRes(SystemCode.SUCCESS);
         } catch (Exception e) {
@@ -132,7 +133,7 @@ public class RideRouteController extends AbstractController {
         }
         // state 需求单状态 0:发布中 未激活 1：发布中 已激活  2 取消发布 3:人数已满  4：执行中 5：完成
         // 需求状态>1时 不能执行
-        if (route.getState() != 1 || route.getState() != 3) {
+        if (route.getState() != 1 && route.getState() != 3) {
             result.setRes(SystemCode.PARAM_ERROR);
             return result;
         }
@@ -196,14 +197,12 @@ public class RideRouteController extends AbstractController {
      * @param demand 需求信息
      * @return
      */
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/matchRideRouteByDemand")
-    public JsonResponse<List<RideRouteVo>> matchRideRouteByDemand(RideDemand demand, HttpServletRequest request) {
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/matchRideRoutesByDemand")
+    public JsonResponse<List<RideRouteVo>> matchRideRoutesByDemand(RideDemand demand, HttpServletRequest request) {
         JsonResponse<List<RideRouteVo>> result = new JsonResponse<List<RideRouteVo>>(SystemCode.FAILURE);
 
         User user = SessionUtil.getUser(request);
-        // 先不从服务器去判断用户是否是司机
-        if(!user.getIsDriver()){
-            result.setRes(SystemCode.NO_PRI);
+        if(null == user){
             return result;
         }
         List<RideRouteVo> resRouteList = new ArrayList<RideRouteVo>();
@@ -237,6 +236,7 @@ public class RideRouteController extends AbstractController {
                 }
             });
         }
+        result.setRes(SystemCode.SUCCESS);
         result.setObj(resRouteList);
         return result;
     }

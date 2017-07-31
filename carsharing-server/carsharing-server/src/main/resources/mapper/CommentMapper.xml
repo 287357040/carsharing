@@ -48,19 +48,19 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="userName != null">
-				#{user_name,jdbcType=VARCHAR},
+				#{userName,jdbcType=VARCHAR},
 			</if>
 			<if test="content != null">
 				#{content,jdbcType=VARCHAR},
 			</if>
 			<if test="userNo != null">
-				#{user_no,jdbcType=VARCHAR},
+				#{userNo,jdbcType=VARCHAR},
 			</if>
 			<if test="demandId != null">
-				#{demand_id,jdbcType=VARCHAR},
+				#{demandId,jdbcType=VARCHAR},
 			</if>
 			<if test="commentTime != null">
-				#{comment_time,jdbcType=VARCHAR},
+				#{commentTime,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -68,47 +68,4 @@
 		delete t_comment
 		where comment_id = #{comment_id,jdbcType=INTEGER}
 	</update>
-	<!--<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">-->
-		<!--update t_user-->
-		<!--<set>-->
-			<!--<if test="openid != null">-->
-				<!--openid = #{openid,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="nickname != null">-->
-				<!--nickname = #{nickname,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="headimgurl != null">-->
-				<!--headimgurl = #{headimgurl,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="sex != null">-->
-				<!--sex = #{sex,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="phone != null">-->
-				<!--phone = #{phone,jdbcType=VARCHAR},-->
-			<!--</if>-->
-			<!--<if test="createTime != null">-->
-				<!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
-			<!--</if>-->
-			<!--<if test="state != null">-->
-				<!--state = #{state,jdbcType=TINYINT},-->
-			<!--</if>-->
-			<!--<if test="updateTime != null">-->
-				<!--update_time = #{updateTime,jdbcType=TIMESTAMP},-->
-			<!--</if>-->
-		<!--</set>-->
-		<!--where user_id = #{userId,jdbcType=INTEGER}-->
-	<!--</update>-->
-	<!--<update id="updatePhone">-->
-		<!--update t_user-->
-		<!--set phone = #{phone,jdbcType=VARCHAR}-->
-		<!--where openid = #{openid,jdbcType=VARCHAR}-->
-	<!--</update>-->
-	<!--&lt;!&ndash; 查询所有的前端用户 程序内部使用 &ndash;&gt;-->
-	<!--<select id="getAllFrontUser" resultType="java.lang.String">-->
-		<!--select-->
-		<!--GROUP_CONCAT(user_id)-->
-		<!--from t_user-->
-		<!--where state= 1-->
-	<!--</select>-->
-
 </mapper>

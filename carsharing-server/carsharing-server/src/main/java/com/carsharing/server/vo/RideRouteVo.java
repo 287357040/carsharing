@@ -13,6 +13,10 @@ public class RideRouteVo {
 
     private String userNo;
 
+    private Integer sex;
+
+    private  String userName;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date startTime;
 
@@ -42,11 +46,13 @@ public class RideRouteVo {
 
     private boolean isHome;
 
-    private int riderCount;
+    private Integer waitTime;
 
-    private int remainCount;
+    private Integer takeCount;
 
-    private int state;
+    private Integer remainCount;
+
+    private Integer state;
 
     private String describe;
 
@@ -54,7 +60,7 @@ public class RideRouteVo {
         return matchDegree;
     }
 
-    public void setMatchDegree(int matchDegree) {
+    public void setMatchDegree(Integer matchDegree) {
         this.matchDegree = matchDegree;
     }
 
@@ -62,7 +68,7 @@ public class RideRouteVo {
         return routeId;
     }
 
-    public void setRouteId(int routeId) {
+    public void setRouteId(Integer routeId) {
         this.routeId = routeId;
     }
 
@@ -72,6 +78,22 @@ public class RideRouteVo {
 
     public void setUserNo(String userNo) {
         this.userNo = userNo;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getStartTime() {
@@ -186,27 +208,35 @@ public class RideRouteVo {
         isHome = home;
     }
 
-    public int getRiderCount() {
-        return riderCount;
+    public Integer getWaitTime() {
+        return waitTime;
     }
 
-    public void setRiderCount(int riderCount) {
-        this.riderCount = riderCount;
+    public void setWaitTime(Integer waitTime) {
+        this.waitTime = waitTime;
     }
 
-    public int getRemainCount() {
+    public Integer getTakeCount() {
+        return takeCount;
+    }
+
+    public void setTakeCount(Integer takeCount) {
+        this.takeCount = takeCount;
+    }
+
+    public Integer getRemainCount() {
         return remainCount;
     }
 
-    public void setRemainCount(int remainCount) {
+    public void setRemainCount(Integer remainCount) {
         this.remainCount = remainCount;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -222,6 +252,7 @@ public class RideRouteVo {
 
         this.routeId = route.getRouteId();
         this.userNo = route.getUserNo();
+        this.userName = route.getUserName();
         this.startTime = route.getStartTime();
         this.startProvince = route.getStartProvince();
         this.endProvince = route.getEndProvince();
@@ -236,9 +267,10 @@ public class RideRouteVo {
         this.startLatitude = route.getStartLatitude();
         this.endLatitude = route.getEndLatitude();
         this.isHome = route.getIsHome();
-        this.riderCount = route.getRiderCount();
+        this.takeCount = route.getTakeCount();
         this.remainCount = route.getRemainCount();
         this.state = route.getState();
+        this.waitTime = route.getWaitTime();
         this.describe = route.getDescribe();
     }
 

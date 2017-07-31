@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by hucl on 2017/7/21.
@@ -27,7 +28,7 @@ public class UserAddressServiceImpl extends BaseServiceImpl<UserAddress> impleme
     }
 
     @Override
-    public UserAddress getAddressByUserNo(String userNo) {
-        return  userAddressMapper.getAddressByUserNo(userNo);
+    public List<UserAddress> queryAddress(String userNo) {
+        return  userAddressMapper.queryAddressByUserNo(userNo);
     }
 }

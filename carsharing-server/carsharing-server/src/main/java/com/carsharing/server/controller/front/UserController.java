@@ -28,7 +28,7 @@ public class UserController extends AbstractController {
     * */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByCode")
 //    @SendTo("/topic/callback")
-    public JsonResponse<User> loginByCode(@RequestBody User frmUser,
+    public JsonResponse<User> loginByCode(User frmUser,
                                           HttpServletRequest request) {
         JsonResponse<User> result = new JsonResponse<User>(
                 SystemCode.FAILURE);
@@ -88,7 +88,7 @@ public class UserController extends AbstractController {
      */
     //@GetMapping("/toLogin")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByAcct")
-    private JsonResponse<User> toLogin(HttpServletRequest request, @RequestBody User frmUser) {
+    private JsonResponse<User> toLogin(HttpServletRequest request, User frmUser) {
         JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
 
         User model = userService.selectByPrimaryKey(frmUser.getUserNo());
@@ -101,6 +101,7 @@ public class UserController extends AbstractController {
         }
         SessionUtil.setUser(request, frmUser);
         result.setRes(SystemCode.SUCCESS);
+        result.setObj(model);
         return result;
     }
 

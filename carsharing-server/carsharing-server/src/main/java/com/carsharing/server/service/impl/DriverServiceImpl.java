@@ -39,11 +39,6 @@ public class DriverServiceImpl extends BaseServiceImpl<Driver> implements Driver
         driverMapper.updateService(driver);
     }
 
-    @Override
-    public List<Driver> selectByUserNo(String user_No) {
-        return driverMapper.selectByUserNo(user_No);
-    }
-
 
     public DriverMapper getDriverMapper() {
         return driverMapper;

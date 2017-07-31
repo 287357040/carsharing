@@ -5,7 +5,9 @@
         <id column="demand_id" property="demandId" jdbcType="INTEGER"/>
         <result column="user_no" property="userNo" jdbcType="VARCHAR"/>
         <result column="start_place" property="startPlace" jdbcType="VARCHAR"/>
-        <result column="end_place" property="end_place" jdbcType="VARCHAR"/>
+        <result column="end_place" property="endPlace" jdbcType="VARCHAR"/>
+        <result column="start_area" property="startArea" jdbcType="VARCHAR"/>
+        <result column="end_area" property="endArea" jdbcType="VARCHAR"/>
         <result column="rider_count" property="riderCount" jdbcType="SMALLINT"/>
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
         <result column="wait_time" property="waitTime" jdbcType="SMALLINT"/>
@@ -16,12 +18,19 @@
         <result column="end_latitude" property="endLatitude" jdbcType="DOUBLE"/>
         <result column="is_home" property="isHome" jdbcType="TINYINT"/>
         <result column="state" property="state" jdbcType="TINYINT"/>
-        <result column="describe" property="state" jdbcType="VARCHAR"/>
+        <result column="describe" property="describe" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        demand_id, user_no, route_id, start_place, end_place,rider_count, start_time,wait_time,rewards, start_longitude
-        ,end_longitude,end_latitude,is_home,state,describe
+        demand_id, user_no, route_id, start_area,end_area, start_place, end_place,rider_count, start_time,wait_time,rewards, start_longitude
+        ,end_longitude,end_latitude,is_home,state,`describe`
     </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_demand
+        where demand_id = #{id,jdbcType=VARCHAR}
+    </select>
     <select id="getRideDemandsByUserNo" resultMap="BaseResultMap"
             parameterType="java.lang.String">
         select
@@ -90,7 +99,7 @@
                 is_home,
             </if>
             <if test="describe != null">
-                describe,
+                `describe`
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -137,8 +146,23 @@
                 #{isHome,jdbcType=TINYINT},
             </if>
             <if test="describe != null">
-                #{describe,jdbcType=VARCHAR},
+                #{describe,jdbcType=VARCHAR}
             </if>
         </trim>
     </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.RideDemand">
+        update t_demand
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="riderCount != null">
+                rider_count = #{riderCount,jdbcType=INTEGER},
+            </if>
+            <if test="rewards != null">
+                rewards = #{rewards,jdbcType=INTEGER}
+            </if>
+        </set>
+        where demand_id = #{demandId,jdbcType=VARCHAR}
+    </update>
 </mapper>

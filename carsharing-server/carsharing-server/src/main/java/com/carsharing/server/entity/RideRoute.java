@@ -11,9 +11,13 @@ import java.util.Date;
  */
 public class RideRoute implements Serializable {
 
-    private int routeId;
+    private Integer routeId;
 
     private String userNo;
+
+    private  String userName;
+
+    private  Integer sex;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date startTime;
@@ -44,7 +48,9 @@ public class RideRoute implements Serializable {
 
     private boolean isHome;
 
-    private int riderCount;
+    private int waitTime;
+
+    private int takeCount;
 
     private int remainCount;
 
@@ -52,7 +58,7 @@ public class RideRoute implements Serializable {
 
     private String describe;
 
-    public int getRouteId() {
+    public Integer getRouteId() {
         return routeId;
     }
 
@@ -66,6 +72,22 @@ public class RideRoute implements Serializable {
 
     public void setUserNo(String userNo) {
         this.userNo = userNo;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public Date getStartTime() {
@@ -180,12 +202,20 @@ public class RideRoute implements Serializable {
         isHome = home;
     }
 
-    public int getRiderCount() {
-        return riderCount;
+    public int getWaitTime() {
+        return waitTime;
     }
 
-    public void setRiderCount(int riderCount) {
-        this.riderCount = riderCount;
+    public void setWaitTime(int waitTime) {
+        this.waitTime = waitTime;
+    }
+
+    public int getTakeCount() {
+        return takeCount;
+    }
+
+    public void setTakeCount(int takeCount) {
+        this.takeCount = takeCount;
     }
 
     public int getRemainCount() {

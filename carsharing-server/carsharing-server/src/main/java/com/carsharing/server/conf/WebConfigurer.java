@@ -21,12 +21,12 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
         // 暂时不提供admin接口 不需要做拦截
 //        registry.addInterceptor(new QqInterceptor())
 //                .addPathPatterns("/admin/*/**");
-        registry.addInterceptor(new QqWebInterceptor())
-                .addPathPatterns("/front/*/**").
-                excludePathPatterns("/front/user/loginByCode")
-                .excludePathPatterns("/front/user/loginByAcct")
-                .excludePathPatterns("/front/user/logout");
-        super.addInterceptors(registry);
+//        registry.addInterceptor(new QqWebInterceptor())
+//                .addPathPatterns("/front/*/**").
+//                excludePathPatterns("/front/user/loginByCode")
+//                .excludePathPatterns("/front/user/loginByAcct")
+//                .excludePathPatterns("/front/user/logout");
+//        super.addInterceptors(registry);
     }
 
     @Override
