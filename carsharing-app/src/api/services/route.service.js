@@ -11,7 +11,7 @@ import {
     deleteRouteUrl,
     startRouteUrl,
     joinRouteUrl,
-    exitRouteUrl，
+    exitRouteUrl,
     finishRouteUrl,
     matchRideRoutesByDemandUrl
 } from '@/api/http/host.config'
