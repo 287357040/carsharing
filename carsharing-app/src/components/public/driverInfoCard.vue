@@ -7,7 +7,7 @@
             </a>
         </div>
         <ul class="driver-message clearfix">
-            <li class="message-li clearfix" :key="route" v-for="route in routeVO">
+            <li class="message-li" :key="route" v-for="route in routeVO">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
                 </div>
@@ -46,7 +46,7 @@
     </div>
 </template>
 <script>
-import allData from '@/api/services/demand.service'
+import demandService from '@/api/services/demand.service'
 import { MessageBox } from 'mint-ui'
 export default {
     data() {
@@ -55,13 +55,27 @@ export default {
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
             routeVO: [],
-            isShowMore: true
+            isShowMore: true,
+            endArea: '金沙湖地铁站',
+            endLongitude: '',
+            endLatitude: '',
+            startTime: '明天 8:10',
+            riderCount: '3',
+            waitTime: '10'
         }
     },
     created: function () {
-        allData.matchRideDemandsByRoute((res) => {
-            this.routeVO = res.data.data.routeVO;
-        })
+        demandService.matchRideDemandsByRoute(
+            {
+                endArea: this.endArea,
+                endLongitude: this.endLongitude,
+                endLatitude: this.endLatitude,
+                startTime: this.startTime,
+                riderCount: this.riderCount,
+                waitTime: this.waitTime
+            }, (res) => {
+                console.log(res);
+            })
     },
     computed: {
         getNowFormatDate: function () {
@@ -84,7 +98,7 @@ export default {
         }
     },
     methods: {
-        addToCar: function() {
+        addToCar: function () {
             var driverName = '龚小敏';
             MessageBox({
                 title: '您确定要加入' + driverName + '的车吗？',

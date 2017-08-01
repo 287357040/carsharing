@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <p class="expain">约<span>21.3km</span> 打车需<span>60元</span></p>
+    <p class="expain">约<span>21.3km</span></p>
     <div class="search-issue-wrapper">
       <mt-button type="default" class="comfirm-search-btn">查询</mt-button>
       <mt-button type="default" class="confirm-issue-btn linear-gradient-bg" @click="issueRoute">发布</mt-button>
