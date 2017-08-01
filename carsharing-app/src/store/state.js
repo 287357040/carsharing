@@ -18,7 +18,7 @@ export default {
   telephone: '',
   isTelephoneVal: false,
   isChoosed: true,
-  isLogin: false,
+  //isLogin: false,
   isLocation: false,
   suggest: false,
   ismask: false,

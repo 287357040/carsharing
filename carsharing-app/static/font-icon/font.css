@@ -23,7 +23,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.icon-selected .path1:before {
+  content: "\e900";
+  color: rgb(255, 255, 255);
+  opacity: 0.1;
+}
+.icon-selected .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(214, 216, 227);
+}
 .icon-del:before {
   content: "\e942";
   color: #d5d7e2;
@@ -49,11 +58,11 @@
   color: #FE872B;
 }
 .icon-telephone:before {
-  content: "\e900";
+  content: "\e902";
   color: #00e089;
 }
 .icon-Stroke01:before {
-  content: "\e901";
+  content: "\e903";
   color: #FE872B;
 }
 .icon-Stroke
@@ -61,17 +70,17 @@
   font-size: 30px;
 }
 .icon-Stroke .path1:before {
-  content: "\e902";
+  content: "\e904";
   color: rgb(254, 135, 43);
   opacity: 0.1;
 }
 .icon-Stroke .path2:before {
-  content: "\e903";
+  content: "\e944";
   margin-left: -1em;
   color: rgb(254, 135, 43);
 }
 .icon-Stroke .path3:before {
-  content: "\e904";
+  content: "\e945";
   margin-left: -1em;
  color: rgb(254, 135, 43);
 }

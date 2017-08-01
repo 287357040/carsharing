@@ -176,7 +176,7 @@ export default {
       }
     },
     issueRoute: function() {
-      this.$emit("isShowAwaittingOrder",true);
+      this.$router.push({path:'/awaitStatus'});
     }
   }
 }
