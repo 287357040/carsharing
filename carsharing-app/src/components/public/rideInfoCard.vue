@@ -87,7 +87,7 @@ export default {
             return this.currentdate;
         }
     },
-    methods: function () {
+    methods: {
 
     }
 }

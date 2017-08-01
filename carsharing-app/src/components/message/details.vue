@@ -1,16 +1,16 @@
-//????
+//信息详情
 <template>
   <div class="mine-container">
     <OHeader v-bind:headerText="headerText" />
     <div class="details">
         <div class="title">
-          {{this.$route.query.title}}
+          {{this.$route.params.msgTitle}}
         </div>
         <div class="title2">
-           {{this.$route.query.time}}
+           {{this.$route.params.AddTime}}
         </div>
         <div class="details-content">
-           {{this.$route.query.content}}
+           {{this.$route.params.msgContent}}
         </div>
     </div>
   </div>
@@ -21,9 +21,7 @@ import allData from '@/api/services/employee.service'
 export default {
   data(){
     return {
-      headerText : "????",
-      password: '',
-      again_password: ''
+      headerText : "消息详情",
     }
   },
   components: {
@@ -32,6 +30,7 @@ export default {
   methods: {
   },
   created: function () {
+
   }
 }
 </script>

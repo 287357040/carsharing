@@ -23,7 +23,7 @@
                 </div>
                 <div class="other-info">
                     <span>联系电话：{{friend_detail_model.telphone}} </span>
-                    <i class="fa fa-phone right icon"></i>
+                    <span class="icon-telephone right"></span>
                 </div>
             </div>
         </mt-popup>

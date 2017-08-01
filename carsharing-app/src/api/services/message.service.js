@@ -4,6 +4,7 @@
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
+import { HttpResHelper } from '../'
 import {
   getMessageUrl,
   UpdateMessageUrl

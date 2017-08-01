@@ -17,7 +17,7 @@
     <div class="plate-number-wrapper">
       <span class="plate-number">车牌号</span>
       <a class="select-plate" @click="openPlate">{{plateNumber}}</a>
-      <input type="txt" class="input-plate" />
+      <input type="txt" class="input-plate"  placeholder="请输入车牌号"/>
   
       <mt-popup v-model="popupPlate" position="bottom" class="mint-popup">
         <div class="picker-toolbar">

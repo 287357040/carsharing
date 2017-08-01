@@ -21,9 +21,10 @@
       </mt-field>
       </a>
   
-      <div class="password-btn">
+      <!-- <div class="password-btn">
         <mt-button @click.stop="savePassword">保存</mt-button>
-      </div>
+      </div> -->
+      <div class="submit-btn" @click.stop="savePassword">保存</div>
     </div>
   </div>
 </template>
@@ -43,6 +44,15 @@ export default {
     show_suggest(key) {
       this.$store.dispatch('show_suggest', key)
       this.$router.push({ path: '/mapLocation' })
+    },
+    savePassword: function () {
+      if (this.password === this.again_password) {
+        apiHandler.changePassword({ password: this.password }, (res) => {
+          console.log(res);
+        })
+      } else {
+        alert('两次输入密码不一致，请重新输入');
+      }
     }
   }
 }

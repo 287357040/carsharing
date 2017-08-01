@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="tab-wrapper">
-                        <p class="header-text">{{header.headerTitle}}</p>
+                        <p class="headertitle" style="margin:0px;padding:0px;">{{header.headerTitle}}</p>
                     </div>
                     <div class="message-wrapper">
                         <div class="message">
