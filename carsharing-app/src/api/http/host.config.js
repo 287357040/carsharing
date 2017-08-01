@@ -19,8 +19,10 @@ export const updateUserInfoUrl = API_ROOT + '/front/user/updateUserInfo';
 //更新当前登录用户头像
 export const updateUserIconUrl = API_ROOT + '/front/user/updateUserIcon';
 
-//乘客加入司机拼车路线
-export const joinRouteUrl = API_ROOT + '/front/user/joinRoute';
+// 乘客退出司机路线
+export const exitRouteUrl = API_ROOT + '/front/Route/exitRoute';
+// 乘客加入司机拼车路线
+export const joinRouteUrl = API_ROOT + '/front/Route/joinRoute';
 
 //修改密码
 export const changePasswordUrl = API_ROOT + '/front/user/changePassword';

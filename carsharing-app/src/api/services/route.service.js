@@ -11,6 +11,7 @@ import {
     deleteRouteUrl,
     startRouteUrl,
     joinRouteUrl,
+    exitRouteUrl，
     finishRouteUrl,
     matchRideRoutesByDemandUrl
 } from '@/api/http/host.config'
@@ -58,6 +59,19 @@ export default {
             })
     },
     startRoute: (routeId, success, err) => {
+        Vue.http.post(startRouteUrl,
+            {
+                routeId: routeId
+            })
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response,success, err);
+            })
+    },
+    exitRoute: (routeId, success, err) => {
         Vue.http.post(startRouteUrl,
             {
                 routeId: routeId
