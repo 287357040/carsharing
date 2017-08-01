@@ -132,7 +132,7 @@ var router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/details',
+      path: '/details/:msgTitle/:AddTime/:msgContent',
       name: 'details',
       component: details,
       meta: { requiresAuth: true }

@@ -14,9 +14,10 @@
                 </span>
       </mt-field>
     </div>
-    <div class="password-btn">
+    <!-- <div class="password-btn">
       <mt-button @click.stop="savePassword">保存</mt-button>
-    </div>
+    </div> -->
+    <div class="submit-btn" @click.stop="savePassword">保存</div>
   </div>
 </template>
 <script>
@@ -42,7 +43,6 @@ export default {
       } else {
         alert('两次输入密码不一致，请重新输入');
       }
-
     }
   }
 }

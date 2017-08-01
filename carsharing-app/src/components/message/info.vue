@@ -5,9 +5,9 @@
             <div class="icon"></div>
             <div class="info-content">
                 <div class="title">
-                    <div class="title-icon"></div>{{item.title}}</div>
-                <article class="info-text">{{item.content}}</article>
-                <div class="info-time">{{item.time}}</div>
+                    <div class="title-icon"></div>{{item.msgTitle}}</div>
+                <article class="info-text">{{item.msgContent}}</article>
+                <div class="info-time">{{item.AddTime}}</div>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@ import messageService from '@/api/services/message.service'
 export default {
     data() {
         return {
-            headerText: "消息列表",
+            headerText: "娑堟伅鍒楄〃",
             messageInfoList: []
         }
     }
@@ -29,12 +29,19 @@ export default {
     methods:
     {
         show_detail(item) {
-            this.$router.push({ path: '/details',query:item});
+            this.$router.push({ name: 'details',params:{
+                msgTitle:item.msgTitle,
+                AddTime:item.AddTime,
+                msgContent:item.msgContent
+            }});
         }
     },
     created: function () {
         messageService.getMessageInfoList((data) => {
             this.messageInfoList = data;
+        },
+        err=>{
+            alert(err);
         });
 
     }

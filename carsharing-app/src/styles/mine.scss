@@ -162,7 +162,6 @@
   margin-left: 14px;
   margin-right: 14px;
   color: #747579;
-  font-weight: bold;
 }
 
 .history-order-content .txt-content-color {
@@ -254,6 +253,11 @@ background-color: #F4F4F4;
 .telphone-detail{
   margin: 30px 18px 15px 20px;
 }
+.telphone-detail .icon-telephone
+{
+  font-size: 30px;
+  line-height: 15px;
+}
 .telphone-detail .telphone-detail-icon
 {
   margin: 0px auto;
@@ -335,12 +339,13 @@ background-color: #f4f4f4;
 }
 .password-btn .mint-button{
   position: relative;
-    width: 300px;
-    height: 42px;
-    border-radius: 25px;
+   width: 300px;
+   height: 42px;
+   border-radius: 25px;
    background:linear-gradient(58deg, #FFB437 0%, #FE872B 100%); 
    box-shadow: 0 2px 5px 0 #FE902D;
    color: #fff;
+   margin-bottom: 20px;
 }
 
 //意见反馈

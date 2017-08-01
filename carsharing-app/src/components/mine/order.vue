@@ -58,7 +58,11 @@
             <span class="icon-Level-Down ico right">
   
             </span>
-            <span class="txt-content right txt-content-ing" v-if="hisorder.orderStatus==0">进行中</span>
+            <span class="txt-content right txt-content-ing" v-if="hisorder.orderStatus==0">
+              <a href="#">
+              进行中
+              </a>
+            </span>
             <span class="txt-content right" v-if="hisorder.orderStatus==1">已完成</span>
             <span class="txt-content right txt-content-failed" v-if="hisorder.orderStatus==2">已取消</span>
           </div>

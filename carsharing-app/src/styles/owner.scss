@@ -28,7 +28,6 @@
 .main-info {
     width: 100%;
     height: auto;
-    margin-top: 54px;
     background: #FFFFFF;
     box-shadow: 0 2px 4px 0 #E2E3E5;
 }
@@ -76,6 +75,8 @@
     outline: none;
     font-size: 16px;
     color: #747579;
+    border: 0px;
+    padding-left: 20px;
 }
 
 .mint-plate-title {
@@ -95,12 +96,14 @@
 }
 .mint-plate-cancel {
     width: 30% !important;
-    text-align: center;
+    text-align: left;
+    padding-left: 10px;
     float: left;
 }
 .mint-plate-confirm {
   width: 30% !important;
-  text-align: center;
+  text-align: right;
+  padding-right: 10px;
   float: right;
 }
 
