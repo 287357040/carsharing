@@ -4,7 +4,7 @@
       <div class="nav-wrapper" :class ="{shadow:shadowActive}">
         <div  class="avatar-wrapper " @click="telephone_input">
           <!-- <Icon type="chevron-left" class="backto"></Icon> -->
-          <span class="icon-return backto" @click=" backto_homepage()">
+          <span class="icon-return backto" @click.stop=" backto_homepage()">
                 
           </span>
         </div>
