@@ -10,6 +10,7 @@ import {
     publishNewRouteUrl,
     deleteRouteUrl,
     startRouteUrl,
+    joinRouteUrl,
     finishRouteUrl,
     matchRideRoutesByDemandUrl
 } from '@/api/http/host.config'
@@ -96,6 +97,22 @@ export default {
             }, (response) => {
                 // 响应错误回调
                 HttpResHelper.resHandle(response,success, err);
+            })
+    },
+    joinRoute: (obj, success, err) => {
+        // 调用此接口前 如果用户没有创建remandId，则创建之后在调用
+        Vue.http.post(
+            joinRouteUrl,
+            {
+                remandId: obj.remandId,
+                routeId: obj.routeId
+            }
+        ).then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
             })
     }
 }
