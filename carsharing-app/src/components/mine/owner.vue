@@ -14,7 +14,7 @@
                     </div>
                     <div class="message-wrapper">
                         <div class="message">
-                            <a class="header-right">{{header.rightText}}</a>
+                            <a class="header-right" @click="toLincese">{{header.rightText}}</a>
                         </div>
                     </div>
                 </div>
@@ -101,6 +101,9 @@ export default {
             //将点击的颜色名和颜色值存到obj里
             this.tempColorValue = item;
             console.log(this.tempColorValue);   
+        },
+        toLincese() {
+            this.$router.push({name:'lincese'});
         }
     }
 }

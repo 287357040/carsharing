@@ -154,3 +154,22 @@
 .color-li:active {
     background: #3366FF;
 }
+
+
+//驾驶证认证页面
+.lincese-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+.lincese-wrapper .hint-text {
+    margin: 15px;
+    color:#747579;
+    text-align: left;
+    font-size: 14px;
+}
+
+.lincese-wrapper .lincese-info {
+    width:100%;
+    height: auto;
+}
