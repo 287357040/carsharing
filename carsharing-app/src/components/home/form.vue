@@ -129,7 +129,7 @@ export default {
       this.data.seatsCounts = values[0];
     },
     onDatetimeChange: function (picker, values) {
-      if (!values.includes(undefined)) {
+      if (!values.includes('undefined')) {
         this.dateTime = values[0] + ' ' + values[1].substring(0, 2) + ':' + values[2].substring(0, 2);
       }
 
