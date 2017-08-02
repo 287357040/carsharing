@@ -26,16 +26,19 @@
                 <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
+                        <span>{{driver.carNo}}</span>
                         <span class="icon-Level-Down ico right"></span>
                     </router-link>
     
                 </li>
                 <li class="car-info-list border-bottom-style" @click="choiceBrand">
                     <span>品牌型号</span>
+                    <span>{{driver.brand}}{{driver.model}}</span>
                     <span class="icon-Level-Down ico right"></span>
                 </li>
                 <li class="car-info-list" @click="openPopupColor">
                     <span>车辆颜色</span>
+                    <span>{{driver.color}}</span>
                     <span class="icon-Level-Down ico right"></span>
                 </li>
             </ul>
@@ -55,6 +58,8 @@
     </div>
 </template>
 <script>
+import Store from '@/utils/store'
+import apiHandler from '@/api/services/driver.service'
 export default {
     data: () => {
         return {
@@ -75,7 +80,8 @@ export default {
                 { name: '天蓝色', value: "#00FFFF" },
                 { name: '紫色', value: "#FF00FF" },
                 { name: '灰色', value: "#C0C0C0" }
-            ]
+            ],
+            driverInfo:[]
         }
     },
     methods: {
@@ -101,6 +107,28 @@ export default {
             //将点击的颜色名和颜色值存到obj里
             this.tempColorValue = item;
             console.log(this.tempColorValue);   
+        }
+    },
+    created:function(){
+       if(!Store.isExisted("newDriverInfo"))
+        {
+            var model = Store.fetch("userInfo");
+            apiHandler.getDriverByNo(model,data=>{
+             Store.save("newDriverInfo",data);
+             this.driverInfo = Store.fetch("newDriverInfo");
+            },err=>{
+
+            });
+        }
+        else
+            this.userInfo = Store.fetch("newDriverInfo");
+    },
+    computed:{
+        Color:function(){
+            for(var i =0;i<this.colorSlots.length;i++){
+                if(this.colorSlots[i].value == this.driverInfo.color)
+                  return this.colorSlots[i].name;
+            }
         }
     }
 }

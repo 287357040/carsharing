@@ -13,7 +13,7 @@
                     </div>
                     <div class="message-wrapper">
                         <div class="message">
-                            <a class="header-right">{{header.rightText}}</a>
+                            <a class="header-right" @click="saveMobile()">{{header.rightText}}</a>
                         </div>
                     </div>
                 </div>
@@ -27,6 +27,7 @@
     </div>
 </template>
 <script>
+import Store from '@/utils/store'
 export default {
     data: () => {
         return {
@@ -43,8 +44,15 @@ export default {
         },
         clearInput: function() {
             this.mobileNum = '';
+        },
+        saveMobile:function(){
+            var model =Store.fetch("newUserInfo");
+            model.mobile = this.mobileNum;
+            Store.save("newUserInfo",model);
         }
-
+    },
+    created:function(){
+        this.mobileNum =  Store.fetch("newUserInfo").mobile;
     }
 }
 </script>
