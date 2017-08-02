@@ -34,6 +34,7 @@
 import apiHandler from '@/api/services/employee.service'
 import bus from '@/utils/eventBus'
 import Vue from 'vue';
+import { MessageBox } from 'mint-ui';
 import Store from '@/utils/store'
 export default {
     data: () => {
