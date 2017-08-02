@@ -116,3 +116,28 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.mint-msgbox {
+  border-radius: 12px !important;
+}
+.mint-msgbox-header {
+  padding: 40px 0 0 !important;
+}
+.mint-msgbox-content {
+  padding: 20px !important;
+}
+.mint-msgbox-message {
+  width: 50% !important;
+  float: left;
+}
+.mint-msgbox-input {
+  width: 20%;
+  padding-top: 0 !important;
+  display: inline-block;
+}
+.star div{
+ display: inline-block;
+ margin: 5px;
+}
+</style>

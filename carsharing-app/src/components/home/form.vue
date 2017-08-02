@@ -5,14 +5,14 @@
         <div class="location-form border-bottom-1px" @click="show_suggest('getOn')">
           <div class="location-field">
             <i class="icon-corporation" style="color: #FE872B"></i>&nbsp;&nbsp;
-            <span class="location-title ">公司</span>
+            <span class="location-title ">起始地</span>
             <span class="location-address">{{'恒生电子'}}</span>
           </div>
         </div>
         <div class="location-form" @click="show_suggest('getOff')">
           <div class="location-field">
             <i class="icon-home"></i>&nbsp;&nbsp;
-            <span class="location-title ">回家</span>
+            <span class="location-title ">目的地</span>
             <span class="location-address">{{'金沙湖'}}</span>
           </div>
         </div>

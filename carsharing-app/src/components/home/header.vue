@@ -26,8 +26,9 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import bus from '@/scripts/eventBus'
+import bus from '@/utils/eventBus'
 import Store from '@/utils/store'
+import { MessageBox } from 'mint-ui';
 
 export default {
   data: () => {
@@ -35,14 +36,8 @@ export default {
       identity: '乘客',
       secondIdentity: '司机',
       userInfo: '',
-      isShowIdentity: false
-    }
-  },
-  created: function () {
-    this.userInfo = Store.fetch();
-    if (this.userInfo.isDriver) {
-      this.identity = '司机';
-      this.secondIdentity = '乘客';
+      isShowIdentity: false,
+      isDriver: 0
     }
   },
   watch: {
@@ -62,14 +57,26 @@ export default {
     openMessagePage: function () {
       this.$router.push({ path: './message' });
     },
-    switchIdentity: function() {
+    switchIdentity: function () {
       this.isShowIdentity = true;
     },
-    choiceIndentity: function() {
-      let temp = this.identity;
-      this.identity = this.secondIdentity;
-      this.secondIdentity = temp;
+    choiceIndentity: function () {
       this.isShowIdentity = false;
+      if (this.identity == '乘客' && this.isDriver == 0) {
+        MessageBox({
+          title: '提示',
+          message: '您还不是司机，注册成司机？',
+          showCancelButton: true
+        }).then(action => {
+          if (action == 'confirm') {
+            this.$router.push({ path: '/owner' });
+          }
+        });
+      }else {
+        let temp = this.identity;
+        this.identity = this.secondIdentity;
+        this.secondIdentity = temp;
+      }
     }
   }
 }

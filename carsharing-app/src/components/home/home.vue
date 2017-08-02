@@ -69,8 +69,8 @@ export default {
   },
   methods: {
     switchIdentity: function (val) {
-      if (val == '司机') this.isSwitch = true;
-      else if (val == '乘客') this.isSwitch = false;
+      if (val == '司机') this.isSwitch = false;
+      else if (val == '乘客') this.isSwitch = true;
     },
     showAwaittingOrder: function() {
       this.showAwaitOrderStatus = true;

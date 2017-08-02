@@ -48,7 +48,7 @@
 <script>
 import demandService from '@/api/services/demand.service'
 import routeService from '@/api/services/route.service'
-import bus from '@/scripts/eventBus'
+import bus from '@/utils/eventBus'
 export default {
     data() {
         return {

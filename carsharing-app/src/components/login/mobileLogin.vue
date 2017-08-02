@@ -34,6 +34,7 @@
 import apiHandler from '@/api/services/employee.service'
 import bus from '@/utils/eventBus'
 import Vue from 'vue';
+import { MessageBox } from 'mint-ui';
 import Store from '@/utils/store'
 export default {
     data: () => {
@@ -54,7 +55,6 @@ export default {
                 return;
             }
             apiHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (data) => {
-                this.$store.dispatch("set_login_state", 1);
                 Store.save("user",data);
                 this.$router.push({ path: '/home' });
             }, (err) => {

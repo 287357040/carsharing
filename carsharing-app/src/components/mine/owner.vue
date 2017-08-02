@@ -48,7 +48,7 @@
             </div>
             <ul class="car-color-choice">
                 
-                <li :key="item" v-for="item in colorSlots" class="color-li">
+                <li :key="item" v-for="item in colorSlots" class="color-li"  @click="choiceColorValue(item)">
                     <span :style="{background:item.value}" class="color-mark"></span>{{item.name}}</li>
             </ul>
         </mt-popup>
@@ -63,18 +63,18 @@ export default {
                 rightText: '下一步'
             },
             popupColor: false,
+            tempColorValue: {},
             colorSlots: [
                 { name: '黑色', value: "#000000" },
                 { name: '白色', value: "#FFFFFF" },
                 { name: '银灰色', value:"#C0C0C0" },
                 { name: '红色', value: "#FF0000" },
                 { name: '绿色', value: "#00FF00" },
-                { name: '黑色', value: "#000000" },
-                { name: '黑色', value: "#000000" },
-                { name: '黑色', value: "#000000" },
-                { name: '黑色', value: "#000000" },
-                { name: '黑色', value: "#000000" },
-                { name: '黑色', value: "#000000" }
+                { name: '蓝色', value: "#0000FF" },
+                { name: '黄色', value: "#FFFF00" },
+                { name: '天蓝色', value: "#00FFFF" },
+                { name: '紫色', value: "#FF00FF" },
+                { name: '灰色', value: "#C0C0C0" }
             ]
         }
     },
@@ -97,8 +97,10 @@ export default {
         selectColor: function () {
             this.popupColor = false;
         },
-        colorChange: function () {
-
+        choiceColorValue(item) {
+            //将点击的颜色名和颜色值存到obj里
+            this.tempColorValue = item;
+            console.log(this.tempColorValue);   
         }
     }
 }

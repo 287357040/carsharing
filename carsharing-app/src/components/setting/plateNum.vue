@@ -36,6 +36,7 @@ export default {
   data: () => {
     return {
       plateNumber: '请选择',
+      plate: '',
       popupPlate: false,
       header: {
         headerTitle: '车主认证'
@@ -68,8 +69,12 @@ export default {
     },
     selectPlate: function () {
       this.popupPlate = false;
+      this.plateNumber = this.plate;
     },
-    cityChange: function () {
+    cityChange: function (picker,values) {
+      if(!(values == '' || values == null)) {
+        this.plate = values[0] + values[1];
+      }
     },
     goback: function () {
         this.$router.go(-1);
