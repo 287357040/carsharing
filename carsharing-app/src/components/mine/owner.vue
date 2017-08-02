@@ -26,19 +26,19 @@
                 <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
-                        <span>{{driver.carNo}}</span>
+                        <span>{{driverInfo.carNo}}</span>
                         <span class="icon-Level-Down ico right"></span>
                     </router-link>
     
                 </li>
                 <li class="car-info-list border-bottom-style" @click="choiceBrand">
                     <span>品牌型号</span>
-                    <span>{{driver.brand}}{{driver.model}}</span>
+                    <span>{{driverInfo.brand}}{{driverInfo.model}}</span>
                     <span class="icon-Level-Down ico right"></span>
                 </li>
                 <li class="car-info-list" @click="openPopupColor">
                     <span>车辆颜色</span>
-                    <span>{{driver.color}}</span>
+                    <span>{{driverInfo.color}}</span>
                     <span class="icon-Level-Down ico right"></span>
                 </li>
             </ul>
