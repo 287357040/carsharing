@@ -26,7 +26,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import bus from '@/scripts/eventBus'
+import bus from '@/utils/eventBus'
 import Store from '@/utils/store'
 
 export default {
@@ -36,13 +36,6 @@ export default {
       secondIdentity: '司机',
       userInfo: '',
       isShowIdentity: false
-    }
-  },
-  created: function () {
-    this.userInfo = Store.fetch();
-    if (this.userInfo.isDriver) {
-      this.identity = '司机';
-      this.secondIdentity = '乘客';
     }
   },
   watch: {
