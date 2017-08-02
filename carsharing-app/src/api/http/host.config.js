@@ -100,3 +100,6 @@ export const getMessageUrl = API_ROOT + '/front/message/getMessage';
 export const UpdateMessageUrl = API_ROOT + '/front/message/UpdateMessage';
 //查看我的订单列表
 export const getOrderUrl = API_ROOT + '/front/message/getOrder';
+
+//用户是否登陆
+export const isLoginInUrl = API_ROOT + '/front/user/isLoginIn';

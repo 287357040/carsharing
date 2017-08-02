@@ -124,8 +124,5 @@ export default {
   },
   [CLOSE_AUTOCOMPLETELIST](state) {
     state.autocompleteList = []
-  },
-  [SET_LOGIN_STATE](state,data){
-    state.isLogin  = data;
   }
 }

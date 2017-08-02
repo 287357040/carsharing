@@ -19,7 +19,7 @@ import details  from '@/components/message/details'
 import accountInfo  from '@/components/setting/accountInfo'
 import mobileNum  from '@/components/setting/mobileNum'
 import nickName  from '@/components/setting/nickName'
-import store from '../store' 
+import LocalStorage from '../utils/store' 
 Vue.use(Router);
 
 var router = new Router({
@@ -143,7 +143,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (store.state.isLogin==0) {
+    if (!LocalStorage.fetch("user")) {
       next({
         path: '/login',
         query: { redirect: to.fullPath }

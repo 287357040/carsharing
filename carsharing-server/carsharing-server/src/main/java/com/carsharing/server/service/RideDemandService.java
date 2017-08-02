@@ -30,5 +30,11 @@ public interface RideDemandService extends BaseService<RideDemand> {
      */
     public List<RideDemand> getRideDemandsByState(int state);
 
-
+    /**
+     * 根据用户号和路线Id 来获取需求
+     * @param userNo
+     * @param routeId
+     * @return
+     */
+    public RideDemand  getDemandByUserNoAndRouteId(String userNo,Integer routeId);
 }

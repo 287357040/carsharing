@@ -1,6 +1,9 @@
 package com.carsharing.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by hucl on 2017/7/14.
@@ -19,6 +22,8 @@ public class UserMessage implements Serializable {
     private Integer msgType;
 
     private Integer state;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date AddTime;
 
     public Integer getMsgId() {
         return msgId;
@@ -66,5 +71,13 @@ public class UserMessage implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Date getAddTime() {
+        return AddTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        AddTime = addTime;
     }
 }

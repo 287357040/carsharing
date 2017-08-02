@@ -8,6 +8,10 @@
         <result column="end_place" property="endPlace" jdbcType="VARCHAR"/>
         <result column="start_area" property="startArea" jdbcType="VARCHAR"/>
         <result column="end_area" property="endArea" jdbcType="VARCHAR"/>
+        <result column="start_town" property="startTown" jdbcType="VARCHAR"/>
+        <result column="end_town" property="endTown" jdbcType="VARCHAR"/>
+        <result column="start_street" property="startStreet" jdbcType="VARCHAR"/>
+        <result column="end_street" property="endStreet" jdbcType="VARCHAR"/>
         <result column="rider_count" property="riderCount" jdbcType="SMALLINT"/>
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
         <result column="wait_time" property="waitTime" jdbcType="SMALLINT"/>
@@ -21,8 +25,8 @@
         <result column="describe" property="describe" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        demand_id, user_no, route_id, start_area,end_area, start_place, end_place,rider_count, start_time,wait_time,rewards, start_longitude
-        ,end_longitude,end_latitude,is_home,state,`describe`
+        demand_id, user_no, route_id, start_area,end_area,start_town,start_street, start_place, end_place,rider_count, start_time,wait_time,rewards, start_longitude
+        ,end_town,end_street ,end_longitude,end_latitude,is_home,state,`describe`
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap"
             parameterType="java.lang.Integer">
@@ -52,6 +56,13 @@
         where state = #{state,jdbcType=INTEGER}
         order by add_time
     </select>
+    <select id="getDemandByUserNoAndRouteId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_demand
+        where user_no = #{userNo,jdbcType=VARCHAR}
+        and route_id =  #{route_id,jdbcType=INTEGER}
+    </select>
 
     <insert id="insertSelective" parameterType="com.carsharing.server.entity.RideDemand">
         insert into t_demand
@@ -79,6 +90,18 @@
             </if>
             <if test="startArea != null">
                 start_area,
+            </if>
+            <if test="startTown != null">
+                start_town,
+            </if>
+            <if test="startStreet != null">
+                start_street,
+            </if>
+            <if test="endTown != null">
+                end_town,
+            </if>
+            <if test="endStreet != null">
+                end_street,
             </if>
             <if test="startLongitude != null">
                 start_longitude,
@@ -126,6 +149,18 @@
             </if>
             <if test="startArea != null">
                 #{startArea,jdbcType=VARCHAR},
+            </if>
+            <if test="startTown != null">
+                #{startTown,jdbcType=VARCHAR},
+            </if>
+            <if test="startStreet != null">
+                #{startStreet,jdbcType=VARCHAR},
+            </if>
+            <if test="endTown != null">
+                #{endTown,jdbcType=VARCHAR},
+            </if>
+            <if test="endStreet != null">
+                #{endStreet,jdbcType=VARCHAR},
             </if>
             <if test="startLongitude != null">
                 #{startLongitude,jdbcType=DOUBLE},

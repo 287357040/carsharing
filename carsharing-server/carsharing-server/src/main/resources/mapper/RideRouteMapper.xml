@@ -7,6 +7,11 @@
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="start_place" property="startPlace" jdbcType="VARCHAR"/>
         <result column="end_place" property="endPlace" jdbcType="VARCHAR"/>
+        <result column="start_town" property="startTown" jdbcType="VARCHAR"/>
+        <result column="end_town" property="endTown" jdbcType="VARCHAR"/>
+        <result column="start_street" property="startStreet" jdbcType="VARCHAR"/>
+        <result column="end_street" property="endStreet" jdbcType="VARCHAR"/>
+
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
         <result column="take_count" property="takeCount" jdbcType="INTEGER"/>
         <result column="remain_count" property="remainCount" jdbcType="INTEGER"/>
@@ -20,8 +25,8 @@
         <result column="describe" property="describe" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        route_id, user_no,user_name, sex,start_place,end_place,wait_time, start_time,take_count,remain_count, start_longitude
-        ,start_latitude,end_longitude,end_latitude, state,is_home,`describe`
+        route_id, user_no,user_name, sex,start_place,start_town,start_street,end_place,wait_time, start_time,take_count,remain_count, start_longitude
+        ,start_latitude,end_town,end_street,end_longitude,end_latitude, state,is_home,`describe`
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap"
             parameterType="java.lang.Integer">
@@ -76,6 +81,18 @@
             <if test="startLatitude != null">
                 start_latitude,
             </if>
+            <if test="startTown != null">
+                start_town,
+            </if>
+            <if test="startStreet != null">
+                start_street,
+            </if>
+            <if test="endTown != null">
+                end_town,
+            </if>
+            <if test="endStreet != null">
+                end_street,
+            </if>
             <if test="endArea != null">
                 end_area,
             </if>
@@ -122,6 +139,18 @@
             </if>
             <if test="startLatitude != null">
                 #{startLatitude,jdbcType=DOUBLE},
+            </if>
+            <if test="startTown != null">
+                #{startTown,jdbcType=VARCHAR},
+            </if>
+            <if test="startStreet != null">
+                #{startStreet,jdbcType=VARCHAR},
+            </if>
+            <if test="endTown != null">
+                #{endTown,jdbcType=VARCHAR},
+            </if>
+            <if test="endStreet != null">
+                #{endStreet,jdbcType=VARCHAR},
             </if>
             <if test="endArea != null">
                 #{endArea,jdbcType=VARCHAR},

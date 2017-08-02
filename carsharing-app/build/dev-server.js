@@ -74,16 +74,16 @@ apiRoutes.get('/getMessageInfoList', function (req, res) {
   })
 });
 apiRoutes.post('/loginByCode', function (req, res) {
-   if (req.body.userNo == userVO.userNo && req.body.mobile == userVO.mobile && req.body.code == "2") {
-     res.json({ data:{
-       model : userVO,
-       loginStatus : "1"
-     }});
-   } else {
-     res.json({ data:{
-       loginStatus : "0"
-     }});
-   }
+  //  if (req.body.userNo == userVO.userNo && req.body.mobile == userVO.mobile && req.body.code == "2") {
+  //    res.json({ data:{
+  //      model : userVO,
+  //      loginStatus : "1"
+  //    }});
+  //  } else {
+  //    res.json({ data:{
+  //      loginStatus : "0"
+  //    }});
+  //  }
 });
 
 

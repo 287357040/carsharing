@@ -32,9 +32,9 @@
 
 <script>
 import apiHandler from '@/api/services/employee.service'
-import bus from '@/scripts/eventBus'
+import bus from '@/utils/eventBus'
 import Vue from 'vue';
-import Store from '@/scripts/store'
+import Store from '@/utils/store'
 export default {
     data: () => {
         return {
@@ -55,7 +55,7 @@ export default {
             }
             apiHandler.loginByCode({ userNo: this.userNo, mobile: this.mobile, code: this.code }, (data) => {
                 this.$store.dispatch("set_login_state", 1);
-                Store.save(data);
+                Store.save("user",data);
                 this.$router.push({ path: '/home' });
             }, (err) => {
                 MessageBox('登录信息错误','请正确填写员工号和手机号！');

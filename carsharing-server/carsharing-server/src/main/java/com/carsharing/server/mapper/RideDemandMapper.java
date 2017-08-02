@@ -16,4 +16,6 @@ public interface RideDemandMapper extends BaseDao<RideDemand> {
     public List<RideDemand> getRideDemandsByRouteId(int routeId);
 
     public List<RideDemand> getRideDemandsByState(int state);
+
+    RideDemand getDemandByUserNoAndRouteId(String userNo, Integer routeId);
 }

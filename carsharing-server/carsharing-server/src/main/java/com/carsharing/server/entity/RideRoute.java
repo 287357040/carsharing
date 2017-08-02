@@ -32,6 +32,14 @@ public class RideRoute implements Serializable {
 
     private String startArea;
 
+    private String startTown;
+
+    private String startStreet;
+
+    private String endTown;
+
+    private String endStreet;
+
     private String endArea;
 
     private String startPlace;
@@ -136,6 +144,38 @@ public class RideRoute implements Serializable {
 
     public void setStartArea(String startArea) {
         this.startArea = startArea;
+    }
+
+    public String getStartTown() {
+        return startTown;
+    }
+
+    public void setStartTown(String startTown) {
+        this.startTown = startTown;
+    }
+
+    public String getStartStreet() {
+        return startStreet;
+    }
+
+    public void setStartStreet(String startStreet) {
+        this.startStreet = startStreet;
+    }
+
+    public String getEndTown() {
+        return endTown;
+    }
+
+    public void setEndTown(String endTown) {
+        this.endTown = endTown;
+    }
+
+    public String getEndStreet() {
+        return endStreet;
+    }
+
+    public void setEndStreet(String endStreet) {
+        this.endStreet = endStreet;
     }
 
     public String getEndArea() {

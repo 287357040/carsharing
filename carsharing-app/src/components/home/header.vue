@@ -27,7 +27,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import bus from '@/scripts/eventBus'
-import Store from '@/scripts/store'
+import Store from '@/utils/store'
 
 export default {
   data: () => {

@@ -30,7 +30,7 @@ public class UserController extends AbstractController {
 //    @SendTo("/topic/callback")
     public JsonResponse<User> loginByCode(User frmUser,
                                           HttpServletRequest request) {
-        JsonResponse<User> result = new JsonResponse<User>(
+            JsonResponse<User> result = new JsonResponse<User>(
                 SystemCode.FAILURE);
         //
         // 检验验证码 模拟环境，验证通过

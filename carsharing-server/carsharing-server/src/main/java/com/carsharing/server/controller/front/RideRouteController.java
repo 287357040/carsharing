@@ -5,6 +5,7 @@ import com.carsharing.server.controller.AbstractController;
 import com.carsharing.server.entity.RideDemand;
 import com.carsharing.server.entity.RideRoute;
 import com.carsharing.server.entity.User;
+import com.carsharing.server.service.RideDemandService;
 import com.carsharing.server.service.RideRouteService;
 import com.carsharing.server.service.UserService;
 import com.carsharing.server.util.JsonResponse;
@@ -12,7 +13,11 @@ import com.carsharing.server.util.PositionUtil;
 import com.carsharing.server.util.SessionUtil;
 import com.carsharing.server.vo.RideDemandVo;
 import com.carsharing.server.vo.RideRouteVo;
+import com.sun.tools.corba.se.idl.IncludeGen;
+import org.apache.catalina.Session;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.http.HttpRequest;
+import org.apache.http.protocol.HTTP;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +39,8 @@ public class RideRouteController extends AbstractController {
     private Logger lo = Logger.getLogger(RideRouteController.class);
     @Resource
     private RideRouteService rideRouteService;
+    @Resource
+    RideDemandService rideDemandService;
     @Resource
     private UserService userService;
 
@@ -64,6 +71,35 @@ public class RideRouteController extends AbstractController {
             lo.error("publish ride route failed!", e);
             logError(request, "publish ride route failed!", e);
         }
+        return result;
+    }
+
+    @RequestMapping(method = {RequestMethod.POST},value = "/exitRoute")
+    public JsonResponse<Integer> exitRoute(Integer routeId, HttpServletRequest request){
+        JsonResponse<Integer> result = new JsonResponse<Integer>(SystemCode.FAILURE);
+        User user = SessionUtil.getUser(request);
+        RideRoute route = rideRouteService.selectByPrimaryKey(routeId);
+        // 是否存在id
+        if (null == route && route.getState() > 2) {
+            result.setRes(SystemCode.OBJ_NOT_EXISTS);
+            return result;
+        }
+        // state 需求单状态 0:发布中 未激活 1：发布中 已激活  2:人数已满 3 取消发布 4：执行中 5：完成
+        try {
+            route.setRemainCount(route.getRemainCount() + 1);
+            rideRouteService.updateByPrimaryKeySelective(route);
+            RideDemand demand = rideDemandService.getDemandByUserNoAndRouteId(user.getUserNo(),routeId);
+            if(demand == null){
+                result.setRes(SystemCode.FAILURE);
+                return result;
+            }
+            demand.setRouteId(0);
+            rideDemandService.updateByPrimaryKeySelective(demand);
+        } catch (Exception e) {
+            lo.error("delete ride route failed!", e);
+            logError(request, "delete ride route failed!", e);
+        }
+        result.setRes(SystemCode.SUCCESS);
         return result;
     }
 
@@ -158,7 +194,7 @@ public class RideRouteController extends AbstractController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/finishRoute")
-    public JsonResponse<Integer> finishRoute(Integer routeId,HttpServletRequest request) {
+    public JsonResponse<Integer> finishRoute(Integer routeId, HttpServletRequest request) {
 
         JsonResponse<Integer> result = new JsonResponse<Integer>();
         User user = SessionUtil.getUser(request);
@@ -202,7 +238,7 @@ public class RideRouteController extends AbstractController {
         JsonResponse<List<RideRouteVo>> result = new JsonResponse<List<RideRouteVo>>(SystemCode.FAILURE);
 
         User user = SessionUtil.getUser(request);
-        if(null == user){
+        if (null == user) {
             return result;
         }
         List<RideRouteVo> resRouteList = new ArrayList<RideRouteVo>();
@@ -229,7 +265,7 @@ public class RideRouteController extends AbstractController {
             }
         }
         // 排序
-        if(resRouteList.size()>0) {
+        if (resRouteList.size() > 0) {
             Collections.sort(resRouteList, new Comparator<RideRouteVo>() {
                 public int compare(RideRouteVo arg0, RideRouteVo arg1) {
                     return arg1.getMatchDegree().compareTo(arg0.getMatchDegree());
@@ -240,4 +276,63 @@ public class RideRouteController extends AbstractController {
         result.setObj(resRouteList);
         return result;
     }
+
+    @RequestMapping(method = {RequestMethod.POST}, value = "/joinRoute")
+    public JsonResponse<Integer> joinRoute(Integer routeId, Integer demandId, HttpServletRequest request) {
+        JsonResponse<Integer> result = new JsonResponse<Integer>(SystemCode.FAILURE);
+        User user = SessionUtil.getUser(request);
+        RideRoute route = rideRouteService.selectByPrimaryKey(routeId);
+        // check the route is valid
+        if (null == route || route.getState() > 2 || route.getRemainCount() == 0) {
+            result.setRes(SystemCode.FAILURE);
+            result.setMsg("申请加入路线无效不存在！");
+            return result;
+        }
+        // check user has demand
+        RideDemand demand;
+        if (null == demandId || demandId <= 0) {
+            demand = new RideDemand();
+            demand.setUserNo(user.getUserNo());
+            demand.setRouteId(routeId);
+            demand.setEndArea(route.getEndArea());
+            demand.setStartArea(route.getStartArea());
+            demand.setStartLatitude(route.getStartLatitude());
+            demand.setStartLongitude(route.getStartLongitude());
+            demand.setEndLatitude(route.getEndLatitude());
+            demand.setEndLongitude(route.getEndLongitude());
+            demand.setStartTime(route.getStartTime());
+            demand.setRiderCount(1);
+            demand.setState(1);
+            demand.setEndPlace(route.getEndPlace());
+            try {
+                rideDemandService.insertSelective(demand);
+                route.setRemainCount(route.getRemainCount() + 1);
+                rideRouteService.updateByPrimaryKeySelective(route);
+            } catch (Exception e) {
+                result.setRes(SystemCode.FAILURE);
+            }
+        } else {
+            demand = rideDemandService.selectByPrimaryKey(demandId);
+            if(null == demand || demand.getState() != 0){
+                result.setRes(SystemCode.FAILURE);
+                result.setMsg("发布的需求无效！");
+                return result;
+            }
+            demand.setRouteId(routeId);
+            demand.setState(1);
+            try {
+                rideDemandService.updateByPrimaryKeySelective(demand);
+                route.setRemainCount(route.getRemainCount() + 1);
+                rideRouteService.updateByPrimaryKeySelective(route);
+
+            } catch (Exception e) {
+                result.setRes(SystemCode.FAILURE);
+                return result;
+            }
+        }
+        result.setRes(SystemCode.SUCCESS);
+
+        return result;
+    }
+
 }
