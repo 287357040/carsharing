@@ -72,7 +72,6 @@ export default {
       this.plateNumber = this.plate;
     },
     cityChange: function (picker,values) {
-      //console.log(values);
       if(!(values == '' || values == null)) {
         this.plate = values[0] + values[1];
       }
