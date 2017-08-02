@@ -69,7 +69,7 @@ export default {
       if (this.identity == '司机' && this.isDriver == 0) {
         MessageBox({
           title:'提示',
-          message: '注册成司机？',
+          message: '您还不是司机，注册成司机？',
           showCancelButton: true
         });
       }
