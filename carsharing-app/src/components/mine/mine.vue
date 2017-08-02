@@ -8,8 +8,8 @@
             <div>
               <img width="97px" height="81px" src="../../assets/img/photo.png" />
             </div>
-            <span class="name">龚小敏</span>
-            <span class="telphone">13588779900</span>
+            <span class="name">{{userInfo.userName}}</span>
+            <span class="telphone">{{userInfo.mobile}}</span>
             <div>
               <Rate disabled v-model="valueDisabled"></Rate>
             </div>
@@ -99,11 +99,13 @@
 import Icon from 'vue-awesome/components/Icon'
 import commonMask from '@/components/commonMask.vue'
 import { mapState, mapActions } from 'vuex'
+import Store from '@/utils/store'
 
 export default {
   data() {
     return {
-      valueDisabled: 2
+      valueDisabled: 2,
+      userInfo:[]
     }
   },
   computed: {
@@ -126,6 +128,9 @@ export default {
   },
   mounted() {
     // console.log(this.telephone)
+  },
+  created:function(){
+   this.userInfo = Store.fetch("user");
   }
 }
 
