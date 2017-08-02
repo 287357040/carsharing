@@ -118,7 +118,6 @@ export default {
 </script>
 
 <style scoped>
-//改写Message box 的样式
 .mint-msgbox {
   border-radius: 12px !important;
 }

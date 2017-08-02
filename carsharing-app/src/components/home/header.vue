@@ -61,17 +61,21 @@ export default {
       this.isShowIdentity = true;
     },
     choiceIndentity: function () {
-      let temp = this.identity;
-      this.identity = this.secondIdentity;
-      this.secondIdentity = temp;
       this.isShowIdentity = false;
-
-      if (this.identity == '司机' && this.isDriver == 0) {
+      if (this.identity == '乘客' && this.isDriver == 0) {
         MessageBox({
-          title:'提示',
+          title: '提示',
           message: '您还不是司机，注册成司机？',
           showCancelButton: true
+        }).then(action => {
+          if (action == 'confirm') {
+            this.$router.push({ path: '/owner' });
+          }
         });
+      }else {
+        let temp = this.identity;
+        this.identity = this.secondIdentity;
+        this.secondIdentity = temp;
       }
     }
   }
