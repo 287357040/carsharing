@@ -46,7 +46,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    updateDriverInfo: () => {
+    updateDriverInfo: (driver,success, err) => {
         Vue.http.post(updateDriverInfoUrl,
             {
                 region: driver.region, // 车辆属地
@@ -59,6 +59,18 @@ export default {
                 brand: driver, // 品牌
                 model: driver.model // 型号
             })
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            })
+    },
+    getDriverByNo:(user,success, err)=>{
+        Vue.http.get(getDriverByNoUrl,{
+            userNo:user.userNo
+        })
             .then(
             (response) => {
                 HttpResHelper.resHandle(response, success, err);

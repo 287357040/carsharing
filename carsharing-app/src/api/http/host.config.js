@@ -41,6 +41,8 @@ export const inviteToRouteUrl = API_ROOT + '/front/driver/inviteToRoute';
 
 //更新司机车辆信息
 export const updateDriverInfoUrl = API_ROOT + '/front/driver/updateDriverInfo';
+//获取司机信息
+export const getDriverByNoUrl = API_ROOT+'/front/driver/getDriverByNo';
 
 //员工发布乘车需求
 export const publishRideDemandUrl = API_ROOT + '/front/demand/publishRideDemand';
