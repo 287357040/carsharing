@@ -72,6 +72,7 @@ export default {
       seatsCounts: '',
       seatsDescription: '同行的几人？',
       dateTime : '',
+      isMoveDate: false,
       popupVisible: false,
       datetimePopup: false,
       seatSlots: ['1人', '2人', '3人', '4人'],
@@ -132,10 +133,10 @@ export default {
       if (!values.includes(undefined)) {
         this.dateTime = values[0] + ' ' + values[1].substring(0, 2) + ':' + values[2].substring(0, 2);
       }
-
     },
     computedDatetime: function () {
       var date = new Date();
+      var isCarry = false;//是否进位
       //处理日期
       for (let i = 0; i < 10; i++) {
         let someDates = (date.getMonth() + 1) + '月' + (date.getDate() + i) + '日';
@@ -148,12 +149,7 @@ export default {
         }
         this.datetimeSlots[0].values.push(someDates);
       }
-      //处理小时
-      for (let i = 0; i < (24 - date.getHours()); i++) {
-        let someHours = (date.getHours() + i) + '点';
-        this.datetimeSlots[1].values.push(someHours);
-      }
-
+    
       //处理分钟
       var currentMinute = date.getMinutes();
       var newArry = [];
@@ -164,6 +160,7 @@ export default {
           newArry = minutesArry.slice(i + 2);
         } else if (currentMinute > 50) {
           newArry = minutesArry;
+          isCarry = true;
         }
       }
       for (let i = 0; i < newArry.length; i++) {
@@ -173,6 +170,16 @@ export default {
           newStr = newArry[i] + '分';
         }
         this.datetimeSlots[2].values.push(newStr);
+      }
+       //处理小时
+       var someHours = null;
+      for (let i = 0; i < (24 - date.getHours()); i++) {
+         if(isCarry){
+        someHours = (date.getHours() + i + 1) + '点';
+      }else {
+        someHours = (date.getHours() + i) + '点';
+      } 
+        this.datetimeSlots[1].values.push(someHours);
       }
     },
     issueRoute: function() {
