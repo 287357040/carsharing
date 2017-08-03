@@ -20,6 +20,8 @@ import accountInfo  from '@/components/setting/accountInfo'
 import mobileNum  from '@/components/setting/mobileNum'
 import nickName  from '@/components/setting/nickName'
 import license  from '@/components/setting/license'
+import finishEvaluate  from '@/components/status/finishEvaluate'
+import unfinishedEvaluate  from '@/components/status/unfinishedEvaluate'
 import LocalStorage from '../utils/store' 
 Vue.use(Router);
 
@@ -80,6 +82,12 @@ var router = new Router({
       meta: { requiresAuth: true }
     },
     {
+      path: '/license',
+      name: 'license',
+      component: license,
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/mapLocation',
       component: mapLocation,
       meta: { requiresAuth: true }
@@ -118,6 +126,18 @@ var router = new Router({
       path: '/valuation',
       name: 'valuation',
       component: valuation,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/finishEvaluate',
+      name: 'finishEvaluate',
+      component: finishEvaluate,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/unfinishedEvaluate',
+      name: 'unfinishedEvaluate',
+      component: unfinishedEvaluate,
       meta: { requiresAuth: true }
     },
     {

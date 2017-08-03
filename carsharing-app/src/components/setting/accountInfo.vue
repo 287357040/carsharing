@@ -26,7 +26,7 @@
                     </div>
                 </li>
                 <li class="car-info-list border-bottom-style clearfix">
-                    <span>{{userInfo.userName}}</span>
+                    <span>{{userInfo.nickName}}</span>
                     <div class="info-title clearfix">
                         <span @click="modifyNickName">修改昵称</span>
                         <span class="icon-Level-Down ico right"></span>

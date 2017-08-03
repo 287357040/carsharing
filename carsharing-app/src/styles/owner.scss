@@ -194,7 +194,11 @@
     height: auto;
 }
 .license-info .license-li {
-    border-bottom: 1px solid #d9d9d0;
+    border-bottom: 1px solid #f4f4f4;
+}
+.border-bottom {
+    border-bottom: 1px solid #f4f4f4;
+    background-image: none !important;
 }
 .pad {
     height: 48px;
