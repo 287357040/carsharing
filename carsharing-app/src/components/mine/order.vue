@@ -31,11 +31,11 @@
       <hr class="order-driver-spilter" />
       <!--begin 接单司机-->
       <!-- <div>
-                    <div class="order-content order-wait-driver">
-                      <Icon type="erlenmeyer-flask" class="ico"></Icon>
-                      <span class="txt-content">已通知以下车主，请耐心等待接单</span>
-                    </div>
-                  </div> -->
+                            <div class="order-content order-wait-driver">
+                              <Icon type="erlenmeyer-flask" class="ico"></Icon>
+                              <span class="txt-content">已通知以下车主，请耐心等待接单</span>
+                            </div>
+                          </div> -->
       <!--end 接单司机-->
       <span class="history-order-title txt-content">历史订单</span>
     </div>
@@ -60,7 +60,7 @@
             </span>
             <span class="txt-content right txt-content-ing" v-if="hisorder.orderStatus==0">
               <a href="#">
-              进行中
+                进行中
               </a>
             </span>
             <span class="txt-content right" v-if="hisorder.orderStatus==1">已完成</span>
@@ -80,14 +80,15 @@
 </template>
 
 <script>
+import {MessageBox} from 'mint-ui'
 import OHeader from '@/components/mine/header.vue'
 import orderService from '@/api/services/order.service'
 export default {
   data() {
     return {
-      headerText  : "我的订单",
-      historyOrderList : [],
-      currentOrder:{}
+      headerText: "我的订单",
+      historyOrderList: [],
+      currentOrder: {}
     }
   },
   components: {
@@ -97,13 +98,18 @@ export default {
     orderService.getHistoryOrderList((data) => {
       this.historyOrderList = data;
     });
-    orderService.getCurrentOrder((data) => {
-      this.currentOrder = data;
-    });
+    orderService.getCurrentOrder(
+      (res) => {
+        console.log("++++++++", res);
+        // this.currentOrder = data;
+      },
+      (res) => {
+        if (res.status == '404') {
+          MessageBox( '404','与服务器断开连接');
+        }else {
+           MessageBox( '获取数据失败');
+        }
+      });
   }
 }
 </script>
-
-<style>
-
-</style>

@@ -25,7 +25,6 @@ export default {
     animation-duration:.5s;
 }
 
-
 .login-popup {
     position: fixed;
     left: 50%;

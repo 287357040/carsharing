@@ -117,7 +117,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .mint-msgbox {
   border-radius: 12px !important;
 }

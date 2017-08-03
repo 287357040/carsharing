@@ -27,7 +27,7 @@ Vue.http.interceptors.push((request, next) => {
         if (response.status === 404) {
             // signOut()
             // window.location.pathname = '/login'
-            console.log('http 404')
+            console.log('http 404');
         }
     });
 });

@@ -121,7 +121,6 @@ export default {
             Store.save("newUserInfo", model);
         }
         this.userInfo = Store.fetch("newUserInfo");
-
     }
 }
 </script>
