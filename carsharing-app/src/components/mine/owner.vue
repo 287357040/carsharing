@@ -59,6 +59,7 @@
 </template>
 <script>
 import Store from '@/utils/store'
+import {MessageBox} from 'mint-ui'
 import apiHandler from '@/api/services/driver.service'
 export default {
     data: () => {
@@ -113,18 +114,19 @@ export default {
         }
     },
     created:function(){
-       if(!Store.isExisted("newDriverInfo"))
+       if(!Store.fetch("newDriverInfo"))
         {
-            var model = Store.fetch("userInfo");
+            var model = Store.fetch("user");
             apiHandler.getDriverByNo(model,data=>{
              Store.save("newDriverInfo",data);
              this.driverInfo = Store.fetch("newDriverInfo");
             },err=>{
-
+             MessageBox(err);
             });
         }
         else
             this.userInfo = Store.fetch("newDriverInfo");
+
     },
     computed:{
         Color:function(){
