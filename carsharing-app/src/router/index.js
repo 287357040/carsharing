@@ -80,6 +80,11 @@ var router = new Router({
       meta: { requiresAuth: true }
     },
     {
+      path: '/license',
+      component: license,
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/mapLocation',
       component: mapLocation,
       meta: { requiresAuth: true }
