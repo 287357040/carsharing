@@ -8,7 +8,8 @@ import { HttpResHelper } from '../'
 import {
     regToDriverUrl,
     inviteToRouteUrl,
-    updateDriverInfoUrl
+    updateDriverInfoUrl,
+    getDriverByNoUrl
 } from '@/api/http/host.config'
 export default {
     regToDriver: (driver, success, err) => {

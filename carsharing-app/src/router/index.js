@@ -133,12 +133,6 @@ var router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/license',
-      name: 'license',
-      component: license,
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/details/:msgTitle/:AddTime/:msgContent',
       name: 'details',
       component: details,

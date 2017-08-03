@@ -28,6 +28,7 @@
 </template>
 <script>
 import Store from '@/utils/store'
+import { MessageBox } from 'mint-ui';
 export default {
     data: () => {
         return {
@@ -49,6 +50,7 @@ export default {
             var model =Store.fetch("newUserInfo");
             model.mobile = this.mobileNum;
             Store.save("newUserInfo",model);
+            MessageBox('保存成功！');
         }
     },
     created:function(){

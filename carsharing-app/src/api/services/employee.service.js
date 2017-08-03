@@ -60,6 +60,8 @@ export default {
                 userName: user.userName,
                 sex: user.sex, // 默认男 0
                 birth: user.birth,
+                mobile:user.mobile,
+                userNo:user.userNo,
                 department: user.department,
                 carpoolCount: user.carpoolCount,
                 orderCount: user.orderCount,
