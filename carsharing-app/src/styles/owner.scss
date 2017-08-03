@@ -193,3 +193,25 @@
     width:100%;
     height: auto;
 }
+.license-info .license-li {
+    border-bottom: 1px solid #d9d9d0;
+}
+.pad {
+    height: 48px;
+    line-height: 48px;
+    text-align: left;
+    background: #fff;
+}
+.license-li .text {
+    font-size: 14px;
+    color: #747579;
+    letter-spacing: -0.35px;
+    padding-left: 35px;
+}
+.license-li .right {
+    line-height: 48px;
+    margin-right: 10px;
+}
+.license-li .date {
+    padding-left: 15px; 
+}
