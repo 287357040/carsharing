@@ -83,8 +83,11 @@ export const addCommentUrl = API_ROOT + '/front/comment/addComment';
 //删除评论（待定）
 export const delCommentUrl = API_ROOT + '/front/comment/delComment';
 
-//获取评论列表
-export const getCommentUrl = API_ROOT + '/front/comment/getComment';
+//获取需求的评论列表
+export const getCommentOfDemandUrl = API_ROOT + '/front/comment/getCommentByDemandId';
+
+//获取路线的评论列表
+export const getCommentOfRouteUrl = API_ROOT + '/front/comment/getCommentByRouteId';
 
 //增加评价
 

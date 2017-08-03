@@ -8,10 +8,11 @@ import { HttpResHelper } from '../'
 import {
     addCommentUrl,
     delCommentUrl,
-    getCommentUrl
+    getCommentOfRouteUrl,
+    getCommentOfCommandUrl
 } from '@/api/http/host.config'
 export default {
-    addComment: (comment,success,err) => {
+    addComment: (comment, success, err) => {
         Vue.http.post(addCommentUrl,
             {
                 remandId: comment.remandId,
@@ -25,7 +26,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    delComment: (commendId,success,err) => {
+    delComment: (commendId, success, err) => {
         Vue.http.post(delCommentUrl,
             {
                 remandId: commendId
@@ -38,25 +39,32 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    // getCommentList: (commendId,success,err) => {
-    //     Vue.http.get(getCommentUrl,
-    //         {
-    //             'routeId': routeId
-    //         })
-    //         .then(
-    //         (response) => {
-    //             HttpResHelper.resHandle(response, success, err);
-    //         }, (response) => {
-    //             // 响应错误回调
-    //             HttpResHelper.resHandle(response, success, err);
-    //         })
-    // },
+    getCommentOfDemandList: (success, err) => {
+        Vue.http.get(getCommentOfDemandUrl)
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            })
+    },
+    getCommentOfRouteList: (success, err) => {
+        Vue.http.get(getCommentOfRouteUrl)
+            .then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            })
+    },
     getDriverEvaluation: callback => {
-    Vue.http.get("/api/getDriverEvaluation").then(
-      res => {
-        callback(res.data.data);
-      },
-      respose => {}
-    );
-  }
+        Vue.http.get("/api/getDriverEvaluation").then(
+            res => {
+                callback(res.data.data);
+            },
+            respose => { }
+        );
+    }
 }
