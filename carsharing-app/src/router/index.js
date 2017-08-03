@@ -81,6 +81,7 @@ var router = new Router({
     },
     {
       path: '/license',
+      name: 'license',
       component: license,
       meta: { requiresAuth: true }
     },
