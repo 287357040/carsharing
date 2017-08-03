@@ -109,7 +109,7 @@ export default {
             console.log(this.tempColorValue);   
         },
         toLincese() {
-            this.$router.push({name:'lincese'});
+            this.$router.push({name:'license'});
         }
     },
     created:function(){

@@ -45,8 +45,6 @@ export default {
 </script>
 <style scoped>
 .mint-cell-title {
-    width: auto !important;
     text-align: left !important;
-    float: left;
 }
 </style>
