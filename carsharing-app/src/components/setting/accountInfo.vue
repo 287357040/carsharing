@@ -26,33 +26,50 @@
                     </div>
                 </li>
                 <li class="car-info-list border-bottom-style clearfix">
-                    <span>{{nickName}}</span>
+                    <span>{{userInfo.nickName}}</span>
                     <div class="info-title clearfix">
                         <span @click="modifyNickName">修改昵称</span>
                         <span class="icon-Level-Down ico right"></span>
                     </div>
                 </li>
-                <li class="car-info-list clearfix">
-                    <span>{{mobile}}</span>
+                <li class="car-info-list border-bottom-style">
+                    <span>{{userInfo.mobile}}</span>
                     <div class="info-title">
-                        <span @click="modifyMobileNum">修改电话号码</span>
+                        <span @click="modifyMobileNum">修改手机</span>
                         <span class="icon-Level-Down ico right"></span>
                     </div>
                 </li>
+                <li class="car-info-list border-bottom-style">
+                    <span class="sexgroup">
+                        <span class="icon-boy left"></span>
+                        <span class="left">男</span>
+                        <input type="radio" v-model="userInfo.sex" value="0" class="left" />
+                    </span>
+                    <span class="sexgroup">
+                        <span class="icon-girl left"></span>
+                        <span class="left">女</span>
+                        <input type="radio" v-model="userInfo.sex" value="1" class="left" />
+                    </span>
+                </li>
             </ul>
         </div>
+        <div class="submit-btn" @click="saveUserInfo">提交</div>
         <mt-actionsheet cancel-text="关闭" :actions="actions" v-model="sheetVisible">
         </mt-actionsheet>
     </div>
 </template>
 
 <script>
+import Store from '@/utils/store'
+import apiHandler from '@/api/services/employee.service'
+import { MessageBox } from 'mint-ui';
 export default {
     data: () => {
         return {
             header: {
                 headerTitle: '账户信息'
             },
+            userInfo: [],
             nickName: '一切皆有可能',
             mobile: '13688779900',
             sheetVisible: false,
@@ -84,7 +101,26 @@ export default {
 
         showCanera: function () {
             //执行打开相机
+        },
+        saveUserInfo: function () {
+            apiHandler.updateUserInfo(this.userInfo, (msg) => {
+                MessageBox('修改成功！');
+                var model = Store.fetch("newUserInfo");
+                Store.save("user", model);
+                Store.save("newUserInfo", null);
+                this.$router.push({ path: '/accountInfo' });
+            }, (err) => {
+                MessageBox(err);
+                Store.save("newUserInfo", null);
+            });
         }
+    },
+    created: function () {
+        if (!Store.fetch("newUserInfo")) {
+            var model = Store.fetch("user");
+            Store.save("newUserInfo", model);
+        }
+        this.userInfo = Store.fetch("newUserInfo");
     }
 }
 </script>

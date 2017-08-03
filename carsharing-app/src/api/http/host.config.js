@@ -1,7 +1,9 @@
 /**
  * Created by lmz on 2017/7/11.
  */
-const IP = 'http://47.94.194.81:8080/carsharing';
+//const IP = 'http://47.94.194.81:8080/carsharing';
+const IP = 'http://192.168.153.157:8080/carsharing';
+
 export const API_ROOT = (process.env.NODE_ENV === 'production') ? IP : IP;
 
 //用户手机验证码登录

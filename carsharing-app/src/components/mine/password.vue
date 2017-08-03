@@ -41,7 +41,7 @@ export default {
           console.log(res);
         })
       } else {
-        alert('两次输入密码不一致，请重新输入');
+        MessageBox('两次输入密码不一致，请重新输入');
       }
     }
   }

@@ -14,7 +14,9 @@
                     </div>
                     <div class="message-wrapper">
                         <div class="message">
-                            <a class="header-right">{{header.rightText}}</a>
+                             <router-link to="/license"class="header-right">
+                            {{header.rightText}}
+                             </router-link>
                         </div>
                     </div>
                 </div>
@@ -26,16 +28,19 @@
                 <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
+                        <span>{{driverInfo.carNo}}{{driverInfo.region}}</span>
                         <span class="icon-Level-Down ico right"></span>
                     </router-link>
     
                 </li>
                 <li class="car-info-list border-bottom-style" @click="choiceBrand">
                     <span>品牌型号</span>
+                    <span>{{driverInfo.brand}}{{driverInfo.model}}</span>
                     <span class="icon-Level-Down ico right"></span>
                 </li>
                 <li class="car-info-list" @click="openPopupColor">
                     <span>车辆颜色</span>
+                    <span>{{color}}</span>
                     <span class="icon-Level-Down ico right"></span>
                 </li>
             </ul>
@@ -47,7 +52,6 @@
                 <span class="mint-plate-action mint-plate-confirm" @click="selectColor">确定</span>
             </div>
             <ul class="car-color-choice">
-                
                 <li :key="item" v-for="item in colorSlots" class="color-li"  @click="choiceColorValue(item)">
                     <span :style="{background:item.value}" class="color-mark"></span>{{item.name}}</li>
             </ul>
@@ -55,6 +59,9 @@
     </div>
 </template>
 <script>
+import Store from '@/utils/store'
+import apiHandler from '@/api/services/driver.service'
+import { MessageBox } from 'mint-ui';
 export default {
     data: () => {
         return {
@@ -62,6 +69,7 @@ export default {
                 headerTitle: '车主认证',
                 rightText: '下一步'
             },
+            color:'',
             popupColor: false,
             tempColorValue: {},
             colorSlots: [
@@ -75,7 +83,8 @@ export default {
                 { name: '天蓝色', value: "#00FFFF" },
                 { name: '紫色', value: "#FF00FF" },
                 { name: '灰色', value: "#C0C0C0" }
-            ]
+            ],
+            driverInfo:{}
         }
     },
     methods: {
@@ -96,11 +105,43 @@ export default {
         },
         selectColor: function () {
             this.popupColor = false;
+            var car =  Store.fetch("newDriverInfo");
+            car.color = this.tempColorValue.value;
+            this.color = this.tempColorValue.name;
+            Store.save("newDriverInfo",car);
         },
         choiceColorValue(item) {
             //将点击的颜色名和颜色值存到obj里
             this.tempColorValue = item;
-            console.log(this.tempColorValue);   
+        }
+    },
+    created:function(){
+                console.log(Store.fetch("user").isDriver);
+       if(!Store.fetch("newDriverInfo"))
+        {
+            var model = Store.fetch("user");
+            apiHandler.getDriverByNo(model,data=>{
+             Store.save("newDriverInfo",data);
+             this.driverInfo = Store.fetch("newDriverInfo");
+             for(var i =0;i<this.colorSlots.length;i++){
+                if(this.colorSlots[i].value == this.driverInfo.color)
+                 this.color = this.colorSlots[i].name;
+            }
+            },err=>{
+             Store.save("newDriverInfo",{});
+             this.driverInfo = Store.fetch("newDriverInfo");
+              for(var i =0;i<this.colorSlots.length;i++){
+                if(this.colorSlots[i].value == this.driverInfo.color)
+                 this.color = this.colorSlots[i].name;
+            }
+            });
+        }
+        else{
+            this.driverInfo = Store.fetch("newDriverInfo");
+            for(var i =0;i<this.colorSlots.length;i++){
+                if(this.colorSlots[i].value == this.driverInfo.color)
+                 this.color = this.colorSlots[i].name;
+            }
         }
     }
 }
