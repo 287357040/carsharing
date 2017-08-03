@@ -19,7 +19,7 @@ import details  from '@/components/message/details'
 import accountInfo  from '@/components/setting/accountInfo'
 import mobileNum  from '@/components/setting/mobileNum'
 import nickName  from '@/components/setting/nickName'
-import lincese  from '@/components/setting/lincese'
+import license  from '@/components/setting/license'
 import LocalStorage from '../utils/store' 
 Vue.use(Router);
 
@@ -133,9 +133,9 @@ var router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/lincese',
-      name: 'lincese',
-      component: lincese,
+      path: '/license',
+      name: 'license',
+      component: license,
       meta: { requiresAuth: true }
     },
     {

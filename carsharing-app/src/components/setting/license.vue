@@ -2,9 +2,9 @@
     <div class="mine-container mine-container-bgcolor">
         <OHeader v-bind:headerText="headerText" />
         <div class="submit-btn" @click.stop="submintInfo">提交</div>
-        <div class="lincese-wrapper">
+        <div class="license-wrapper">
             <p class="hint-text">请填写以下信息，我们将优先审核，这个软件仅供内部使用，请放心填写</p>
-            <ul class="lincese-info">
+            <ul class="license-info">
                 <li>
                     <mt-field label="真实姓名" placeholder="真实姓名与驾照不符将无法审核" type="username" v-model="driverName">
                     </mt-field>
