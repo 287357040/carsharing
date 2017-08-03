@@ -22,7 +22,7 @@ export default {
                 validDate: driver.validDate, // 驾驶证有效期
                 carNo: driver.carNo, // 车牌号
                 color: driver.color, // 颜色
-                brand: driver, // 品牌
+                brand: driver.brand, // 品牌
                 model: driver.model // 型号
             })
             .then(

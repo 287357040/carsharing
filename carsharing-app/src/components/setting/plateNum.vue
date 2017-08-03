@@ -17,7 +17,7 @@
     <div class="plate-number-wrapper">
       <span class="plate-number">车牌号</span>
       <a class="select-plate" @click="openPlate">{{plateNumber}}</a>
-      <input type="txt" class="input-plate"  placeholder="请输入车牌号"/>
+      <input type="txt" v-model="plateNumberTail" class="input-plate"  placeholder="请输入车牌号"/>
   
       <mt-popup v-model="popupPlate" position="bottom" class="mint-popup">
         <div class="picker-toolbar">
@@ -28,14 +28,18 @@
         <mt-picker :slots="plateSlots" @change="cityChange" :visible-item-count="4"></mt-picker>
       </mt-popup>
     </div>
+    <div class="submit-btn" @click="savePlateNum">提交</div>
   </div>
 </template>
 
 <script>
+import Store from '@/utils/store'
+import { MessageBox } from 'mint-ui';
 export default {
   data: () => {
     return {
       plateNumber: '请选择',
+      plateNumberTail:'',
       plate: '',
       popupPlate: false,
       header: {
@@ -58,7 +62,9 @@ export default {
     }
   },
   created: function () {
-    //this.computedPlate();
+     var car =  Store.fetch("newDriverInfo");
+     this.plateNumber = car.region;
+     this.plateNumberTail = car.carNo;
   },
   methods: {
     openPlate: function () {
@@ -78,6 +84,13 @@ export default {
     },
     goback: function () {
         this.$router.go(-1);
+    },
+    savePlateNum: function () {
+     var car =  Store.fetch("newDriverInfo");
+     car.carNo =this.plateNumber;
+     car.region =this.plateNumberTail;
+     Store.save("newDriverInfo",car);
+     MessageBox('保存成功！');
     }
   }
 }

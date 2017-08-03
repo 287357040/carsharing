@@ -1,13 +1,10 @@
 <template>
     <div class="mine-container mine-container-bgcolor">
         <OHeader v-bind:headerText="headerText" />
-        <div class="submit-btn" @click.stop="submintInfo">提交</div>
+        <div class="submit-btn" @click.stop="saveDriverInfo">提交</div>
         <div class="license-wrapper">
             <p class="hint-text">请填写以下信息，我们将优先审核，这个软件仅供内部使用，请放心填写</p>
             <ul class="license-info">
-                <li class="license-li">
-                    <mt-field label="真实姓名" placeholder="真实姓名与驾照不符将无法审核" type="txt" v-model="driverName"></mt-field>
-                </li>
                 <li class="license-li">
                     <mt-field label="驾驶证号" placeholder="请输入驾驶证号" type="txt" v-model="driverNumber"></mt-field>
                 </li>
@@ -22,7 +19,7 @@
                     <span class="icon-Level-Down ico right"></span>
                 </li>
                 <li class="license-li">
-                    <mt-field label="机动车行驶编号" placeholder="请输入" type="username" v-model="carNumber">
+                    <mt-field label="机动车行驶编号" placeholder="请输入" type="txt" v-model="carNumber">
                     </mt-field>
                 </li>
             </ul>
@@ -35,6 +32,10 @@
 </template>
 <script>
 import OHeader from '@/components/mine/header.vue'
+import { MessageBox } from 'mint-ui';
+import Store from '@/utils/store'
+import userService from '@/api/services/employee.service'
+import driverService from '@/api/services/driver.service'
 export default {
     data() {
         return {
@@ -77,7 +78,51 @@ export default {
             var minute = date.getMinutes();
             var second = date.getSeconds();
             return year + "-" + this.formatTen(month) + "-" + this.formatTen(day);
+        },
+        saveDriverInfo:function(){
+            var driverInfo =  Store.fetch("newDriverInfo");
+            driverInfo.userLicense = this.driverNumber;
+            driverInfo.licenseDate = this.date1;
+            driverInfo.validDate = this.date2;
+            driverInfo.carLicense = this.carNumber;
+            Store.save("newDriverInfo",driverInfo);
+            var userInfo = Store.fetch("user");
+
+            if(userInfo.isDriver){
+
+            userInfo.isDriver = 1;
+
+            userService.updateUserInfo(userInfo, (msg) => {
+                Store.save("user", userInfo);
+            }, (err) => {
+                MessageBox(err);
+            });
+
+            driverService.regToDriver(driverInfo, (msg) => {
+                Store.save("newUserInfo", driverInfo);
+            }, (err) => {
+                Store.save("newUserInfo", null);
+                MessageBox(err);
+               this.$router.path("/home");
+            });
+            }
+            else
+            {
+                driverService.regToDriver(driverInfo, (msg) => {
+                Store.save("newUserInfo", driverInfo);
+                this.$router.path("/home");
+                }, (err) => {
+                MessageBox(err);
+                });
+            }
         }
+    },
+    created:function(){
+         var driverInfo =  Store.fetch("newDriverInfo");
+            this.driverNumber = driverInfo.userLicense;
+            this.date1 = driverInfo.licenseDate;
+            this.date2 = driverInfo.validDate;
+            this.carNumber = driverInfo.carLicense;
     }
 }
 </script>

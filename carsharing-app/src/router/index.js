@@ -137,6 +137,12 @@ var router = new Router({
       name: 'details',
       component: details,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/license',
+      name: 'license',
+      component: license,
+      meta: { requiresAuth: true }
     }  
   ]
 })
