@@ -1,0 +1,58 @@
+.amap-wrapper {
+  height: 350px
+}
+.amap-wrapper .el-vue-amap-container{
+  margin-top: 56px;
+  height: 350px;
+}
+.search-box {
+  position: absolute;
+  margin: 0px 10px 0px 0px;
+  width: 100%;
+}
+.amap-demo {
+  height: 300px;
+}
+.panel {
+  position: fixed;
+  background-color: white;
+  max-height: 90%;
+  overflow-y: auto;
+  top: 10px;
+  right: 10px;
+  width: 280px;
+}
+
+.search-btn{
+    
+    position: absolute;
+    z-index: 100;
+    top: 15px;
+    text-align: left;
+    width: 75%;
+    height: 28px;
+    /* margin: 0px auto; */
+    left: 7%;
+    border-radius: 5px;
+
+}
+.search-btn .textcontent
+{
+    
+    position: absolute;
+    padding-left: 28px;
+    background-color: #030303;
+    opacity: 0.22;
+    padding-top: 3.5px;
+    border-radius: 5px;
+    padding-bottom: 3.5px;
+    width: 100%;
+    color: #fff;
+    border: 0px;
+
+}
+.search-btn .icon
+{
+ color: rgb(254, 135, 43);position: absolute;line-height: 30px;margin-left: 10px;
+
+}

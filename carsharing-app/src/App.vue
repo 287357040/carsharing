@@ -7,7 +7,8 @@
   @import 'src/styles/mine.scss';
   @import 'src/styles/await.scss';
   @import 'src/styles/owner.scss';
-   @import 'src/styles/message.scss';
+  @import 'src/styles/message.scss';
+  @import 'src/styles/map.scss';
 </style>
 <template>
   <div id="app">
