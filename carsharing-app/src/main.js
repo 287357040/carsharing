@@ -9,13 +9,16 @@ import 'mint-ui/lib/style.css'
 import store from '@/store/index'
 import AMap from 'vue-amap'
 import '../static/font-icon/font.css'
-import iView from 'iview';
-import 'iview/dist/styles/iview.css'; 
+import VueAMap from 'vue-amap'
 
 Vue.use(MintUI);
-Vue.use(iView);
+Vue.use(VueAMap)
 /* eslint-disable no-new */
 Vue.config.productionTip = false;
+VueAMap.initAMapApiLoader({
+  key: '199462e78d12956cf1e5e4c7e340f2ec',
+  plugin: ['Autocomplete', 'PlaceSearch', 'Geolocation', 'Scale', 'OverView', 'ToolBar', 'MapType', 'PolyEditor', 'AMap.CircleEditor']
+})
 
 let vm = new Vue({
   el: '#app',
