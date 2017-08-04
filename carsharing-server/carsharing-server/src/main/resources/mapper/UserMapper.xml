@@ -98,7 +98,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User">
+	<update id="updateByPrimaryKeySelective" parameterType="com.carsharing.server.entity.User" flushCache="true">
 		update t_user
 		<set>
 			<if test="mobile != null">
@@ -140,5 +140,6 @@
 		<!--from t_user-->
 		<!--where state= 1-->
 	<!--</select>-->
-
+	<!-- 开启基于redis的二级缓存 -->
+	<cache type="com.carsharing.server.util.RedisCache"/>
 </mapper>

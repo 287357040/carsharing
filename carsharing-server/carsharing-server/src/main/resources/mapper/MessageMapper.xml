@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.carsharing.server.mapper.MessageMapper">
+    <resultMap id="BaseResultMap" type="com.carsharing.server.entity.UserMessage">
+        <id column="msg_id" property="msgId" jdbcType="INTEGER"/>
+        <result column="msg_title" property="msgTitle" jdbcType="VARCHAR"/>
+        <result column="user_no" property="userNo" jdbcType="VARCHAR"/>
+        <result column="msg_content" property="msgContent" jdbcType="VARCHAR"/>
+        <result column="msg_type" property="msgType" jdbcType="TINYINT"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		msg_id, msg_title,user_no, msg_content,msg_type,state,add_time
+	</sql>
+    <select id="getMessageByUserNo" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+            from t_message
+            where user_no = #{userNo,jdbcType=VARCHAR}
+            and state!=2
+    </select>
+    <insert id="insertService" parameterType="com.carsharing.server.entity.UserMessage">
+        insert into t_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="msgTitle != null">
+                user_name,
+            </if>
+            <if test="msgContent != null">
+                content,
+            </if>
+            <if test="userNo != null">
+                user_no,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="msgTitle != null">
+                #{msgTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="msgContent != null">
+                #{msgContent,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null">
+                #{userNo,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="com.carsharing.server.entity.UserMessage">
+        update t_message
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=TINYINT},
+            </if>
+        </set>
+        where msg_id = #{msgId,jdbcType=INTEGER}
+        and user_no = #{userNo,jdbcType=VARCHAR}
+    </update>
+</mapper>

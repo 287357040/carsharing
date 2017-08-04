@@ -135,8 +135,10 @@ public class UserController extends AbstractController {
             baseUser.setBirth(user.getBirth());
         if (null != user.getUserName())
             baseUser.setUserName(user.getUserName());
+        if (null != user.getMobile())
+            baseUser.setMobile(user.getMobile());
         if (null != user.getDepartment())
-            baseUser.setUserName(user.getDepartment());
+            baseUser.setDepartment(user.getDepartment());
         if (null != user.getPassword())
             baseUser.setPassword(user.getPassword());
 
@@ -182,8 +184,7 @@ public class UserController extends AbstractController {
      * 获取用户详情
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getUserByNo")
-    public JsonResponse<User> getUserByNo(String userNo,
-                                          HttpServletRequest request) {
+    public JsonResponse<User> getUserInfo(HttpServletRequest request) {
         JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
         lo.info("getUserByNo...");
         User user = SessionUtil.getUser(request);

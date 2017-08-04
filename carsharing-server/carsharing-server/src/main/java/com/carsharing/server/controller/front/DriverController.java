@@ -65,12 +65,13 @@ public class DriverController extends AbstractController {
     /**
      * 获取司机信息
      */
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getDriverInfo")
-    public JsonResponse<Driver> getDriverByNo(HttpServletRequest request) {
-        JsonResponse<Driver> result = new JsonResponse<Driver>(SystemCode.FAILURE);
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getDriverByNo")
+    public JsonResponse<Driver> getDriverByNo(String userNo, HttpServletRequest request) {
+        JsonResponse<Driver> result = new JsonResponse<>(SystemCode.FAILURE);
 
-        User user = SessionUtil.getUser(request);
-        Driver driver = driverService.selectByPrimaryKey(user.getUserNo());
+        if(userNo == null)
+            userNo = SessionUtil.getUser(request).getUserNo();
+        Driver driver = driverService.selectByPrimaryKey(userNo);
         if (null == driver) {
             result.setRes(SystemCode.OBJ_NOT_EXISTS);
             return result;
