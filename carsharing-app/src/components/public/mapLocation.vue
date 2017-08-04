@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <div class="amap-wrapper">
-
-      <button>x</button>
-      <input v-on:input="inputFunc" id="keyword" type="text" class="remark-info info-text" placeholder="出行需求"/>
-
-      <!-- <el-amap-search-box class="search-box" :search-option="searchOption" :on-search-result="onSearchResult"></el-amap-search-box> -->
+      <OHeader></OHeader>
+      <div class="search-btn">
+        <input v-on:input="inputFunc" id="keyword" type="text" class="textcontent" placeholder="请输入地址"></input>
+        <i class="icon-corporation icon" style="color: #FE872B"></i>
+      </div>
+      <div class="submit-btn" style="top: 21px;" @click="buttonClick">确定</div>
+  
       <el-amap :vid="'amap-vue'" :plugin="plugin" :center="center" :zoom="zoom" :map-manager="amapManager">
-         <el-amap-marker :key="marker.lng"  v-for="marker in markers" :position="marker" ></el-amap-marker>
+        <el-amap-marker :key="marker.lng" v-for="marker in markers" :position="marker"></el-amap-marker>
       </el-amap>
-
+  
       <div class="toolbar">
         <span v-if="loaded">
           location: lng = {{ lng }} lat = {{ lat }}
@@ -18,10 +20,9 @@
       </div>
       <div id='result'>
       </div>
-
-      <button @click="drivingSearch" style="height:20px ">点我是路线</button>
-      <button @click="inputFunc" style="height:20px ">我是周边定位</button>
-      <p>我是测试</p>
+  
+      <!-- <button @click="drivingSearch" style="height:20px ">点我是路线</button>
+        <button @click="inputFunc" style="height:20px ">我是周边定位</button>  -->
     </div>
   </div>
 </template>
@@ -29,18 +30,26 @@
 <script>
 import Vue from 'vue'
 import VueAMap from 'vue-amap'
+import bus from '@/utils/eventBus'
+import OHeader from '@/components/mine/header.vue'
+import sharedStateMixin from '@/utils/amapValue'
 Vue.use(VueAMap)
 
 let amapManager = new VueAMap.AMapManager()
 // 初始化高德地图的 key 和插件
-VueAMap.initAMapApiLoader({
-  key: '199462e78d12956cf1e5e4c7e340f2ec',
-  plugin: ['Autocomplete', 'PlaceSearch', 'Geolocation', 'Scale', 'OverView', 'ToolBar', 'MapType', 'PolyEditor', 'AMap.CircleEditor']
-})
+// VueAMap.initAMapApiLoader({
+//   key: '199462e78d12956cf1e5e4c7e340f2ec',
+//   plugin: ['Autocomplete', 'PlaceSearch', 'Geolocation', 'Scale', 'OverView', 'ToolBar', 'MapType', 'PolyEditor', 'AMap.CircleEditor']
+// })
 
 //  console.log(amapManager)
 export default {
-  data () {
+  name: 'map',
+  components: {
+    OHeader
+  },
+  mixins: [sharedStateMixin],
+  data() {
     let self = this
     return {
       zoom: 13,
@@ -49,10 +58,10 @@ export default {
       lng: 0,
       lat: 0,
       loaded: false,
-      plugin: [ {
+      plugin: [{
         pName: 'Geolocation',
         events: {
-          init (o) {
+          init(o) {
             // o 是高德地图定位插件实例
             o.getCurrentPosition((status, result) => {
               if (result && result.position) {
@@ -70,23 +79,24 @@ export default {
         city: '杭州',
         citylimit: true
       },
-      markers: []
+      markers: [],
+      selectPlace: {}
     }
   },
   methods: {
     // 增加点图标
-    addMarker () {
+    addMarker() {
       let lng = 121.5 + Math.round(Math.random() * 1000) / 10000
       let lat = 31.197646 + Math.round(Math.random() * 500) / 10000
       this.markers.push([lng, lat])
     },
     // 定位
-    onSearchResult (pois) {
+    onSearchResult(pois) {
       let latSum = 0
       let lngSum = 0
       if (pois.length > 0) {
         pois.forEach(poi => {
-          let {lng, lat} = poi
+          let { lng, lat } = poi
           lngSum += lng
           latSum += lat
           this.markers.push([poi.lng, poi.lat])
@@ -99,7 +109,7 @@ export default {
       }
     },
     // 路径搜索
-    drivingSearch () {
+    drivingSearch() {
       AMap.service('AMap.Driving', function () {
         // 实例化Driving
         let driving = new AMap.Driving({
@@ -110,13 +120,14 @@ export default {
         // 根据起终点经纬度规划驾车导航路线
         // driving.search(new AMap.LngLat(121.59996, 31.297646), new AMap.LngLat(121.59996, 30.197646))
 
-        driving.search([{keyword: '恒生电子', city: '杭州'}, {keyword: '电化场'}], function (status, result) {
+        driving.search([{ keyword: '恒生电子', city: '杭州' }, { keyword: '电化场' }], function (status, result) {
           console.log(result)
         })
       })
     },
     // 输入监控函数
-    inputFunc () {
+    inputFunc() {
+      var that = this
       AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function () {
         // 实例化Autocomplete
         let autoOptions = {
@@ -129,8 +140,11 @@ export default {
           map: amapManager
         })
         AMap.event.addListener(autocomplete, 'select', function (e) {
-        // TODO 针对选中的poi实现自己的功能
-          placeSearch.search(e.poi.name)
+          // TODO 针对选中的poi实现自己的功能
+          // placeSearch.search(e.poi.name)
+          // that.$router.push({path: '/home'})
+          // bus.$emit('mapAddress', e.poi)
+          that.selectPlace = e.poi
         })
         // 方式2：返回输入地点的相关地址
         // autocomplete.search('恒生电子', function (status, result) {
@@ -142,28 +156,40 @@ export default {
         //   }
         // })
       })
+    },
+    // 点击确定按钮
+    buttonClick() {
+      let valueTemp = {}
+      valueTemp = this.selectPlace
+      this.$router.push({ path: '/home' })
+      // bus.$emit('mapAddress2', valueTemp)
+      this.setMapInfo(this.selectPlace)
+      console.log(this.getMapInfo())
     }
     // 周边地点
-//    sidePlace (lnglatXY) {
-//      AMap.plugin('AMap.Geocoder', function () {
-//        let geocoder = new AMap.Geocoder({
-//          city: '010' // 城市，默认：“全国”
-//        })
-//        amapManager.on('click', function (e) {
-//          geocoder.getAddress(lnglatXY, function (status, result) {
-//            if (status === 'complete') {
-//              console.log(result.regeocode.formattedAddress)
-//            }
-//          })
-//        })
-//      })
-//    }
+    //    sidePlace (lnglatXY) {
+    //      AMap.plugin('AMap.Geocoder', function () {
+    //        let geocoder = new AMap.Geocoder({
+    //          city: '010' // 城市，默认：“全国”
+    //        })
+    //        amapManager.on('click', function (e) {
+    //          geocoder.getAddress(lnglatXY, function (status, result) {
+    //            if (status === 'complete') {
+    //              console.log(result.regeocode.formattedAddress)
+    //            }
+    //          })
+    //        })
+    //      })
+    //    }
+  },
+  beforeDestroy: function () {
+    bus.$off('mapAddress2')
   }
 }
 </script>
 
 <style>
-.amap-wrapper {
+/* .amap-wrapper {
   height: 350px
 }
 
@@ -183,5 +209,5 @@ export default {
   top: 10px;
   right: 10px;
   width: 280px;
-}
+} */
 </style>
