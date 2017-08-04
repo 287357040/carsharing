@@ -57,7 +57,9 @@
         </div>
       </div>
     </div>
-    <p class="expain">约<span>21.3km</span></p>
+    <p class="expain">约
+      <span>21.3km</span>
+    </p>
     <div class="search-issue-wrapper">
       <mt-button type="default" class="comfirm-search-btn">查询</mt-button>
       <mt-button type="default" class="confirm-issue-btn linear-gradient-bg" @click="issueRoute">发布</mt-button>
@@ -71,8 +73,9 @@ export default {
       departureTime: '',
       seatsCounts: '',
       seatsDescription: '同行的几人？',
-      dateTime : '',
+      dateTime: '',
       isMoveDate: false,
+      isMoveHour: false,
       popupVisible: false,
       datetimePopup: false,
       seatSlots: ['1人', '2人', '3人', '4人'],
@@ -115,7 +118,7 @@ export default {
     cancleSeats: function () {
       this.popupVisible = false;
     },
-    choiceSeats: function(item) {
+    choiceSeats: function (item) {
       this.popupVisible = false;
       this.seatsCounts = item;
     },
@@ -131,7 +134,24 @@ export default {
     },
     onDatetimeChange: function (picker, values) {
       if (!values.includes(undefined)) {
-        this.dateTime = values[0] + ' ' + values[1].substring(0, 2) + ':' + values[2].substring(0, 2);
+        let [currentDate, currentHour, currentMinute] = [values[0], values[1], values[2]];
+        if (!isNaN(values[1].substring(1, 2))) {
+          this.dateTime = currentDate + ' ' + currentHour.substring(0, 2) + ':' + currentMinute.substring(0, 2);
+        } else {
+          this.dateTime = currentDate + ' ' + currentHour.substring(0, 1) + ':' + currentMinute.substring(0, 2);
+        }
+
+        if (currentDate != '今天') {
+          this.isMoveDate = true;
+        } else {
+          this.isMoveDate = false;
+        }
+       
+        if (currentHour.substring(0,currentHour.length-1) != (new Date).getHours()) {
+          this.isMoveHour = true;
+        } else {
+          this.isMoveHour = false;
+        }
       }
     },
     computedDatetime: function () {
@@ -149,7 +169,7 @@ export default {
         }
         this.datetimeSlots[0].values.push(someDates);
       }
-    
+
       //处理分钟
       var currentMinute = date.getMinutes();
       var newArry = [];
@@ -171,19 +191,47 @@ export default {
         }
         this.datetimeSlots[2].values.push(newStr);
       }
-       //处理小时
-       var someHours = null;
+
+      //处理小时
+      var someHours = null;
       for (let i = 0; i < (24 - date.getHours()); i++) {
-         if(isCarry){
-        someHours = (date.getHours() + i + 1) + '点';
-      }else {
-        someHours = (date.getHours() + i) + '点';
-      } 
+        if (isCarry) {
+          someHours = (date.getHours() + i + 1) + '点';
+        } else {
+          someHours = (date.getHours() + i) + '点';
+        }
         this.datetimeSlots[1].values.push(someHours);
       }
     },
-    issueRoute: function() {
-      this.$router.push({path:'/awaitStatus'});
+    issueRoute: function () {
+      this.$router.push({ path: '/awaitStatus' });
+    }
+  },
+  watch: {
+    isMoveDate: function () {
+      var allHours = null;
+      this.datetimeSlots[1].values = [];
+      if (this.isMoveDate) {
+        for (let i = 0; i < 24; i++) {
+          allHours = i + '点';
+          this.datetimeSlots[1].values.push(allHours);
+        }
+      } else {
+        this.computedDatetime();
+      }
+    },
+    isMoveHour: function () {
+      var allMinutes = null;
+      var allMinutesArry = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
+      this.datetimeSlots[2].values = [];
+      if (this.isMoveHour) {
+        for (let i = 0; i < allMinutesArry.length; i++) {
+          allMinutes = allMinutesArry[i] + '分';
+          this.datetimeSlots[2].values.push(allMinutes);
+        }
+      } else {
+        this.computedDatetime();
+      }
     }
   }
 }
