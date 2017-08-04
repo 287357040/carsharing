@@ -133,25 +133,23 @@ export default {
       this.data.seatsCounts = values[0];
     },
     onDatetimeChange: function (picker, values) {
+      let [currentDate, currentHour, currentMinute] = [values[0], values[1], values[2]];
+
       if (!values.includes(undefined)) {
-        let [currentDate, currentHour, currentMinute] = [values[0], values[1], values[2]];
         if (!isNaN(values[1].substring(1, 2))) {
           this.dateTime = currentDate + ' ' + currentHour.substring(0, 2) + ':' + currentMinute.substring(0, 2);
         } else {
           this.dateTime = currentDate + ' ' + currentHour.substring(0, 1) + ':' + currentMinute.substring(0, 2);
         }
-
-        if (currentDate != '今天') {
-          this.isMoveDate = true;
-        } else {
-          this.isMoveDate = false;
-        }
-       
-        if (currentHour.substring(0,currentHour.length-1) != (new Date).getHours()) {
-          this.isMoveHour = true;
-        } else {
-          this.isMoveHour = false;
-        }
+        if(currentDate != '今天') 
+        this.isMoveDate = true ;
+        else this.isMoveDate = false;
+        if(currentHour.substring(0, currentHour.length - 1) != (new Date).getHours())
+          this.isMoveHour = true; 
+          else this.isMoveHour = false;
+      } else {
+        this.dateTime = currentDate + ' ' + (new Date).getHours() + ':' +
+          (new Date).getMinutes();
       }
     },
     computedDatetime: function () {
