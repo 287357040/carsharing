@@ -76,9 +76,9 @@
 </template>
 
 <script>
-import bus from '@/scripts/eventBus'
+import bus from '@/utils/eventBus'
 import apiHandler from '@/api/services/demand.service'
-import sharedStateMixin from '@/scripts/amapValue'
+import sharedStateMixin from '@/utils/amapValue'
 
 export default {
   mixins: [sharedStateMixin],
