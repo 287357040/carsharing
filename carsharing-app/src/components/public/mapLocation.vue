@@ -64,7 +64,7 @@ export default {
       markers: [],
       selectPlace: {},
       placeFlage:'',  //是起始地址或者终点地址标志
-      locationInfo: {}, //存储定位的信息
+      locationInfo: {}, //存储定位的信息.
     }
   },
   methods: {
