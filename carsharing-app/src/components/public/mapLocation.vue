@@ -13,6 +13,15 @@
          <el-amap-marker :key="marker.lng"  v-for="marker in markers" :position="marker" ></el-amap-marker>
       </el-amap>
 
+    <div>出发地：{{startPlaceShow.address}}
+                 <br>
+         出发区:  {{startPlaceShow.area}}
+    </div> 
+    <div>目的地：{{endPlaceShow.address}}
+                 <br>
+         目的区：  {{endPlaceShow.area}}
+    </div>
+
     </div>
 
   </div>
@@ -23,6 +32,7 @@ import Vue from 'vue'
 import VueAMap from 'vue-amap'
 import bus from '@/utils/eventBus'
 import OHeader from '@/components/mine/header.vue'
+import apiHandler from '@/api/services/employee.service'
 import sharedStateMixin from '@/utils/amapValue'
 Vue.use(VueAMap)
 
@@ -65,6 +75,15 @@ export default {
       selectPlace: {},
       placeFlage:'',  //是起始地址或者终点地址标志
       locationInfo: {}, //存储定位的信息.
+      searchHistoryList: {}, //搜索地址按确定后存在报错变量
+      startPlaceShow: {
+        address:'无',
+        area:'无'
+      },
+      endPlaceShow: {
+        address:'无',
+        area:'无'
+      }
     }
   },
   methods: {
@@ -135,6 +154,26 @@ export default {
         // })
       })
     },
+    // 查询家和公司的地址
+    getAddress () {
+      let that = this
+      apiHandler.queryAddress({},(data)=>{
+        console.log(data)
+        if (data.length === 0){
+          return
+        }else{
+          for(let i=0;i<data.length;i++){
+            if(data[i].addressType === 0){  // 0为家
+              that.startPlaceShow = data[i]
+            } else {                           // 1为公司
+              that.endPlaceShow = data[i]
+              }
+          }
+        }
+      }, (err)=>{
+        console.log('我是查询错误')
+      })      
+    },
     // 点击确定按钮
     buttonClick () {
       let valueTemp = {}
@@ -151,7 +190,7 @@ export default {
   },
   created () {
     this.placeFlage = this.$route.query.params
-    console.log(this.placeFlage)
+    this.getAddress()
   }
 }
 </script>
