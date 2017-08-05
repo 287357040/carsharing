@@ -21,9 +21,9 @@
 <script>
 import Vue from 'vue'
 import VueAMap from 'vue-amap'
-import bus from '@/scripts/eventBus'
+import bus from '@/utils/eventBus'
 import OHeader from '@/components/mine/header.vue'
-import sharedStateMixin from '@/scripts/amapValue'
+import sharedStateMixin from '@/utils/amapValue'
 Vue.use(VueAMap)
 
 let amapManager = new VueAMap.AMapManager()
