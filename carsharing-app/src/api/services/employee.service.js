@@ -13,7 +13,8 @@ import {
     updateUserIconUrl,
     changePasswordUrl,
     addNewAddressUrl,
-    updateAddressUrl
+    updateAddressUrl,
+    queryAddressUrl
 } from '@/api/http/host.config'
 
 export default {
@@ -140,7 +141,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    queryAddress:() =>{
+    queryAddress:(query, success, err) =>{
         Vue.http.get(
             queryAddressUrl,
             {
