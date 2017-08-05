@@ -29,7 +29,7 @@ export default {
                 riderCount: demand.riderCount, // 车座位数量 默认4
                 waitTime: demand.waitTime, // 能够等待时间
                 describe: demand.describe, // 备注
-                rewards: demand, rewards, // 打赏金 
+                rewards: demand.rewards, // 打赏金 
                 isHome: demand.isHome // 是否到家服务 默认 0
             })
             .then(
