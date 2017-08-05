@@ -2,7 +2,7 @@
  * Created by lmz on 2017/7/11.
  */
 //const IP = 'http://47.94.194.81:8080/carsharing';
-const IP = 'http://192.168.153.157:8080/carsharing';
+const IP = 'http://192.168.124.171:8080';
 
 export const API_ROOT = (process.env.NODE_ENV === 'production') ? IP : IP;
 
@@ -34,6 +34,9 @@ export const addNewAddressUrl = API_ROOT + '/front/useraddress/addNewAddress';
 
 //更新登录用户设置地址
 export const updateAddressUrl = API_ROOT + '/front/useraddress/updateAddress';
+
+//查询登录用户地址
+export const queryAddressUrl = API_ROOT + '/front/useraddress/queryAddress';
 
 //注册为司机
 export const regToDriverUrl = API_ROOT + '/front/driver/regToDriver';

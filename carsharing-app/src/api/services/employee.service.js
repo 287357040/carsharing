@@ -139,5 +139,19 @@ export default {
                 // 响应错误回调
                 HttpResHelper.resHandle(response, success, err);
             })
+    },
+    queryAddress:() =>{
+        Vue.http.get(
+            queryAddressUrl,
+            {
+                
+            }
+        ).then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            })
     }
 }
