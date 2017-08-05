@@ -70,8 +70,6 @@
     <el-amap :plugin="plugin"></el-amap>
     <!--定位地图需要的地图插件（不显示）-->
 
-    <!-- <code>{{ getMapInfo() }}</code> -->
-
   </div>
 </template>
 
@@ -79,6 +77,7 @@
 import bus from '@/utils/eventBus'
 import apiHandler from '@/api/services/demand.service'
 import sharedStateMixin from '@/utils/amapValue'
+import Store from '@/utils/store'
 
 export default {
   mixins: [sharedStateMixin],
@@ -229,15 +228,10 @@ export default {
         return placeShow
       }
     },
-    // 点击发布以后的地址存在
-    placeSave() {
-
-    },
     // 点击查询
     getInfo() {
-      alert('我是查询')
       let state = 0  //0 表示发布中的
-      apiHandler.getRideDemands(-1, (data) => {
+      apiHandler.getRideDemands(0, (data) => {
         console.log(data)
       }, (err) => {
         console.log('我是错误')
@@ -245,25 +239,48 @@ export default {
     },
     // 点击发布
     publishInfo() {
-      let data = {
-        startArea: this.startPlace.addressComponent.district, // 起始区县
-        startPlace: this.startPlace.formattedAddress, // 起始地址
-        startLongitude: this.startPlace.position.lng, // 起始经度
-        startLatitude: this.startPlace.position.lat, // 起始纬度
-        endArea: this.endPlace.district, // 终点区县
-        endPlace: this.endPlace.name, // 终点地址
-        endLongitude: this.endPlace.location.lng, // 终点经度
-        endLatitude: this.endPlace.location.lng, // 终点纬度
-        startTime: '2017-08-02 12:10:12', // 发车时间
-        riderCount: 4, // 车座位数量 默认4
-        waitTime: 10, // 能够等待时间
-        describe: '无', // 备注
-        rewards: 5, // 打赏金 
-        isHome: 0 // 是否到家服务 默认 0
+       let data = {}
+      if(this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined){ //我是不定位
+        data= {
+           startArea: this.startPlace.district, // 起始区县
+           startPlace: this.startPlace.name, // 起始地址
+           startLongitude: this.startPlace.location.lng, // 起始经度
+           startLatitude: this.startPlace.location.lat, // 起始纬度
+           endArea: this.endPlace.district, // 终点区县
+           endPlace: this.endPlace.name, // 终点地址
+           endLongitude: this.endPlace.location.lng, // 终点经度
+           endLatitude: this.endPlace.location.lng, // 终点纬度
+           startTime: '2017-08-02 12:10:12', // 发车时间
+           riderCount: 4, // 车座位数量 默认4
+           waitTime: 10, // 能够等待时间
+           describe: '无', // 备注
+           rewards: 5, // 打赏金 
+           isHome: 0 // 是否到家服务 默认 0
+        }
+      } 
+      else{
+          data= {  //我是定位
+            startArea: this.startPlace.addressComponent.district, // 起始区县
+            startPlace: this.startPlace.formattedAddress, // 起始地址
+            startLongitude: this.startPlace.position.lng, // 起始经度
+            startLatitude: this.startPlace.position.lat, // 起始纬度
+            endArea: this.endPlace.district, // 终点区县
+            endPlace: this.endPlace.name, // 终点地址
+            endLongitude: this.endPlace.location.lng, // 终点经度
+            endLatitude: this.endPlace.location.lng, // 终点纬度
+            startTime: '2017-08-02 12:10:12', // 发车时间
+            riderCount: 4, // 车座位数量 默认4
+            waitTime: 10, // 能够等待时间
+            describe: '无', // 备注
+            rewards: 5, // 打赏金 
+            isHome: 0 // 是否到家服务 默认 0
+          }
       }
-      // console.log(data)
+      let historyPlaceList = [] //存储在本地的变量
       apiHandler.publishRideDemand(data,(data)=>{
         console.log('我是发布成功')
+        historyPlaceList.push(data)
+        // Store.save("historyPlace",historyPlaceList); // 点击发布以后，存为历史记录
       }, (err)=>{
         console.log('我是发布错误')
       })
@@ -272,25 +289,25 @@ export default {
     isLocation() {
       this.isLocationFlag = this.$route.query.params
       if(this.$route.query.params === undefined){ //起始地址采用定位
-          console.log('1111111111')
       }
-      if(this.$route.query.params ==='LocationFlag'){ //目的地址采用地图选中
+      if(this.$route.query.params ==='LocationFlag'){ //目的地址采用手动选择地点
         this.startPlace = this.getStartMapInfo()
           console.log('222222')
+          console.log(this.startPlace)
       }
     }
-
   },
   // 定位消息获得以后
   watch: {
     locationInfo: function () {
-      if(this.isLocationFlag === 'LocationFlag'){
+      let temp = this.getStartMapInfo()
+      if(this.isLocationFlag === 'LocationFlag' || temp.id !== undefined){ //我是不定位
         console.log('我是不定位')
         this.startPlace = this.getStartMapInfo()
         console.log(this.startPlace)
         this.startPlaceShow = this.startPlace.name
         return
-      } else{
+      } else{ //我是定位
         console.log('我是定位')
         this.startPlace = this.locationInfo
         this.startPlaceShow = this.placeSlice(this.locationInfo)[1]
