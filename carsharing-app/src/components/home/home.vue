@@ -23,8 +23,6 @@
   
     <driver-info-card v-if="isSwitch"></driver-info-card>
     <ride-info-card v-else></ride-info-card>
-    
-  
   </div>
 </template>
 
@@ -50,7 +48,8 @@ export default {
       startPlace: '',
       endPlace: '',
       state: 0,
-      demandCounts: []
+      demandCounts: [],
+      routes: null
     }
   },
   computed: {
@@ -98,6 +97,7 @@ export default {
             this.endPlace = res[0].endPlace;
             Store.save("demandInfo",res[0]);
           }
+          console.log(res[0].demandId);
         },
         (err) => {
           console.log(err);

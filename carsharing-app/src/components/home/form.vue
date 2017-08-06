@@ -88,7 +88,7 @@ export default {
       seatsCounts: '',
       seatsDescription: '同行的几人？',
       dateTime: '',
-isMoveDate: false,
+      isMoveDate: false,
       isMoveHour: false,
       isCarry: false,
       describe: '',
@@ -144,7 +144,7 @@ isMoveDate: false,
     this.computedDate();
     this.computedMinutes();
     this.computedHours();
-    this.endPlace = this.getEndMapInfo()
+    this.endPlace = this.getEndMapInfo();
   },
   methods: {
     show_suggest(key) {
@@ -293,7 +293,7 @@ isMoveDate: false,
       if (selectedHours >= 0 && selectedHours <= 9) {
         selectedHours = "0" + selectedHours;
       }
-       if (seconds >= 1 && seconds <= 9) {
+      if (seconds >= 1 && seconds <= 9) {
         seconds = "0" + seconds;
       }
       var currentdate = date.getFullYear() + seperator1 + month + seperator1 + selectedDate + " " + selectedHours + seperator2 + selectedMinutes
@@ -311,15 +311,18 @@ isMoveDate: false,
     // 点击查询
     matchRoutesInfo() {
       let routesInfo = {
+        startPlace: this.startPlace.name,
         endArea: this.endPlace.district,
         endPlace: this.endPlace.name,
-        endLongitude:  this.endPlace.location.lng,
+        endLongitude: this.endPlace.location.lng,
         endLatitude: this.startPlace.location.lat,
         startTime: this.startTime,
         riderCount: this.riderCount,
         waitTime: 10,
-        rewards: 5
-      }
+        rewards: 5,
+        describe: this.describe
+      };
+      bus.$emit("routesInfo", routesInfo);
     },
     // 点击发布
     publishInfo() {

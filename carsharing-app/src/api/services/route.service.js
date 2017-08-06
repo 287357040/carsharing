@@ -13,6 +13,7 @@ import {
     joinRouteUrl,
     exitRouteUrl,
     finishRouteUrl,
+    getRideRoutesUrl,
     matchRideRoutesByDemandUrl
 } from '@/api/http/host.config'
 export default {

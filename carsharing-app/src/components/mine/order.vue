@@ -9,36 +9,28 @@
           <span class="icon-date ico">
   
           </span>
-          <span class="txt-content">{{currentOrder.time}}</span>
+          <span class="txt-content">{{routeOrder.startTime}}</span>
         </div>
         <div class="order-content">
           <span class="icon-home">
   
           </span>
-          <span class="txt-content">{{currentOrder.origin}}</span>
+          <span class="txt-content">{{routeOrder.startPlace}}</span>
         </div>
         <div class="order-content">
           <span class="icon-corporation">
   
           </span>
-          <span class="txt-content">{{currentOrder.destination}}</span>
+          <span class="txt-content">{{routeOrder.endPlace}}</span>
         </div>
         <div class="order-content">
           <span class="icon-Stroke01">
   
           </span>
-          <span class="txt-content">{{currentOrder.remark}}</span>
+          <span class="txt-content">{{routeOrder.describe}}</span>
         </div>
       </div>
       <hr class="order-driver-spilter" />
-      <!--begin 接单司机-->
-      <!-- <div>
-                              <div class="order-content order-wait-driver">
-                                <Icon type="erlenmeyer-flask" class="ico"></Icon>
-                                <span class="txt-content">已通知以下车主，请耐心等待接单</span>
-                              </div>
-                            </div> -->
-      <!--end 接单司机-->
       <span class="history-order-title txt-content">历史订单</span>
     </div>
     <!--end 订单头部-->
@@ -108,7 +100,8 @@ export default {
         destination: "垃圾街",
         remark: "没有重物",
 
-      }
+      },
+      routeOrder: {}
     }
   },
   components: {
@@ -116,6 +109,9 @@ export default {
   },
   created: function () {
     var model = Store.fetch('user');
+    this.routeOrder = this.$route.query.routeOrder;
+    console.log(this.routeOrder);
+    // console.log(routeOrder);
     routeService.getRideRoutes(model.isDriver, (data) => {
       if (data.status) {
         this.historyOrderList = data;

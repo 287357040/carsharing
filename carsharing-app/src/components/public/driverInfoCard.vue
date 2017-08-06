@@ -1,6 +1,6 @@
 <template>
     <div class="driver-issue">
-        <div class="msg-more" v-if="isShowDriverList">
+        <div class="msg-more">
             <h3>{{listTitle}}</h3>
             <a class="more" v-show="isShowMore" @click="moreInfo">更多>></a>
         </div>
@@ -46,42 +46,32 @@
 </template>
 <script>
 import routeService from '@/api/services/route.service'
-import { MessageBox } from 'mint-ui'
 import bus from '@/utils/eventBus'
+import infoMixin from '@/utils/amapValue'
+import { MessageBox } from 'mint-ui'
 export default {
     data() {
         return {
             listTitle: '司机列表',
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
-            routes: {},
             userName: '***',
             isShowMore: true,
-            isShowDriverList: false,
             demandId: -1,
             routeId: null,
-            demand: {}
+            routes: {}
         }
     },
     created: function () {
-        bus.$on("demandInfo" ,function(val){
-            this.demand = val;
-        });
-        routeService.matchRideRoutesByDemand(
-            {
-                endArea: this.demand.endArea,
-                endPlace: this.demand.endPlace,
-                endLongitude: this.demand.endLongitude,
-                endLatitude: this.demand.endLatitude,
-                startTime: this.demand.startTime,
-                riderCount: this.demand.riderCount,
-                waitTime: this.demand.waitTime,
-                rewards: this.demand.rewards
-            }, (res) => {
-                console.log(res);
-                this.isShowDriverList = true;
-                this.routes = res;
-            })
+        var that = this;
+        bus.$on("routesInfo", function (val) {
+            console.log(val);
+            var demand = val;
+            that.matchDriverInfoList(demand);
+        })
+    },
+    beforeDestroy: function () {
+        bus.$off("routesInfo");
     },
     computed: {
         getNowFormatDate: function () {
@@ -109,25 +99,44 @@ export default {
             ).then(
                 ({ value, action }) => {
                     if (action == 'confirm') {
-                        if(value <= this.routes[0].remainCount) {
+                        if (value <= this.routes[0].remainCount) {
                             routeService.joinRoute(
-                            {
-                                demandId: this.demandId,
-                                routeId: this.routes[0].routeId,
-                                riderCount: value
-                            }, (res) => {
-                                this.$router.push({ path: '/order' });
-                            }, (err) => {
+                                {
+                                    demandId: this.demandId,
+                                    routeId: this.routes[0].routeId,
+                                    riderCount: value
+                                }, (res) => {
+                                    this.$router.push({ path: '/order', query: { routeOrder: res } });
+                                }, (err) => {
 
-                            })
-                        }else {
+                                })
+                        } else {
                             MessageBox.alert('加入人数超出');
-                        }  
+                        }
                     }
                 });
         },
         moreInfo: function () {
             console.log('没有更多信息了。');
+        },
+        matchDriverInfoList: function (demand) {
+            routeService.matchRideRoutesByDemand(
+                {
+                    endArea: demand.endArea,
+                    endPlace: demand.endPlace,
+                    endLongitude: demand.endLongitude,
+                    endLatitude: demand.endLatitude,
+                    startTime: demand.startTime,
+                    riderCount: demand.riderCount,
+                    waitTime: demand.waitTime,
+                    rewards: demand.rewards
+                }, (res) => {
+                    // this.isShowDriverList = true;
+                    this.routes = res;
+                }, (err) => {
+                    console.log(匹配失败);
+                }
+            )
         }
     }
 }
