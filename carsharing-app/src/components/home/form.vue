@@ -134,7 +134,7 @@ export default {
   },
   created: function () {
     this.computedDatetime();
-    this.isLocation()  //是否采用定位还是手动
+    // this.isLocation()  //是否采用定位还是手动
     this.endPlace = this.getEndMapInfo()
   },
   methods: {
@@ -240,7 +240,7 @@ export default {
     // 点击发布
     publishInfo() {
        let data = {}
-      if(this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined){ //我是不定位
+      if(this.getStartMapInfo().id !== undefined){ //我是不定位
         data= {
            startArea: this.startPlace.district, // 起始区县
            startPlace: this.startPlace.name, // 起始地址
@@ -276,26 +276,23 @@ export default {
             isHome: 0 // 是否到家服务 默认 0
           }
       }
-      let historyPlaceList = [] //存储在本地的变量
       apiHandler.publishRideDemand(data,(data)=>{
         console.log('我是发布成功')
-        historyPlaceList.push(data)
-        // Store.save("historyPlace",historyPlaceList); // 点击发布以后，存为历史记录
       }, (err)=>{
         console.log('我是发布错误')
       })
     },
     //是否采用定位或者手动地址
-    isLocation() {
-      this.isLocationFlag = this.$route.query.params
-      if(this.$route.query.params === undefined){ //起始地址采用定位
-      }
-      if(this.$route.query.params ==='LocationFlag'){ //目的地址采用手动选择地点
-        this.startPlace = this.getStartMapInfo()
-          console.log('222222')
-          console.log(this.startPlace)
-      }
-    }
+    // isLocation() {
+    //   this.isLocationFlag = this.$route.query.params
+    //   if(this.$route.query.params === undefined){ //起始地址采用定位
+    //   }
+    //   if(this.$route.query.params ==='LocationFlag'){ //目的地址采用手动选择地点
+    //     this.startPlace = this.getStartMapInfo()
+    //       console.log('222222')
+    //       console.log(this.startPlace)
+    //   }
+    // }
   },
   // 定位消息获得以后
   watch: {
