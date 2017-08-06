@@ -11,7 +11,7 @@
             <span class="name">{{userInfo.userName}}</span>
             <span class="telphone">{{userInfo.mobile}}</span>
             <div>
-              <Rate disabled v-model="valueDisabled"></Rate>
+              <Star disabled v-model="valueDisabled"></Star>
             </div>
           </div>
           <div style="height:20px;"></div>
@@ -98,6 +98,7 @@
 <script>
 import Icon from 'vue-awesome/components/Icon'
 import commonMask from '@/components/commonMask.vue'
+import Star from '@/components/public/starScore.vue'
 import { mapState, mapActions } from 'vuex'
 import Store from '@/utils/store'
 
@@ -116,7 +117,8 @@ export default {
   },
   components: {
     Icon,
-    commonMask
+    commonMask,
+    Star
   },
   methods: {
     ...mapActions([

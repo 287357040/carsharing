@@ -1,6 +1,6 @@
 /**
  * Created by lmz on 2017/7/24.
- *员工数据服务
+ *员工数据服务��
  */
 import Vue from 'vue'
 import '../http/host.interceptor'
@@ -13,7 +13,8 @@ import {
     updateUserIconUrl,
     changePasswordUrl,
     addNewAddressUrl,
-    updateAddressUrl
+    updateAddressUrl,
+    queryAddressUrl
 } from '@/api/http/host.config'
 
 export default {
@@ -58,7 +59,7 @@ export default {
             updateUserInfoUrl,
             {
                 userName: user.userName,
-                sex: user.sex, // 默认男 0
+                sex: user.sex, // 默认�?0
                 birth: user.birth,
                 mobile: user.mobile,
                 userNo: user.userNo,
@@ -107,9 +108,9 @@ export default {
         Vue.http.post(
             addNewAddressUrl,
             {
-                addressType: addr.addressType, // 类型：0 家的地址 1 公司地址
+                addressType: addr.addressType, // 类型�? 家的地址 1 公司地址
                 address: addr.address, // 具体地址
-                area: addr.area, // 所在区县
+                area: addr.area, // 所在区�?
                 longitude: addr.longitude, // 经度
                 latitude: addr.latitude // 纬度
 
@@ -126,11 +127,25 @@ export default {
         Vue.http.post(
             updateAddressUrl,
             {
-                addressType: addr.addressType, // 类型：0 家的地址 1 公司地址
+                addressType: addr.addressType, // 类型�? 家的地址 1 公司地址
                 address: addr.address, // 具体地址
-                area: addr.area, // 所在区县
+                area: addr.area, // 所在区�?
                 longitude: addr.longitude, // 经度
                 latitude: addr.latitude // 纬度
+            }
+        ).then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            })
+    },
+    queryAddress:(query, success, err) =>{ //查询家和公司的地址
+        Vue.http.get(
+            queryAddressUrl,
+            {
+                
             }
         ).then(
             (response) => {
