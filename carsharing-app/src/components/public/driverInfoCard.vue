@@ -46,8 +46,9 @@
     </div>
 </template>
 <script>
-import demandService from '@/api/services/demand.service'
+import routeService from '@/api/services/route.service'
 import { MessageBox } from 'mint-ui'
+import Store from '@/utils/store'
 export default {
     data() {
         return {
@@ -56,23 +57,30 @@ export default {
             numIsSeclect: 0,
             routeVO: [],
             isShowMore: true,
+            endLongitude: '',
+            endLatitude: '',
             endArea: '金沙湖地铁站',
+            endPlace: '',
             endLongitude: '',
             endLatitude: '',
             startTime: '明天 8:10',
             riderCount: '3',
-            waitTime: '10'
+            waitTime: '10',
+            rewards: ''
         }
     },
     created: function () {
-        demandService.matchRideDemandsByRoute(
+        let demand = Store.fetch("demandInfo");
+        routeService.matchRideRoutesByDemand(
             {
-                endArea: this.endArea,
-                endLongitude: this.endLongitude,
-                endLatitude: this.endLatitude,
-                startTime: this.startTime,
-                riderCount: this.riderCount,
-                waitTime: this.waitTime
+               endArea: demand.endArea,
+                endPlace: demand.endPlace,
+                endLongitude: demand.endLongitude,
+                endLatitude: demand.endLatitude,
+                startTime: demand.startTime,
+                riderCount: demand.riderCount,
+                waitTime: demand.waitTime,
+                rewards: demand.rewards
             }, (res) => {
                 console.log(res);
             })
