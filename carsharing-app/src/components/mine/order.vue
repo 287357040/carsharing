@@ -4,27 +4,27 @@
     <div class="order-container order-container-bgcolor">
       <OHeader v-bind:headerText="headerText" />
       <div @click="show_detail('currentOrder')">
-      <div class="order-content">
-        <!-- <Icon type="ios-clock" class="ico"></Icon> -->
-        <span class="icon-date ico">
+        <div class="order-content">
+          <!-- <Icon type="ios-clock" class="ico"></Icon> -->
+          <span class="icon-date ico">
   
-        </span>
-        <span class="txt-content">{{currentOrder.time}}</span>
-      </div>
-      <div class="order-content">
-        <span class="icon-home">
+          </span>
+          <span class="txt-content">{{currentOrder.time}}</span>
+        </div>
+        <div class="order-content">
+          <span class="icon-home">
   
-        </span>
-        <span class="txt-content">{{currentOrder.origin}}</span>
-      </div>
-      <div class="order-content">
-        <span class="icon-corporation">
+          </span>
+          <span class="txt-content">{{currentOrder.origin}}</span>
+        </div>
+        <div class="order-content">
+          <span class="icon-corporation">
   
-        </span>
-        <span class="txt-content">{{currentOrder.destination}}</span>
-      </div>
-      <div class="order-content">
-        <span class="icon-Stroke01">
+          </span>
+          <span class="txt-content">{{currentOrder.destination}}</span>
+        </div>
+        <div class="order-content">
+          <span class="icon-Stroke01">
   
           </span>
           <span class="txt-content">{{currentOrder.remark}}</span>
@@ -33,11 +33,11 @@
       <hr class="order-driver-spilter" />
       <!--begin 接单司机-->
       <!-- <div>
-                            <div class="order-content order-wait-driver">
-                              <Icon type="erlenmeyer-flask" class="ico"></Icon>
-                              <span class="txt-content">已通知以下车主，请耐心等待接单</span>
-                            </div>
-                          </div> -->
+                              <div class="order-content order-wait-driver">
+                                <Icon type="erlenmeyer-flask" class="ico"></Icon>
+                                <span class="txt-content">已通知以下车主，请耐心等待接单</span>
+                              </div>
+                            </div> -->
       <!--end 接单司机-->
       <span class="history-order-title txt-content">历史订单</span>
     </div>
@@ -77,9 +77,9 @@
 </template>
 
 <script>
-import {MessageBox} from 'mint-ui'
+import { MessageBox } from 'mint-ui'
 import OHeader from '@/components/mine/header.vue'
-import orderService from '@/api/services/order.service'
+import routeService from '@/api/services/route.service'
 import Store from '@/utils/store'
 export default {
   data() {
@@ -115,33 +115,27 @@ export default {
     OHeader
   },
   created: function () {
-    // orderService.getHistoryOrderList((data) => {
-    //   this.historyOrderList = data;
-    // },
-    //   (res) => {
-    //     if (res.status == '404') {
-    //       MessageBox('404', '与服务器断开连接');
-    //     } else {
-    //       MessageBox('获取数据失败');
-    //     }
-    //   });
-
-    // orderService.getCurrentOrder(
-    //   (res) => {
-    //     this.currentOrder = res;
-    //   },
-    //   (res) => {
-    //     if (res.status == '404') {
-    //       MessageBox('404', '与服务器断开连接');
-    //     } else {
-    //       MessageBox('获取数据失败');
-    //     }
-    //   });
+    var model = Store.fetch('user');
+    routeService.getRideRoutes(model.isDriver, (data) => {
+      if (data.status) {
+        this.historyOrderList = data;
+      }
+      else {
+        currentOrder = data[0];
+      }
+    },
+      (res) => {
+        if (res.status == '404') {
+          MessageBox('404', '与服务器断开连接');
+        } else {
+          MessageBox('获取数据失败');
+        }
+      });
   },
   methods: {
     show_detail(item) {
       var model = Store.fetch('user');
-      if(model.isDriver)
+      if (model.isDriver)
         this.$router.push({ path: '/driverComment', query: item });
       else
         this.$router.push({ path: '/passengerComment', query: item });
