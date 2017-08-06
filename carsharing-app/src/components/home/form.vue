@@ -139,16 +139,10 @@ isMoveDate: false,
     }
   },
   created: function () {
-<<<<<<< HEAD
-    this.computedDatetime();
     // this.isLocation()  //是否采用定位还是手动
-=======
-
-    this.isLocation()  //是否采用定位还是手动
     this.computedDate();
     this.computedMinutes();
     this.computedHours();
->>>>>>> 887d33cc9c3eaf3906dcfd9b48acf680ec980449
     this.endPlace = this.getEndMapInfo()
   },
   methods: {
@@ -328,27 +322,8 @@ isMoveDate: false,
     },
     // 点击发布
     publishInfo() {
-<<<<<<< HEAD
-       let data = {}
-      if(this.getStartMapInfo().id !== undefined){ //我是不定位
-        data= {
-           startArea: this.startPlace.district, // 起始区县
-           startPlace: this.startPlace.name, // 起始地址
-           startLongitude: this.startPlace.location.lng, // 起始经度
-           startLatitude: this.startPlace.location.lat, // 起始纬度
-           endArea: this.endPlace.district, // 终点区县
-           endPlace: this.endPlace.name, // 终点地址
-           endLongitude: this.endPlace.location.lng, // 终点经度
-           endLatitude: this.endPlace.location.lng, // 终点纬度
-           startTime: '2017-08-02 12:10:12', // 发车时间
-           riderCount: 4, // 车座位数量 默认4
-           waitTime: 10, // 能够等待时间
-           describe: '无', // 备注
-           rewards: 5, // 打赏金 
-           isHome: 0 // 是否到家服务 默认 0
-=======
       let data = {}
-      if (this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined) { //我是不定位
+      if (this.getStartMapInfo().id !== undefined) { //我是不定位
         data = {
           startArea: this.startPlace.district, // 起始区县
           startPlace: this.startPlace.name, // 起始地址
@@ -382,16 +357,8 @@ isMoveDate: false,
           describe: this.describe, // 备注
           rewards: 5, // 打赏金 
           isHome: 0 // 是否到家服务 默认 0
->>>>>>> 887d33cc9c3eaf3906dcfd9b48acf680ec980449
         }
       }
-<<<<<<< HEAD
-      apiHandler.publishRideDemand(data,(data)=>{
-        console.log('我是发布成功')
-      }, (err)=>{
-        console.log('我是发布错误')
-      })
-    },
     //是否采用定位或者手动地址
     // isLocation() {
     //   this.isLocationFlag = this.$route.query.params
@@ -403,30 +370,25 @@ isMoveDate: false,
     //       console.log(this.startPlace)
     //   }
     // }
-=======
-      let historyPlaceList = [] //存储在本地的变量
       apiHandler.publishRideDemand(data, (data) => {
         console.log('我是发布成功');
         Store.save('demandInfo', data);
         let demandId = data.demandId;
         this.$router.push({ path: '/awaitStatus', query: { demandId: demandId } });
-        historyPlaceList.push(data)
-        // Store.save("historyPlace",historyPlaceList); // 点击发布以后，存为历史记录
       }, (err) => {
         MessageBox('信息发布失败！');
       })
     },
     //是否采用定位或者手动地址
-    isLocation() {
-      this.isLocationFlag = this.$route.query.params
-      if (this.$route.query.params === undefined) { //起始地址采用定位
-      }
-      if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
-        this.startPlace = this.getStartMapInfo()
-        console.log(this.startPlace)
-      }
-    }
->>>>>>> 887d33cc9c3eaf3906dcfd9b48acf680ec980449
+    // isLocation() {
+    //   this.isLocationFlag = this.$route.query.params
+    //   if (this.$route.query.params === undefined) { //起始地址采用定位
+    //   }
+    //   if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
+    //     this.startPlace = this.getStartMapInfo()
+    //     console.log(this.startPlace)
+    //   }
+    // }
   },
   // 定位消息获得以后
   watch: {
