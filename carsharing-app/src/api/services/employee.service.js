@@ -60,8 +60,8 @@ export default {
                 userName: user.userName,
                 sex: user.sex, // 默认男 0
                 birth: user.birth,
-                mobile:user.mobile,
-                userNo:user.userNo,
+                mobile: user.mobile,
+                userNo: user.userNo,
                 department: user.department,
                 carpoolCount: user.carpoolCount,
                 orderCount: user.orderCount,
@@ -103,7 +103,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    addNewAddress: (addr, succes, err) => {
+    addNewAddress: (addr, success, err) => {
         Vue.http.post(
             addNewAddressUrl,
             {
@@ -122,7 +122,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    updateAddress: (addr, succes, err) => {
+    updateAddress: (addr, success, err) => {
         Vue.http.post(
             updateAddressUrl,
             {
