@@ -76,6 +76,9 @@ export const startRouteUrl = API_ROOT + '/front/route/startRoute';
 //司机结束拼车订单
 export const finishRouteUrl = API_ROOT + '/front/route/finishRoute';
 
+// 根据状态获取订单
+export const getRideRoutesUrl = API_ROOT + '/front/route/getRideRoutes';
+
 //根据需求信息来找到匹配拼车路线
 export const matchRideRoutesByDemandUrl = API_ROOT + '/front/route/matchRideRoutesByDemand';
 
@@ -105,8 +108,7 @@ export const getCommentOfRouteUrl = API_ROOT + '/front/comment/getCommentByRoute
 export const getMessageUrl = API_ROOT + '/front/message/getMessage';
 //更新状态信息
 export const UpdateMessageUrl = API_ROOT + '/front/message/UpdateMessage';
-//查看我的订单列表
-export const getOrderUrl = API_ROOT + '/front/message/getOrder';
 
 //用户是否登陆
 export const isLoginInUrl = API_ROOT + '/front/user/isLoginIn';
+
