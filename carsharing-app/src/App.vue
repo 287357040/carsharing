@@ -9,6 +9,7 @@
   @import 'src/styles/owner.scss';
   @import 'src/styles/message.scss';
   @import 'src/styles/map.scss';
+   @import 'src/styles/setting.scss';
 </style>
 <template>
   <div id="app">

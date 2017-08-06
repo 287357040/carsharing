@@ -1,0 +1,130 @@
+
+//乘客未评价界面
+.setting-container{
+    padding-top: 56px;
+}
+.setting-container.comment-map
+{
+    width: 100%;
+    height: 312px;
+}
+.setting-container .comment-datail-txt
+{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+.setting-container .comment-datail{
+text-align: left;
+margin-bottom: 20px;
+}
+.comment-datail .icon-date::before
+{
+  color: #D5D7E2;
+}
+.comment-datail .txt-content 
+{
+    margin-left: 10px;
+    color: #747579 ;
+    font-size: 15px;
+}
+ .comment-datail .comment-person-datail-content 
+{
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 10px;
+}
+.comment-person-datail-content .comment-person-datail
+{
+    display: block;
+}
+
+ .comment-datail .icon-telephone
+ {
+    font-size: 30px;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+.comment-datail .comment-input{
+    text-align: center;
+}
+
+.comment-input input{
+    background-color: #D5D7E2;
+    padding: 6px 10px;
+    margin-top: 16px;
+    border: 0px;
+}
+.comment-input input:focus{  
+    outline: none;
+}  
+
+.comment-datail .password-btn
+{
+    position: inherit;
+    margin-top: 10px;
+}
+.comment-datail .horline
+{
+    border: 1px solid #D5D7E2;
+    opacity: 0.2;
+}
+//覆盖star样式
+.comment-datail .star div{
+    font-size: 25px;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+//乘客已评价
+.has-passanger-comment{
+    margin-top: 40px;
+}
+.has-passanger-comment div{
+    display: inline-block;
+}
+.has-passanger-comment .passanger-comment-spiltline{
+    border: 1px solid #D5D7E2;
+    display: inline-block;
+    width: 20%;
+    opacity: 0.2;
+}
+.has-passanger-comment .star div{
+    font-size: 25px;
+    margin-left: 0px;
+    margin-bottom: 2px;
+}
+
+.has-passanger-comment-input
+{
+    
+    padding: 10px;
+    background-color: #F3F4F6;
+    position: relative;
+}
+.has-passanger-comment .triangle
+{
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #F3F4F6;
+    top: -9px;
+    left: 45%;
+}
+
+.passages-comment-list-bg{
+    background-color: #E2E3E5;
+    text-align: center;
+    margin-top: 0px;
+    height: 350px;
+    padding-top: 30px;
+
+}
+.passages-comment-list-bg .has-passanger-comment{
+    margin-top: 30px;
+    text-align: center;
+}

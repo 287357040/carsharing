@@ -23,6 +23,7 @@
 <script>
 import OHeader from '@/components/mine/header.vue'
 import apiHandler from '@/api/services/employee.service'
+import { MessageBox } from 'mint-ui';
 export default {
   data() {
     return {

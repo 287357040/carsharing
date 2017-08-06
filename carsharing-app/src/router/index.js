@@ -22,6 +22,8 @@ import nickName  from '@/components/setting/nickName'
 import license  from '@/components/setting/license'
 import finishEvaluate  from '@/components/status/finishEvaluate'
 import unfinishedEvaluate  from '@/components/status/unfinishedEvaluate'
+import driverComment from '@/components/setting/driverComment'
+import passengerComment from '@/components/setting/passengerComment'
 import LocalStorage from '../utils/store' 
 Vue.use(Router);
 
@@ -163,7 +165,20 @@ var router = new Router({
       name: 'license',
       component: license,
       meta: { requiresAuth: true }
-    }  
+    },
+    {
+      path: '/driverComment',
+      name: 'driverComment',
+      component: driverComment,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/passengerComment',
+      name: 'passengerComment',
+      component: passengerComment,
+      meta: { requiresAuth: true }
+    }
+        
   ]
 })
 router.beforeEach((to, from, next) => {
