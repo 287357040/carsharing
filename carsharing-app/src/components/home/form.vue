@@ -62,7 +62,7 @@
         <span>21.3km</span>
       </p>
       <div class="search-issue-wrapper">
-        <mt-button type="default" class="comfirm-search-btn" @click.stop="getInfo">查询</mt-button>
+        <mt-button type="default" class="comfirm-search-btn" @click.stop="matchRoutesInfo">查询</mt-button>
         <mt-button type="default" class="confirm-issue-btn linear-gradient-bg" @click.stop="issueRoute">发布</mt-button>
       </div>
     </form>
@@ -88,10 +88,14 @@ export default {
       seatsCounts: '',
       seatsDescription: '同行的几人？',
       dateTime: '',
+isMoveDate: false,
+      isMoveHour: false,
+      isCarry: false,
       describe: '',
       popupVisible: false,
       datetimePopup: false,
-      seatSlots: ['1人', '2人', '3人', '4人'],
+      seatSlots: [1, 2, 3, 4],
+      riderCount: null,
       datetimeSlots: [
         {
           flex: 1,
@@ -163,6 +167,7 @@ export default {
     choiceSeats: function (item) {
       this.popupVisible = false;
       this.seatsCounts = item + '人';
+      this.riderCount = item;
     },
     datetimeCancle: function () {
       this.datetimePopup = false;
@@ -171,9 +176,10 @@ export default {
       this.datetimePopup = false;
       this.departureTime = this.dateTime;
       this.startTime = this.getFormatDate(this.selectedDate, this.selectedHours, this.selectedMinutes);
+      console.log(this.startTime);
     },
     onNumberOfPeopleChange: function (picker, values) {
-      this.data.riderCount = values[0];
+      this.riderCount = values[0];
     },
     onDatetimeChange: function (picker, values) {
       let [currentDate, currentHour, currentMinute] = [values[0], values[1], values[2]];
@@ -277,6 +283,7 @@ export default {
       var seperator1 = "-";
       var seperator2 = ":";
       var month = date.getMonth() + 1;
+      var seconds = date.getSeconds();
       if (month >= 1 && month <= 9) {
         month = "0" + month;
       }
@@ -286,8 +293,11 @@ export default {
       if (selectedHours >= 0 && selectedHours <= 9) {
         selectedHours = "0" + selectedHours;
       }
+       if (seconds >= 1 && seconds <= 9) {
+        seconds = "0" + seconds;
+      }
       var currentdate = date.getFullYear() + seperator1 + month + seperator1 + selectedDate + " " + selectedHours + seperator2 + selectedMinutes
-        + seperator2 + date.getSeconds();
+        + seperator2 + seconds;
       return currentdate;
     },
     // 地址过长截取函数 如：浙江省杭州市滨江区浦沿街道火炬大道恒生大厦(园支一路)--》火炬大道恒生大厦(园支一路)
@@ -299,13 +309,17 @@ export default {
       }
     },
     // 点击查询
-    getInfo() {
-      let state = 0  //0 表示发布中的
-      apiHandler.getRideDemands(0, (data) => {
-        console.log(data)
-      }, (err) => {
-        console.log('我是错误')
-      })
+    matchRoutesInfo() {
+      let routesInfo = {
+        endArea: this.endPlace.district,
+        endPlace: this.endPlace.name,
+        endLongitude:  this.endPlace.location.lng,
+        endLatitude: this.startPlace.location.lat,
+        startTime: this.startTime,
+        riderCount: this.riderCount,
+        waitTime: 10,
+        rewards: 5
+      }
     },
     // 点击发布
     publishInfo() {
@@ -320,10 +334,10 @@ export default {
           endPlace: this.endPlace.name, // 终点地址
           endLongitude: this.endPlace.location.lng, // 终点经度
           endLatitude: this.endPlace.location.lng, // 终点纬度
-          startTime: '2017-08-02 12:10:12', // 发车时间
-          riderCount: 4, // 车座位数量 默认4
+          startTime: this.startTime, // 发车时间
+          riderCount: this.riderCount, // 车座位数量 默认4
           waitTime: 10, // 能够等待时间
-          describe: '无', // 备注
+          describe: this.describe, // 备注
           rewards: 5, // 打赏金 
           isHome: 0 // 是否到家服务 默认 0
         }
@@ -349,8 +363,8 @@ export default {
       let historyPlaceList = [] //存储在本地的变量
       apiHandler.publishRideDemand(data, (data) => {
         console.log('我是发布成功');
-        Store.save('demandInfo', res);
-        let demandId = res.demandId;
+        Store.save('demandInfo', data);
+        let demandId = data.demandId;
         this.$router.push({ path: '/awaitStatus', query: { demandId: demandId } });
         historyPlaceList.push(data)
         // Store.save("historyPlace",historyPlaceList); // 点击发布以后，存为历史记录
@@ -365,7 +379,6 @@ export default {
       }
       if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
         this.startPlace = this.getStartMapInfo()
-        console.log('222222')
         console.log(this.startPlace)
       }
     }

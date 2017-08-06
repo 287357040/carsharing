@@ -8,7 +8,7 @@
     <section class="await-handle-order" :key="item" v-for="item in demandCounts">
       <h1>待处理行程</h1>
       <div class="handle-order-content clearfix">
-        <i class="timerWrap icon-Countdown await-icon-location"></i>
+         <i class="timerWrap icon-Countdown await-icon-location"></i>
         <div class="handle-order-text">
           <h2>{{startTime}}</h2>
           <p><span>{{startPlace}}</span>-<span>{{endPlace}}</span></p>
@@ -39,6 +39,7 @@ import vMask from '../Mask.vue'
 import vMine from '@/components/mine/mine.vue'
 import SockJS from 'sockjs-client'
 import demandService from '@/api/services/demand.service'
+import Store from '@/utils/store'
 
 export default {
   data: () => {
@@ -82,6 +83,7 @@ export default {
       else if (val == '乘客') this.isSwitch = true;
     },
     toStatusPage: function (demandId) {
+
       this.$router.push({ path: '/awaitStatus' ,query: {demandId:demandId }});
     },
     showStatus() {
@@ -89,12 +91,12 @@ export default {
         this.state,
         (res) => {
           this.demandCounts = res;
-          console.log(res);
           if(res) {
             this.showAwaitOrderStatus = true;
             this.startTime = res[0].startTime;
             this.startPlace = res[0].startPlace;
             this.endPlace = res[0].endPlace;
+            Store.save("demandInfo",res[0]);
           }
         },
         (err) => {

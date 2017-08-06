@@ -1,20 +1,19 @@
 <template>
     <div class="driver-issue">
-        <div class="msg-more">
+        <div class="msg-more" v-if="isShowDriverList">
             <h3>{{listTitle}}</h3>
-            <a class="more" v-show="isShowMore">更多>>
-                <i class=""></i>
-            </a>
+            <a class="more" v-show="isShowMore" @click="moreInfo">更多>></a>
         </div>
         <ul class="driver-message clearfix">
-            <li class="message-li" :key="route" v-for="route in routeVO">
+            <li class="message-li" :key="route" v-for="route in routes">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
                 </div>
                 <div class="message-info">
                     <div class="info-row1">
-                        <span>龚小敏</span>
-                        <i class="icon-boy"></i>
+                        <span>{{route.userName}}</span>
+                        <i v-if="route.sex==0" class="icon-boy"></i>
+                        <i v-if="route.sex==1" class="icon-girl"></i>
                         <i class="icon-add add-location" @click="addToCar"></i>
                     </div>
                     <div class="info-row2">
@@ -29,7 +28,7 @@
                     <div class="info-row3">
                         <p>{{route.startTime}}</p>
                         <p>
-                            <span>{{route.startPlace}}</span>至
+                            <span>{{route.startPlace}}</span> 至
                             <span>{{route.endPlace}}</span>
                         </p>
                     </div>
@@ -48,41 +47,40 @@
 <script>
 import routeService from '@/api/services/route.service'
 import { MessageBox } from 'mint-ui'
-import Store from '@/utils/store'
+import bus from '@/utils/eventBus'
 export default {
     data() {
         return {
             listTitle: '司机列表',
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
-            routeVO: [],
+            routes: {},
+            userName: '***',
             isShowMore: true,
-            endLongitude: '',
-            endLatitude: '',
-            endArea: '金沙湖地铁站',
-            endPlace: '',
-            endLongitude: '',
-            endLatitude: '',
-            startTime: '明天 8:10',
-            riderCount: '3',
-            waitTime: '10',
-            rewards: ''
+            isShowDriverList: false,
+            demandId: -1,
+            routeId: null,
+            demand: {}
         }
     },
     created: function () {
-        let demand = Store.fetch("demandInfo");
+        bus.$on("demandInfo" ,function(val){
+            this.demand = val;
+        });
         routeService.matchRideRoutesByDemand(
             {
-               endArea: demand.endArea,
-                endPlace: demand.endPlace,
-                endLongitude: demand.endLongitude,
-                endLatitude: demand.endLatitude,
-                startTime: demand.startTime,
-                riderCount: demand.riderCount,
-                waitTime: demand.waitTime,
-                rewards: demand.rewards
+                endArea: this.demand.endArea,
+                endPlace: this.demand.endPlace,
+                endLongitude: this.demand.endLongitude,
+                endLatitude: this.demand.endLatitude,
+                startTime: this.demand.startTime,
+                riderCount: this.demand.riderCount,
+                waitTime: this.demand.waitTime,
+                rewards: this.demand.rewards
             }, (res) => {
                 console.log(res);
+                this.isShowDriverList = true;
+                this.routes = res;
             })
     },
     computed: {
@@ -107,19 +105,29 @@ export default {
     },
     methods: {
         addToCar: function () {
-            var driverName = '龚小敏';
-            MessageBox({
-                title: '您确定要加入' + driverName + '的车吗？',
-                message: '人数',
-                showInput: true,
-                inputType: 'number',
-                showCancelButton: true
-            }).then(
-                action => {
+            MessageBox.prompt('您确定要加入' + this.routes[0].userName + '的车吗？'
+            ).then(
+                ({ value, action }) => {
                     if (action == 'confirm') {
-                        this.$router.push({ path: '/order' });
+                        if(value <= this.routes[0].remainCount) {
+                            routeService.joinRoute(
+                            {
+                                demandId: this.demandId,
+                                routeId: this.routes[0].routeId,
+                                riderCount: value
+                            }, (res) => {
+                                this.$router.push({ path: '/order' });
+                            }, (err) => {
+
+                            })
+                        }else {
+                            MessageBox.alert('加入人数超出');
+                        }  
                     }
                 });
+        },
+        moreInfo: function () {
+            console.log('没有更多信息了。');
         }
     }
 }
@@ -127,25 +135,30 @@ export default {
 
 <style scoped>
 .mint-msgbox {
-  border-radius: 12px !important;
+    border-radius: 12px !important;
 }
+
 .mint-msgbox-header {
-  padding: 40px 0 0 !important;
+    padding: 40px 0 0 !important;
 }
+
 .mint-msgbox-content {
-  padding: 20px !important;
+    padding: 20px !important;
 }
+
 .mint-msgbox-message {
-  width: 50% !important;
-  float: left;
+    width: 50% !important;
+    float: left;
 }
+
 .mint-msgbox-input {
-  width: 20%;
-  padding-top: 0 !important;
-  display: inline-block;
+    width: 20%;
+    padding-top: 0 !important;
+    display: inline-block;
 }
-.star div{
- display: inline-block;
- margin: 5px;
+
+.star div {
+    display: inline-block;
+    margin: 5px;
 }
 </style>

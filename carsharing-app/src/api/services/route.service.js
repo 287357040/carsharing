@@ -122,8 +122,9 @@ export default {
         Vue.http.post(
             joinRouteUrl,
             {
-                remandId: obj.remandId,
-                routeId: obj.routeId
+                demandId: obj.demandId,
+                routeId: obj.routeId,
+                riderCount: obj.riderCount
             }
         ).then(
             (response) => {

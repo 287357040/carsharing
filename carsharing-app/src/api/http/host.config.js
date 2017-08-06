@@ -22,9 +22,9 @@ export const updateUserInfoUrl = API_ROOT + '/front/user/updateUserInfo';
 export const updateUserIconUrl = API_ROOT + '/front/user/updateUserIcon';
 
 // 乘客退出司机路线
-export const exitRouteUrl = API_ROOT + '/front/Route/exitRoute';
+export const exitRouteUrl = API_ROOT + '/front/route/exitRoute';
 // 乘客加入司机拼车路线
-export const joinRouteUrl = API_ROOT + '/front/Route/joinRoute';
+export const joinRouteUrl = API_ROOT + '/front/route/joinRoute';
 
 //修改密码
 export const changePasswordUrl = API_ROOT + '/front/user/changePassword';

@@ -22,6 +22,11 @@ li {
 textarea{ 
     resize:none 
 } 
+input {
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
 #app {
   font-family: PingFangSC-Regular, 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
