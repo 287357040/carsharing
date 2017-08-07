@@ -144,6 +144,9 @@ export default {
     this.computedMinutes();
     this.computedHours();
     this.endPlace = this.getEndMapInfo();
+    // console.log('--------------------------')
+    // console.log(this.endPlace)
+    // console.log('--------------------------')
   },
   methods: {
     show_suggest(key) {
@@ -402,7 +405,7 @@ export default {
   watch: {
     locationInfo: function () {
       let temp = this.getStartMapInfo()
-      if (this.isLocationFlag === 'LocationFlag' || temp.id !== undefined) { //我是不定位
+      if (temp.id !== undefined) { //我是不定位
         console.log('我是不定位')
         this.startPlace = this.getStartMapInfo()
         console.log(this.startPlace)
