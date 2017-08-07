@@ -16,7 +16,8 @@ import OHeader from '@/components/mine/header.vue'
 export default {
   data(){
     return {
-      headerText : "意见反馈"
+      headerText : "意见反馈",
+      introduction: ''
     }
   }
   ,

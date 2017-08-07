@@ -145,3 +145,20 @@ textarea{
  display: inline-block;
  margin: 5px;
 }
+.waitOrderTitle{
+  text-align: left;
+  font-size: 12px;
+  color: #646568;
+}
+.waitOrderContent{
+  height: 150px;
+  overflow: scroll;
+}
+.waitOrderContent .waitOrderTxt
+{
+    display: inline-block;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

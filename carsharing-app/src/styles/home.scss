@@ -321,11 +321,15 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
   }
 
  .handle-order-content > i.await-icon-location {
-   margin-left: -2em;
+   left: 10px;
   margin-top: 0.7em;
  }
   .handle-order-content  .handle-order-text {
     height: 100%;
+    width: 60%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
     display: inline-block;
   }
 .handle-order-text > h2{
@@ -360,4 +364,8 @@ input::-webkit-input-placeholder { color: #A5A6AE; font-family: PingFangSC-Regul
 }
 .seats-choice-area .seat-li:last-child {
   border-bottom: 0; 
+}
+
+.go-order-wait-detail{
+  margin-right: 10px;
 }

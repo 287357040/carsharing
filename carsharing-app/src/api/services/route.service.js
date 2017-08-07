@@ -13,6 +13,8 @@ import {
     joinRouteUrl,
     exitRouteUrl,
     finishRouteUrl,
+    inviteToRouteUrl,
+    getRideRoutesUrl,
     matchRideRoutesByDemandUrl
 } from '@/api/http/host.config'
 export default {
@@ -22,10 +24,10 @@ export default {
                 startArea: route.startArea, // 起始区县
                 endArea: route.endArea, // 终点区县
                 startPlace: route.startPlace, // 起始地址
-                startTown: demand.startTown, // 起点社区
-                startStreet: demand.startStreet, // 起点街道
-                endTown: demand.endTown, //终点社区
-                endStreet: demandendStreet, //终点街道
+                startTown: route.startTown, // 起点社区
+                startStreet: route.startStreet, // 起点街道
+                endTown: route.endTown, //终点社区
+                endStreet: route.Street, //终点街道
                 startLongitude: route.startLongitude, // 起始经度
                 startLatitude: route.startLatitude, // 起始纬度
                 endPlace: route.endPlace, // 终点地址
@@ -118,11 +120,11 @@ export default {
             })
     },
     joinRoute: (obj, success, err) => {
-        // 调用此接口前 如果用户没有创建remandId，则创建之后在调用
+        // 调用此接口前 如果用户没有创建demandId，则创建之后在调用
         Vue.http.post(
             joinRouteUrl,
             {
-                remandId: obj.remandId,
+                demandId: obj.demandId,
                 routeId: obj.routeId
             }
         ).then(
@@ -134,13 +136,27 @@ export default {
             })
     },
     getRideRoutes: (isDriverRoute, success, err) => {
-        // 调用此接口前 如果用户没有创建remandId，则创建之后在调用
+        // 调用此接口前 如果用户没有创建demandId，则创建之后在调用
         Vue.http.post(
             getRideRoutesUrl,
             {
                 isDriver: isDriverRoute
             }
         ).then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            })
+    },
+    inviteToRoute: (obj, success, err) => {
+        Vue.http.post(inviteToRouteUrl,
+            {
+                demandId: obj.demandId,
+                routeId: obj.routeId
+            })
+            .then(
             (response) => {
                 HttpResHelper.resHandle(response, success, err);
             }, (response) => {

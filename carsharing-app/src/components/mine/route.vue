@@ -32,6 +32,7 @@ import apiHandler from '@/api/services/employee.service'
 import { MessageBox } from 'mint-ui';
 import sharedStateMixin from '@/utils/amapValue'
 export default {
+   mixins: [sharedStateMixin],
   data(){
     return {
       headerText: "行程设置",
@@ -59,29 +60,38 @@ export default {
   methods: {
     show_suggest(key) {
       this.$store.dispatch('show_suggest', key)
-      this.$router.push({ path: '/mapLocation' })
+      this.$router.push({ path: '/mapLocation',query: { params: key } })
     },
     saveAddress: function () {
       apiHandler.addNewAddress(this.origin, (res) => {
-        //MessageBox("保存成功！");
+        MessageBox("保存成功！");
       },err=>{
         MessageBox(err);
       });
       apiHandler.addNewAddress(this.destination
       , (res) => {
-        //MessageBox("保存成功！");
+        MessageBox("保存成功！");
       },err=>{
         MessageBox(err);
       });
     }
   },
   created:function(){
-    var tmp = this.getMapInfo();
+    let  tmp = this.getStartMapInfo()
+    console.log("11111________________________")
+    console.log(tmp)
+    console.log("11________________________")
     this.origin.addressType = 0;
     this.origin.area = tmp.district;
-    this.origin.address = tmp.address;
+    this.origin.address = tmp.name;
     this.origin.longitude = tmp.location.lng;
     this.origin.latitude = tmp.location.lat; 
+
+    this.destination.addressType = 1;
+    this.destination.area = this.getEndMapInfo().district;
+    this.destination.address = this.getEndMapInfo().address;
+    this.destination.longitude = this.getEndMapInfo().location.lng;
+    this.destination.latitude = this.getEndMapInfo().location.lat; 
   }
 }
 </script>

@@ -21,10 +21,10 @@ import mobileNum  from '@/components/setting/mobileNum'
 import nickName  from '@/components/setting/nickName'
 import license  from '@/components/setting/license'
 import finishEvaluate  from '@/components/status/finishEvaluate'
-import unfinishedEvaluate  from '@/components/status/unfinishedEvaluate'
 import driverComment from '@/components/setting/driverComment'
 import passengerComment from '@/components/setting/passengerComment'
 import LocalStorage from '../utils/store' 
+import driverwaitStatus from '@/components/status/driverwaitStatus'
 Vue.use(Router);
 
 var router = new Router({
@@ -137,12 +137,6 @@ var router = new Router({
       meta: { requiresAuth: true }
     },
     {
-      path: '/unfinishedEvaluate',
-      name: 'unfinishedEvaluate',
-      component: unfinishedEvaluate,
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/order',
       name: 'order',
       component: order,
@@ -176,6 +170,12 @@ var router = new Router({
       path: '/passengerComment',
       name: 'passengerComment',
       component: passengerComment,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/driverwaitStatus',
+      name: 'driverwaitStatus',
+      component: driverwaitStatus,
       meta: { requiresAuth: true }
     }
         

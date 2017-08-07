@@ -6,7 +6,7 @@
         <el-amap :zoom="zoom" :center="center" class="comment-map" style="height:314px;" :style="{display:isShowMap}">
             <el-amap-marker :key="marker.lng" v-for="marker in markers" :position="marker"></el-amap-marker>
         </el-amap>
-        <div class="comment-datail" v-bind:key="item" v-for="item in passagesList">
+        <div class="comment-datail" @click="show_position(item)" v-bind:key="item" v-for="item in passagesList">
             <div class="comment-datail-txt">
                 <span class="icon-date ico">
     
@@ -53,18 +53,21 @@
                             <input placeholder="有什么相对ta讲的吗" />
                         </div>
                     </div>
-                    <div class="password-btn">
-                        <mt-button @click.stop="savePassword">保存</mt-button>
-                    </div>
                 </div>
             </div>
         </div>
+
+    <div class="submit-btn" @click.stop="finishRoute">结束行程</div>
+
     </div>
 </template>
 
 <script>
 import OHeader from '@/components/mine/header.vue'
 import Star from '@/components/public/starScore.vue'
+import apiHandler from '@/api/services/route.service'
+import demandService from '@/api/services/demand.service'
+import { MessageBox } from 'mint-ui';
 export default {
     data() {
         return {
@@ -72,12 +75,14 @@ export default {
             zoom: 15,
             headerText: "我的行程",
             markers: [],
+            routeId:'',
             popupPlate: false,
             isFinished: false,
-            isShowMap: 'none',
+            isShowMap: 'block',
+            compositeScore:3,
             passagesList: [
                 {
-                   isShowDetail:'block' 
+                   isShowDetail:'none' 
                 }
             ]
         }
@@ -86,9 +91,15 @@ export default {
         this.center = [120.1552070000, 30.2736900000];
         this.markers.push([120.1552070000, 30.2736900000])
         this.isShowMap = this.isFinished ? 'none' : 'block';
-        console.log();
-        for (var i = 0; i < this.passagesList.length; i++)
-            this.passagesList[i].isShowDetail = 'block';
+        this.routeId =  this.$route.query.routeId;
+        demandService.getRideDemandsByRouteId(this.routeId, data => {
+            this.passagesList = data;
+            
+            for (var i = 0; i < this.passagesList.length; i++)
+            this.passagesList[i].isShowDetail = 'none';
+        }, err => {
+            MessageBox("获取服务失败！");
+        });
 
     },
     components: {
@@ -96,11 +107,24 @@ export default {
         Star
     },
     methods: {
-        show_model: function () {
-            this.popupPlate = true;
+        finishRoute: function () {
+            apiHandler.finishRoute(this.routeId,success=>{
+                 MessageBox("已经结束行程!");
+                 this.$router.push({path:'home'});
+            },err=>{
+                 MessageBox("取消失败!");
+            });
         },
-        saveComment: function () {
-            this.popupPlate = false;
+        show_position:function(item){
+         //console.log(item.endLongitude+"--"+item.endLatitude);
+           this.markers = [];
+           this.center = [item.endLongitude, item.endLatitude];
+           this.markers.push([item.endLongitude, item.endLatitude]);
+        },
+        show_model:function(item){
+            for (var i = 0; i < this.passagesList.length; i++)
+                this.passagesList[i].isShowDetail = 'none';
+            item.isShowDetail = 'block'
         }
     }
 }
