@@ -97,7 +97,6 @@ export default {
             this.endPlace = res[0].endPlace;
             Store.save("demandInfo",res[0]);
           }
-          console.log(res[0].demandId);
         },
         (err) => {
           console.log(err);

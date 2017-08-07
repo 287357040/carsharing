@@ -49,6 +49,8 @@ import routeService from '@/api/services/route.service'
 import bus from '@/utils/eventBus'
 import infoMixin from '@/utils/amapValue'
 import { MessageBox } from 'mint-ui'
+import Store from '@/utils/store'
+
 export default {
     data() {
         return {
@@ -106,7 +108,8 @@ export default {
                                     routeId: this.routes[0].routeId,
                                     riderCount: value
                                 }, (res) => {
-                                    this.$router.push({ path: '/order', query: { routeOrder: res } });
+                                    Store.save("routesOrderInfo", res);
+                                    this.$router.push({ path: '/order'});
                                 }, (err) => {
 
                                 })

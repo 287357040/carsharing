@@ -109,9 +109,9 @@ export default {
   },
   created: function () {
     var model = Store.fetch('user');
-    this.routeOrder = this.$route.query.routeOrder;
-    console.log(this.routeOrder);
-    // console.log(routeOrder);
+    this.routeOrder = Store.fetch("routesOrderInfo");
+
+    
     routeService.getRideRoutes(model.isDriver, (data) => {
       if (data.status) {
         this.historyOrderList = data;
