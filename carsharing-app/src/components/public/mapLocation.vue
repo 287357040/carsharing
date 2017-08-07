@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-  
+
     <div class="amap-wrapper">
       <OHeader></OHeader>
-      <div class="search-btn">
-        <input v-on:input="inputFunc" id="keyword" type="text" class="textcontent" placeholder="请输入地址"></input>
-        <i class="icon-Search" style="color: #FFFFFF"></i>
-      </div>
-      <div class="submit-btn" style="top: 21px;" @click="buttonClick">确定</div>
-  
+       <div class="search-btn">
+      <input v-on:input="inputFunc" id="keyword" type="text" class="textcontent" placeholder="请输入地址"></input>
+      <i class="icon-corporation icon" style="color: #FE872B"></i>
+      </div> 
+       <div class="submit-btn" style="top: 21px;" @click="buttonClick">确定</div>
+       
       <el-amap :vid="'amap-vue'" :plugin="plugin" :center="center" :zoom="zoom" :map-manager="amapManager">
-        <el-amap-marker :key="marker.lng" v-for="marker in markers" :position="marker"></el-amap-marker>
+         <el-amap-marker :key="marker.lng"  v-for="marker in markers" :position="marker" ></el-amap-marker>
       </el-amap>
   
       <div class="place">
   
         <!--开始地址  -->
-        <div v-if="isStartPlaceShow" @click="clickExistPlace(startPlaceShow.longitude,startPlaceShow.latitude)">
+        <div v-if="isStartPlaceShow" @click="clickExistPlace(startPlaceShow.longitude,startPlaceShow.latitude,startPlaceShow)">
           <div class="startPlaceAdd address ">
             <strong>
               <span class="">{{startPlaceShow.address}}</span>
@@ -28,7 +28,7 @@
           <div class="horline"></div>
         </div>
         <!--结束地址  -->
-        <div v-if="isEndPlaceShow" @click="clickExistPlace(endPlaceShow.longitude,endPlaceShow.latitude)">
+        <div v-if="isEndPlaceShow" @click="clickExistPlace(endPlaceShow.longitude,endPlaceShow.latitude,endPlaceShow)">
           <div class="comment-datail-txt address">
             <strong>
               <span class="txt-content txt-content-color">{{endPlaceShow.address}}</span>
@@ -40,7 +40,7 @@
           <div class="horline"></div>
         </div>
         <!--历史地址  -->
-        <div :key="place.id" v-for="place in historyPlace" @click="clickExistPlace(place.location.lng,place.location.lat)">
+        <div  :key="place.id" v-for="place in historyPlace" @click="clickExistPlace(place.location.lng,place.location.lat,place)">
   
           <div class="comment-datail-txt address">
             <strong>
@@ -58,6 +58,7 @@
       </div>
   
     </div>
+
   </div>
 </template>
 
@@ -68,19 +69,19 @@ import bus from '@/utils/eventBus'
 import OHeader from '@/components/mine/header.vue'
 import apiHandler from '@/api/services/employee.service'
 import sharedStateMixin from '@/utils/amapValue'
-import { MessageBox } from 'mint-ui';
+import { MessageBox } from 'mint-ui'
 import Store from '@/utils/store'
 Vue.use(VueAMap)
 
 let amapManager = new VueAMap.AMapManager()
 
 export default {
-  name: 'map',
-  components: {
-    OHeader
+   name: 'map',
+  components:{
+  OHeader
   },
-  mixins: [sharedStateMixin],
-  data() {
+   mixins: [sharedStateMixin],
+  data () {
     let self = this
     return {
       zoom: 13,
@@ -89,14 +90,14 @@ export default {
       lng: 0,
       lat: 0,
       loaded: false,
-      plugin: [{
+      plugin: [ {
         pName: 'Geolocation',
         events: {
-          init(o) {
+          init (o) {
             // o 是高德地图定位插件实例
             o.getCurrentPosition((status, result) => {
               if (result && result.position) {
-                self.locationInfo = result
+                  self.locationInfo = result
                 self.$nextTick()
               }
             })
@@ -109,11 +110,12 @@ export default {
       },
       markers: [],
       selectPlace: {},
+      placeFlage:'',  //是起始地址或者终点地址标志
       locationInfo: {}, //存储定位的信息.
       searchHistoryList: {}, //搜索地址按确定后存在报错变量
       startPlaceShow: {
-        address: '',
-        area: ''
+        address:'无',
+        area:'无'
       },
       isStartPlaceShow: false,
       endPlaceShow: {
@@ -126,18 +128,18 @@ export default {
   },
   methods: {
     // 增加点标注
-    addMarker(lng, lat) {
-      let tempCenter = [lng, lat]
+    addMarker (lng,lat) {
+      let tempCenter = [lng,lat]
       this.markers.push([lng, lat])
       this.center = tempCenter
     },
     // 定位
-    onSearchResult(pois) {
+    onSearchResult (pois) {
       let latSum = 0
       let lngSum = 0
       if (pois.length > 0) {
         pois.forEach(poi => {
-          let { lng, lat } = poi
+          let {lng, lat} = poi
           lngSum += lng
           latSum += lat
           this.markers.push([poi.lng, poi.lat])
@@ -150,7 +152,7 @@ export default {
       }
     },
     // 路径搜索
-    drivingSearch() {
+    drivingSearch () {
       AMap.service('AMap.Driving', function () {
         let driving = new AMap.Driving({
           map: amapManager._map,
@@ -159,13 +161,13 @@ export default {
         })
         // 根据起终点经纬度规划驾车导航路线
         // driving.search(new AMap.LngLat(121.59996, 31.297646), new AMap.LngLat(121.59996, 30.197646))
-        driving.search([{ keyword: '恒生电子', city: '杭州' }, { keyword: '电化场' }], function (status, result) {
+        driving.search([{keyword: '恒生电子', city: '杭州'}, {keyword: '电化场'}], function (status, result) {
           console.log(result)
         })
       })
     },
     // 输入监控函数
-    inputFunc() {
+    inputFunc () {
       var that = this
       AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function () {
         let autoOptions = {
@@ -178,22 +180,13 @@ export default {
           map: amapManager
         })
         AMap.event.addListener(autocomplete, 'select', function (e) {
-          that.addMarker(e.poi.location.lng, e.poi.location.lat)
+          that.addMarker(e.poi.location.lng,e.poi.location.lat)
           that.selectPlace = e.poi
         })
-        // 方式2：返回输入地点的相关地址
-        // autocomplete.search('恒生电子', function (status, result) {
-        //   // TODO:开发者使用result自己进行下拉列表的显示与交互功能
-        //   if (result) {
-        //     console.log(result)
-        //     self.sidePlace = result.tips
-        //     console.log(self.sidePlace)
-        //   }
-        // })
       })
     },
     // 查询家和公司的地址
-    getAddress() {
+    getAddress () {
       let that = this
       apiHandler.queryAddress({}, (data) => {
         // console.log(data)
@@ -210,12 +203,12 @@ export default {
             }
           }
         }
-      }, (err) => {
+      }, (err)=>{
         console.log('我是查询错误')
-      })
+      })      
     },
     // 点击确定按钮
-    buttonClick() {
+    buttonClick () {
       let valueTemp = {}
       valueTemp = this.selectPlace
       if(this.selectPlace.id === ''){
@@ -224,9 +217,8 @@ export default {
       }
       if (this.placeFlage === 'getOn') { //起始地
         this.setStartMapInfo(this.selectPlace)
-        // this.$router.push({path: '/home', query: {params: 'LocationFlag'}})
       }
-      if (this.placeFlage === 'getOff') { //目的地
+      if(this.placeFlage ==='getOff'){ //目的地
         this.setEndMapInfo(this.selectPlace)
       }
       this.$router.go(-1)
@@ -248,9 +240,6 @@ export default {
         return
       } else {
         if(placeList.length >= 5) { //存历史位置的数目
-          for(let i=0;i<placeList.length;i++) {
-            placeList[i] = placeList[i+1]
-          }
           placeList[0] = placeObj
         } else {
             placeList.push(placeObj)
@@ -262,23 +251,54 @@ export default {
     getSearchHisPlace() {
       this.historyPlace = Store.fetch('seachPlaceList')
       //  console.log('我是历史地点')
-       console.log(this.historyPlace.length)
+       console.log(this.historyPlace)
     },
     // 点击在地图下方的地址
-    clickExistPlace(lng, lat) {
+    clickExistPlace(lng, lat,placeObj) {
       this.addMarker(lng, lat)
+      console.log(placeObj)
+      if (this.placeFlage === 'getOn') { //起始地
+        this.setStartMapInfo(placeObj)
+        console.log('起始地')
+        console.log(this.getStartMapInfo())
+      }
+      if(this.placeFlage ==='getOff'){ //目的地
+        this.setEndMapInfo(placeObj)
+        console.log('目的地')
+        console.log(this.getEndMapInfo())
+      }
+      this.$router.go(-1)
     },
-    // 点击地图
- 
   },
-  created() {
+  created () {
     this.getAddress()
     this.getSearchHisPlace()
+    this.placeFlage = this.$route.query.params  //解析URL地址，是起始地址，还是结束地址
     // window.localStorage.clear()
   }
 }
 </script>
 
-<<style>
+<style>
+/* .amap-wrapper {
+  height: 350px
+}
 
+.search-box {
+  position: absolute;
+  margin: 0px 10px 0px 0px;
+  width: 100%;
+}
+.amap-demo {
+  height: 300px;
+}
+.panel {
+  position: fixed;
+  background-color: white;
+  max-height: 90%;
+  overflow-y: auto;
+  top: 10px;
+  right: 10px;
+  width: 280px;
+} */
 </style>
