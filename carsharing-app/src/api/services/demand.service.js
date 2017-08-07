@@ -40,10 +40,10 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    deleteRideDemand: (remandId, success, err) => {
+    deleteRideDemand: (demandId, success, err) => {
         Vue.http.post(deleteRideDemandUrl,
             {
-                remandId: remandId
+                demandId: demandId
             })
             .then(
             (response) => {
@@ -53,7 +53,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    updateRideDemand: (remand, success, err) => {
+    updateRideDemand: (demand, success, err) => {
         Vue.http.post(updateRideDemandUrl,
             {
 

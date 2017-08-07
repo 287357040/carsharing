@@ -88,17 +88,17 @@ export default {
         }
     },
     created: function () {
-        //console.log(Store.fetch("demandInfo"));
-        var demandInfo = bus.$on("demandInfo");
+        //console.log(this.$route.query.demandInfo);
+        let demandInfo = this.$route.query.demandInfo;
         this.startTime = demandInfo.startTime;
         this.startPlace = demandInfo.startPlace;
         this.endPlace = demandInfo.endPlace;
         this.describe = demandInfo.describe;
         this.riderCount = demandInfo.riderCount;
-        this.demandId = this.$route.query.demandId;
+        this.demandId = demandInfo.demandId;
     },
     beforeDestroy: function () {
-        bus.$off("demandInfo");
+        bus.$off("routesInfo");
     },
 }
 </script>
