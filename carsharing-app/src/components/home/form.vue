@@ -149,7 +149,9 @@ export default {
      bus.$on('switchIdentify', (arg) => {
         self.identity= arg; // 接收
     });
-    this.computedDatetime();
+        this.computedDate();
+    this.computedMinutes();
+    this.computedHours();
     this.isLocation()  //是否采用定位还是手动
     this.endPlace = this.getEndMapInfo()
   },
