@@ -2,19 +2,20 @@
     <div class="driver-issue">
         <div class="msg-more">
             <h3>{{listTitle}}</h3>
-            <a class="more" v-show="isShowMore" @click="moreInfo">更多>></a>
+            <a class="more" v-show="isShowMore">更多>>
+                <i class=""></i>
+            </a>
         </div>
         <ul class="driver-message clearfix">
-            <li class="message-li" :key="route" v-for="route in routes">
+            <li class="message-li clearfix" :key="route" v-for="route in routeVO">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
                 </div>
                 <div class="message-info">
                     <div class="info-row1">
-                        <span>{{route.userName}}</span>
-                        <i v-if="route.sex==0" class="icon-boy"></i>
-                        <i v-if="route.sex==1" class="icon-girl"></i>
-                        <i class="icon-add add-location" @click="addToCar"></i>
+                        <span>龚小敏</span>
+                        <i class="icon-boy"></i>
+                        <i class="fa fa-mars mars-style"></i>
                     </div>
                     <div class="info-row2">
                         <ul class="completeness">
@@ -28,7 +29,7 @@
                     <div class="info-row3">
                         <p>{{route.startTime}}</p>
                         <p>
-                            <span>{{route.startPlace}}</span> 至
+                            <span>{{route.startPlace}}</span>至
                             <span>{{route.endPlace}}</span>
                         </p>
                     </div>
@@ -45,38 +46,26 @@
     </div>
 </template>
 <script>
+import demandService from '@/api/services/demand.service'
 import routeService from '@/api/services/route.service'
-import { MessageBox } from 'mint-ui'
-import Store from '@/utils/store'
+import bus from '@/utils/eventBus'
 export default {
     data() {
         return {
             listTitle: '乘客列表',
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
-            routes: {},
-            userName: '***',
-            isShowMore: true,
-            demandId: -1,
-            routeId: null
+            routeVO: [],
+            isShowMore: true
         }
     },
     created: function () {
-        let demand = Store.fetch("demandInfo");
-        routeService.matchRideRoutesByDemand(
-            {
-                endArea: demand.endArea,
-                endPlace: demand.endPlace,
-                endLongitude: demand.endLongitude,
-                endLatitude: demand.endLatitude,
-                startTime: demand.startTime,
-                riderCount: demand.riderCount,
-                waitTime: demand.waitTime,
-                rewards: demand.rewards
-            }, (res) => {
-                console.log(res);
-                this.routes = res;
-            })
+        routeService.matchRideRoutesByDemand(demand,function(data) {
+            this.routeVO = res;
+        },function(err){
+            err.code
+            err.errorMsg
+        });
     },
     computed: {
         getNowFormatDate: function () {
@@ -99,61 +88,7 @@ export default {
         }
     },
     methods: {
-        addToCar: function () {
-            MessageBox.prompt('您确定要加入' + this.routes[0].userName + '的车吗？'
-            ).then(
-                ({ value, action }) => {
-                    if (action == 'confirm') {
-                        if(value <= this.routes[0].remainCount) {
-                            routeService.joinRoute(
-                            {
-                                demandId: this.demandId,
-                                routeId: this.routes[0].routeId,
-                                riderCount: value
-                            }, (res) => {
-                                this.$router.push({ path: '/order' });
-                            }, (err) => {
 
-                            })
-                        }else {
-                            MessageBox.alert('加入人数超出');
-                        }  
-                    }
-                });
-        },
-        moreInfo: function () {
-            console.log('没有更多信息了。');
-        }
     }
 }
 </script>
-
-<style scoped>
-.mint-msgbox {
-    border-radius: 12px !important;
-}
-
-.mint-msgbox-header {
-    padding: 40px 0 0 !important;
-}
-
-.mint-msgbox-content {
-    padding: 20px !important;
-}
-
-.mint-msgbox-message {
-    width: 50% !important;
-    float: left;
-}
-
-.mint-msgbox-input {
-    width: 20%;
-    padding-top: 0 !important;
-    display: inline-block;
-}
-
-.star div {
-    display: inline-block;
-    margin: 5px;
-}
-</style>

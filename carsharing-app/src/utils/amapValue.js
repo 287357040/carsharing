@@ -1,4 +1,4 @@
-
+// ��������,��Ϊ��ͼ�������ݵĴ�Ŵ�
 export const mapData = {
   // amapInfo:{},
   startAmapInfo: {},   // 起始地址信息

@@ -19,52 +19,50 @@
                 </div>
             </div>
         </div>
-        <div class="order-wrapper">
-            <ul class="order-details">
-                <li>
-                    <i class="icon-date icon-location"></i>
-                    <span>{{startTime}}</span>
-                </li>
-                <li>
-                    <i class="icon-home icon-location"></i>
-                    <span>{{startPlace}}</span>
-                </li>
-                <li>
-                    <i class="icon-corporation icon-location"></i>
-                    <span>{{endPlace}}</span>
-                    <span class="route-price">总行程：40km</span>
-                </li>
-                <li>
-                    <i class="icon-Stroke01 icon-location"></i>
-                    <span>{{describe}}</span>
-                    <span>{{riderCount}}</span>
-                </li>
-            </ul>
-            <div class="await-notice clearfix">
-                <i class="icon-Countdown icon-location timerWrap"></i>
-                <a>已通知以下车主，请耐心等待接单</a>
+        <div v-if="isShowOrder">
+            <div class="order-wrapper">
+                <ul class="order-details">
+                    <li>
+                        <i class="icon-date icon-location"></i>
+                        <span>今天 20:10</span>
+                    </li>
+                    <li>
+                        <i class="icon-home icon-location"></i>
+                        <span>普福家园南区</span>
+                    </li>
+                    <li>
+                        <i class="icon-corporation icon-location"></i>
+                        <span>恒生电子股份有限公司</span>
+                        <span class="route-price">总行程：40km</span>
+                    </li>
+                    <li>
+                        <span class="route-price">打车需60元</span>
+                    </li>
+                    <li>
+                        <i class="icon-Stroke01 icon-location"></i>
+                        <span>有大件行李，有宠物</span>
+                        <span>1人</span>
+                    </li>
+                </ul>
+                <div class="await-notice clearfix">
+                    <i class="icon-Countdown icon-location timerWrap"></i>
+                    <a>已通知以下车主，请耐心等待接单</a>
+                </div>
             </div>
+            <driver-info-card></driver-info-card>
         </div>
-        <driver-info-card></driver-info-card>
+        <div v-if="!isShowOrder">
+            <p class="cancle-order-hint">订单取消成功</p>
+        </div>
     </div>
 </template>
 <script>
 import driverInfoCard from '../public/driverInfoCard.vue'
-import demandService from '@/api/services/demand.service'
-import Store from '@/utils/store'
-import { Toast } from 'mint-ui'
-import { MessageBox } from 'mint-ui'
-
 export default {
     data: () => {
         return {
             awaitText: '等待车主接单',
-            startTime: '***',
-            startPlace: '***',
-            endPlace: '***',
-            describe: '******',
-            riderCount: '*',
-            demandId: null
+            isShowOrder: true
         }
     },
     components: {
@@ -75,26 +73,8 @@ export default {
             this.$router.go(-1);
         },
         cancleOrder: function () {
-            //取消订单，返回首页
-            demandService.deleteRideDemand(this.demandId,
-                (res) => {
-                    console.log(res);
-
-                    this.$router.push({ name: 'home' });
-                }, (err) => {
-                    MessageBox("获取服务失败！");
-                })
+            this.isShowOrder = false;
         }
-    },
-    created: function () {
-        //console.log(Store.fetch("demandInfo"));
-        var demandInfo = Store.fetch("demandInfo");
-        this.startTime = demandInfo.startTime;
-        this.startPlace = demandInfo.startPlace;
-        this.endPlace = demandInfo.endPlace;
-        this.describe = demandInfo.describe;
-        this.riderCount = demandInfo.riderCount;
-        this.demandId = this.$route.query.demandId;
     }
 }
 </script>
