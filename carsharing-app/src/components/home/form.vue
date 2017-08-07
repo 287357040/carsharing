@@ -385,7 +385,7 @@ export default {
     },
     // 点击发布
     publishInfo() {
-      this.userInfo = Store.fetch('user');
+      let sign = Store.fetch('identity');
       let data = {}
       if (this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined) { //我是不定位
         data = {
@@ -423,7 +423,8 @@ export default {
           isHome: 0 // 是否到家服务 默认 0
         }
       }
-      if (self.identity == '司机') {
+      if (sign == '司机') {
+        console.log(111);
         routeService.publishNewRoute(data, (data) => {
           console.log(data.routeId);
           this.$router.push({

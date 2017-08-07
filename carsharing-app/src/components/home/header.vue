@@ -77,13 +77,13 @@ export default {
         this.identity = this.secondIdentity;
         this.secondIdentity = temp;
       }
-      bus.$emit('switchIdentify',this.identity); 
+      Store.save('identity',this.identity);
     }
   },
   created: function () {
     this.userInfo = Store.fetch('user');
     this.isDriver = this.userInfo.isDriver;
-    bus.$emit('switchIdentify',this.identity); 
+    Store.save('identity',this.identity);
   }
 }
 </script>
