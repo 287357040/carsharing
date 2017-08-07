@@ -359,11 +359,11 @@ export default {
         + seperator2 + seconds;
       return currentdate;
     },
-    // 地址过长截取函数 如：浙江省杭州市滨江区浦沿街道火炬大道恒生大厦(园支一路)--》火炬大道恒生大厦(园支一路)
+    // 地址过长截取函数 如：浙江省杭州市滨江区浦沿街道火炬大道恒生大厦(园支一路)--》浦沿街道火炬大道恒生大厦(园支一路)
     placeSlice(locationInfo) {
       if (locationInfo) {
         this.startPlace = locationInfo
-        let placeShow = locationInfo.formattedAddress.split(locationInfo.addressComponent.street)
+        let placeShow = locationInfo.formattedAddress.split('区')
         return placeShow
       }
     },
