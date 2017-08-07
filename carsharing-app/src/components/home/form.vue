@@ -159,7 +159,8 @@ export default {
   watch: {
     locationInfo: function () {
       let temp = this.getStartMapInfo()
-      if (temp.id !== undefined) { //我是不定位
+      console.log(temp)
+      if (temp.id !== undefined || temp.userNo !== undefined) { //我是不定位
         console.log('我是不定位')
         this.startPlace = this.getStartMapInfo()
         console.log(this.startPlace)
