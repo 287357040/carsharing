@@ -181,7 +181,9 @@ export default {
       this.riderCount = values[0];
     },
     onDatetimeChange: function (picker, values) {
-      let [currentDate, currentHour, currentMinute] = [values[0], values[1], values[2]];
+      var currentDate = values[0],
+        currentHour = values[1],
+        currentMinute = values[2];
       if (!values.includes(undefined)) {
         if (!isNaN(values[1].substring(1, 2))) {
           this.dateTime = currentDate + ' ' + currentHour.substring(0, 2) + ':' + currentMinute.substring(0, 2);
@@ -207,19 +209,22 @@ export default {
 
       //回传日期
       var date = new Date();
-      if (currentDate == '今天') {
-        this.selectedDate = date.getDate();
-      } else if (currentDate == '明天') {
-        this.selectedDate = date.getDate() + 1;
-      } else if (currentDate == '后天') {
-        this.selectedDate = date.getDate() + 2;
-      } else {
-        let str = currentDate.replace(/[^0-9]/ig, "");
-        if (str.length == 2) {
-          this.selectedDate = str.substring(str.length - 1, str.length);
+      if (currentDate) {
+        if (currentDate == '今天') {
+          this.selectedDate = date.getDate();
+        } else if (currentDate == '明天') {
+          this.selectedDate = date.getDate() + 1;
+        } else if (currentDate == '后天') {
+          this.selectedDate = date.getDate() + 2;
         } else {
-          this.selectedDate = str.substring(str.length - 2, str.length);
+          let str = currentDate.replace(/[^0-9]/ig, "");
+          if (str.length == 2) {
+            this.selectedDate = str.substring(str.length - 1, str.length);
+          } else {
+            this.selectedDate = str.substring(str.length - 2, str.length);
+          }
         }
+
       }
     },
     computedDate: function () {
@@ -362,17 +367,17 @@ export default {
           isHome: 0 // 是否到家服务 默认 0
         }
       }
-    //是否采用定位或者手动地址
-    // isLocation() {
-    //   this.isLocationFlag = this.$route.query.params
-    //   if(this.$route.query.params === undefined){ //起始地址采用定位
-    //   }
-    //   if(this.$route.query.params ==='LocationFlag'){ //目的地址采用手动选择地点
-    //     this.startPlace = this.getStartMapInfo()
-    //       console.log('222222')
-    //       console.log(this.startPlace)
-    //   }
-    // }
+      //是否采用定位或者手动地址
+      // isLocation() {
+      //   this.isLocationFlag = this.$route.query.params
+      //   if(this.$route.query.params === undefined){ //起始地址采用定位
+      //   }
+      //   if(this.$route.query.params ==='LocationFlag'){ //目的地址采用手动选择地点
+      //     this.startPlace = this.getStartMapInfo()
+      //       console.log('222222')
+      //       console.log(this.startPlace)
+      //   }
+      // }
       apiHandler.publishRideDemand(data, (data) => {
         console.log('我是发布成功');
         Store.save('demandInfo', data);
