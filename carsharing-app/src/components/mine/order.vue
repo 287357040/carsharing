@@ -9,25 +9,25 @@
           <span class="icon-date ico">
   
           </span>
-          <span class="txt-content">{{routeOrder.startTime}}</span>
+          <span class="txt-content">{{currentOrder.startTime}}</span>
         </div>
         <div class="order-content">
           <span class="icon-home">
   
           </span>
-          <span class="txt-content">{{routeOrder.startPlace}}</span>
+          <span class="txt-content">{{currentOrder.startPlace}}</span>
         </div>
         <div class="order-content">
           <span class="icon-corporation">
   
           </span>
-          <span class="txt-content">{{routeOrder.endPlace}}</span>
+          <span class="txt-content">{{currentOrder.endPlace}}</span>
         </div>
         <div class="order-content">
           <span class="icon-Stroke01">
   
           </span>
-          <span class="txt-content">{{routeOrder.describe}}</span>
+          <span class="txt-content">{{currentOrder.describe}}</span>
         </div>
       </div>
       <hr class="order-driver-spilter" />
@@ -42,13 +42,13 @@
             <span class="icon-date ico">
   
             </span>
-            <span class="txt-content txt-content-color">{{hisorder.time}}</span>
+            <span class="txt-content txt-content-color">{{hisorder.startTime}}</span>
           </div>
           <div class="txt-content-addr">
             <span class="icon-home  ico">
   
             </span>
-            <span class="txt-content ">{{hisorder.origin}}</span>
+            <span class="txt-content ">{{hisorder.startPlace}}</span>
             <span class="icon-Level-Down ico right">
   
             </span>
@@ -59,7 +59,7 @@
             <span class="icon-corporation ico">
   
             </span>
-            <span class="txt-content ">{{hisorder.destination}} </span>
+            <span class="txt-content ">{{hisorder.endPlace}} </span>
           </div>
         </div>
       </div>
@@ -79,26 +79,26 @@ export default {
       headerText: "我的订单",
       historyOrderList: [
         {
-          time: "2017年08月09日 21::00:00",
-          origin: "恒生电子",
-          destination: "垃圾街",
-          remark: "没有重物",
+          startTime: "2017年08月09日 21::00:00",
+          startPlace: "恒生电子",
+          endPlace: "垃圾街",
+          describe: "没有重物",
           orderStatus: 3
         }
         ,
         {
-          time: "2017年08月09日 21::00:00",
-          origin: "萧山",
-          destination: "滨江",
-          remark: "没有重物",
+          startTime: "2017年08月09日 21::00:00",
+          startPlace: "萧山",
+          endPlace: "滨江",
+          describe: "没有重物",
           orderStatus: 5
         }
       ],
       currentOrder: {
-        time: "2017年08月09日 21::00:00",
-        origin: "恒生电子",
-        destination: "垃圾街",
-        remark: "没有重物",
+        startTime: "2017年08月09日 21::00:00",
+        startPlace: "恒生电子",
+        endPlace: "垃圾街",
+        describe: "没有重物",
 
       },
       routeOrder: {}
@@ -117,7 +117,7 @@ export default {
         this.historyOrderList = data;
       }
       else {
-        currentOrder = data[0];
+        this.routeOrder = data[0];
       }
     },
       (res) => {
