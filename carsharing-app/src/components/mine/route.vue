@@ -60,7 +60,7 @@ export default {
   methods: {
     show_suggest(key) {
       this.$store.dispatch('show_suggest', key)
-      this.$router.push({ path: '/mapLocation' })
+      this.$router.push({ path: '/mapLocation',query: { params: key } })
     },
     saveAddress: function () {
       apiHandler.addNewAddress(this.origin, (res) => {
@@ -77,18 +77,21 @@ export default {
     }
   },
   created:function(){
-    var tmp = this.getStartMapInfo();
+    let  tmp = this.getStartMapInfo()
+    console.log("11111________________________")
+    console.log(tmp)
+    console.log("11________________________")
     this.origin.addressType = 0;
     this.origin.area = tmp.district;
-    this.origin.address = tmp.address;
+    this.origin.address = tmp.name;
     this.origin.longitude = tmp.location.lng;
     this.origin.latitude = tmp.location.lat; 
 
-    this.origin.addressType = 1;
-    this.origin.area = this.getEndMapInfo().district;
-    this.origin.address = this.getEndMapInfo().address;
-    this.origin.longitude = this.getEndMapInfo().location.lng;
-    this.origin.latitude = this.getEndMapInfo().location.lat; 
+    this.destination.addressType = 1;
+    this.destination.area = this.getEndMapInfo().district;
+    this.destination.address = this.getEndMapInfo().address;
+    this.destination.longitude = this.getEndMapInfo().location.lng;
+    this.destination.latitude = this.getEndMapInfo().location.lat; 
   }
 }
 </script>
