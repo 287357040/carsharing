@@ -32,6 +32,7 @@ import apiHandler from '@/api/services/employee.service'
 import { MessageBox } from 'mint-ui';
 import sharedStateMixin from '@/utils/amapValue'
 export default {
+   mixins: [sharedStateMixin],
   data(){
     return {
       headerText: "行程设置",

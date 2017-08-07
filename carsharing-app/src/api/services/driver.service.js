@@ -33,20 +33,6 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    inviteToRoute: (obj, success, err) => {
-        Vue.http.post(inviteToRouteUrl,
-            {
-                demandId: obj.demandId,
-                routeId: obj.routeId
-            })
-            .then(
-            (response) => {
-                HttpResHelper.resHandle(response, success, err);
-            }, (response) => {
-                // 响应错误回调
-                HttpResHelper.resHandle(response, success, err);
-            })
-    },
     updateDriverInfo: (driver,success, err) => {
         Vue.http.post(updateDriverInfoUrl,
             {
