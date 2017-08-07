@@ -52,6 +52,7 @@
 import driverInfoCard from '../public/driverInfoCard.vue'
 import demandService from '@/api/services/demand.service'
 import Store from '@/utils/store'
+import bus from '@/utils/eventBus'
 import { Toast } from 'mint-ui'
 import { MessageBox } from 'mint-ui'
 
@@ -88,13 +89,16 @@ export default {
     },
     created: function () {
         //console.log(Store.fetch("demandInfo"));
-        var demandInfo = this.$route.query.data;
+        var demandInfo = bus.$on("demandInfo");
         this.startTime = demandInfo.startTime;
         this.startPlace = demandInfo.startPlace;
         this.endPlace = demandInfo.endPlace;
         this.describe = demandInfo.describe;
         this.riderCount = demandInfo.riderCount;
         this.demandId = this.$route.query.demandId;
-    }
+    },
+    beforeDestroy: function () {
+        bus.$off("demandInfo");
+    },
 }
 </script>
