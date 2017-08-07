@@ -141,5 +141,5 @@
 		<!--where state= 1-->
 	<!--</select>-->
 	<!-- 开启基于redis的二级缓存 -->
-	<cache type="com.carsharing.server.util.RedisCache"/>
+	<!--<cache type="com.carsharing.server.util.RedisCache"/>-->
 </mapper>

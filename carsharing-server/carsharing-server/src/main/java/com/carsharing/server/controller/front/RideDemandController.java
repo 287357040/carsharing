@@ -40,15 +40,19 @@ public class RideDemandController extends AbstractController {
      * 发布乘车需求
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/publishRideDemand")
-    public JsonResponse<Integer> publishRideRequirement(RideDemand demand, HttpServletRequest request) {
+    public JsonResponse<RideDemand> publishRideRequirement(RideDemand demand, HttpServletRequest request) {
 
-        JsonResponse<Integer> result = new JsonResponse<Integer>(SystemCode.FAILURE);
+        JsonResponse<RideDemand> result = new JsonResponse<RideDemand>(SystemCode.FAILURE);
 
         User user = SessionUtil.getUser(request);
 
         try {
+            User serUser = userService.selectByPrimaryKey(user.getUserNo());
             demand.setUserNo(user.getUserNo());
-            rideDemandService.insertSelective(demand);
+            demand.setUserName(user.getUserName());
+            demand.setSex(user.getSex());
+            Integer demandId = rideDemandService.insertSelective(demand);
+            result.setObj(demand);
             result.setRes(SystemCode.SUCCESS);
         } catch (Exception e) {
             lo.error("publish ride demand failed!", e);
@@ -111,19 +115,18 @@ public class RideDemandController extends AbstractController {
     /**
      * 需要用户登录之后才有权限查看自己发布的需求
      *
-     * @param userNo 员工号
      * @param state  需求状态
      * @return
      */
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getRideDemandsByUserNo")
-    public JsonResponse<List<RideDemand>> getRideDemandsByUserNo(int userNo, int state, HttpServletRequest request) {
+    @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getRideDemands")
+    public JsonResponse<List<RideDemand>> getRideDemands(Integer state, HttpServletRequest request) {
         JsonResponse<List<RideDemand>> result = new JsonResponse<List<RideDemand>>(SystemCode.FAILURE);
         User user = SessionUtil.getUser(request);
         if (null == user) {
             result.setRes(SystemCode.NO_LOGIN);
             return result;
         }
-        List<RideDemand> demands = rideDemandService.getRideDemandsByUserNo(user.getUserNo(), 1);
+        List<RideDemand> demands = rideDemandService.getRideDemandsByUserNo(user.getUserNo(),state);
         if (null != demands) {
             result.setRes(SystemCode.SUCCESS);
             result.setObj(demands);
@@ -138,7 +141,7 @@ public class RideDemandController extends AbstractController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getRideDemandsByRouteId")
-    public JsonResponse<List<RideDemand>> getRideDemandsByRouteId(int routeId, HttpServletRequest request) {
+    public JsonResponse<List<RideDemand>> getRideDemandsByRouteId(Integer routeId, HttpServletRequest request) {
         JsonResponse<List<RideDemand>> result = new JsonResponse<List<RideDemand>>(SystemCode.FAILURE);
         User user = SessionUtil.getUser(request);
         if (null == user) {

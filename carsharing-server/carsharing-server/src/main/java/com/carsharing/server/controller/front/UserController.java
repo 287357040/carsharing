@@ -9,11 +9,15 @@ import com.carsharing.server.util.SessionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/front/user")
@@ -28,11 +32,23 @@ public class UserController extends AbstractController {
     * */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByCode")
 //    @SendTo("/topic/callback")
-    public JsonResponse<User> loginByCode(User frmUser,
-                                          HttpServletRequest request) {
-            JsonResponse<User> result = new JsonResponse<User>(
+    public JsonResponse<User> loginByCode(@Valid User frmUser,
+                                          HttpServletRequest request,BindingResult bResult) {
+
+        if (bResult.hasErrors()) {
+
+            List<ObjectError> list = bResult.getAllErrors();
+
+            for (ObjectError error : list) {
+
+                System.out.println(error.getCode() + "---" + error.getArguments() + "---" + error.getDefaultMessage());
+
+            }
+        }
+
+        JsonResponse<User> result = new JsonResponse<User>(
                 SystemCode.FAILURE);
-        //
+
         // 检验验证码 模拟环境，验证通过
         result.setRes(SystemCode.SUCCESS);
         try {
@@ -88,7 +104,18 @@ public class UserController extends AbstractController {
      */
     //@GetMapping("/toLogin")
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByAcct")
-    private JsonResponse<User> toLogin(HttpServletRequest request, User frmUser) {
+    private JsonResponse<User> loginByAcct(HttpServletRequest request, @Valid User frmUser, BindingResult bResult) {
+        if (bResult.hasErrors()) {
+
+            List<ObjectError> list = bResult.getAllErrors();
+
+            for (ObjectError error : list) {
+
+                System.out.println(error.getCode() + "---" + error.getArguments() + "---" + error.getDefaultMessage());
+
+            }
+        }
+
         JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
 
         User model = userService.selectByPrimaryKey(frmUser.getUserNo());

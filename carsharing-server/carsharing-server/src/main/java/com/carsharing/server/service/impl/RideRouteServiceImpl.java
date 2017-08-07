@@ -24,12 +24,17 @@ public class RideRouteServiceImpl extends BaseServiceImpl<RideRoute> implements 
 
     @Override
     public List<RideRoute> getRideRoutesByUserNo(String userNo) {
-        return null;
+        return rideRouteMapper.getRideRoutesByUserNo(userNo);
+    }
+
+    @Override
+    public List<RideRoute> getRideRoutesByDriverNo(String userNo) {
+        return rideRouteMapper.getRideRoutesByDriverNo(userNo);
     }
 
     @Override
     public List<RideDemand> getRideRouteByDemand(RideDemand demand) {
-        return null;
+        return rideRouteMapper.getRideRouteByDemand(demand);
     }
 
     @Override

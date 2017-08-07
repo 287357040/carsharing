@@ -11,6 +11,8 @@
         <result column="end_town" property="endTown" jdbcType="VARCHAR"/>
         <result column="start_street" property="startStreet" jdbcType="VARCHAR"/>
         <result column="end_street" property="endStreet" jdbcType="VARCHAR"/>
+        <result column="start_area" property="startArea" jdbcType="VARCHAR"/>
+        <result column="end_area" property="endArea" jdbcType="VARCHAR"/>
 
         <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
         <result column="take_count" property="takeCount" jdbcType="INTEGER"/>
@@ -25,7 +27,7 @@
         <result column="describe" property="describe" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        route_id, user_no,user_name, sex,start_place,start_town,start_street,end_place,wait_time, start_time,take_count,remain_count, start_longitude
+        route_id, user_no,user_name, sex,start_place,start_town,start_area,start_street,end_area,end_place,wait_time, start_time,take_count,remain_count, start_longitude
         ,start_latitude,end_town,end_street,end_longitude,end_latitude, state,is_home,`describe`
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -40,9 +42,23 @@
         select
         <include refid="Base_Column_List"/>
         from t_route
-        where state>2
+        where state &lt; 3
     </select>
-    <insert id="insertSelective" parameterType="com.carsharing.server.entity.RideRoute">
+    <select id="getRideRoutesByDriverNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_route
+        where user_no = #{user_no,jdbcType=VARCHAR}
+    </select>
+    <select id="getRideRoutesByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_route
+        where route_id in
+        (select route_id from t_demand where user_no = #{user_no,jdbcType=VARCHAR} and state &lt;2 and route_id &gt; 0)
+    </select>
+    <insert id="insertSelective" parameterType="com.carsharing.server.entity.RideRoute"
+            useGeneratedKeys="true" keyProperty="routeId">
         insert into t_route
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userNo != null">
@@ -113,6 +129,12 @@
             <if test="userNo != null">
                 #{userNo,jdbcType=VARCHAR},
             </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
             <if test="startPlace != null">
                 #{startPlace,jdbcType=VARCHAR},
             </if>
@@ -181,4 +203,10 @@
         </set>
         where route_id = #{routeId,jdbcType=INTEGER}
     </update>
+    <update id="deleteOverdueRoutes" parameterType="java.util.Date">
+        update t_route
+        set state = 6
+        where start_time &lt; #{date,jdbcType=TIMESTAMP}
+    </update>
+
 </mapper>

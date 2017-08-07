@@ -4,6 +4,7 @@ import com.carsharing.server.entity.RideDemand;
 import com.carsharing.server.entity.RideRoute;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,5 +18,7 @@ public interface RideDemandMapper extends BaseDao<RideDemand> {
 
     public List<RideDemand> getRideDemandsByState(int state);
 
-    RideDemand getDemandByUserNoAndRouteId(String userNo, Integer routeId);
+    public RideDemand getDemandByUserNoAndRouteId(String userNo, Integer routeId);
+
+    public Integer deleteOverdueDemands(Date date);
 }
