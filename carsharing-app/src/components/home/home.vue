@@ -5,7 +5,7 @@
     <v-header v-on:identityName="switchIdentity"></v-header>
     <v-form></v-form>
     <div v-if="showAwaitOrderStatus">
-    <section class="await-handle-order" :key="item" v-for="item in demandCounts">
+    <section class="await-handle-order" :key="key" v-for="(key,item) in demandCounts">
       <h1>待处理行程</h1>
       <div class="handle-order-content clearfix">
          <i class="timerWrap icon-Countdown await-icon-location"></i>
