@@ -76,18 +76,25 @@
 <script>
 import bus from '@/utils/eventBus'
 import apiHandler from '@/api/services/demand.service'
+import routeService from '@/api/services/route.service'
 import sharedStateMixin from '@/utils/amapValue'
+import waitOrder from '@/components/public/waitOrder.vue'
 import Store from '@/utils/store'
-import { MessageBox } from 'mint-ui'
+
 export default {
   mixins: [sharedStateMixin],
+  components:{
+    waitOrder
+  },
   data() {
-    let self = this
+    let self = this;
     return {
       departureTime: '',
       seatsCounts: '',
       seatsDescription: '同行的几人？',
       dateTime: '',
+      identity : '',
+      userInfo:'',
       isMoveDate: false,
       isMoveHour: false,
       isCarry: false,
@@ -139,14 +146,12 @@ export default {
     }
   },
   created: function () {
-    // this.isLocation()  //是否采用定位还是手动
-    this.computedDate();
-    this.computedMinutes();
-    this.computedHours();
-    this.endPlace = this.getEndMapInfo();
-    // console.log('--------------------------')
-    // console.log(this.endPlace)
-    // console.log('--------------------------')
+     bus.$on('switchIdentify', (arg) => {
+        self.identity= arg; // 接收
+    });
+    this.computedDatetime();
+    this.isLocation()  //是否采用定位还是手动
+    this.endPlace = this.getEndMapInfo()
   },
   methods: {
     show_suggest(key) {
@@ -333,23 +338,24 @@ export default {
     },
     // 点击发布
     publishInfo() {
-      let data = {}
-      if (this.getStartMapInfo().id !== undefined) { //我是不定位
-        data = {
-          startArea: this.startPlace.district, // 起始区县
-          startPlace: this.startPlace.name, // 起始地址
-          startLongitude: this.startPlace.location.lng, // 起始经度
-          startLatitude: this.startPlace.location.lat, // 起始纬度
-          endArea: this.endPlace.district, // 终点区县
-          endPlace: this.endPlace.name, // 终点地址
-          endLongitude: this.endPlace.location.lng, // 终点经度
-          endLatitude: this.endPlace.location.lng, // 终点纬度
-          startTime: this.startTime, // 发车时间
-          riderCount: this.riderCount, // 车座位数量 默认4
-          waitTime: 10, // 能够等待时间
-          describe: this.describe, // 备注
-          rewards: 5, // 打赏金 
-          isHome: 0 // 是否到家服务 默认 0
+       this.userInfo = Store.fetch('user');
+       let data = {}
+      if(this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined){ //我是不定位
+        data= {
+           startArea: this.startPlace.district, // 起始区县
+           startPlace: this.startPlace.name, // 起始地址
+           startLongitude: this.startPlace.location.lng, // 起始经度
+           startLatitude: this.startPlace.location.lat, // 起始纬度
+           endArea: this.endPlace.district, // 终点区县
+           endPlace: this.endPlace.name, // 终点地址
+           endLongitude: this.endPlace.location.lng, // 终点经度
+           endLatitude: this.endPlace.location.lng, // 终点纬度
+           startTime: '2017-08-02 12:10:12', // 发车时间
+           riderCount: 4, // 车座位数量 默认4
+           waitTime: 10, // 能够等待时间
+           describe: '无', // 备注
+           rewards: 5, // 打赏金 
+           isHome: 0 // 是否到家服务 默认 0
         }
       }
       else {
@@ -370,25 +376,26 @@ export default {
           isHome: 0 // 是否到家服务 默认 0
         }
       }
-      //是否采用定位或者手动地址
-      // isLocation() {
-      //   this.isLocationFlag = this.$route.query.params
-      //   if(this.$route.query.params === undefined){ //起始地址采用定位
-      //   }
-      //   if(this.$route.query.params ==='LocationFlag'){ //目的地址采用手动选择地点
-      //     this.startPlace = this.getStartMapInfo()
-      //       console.log('222222')
-      //       console.log(this.startPlace)
-      //   }
-      // }
-      apiHandler.publishRideDemand(data, (data) => {
-        console.log('我是发布成功');
+      if (self.identity == '司机') {
+        routeService.publishNewRoute(data, (data) => {
+            console.log(data.routeId);
+          this.$router.push({ path: '/driverwaitStatus',query:{
+           routeId:data.routeId
+          } });
+        }, (err) => {
+          console.log('服务器有误！')
+        })
+      }
+      else {
+        apiHandler.publishRideDemand(data, (data) => {
+         console.log('我是发布成功');
         Store.save('demandInfo', data);
         let demandId = data.demandId;
         this.$router.push({ path: '/awaitStatus', query: { demandId: demandId } });
-      }, (err) => {
-        MessageBox('信息发布失败！');
-      })
+        }, (err) => {
+          console.log('服务器有误！')
+        })
+      }
     },
     //是否采用定位或者手动地址
     // isLocation() {

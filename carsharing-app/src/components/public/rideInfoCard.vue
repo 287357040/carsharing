@@ -7,30 +7,31 @@
             </a>
         </div>
         <ul class="driver-message clearfix">
-            <li class="message-li clearfix" :key="route" v-for="route in routeVO">
+            <li class="message-li clearfix" :key="passanger" v-for="passanger in waitPassangeList">
                 <div class="message-photo">
                     <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
                 </div>
                 <div class="message-info">
                     <div class="info-row1">
-                        <span>龚小敏</span>
+                        <span>{{passanger.userName}}</span>
                         <i class="icon-boy"></i>
                         <i class="fa fa-mars mars-style"></i>
+                        <span class="icon-add right" style="margin-right:10px;" @click="add_passanger(passanger.demandId,passanger.routeId)"> </span>
                     </div>
                     <div class="info-row2">
                         <ul class="completeness">
                             <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
                         </ul>
                         <p class="completeness-text">
-                            <span>{{route.remainCount}}</span>/
-                            <span>{{route.takeCount}}</span>
+                            <span>{{passanger.remainCount}}</span>/
+                            <span>{{passanger.takeCount}}</span>
                         </p>
                     </div>
                     <div class="info-row3">
-                        <p>{{route.startTime}}</p>
+                        <p>{{passanger.startTime}}</p>
                         <p>
-                            <span>{{route.startPlace}}</span>至
-                            <span>{{route.endPlace}}</span>
+                            <span>{{passanger.startPlace}}</span>至
+                            <span>{{passanger.endPlace}}</span>
                         </p>
                     </div>
                     <div class="info-row4">
@@ -48,23 +49,30 @@
 <script>
 import demandService from '@/api/services/demand.service'
 import routeService from '@/api/services/route.service'
+import driverService from '@/api/services/driver.service'
+import { MessageBox } from 'mint-ui'
 import bus from '@/utils/eventBus'
 export default {
     data() {
+        let self ={};
         return {
             listTitle: '乘客列表',
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
             routeVO: [],
-            isShowMore: true
+            isShowMore: true,
+            waitPassangeList:[]
         }
     },
     created: function () {
-        routeService.matchRideRoutesByDemand(demand,function(data) {
-            this.routeVO = res;
-        },function(err){
-            err.code
-            err.errorMsg
+        self = this;
+        bus.$on('getPassangerList', (arg) => {
+            demandService.matchRideDemandsByRoute(arg, function (data) {
+                self.waitPassangeList = data.obj;
+                console.log(data.obj);
+            }, function (err) {
+               
+            });
         });
     },
     computed: {
@@ -88,7 +96,17 @@ export default {
         }
     },
     methods: {
-
+        add_passanger:function(item,item2){
+            routeService.inviteToRoute({
+                demandId: item,
+                routeId: 1
+            }, function (data) {
+                 MessageBox("添加成功");
+                 this.$router.go(0);
+            }, function (err) {
+                 MessageBox("添加失败");
+            });
+        }
     }
 }
 </script>
