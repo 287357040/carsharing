@@ -60,6 +60,7 @@ export default {
             seats: ['1', '2', '3', '4'],
             numIsSeclect: 0,
             routeVO: [],
+            routeId:'',
             isShowMore: true,
             waitPassangeList:[]
         }
@@ -67,6 +68,7 @@ export default {
     created: function () {
         self = this;
         bus.$on('getPassangerList', (arg) => {
+            self.routeId = arg.routeId;
             demandService.matchRideDemandsByRoute(arg, function (data) {
                 self.waitPassangeList = data.obj;
                 console.log(data.obj);
@@ -99,7 +101,7 @@ export default {
         add_passanger:function(item,item2){
             routeService.inviteToRoute({
                 demandId: item,
-                routeId: 1
+                routeId: this.routeId
             }, function (data) {
                  MessageBox("添加成功");
                  this.$router.go(0);

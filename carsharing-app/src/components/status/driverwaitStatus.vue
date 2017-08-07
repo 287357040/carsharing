@@ -131,18 +131,20 @@ export default {
         this.riderCount = tmp.takeCount;
         this.routeId = tmp.routeId;
          bus.$emit('getPassangerList', {
-              endArea: tmp.endArea,
+                endArea: tmp.endArea,
                 endLongitude: tmp.endLongitude,
                 endLatitude: tmp.endLatitude,
                 startTime: tmp.startTime,
                 riderCount: tmp.remainCount,
-                waitTime: tmp.waitTime
+                waitTime: tmp.waitTime,
+                routeId : this.routeId
         });
         },err=>{
             MessageBox("获取服务失败！");
         });
         demandService.getRideDemandsByRouteId(routeInfoId, data => {
             this.havePassangeList = data;
+            console.log(data);
         }, err => {
             MessageBox("获取服务失败！");
         });
