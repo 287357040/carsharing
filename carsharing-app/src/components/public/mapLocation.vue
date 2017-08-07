@@ -190,8 +190,7 @@ export default {
       let that = this
       apiHandler.queryAddress({}, (data) => {
         // console.log(data)
-        if (data === undefined) {
-          console.log('我是查询为空的情况！')
+        if (data === undefined) { // 我是为空的情况
           return
         } else {
           for (let i = 0; i < data.length; i++) {
