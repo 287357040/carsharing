@@ -438,9 +438,9 @@ export default {
         apiHandler.publishRideDemand(data, (data) => {
           console.log('我是发布成功');
           let demandId = data.demandId;
-          bus.$emit("demandInfo",data);
+          // bus.$emit("demandInfo",data);
           this.$router.push({ path: '/awaitStatus',query: {
-              routeId: data.routeId}});
+              demandInfo: data}});
         }, (err) => {
           MessageBox('信息发布失败！');
         })
