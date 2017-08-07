@@ -154,3 +154,11 @@ textarea{
   height: 150px;
   overflow: scroll;
 }
+.waitOrderContent .waitOrderTxt
+{
+    display: inline-block;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

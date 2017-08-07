@@ -6,8 +6,8 @@
             <div class="order-wrapper" :style="{display:isshow}">
                 <div class="await-notice clearfix" style="display: inline-block;">
                     <i class="icon-Countdown icon-location timerWrap"></i>
-                    <a>您有一项待办订单 <span class="">({{item.startPlace}}一{{item.endPlace}})</span>
-                        <span class="right go-order-wait-detail" @click="goWaitOrderDetail(item)">查看详情</span>
+                    <a>您有一项待办订单 <div class="waitOrderTxt">({{item.startPlace}}一{{item.endPlace}})</div>
+                        <div style="display:inline-block" class="right go-order-wait-detail" @click="goWaitOrderDetail(item)">查看详情</div>
                     </a>
                 </div>
             </div>

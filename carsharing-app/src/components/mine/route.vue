@@ -64,25 +64,31 @@ export default {
     },
     saveAddress: function () {
       apiHandler.addNewAddress(this.origin, (res) => {
-        //MessageBox("保存成功！");
+        MessageBox("保存成功！");
       },err=>{
         MessageBox(err);
       });
       apiHandler.addNewAddress(this.destination
       , (res) => {
-        //MessageBox("保存成功！");
+        MessageBox("保存成功！");
       },err=>{
         MessageBox(err);
       });
     }
   },
   created:function(){
-    var tmp = this.getMapInfo();
+    var tmp = this.getStartMapInfo();
     this.origin.addressType = 0;
     this.origin.area = tmp.district;
     this.origin.address = tmp.address;
     this.origin.longitude = tmp.location.lng;
     this.origin.latitude = tmp.location.lat; 
+
+    this.origin.addressType = 1;
+    this.origin.area = this.getEndMapInfo().district;
+    this.origin.address = this.getEndMapInfo().address;
+    this.origin.longitude = this.getEndMapInfo().location.lng;
+    this.origin.latitude = this.getEndMapInfo().location.lat; 
   }
 }
 </script>

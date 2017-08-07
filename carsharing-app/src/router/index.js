@@ -24,6 +24,7 @@ import finishEvaluate  from '@/components/status/finishEvaluate'
 import driverComment from '@/components/setting/driverComment'
 import passengerComment from '@/components/setting/passengerComment'
 import LocalStorage from '../utils/store' 
+import driverwaitStatus from '@/components/status/driverwaitStatus'
 Vue.use(Router);
 
 var router = new Router({
@@ -169,6 +170,12 @@ var router = new Router({
       path: '/passengerComment',
       name: 'passengerComment',
       component: passengerComment,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/driverwaitStatus',
+      name: 'driverwaitStatus',
+      component: driverwaitStatus,
       meta: { requiresAuth: true }
     }
         
