@@ -37,7 +37,6 @@ import vMask from '../Mask.vue'
 import vMine from '@/components/mine/mine.vue'
 import SockJS from 'sockjs-client'
 import demandService from '@/api/services/demand.service'
-import Store from '@/utils/store'
 
 export default {
   data: () => {
@@ -48,8 +47,7 @@ export default {
       startPlace: '',
       endPlace: '',
       state: 0,
-      demandCounts: [],
-      routes: null
+      demandCounts: []
     }
   },
   computed: {
@@ -90,12 +88,12 @@ export default {
         this.state,
         (res) => {
           this.demandCounts = res;
+          console.log(res);
           if(res) {
             this.showAwaitOrderStatus = true;
             this.startTime = res[0].startTime;
             this.startPlace = res[0].startPlace;
             this.endPlace = res[0].endPlace;
-            Store.save("demandInfo",res[0]);
           }
         },
         (err) => {
