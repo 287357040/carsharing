@@ -89,13 +89,15 @@ export default {
     },
     created: function () {
         //console.log(this.$route.query.demandInfo);
-        let demandInfo = this.$route.query.demandInfo;
+        let demandInfo = Store.fetch("demandInfo");
         this.startTime = demandInfo.startTime;
         this.startPlace = demandInfo.startPlace;
         this.endPlace = demandInfo.endPlace;
         this.describe = demandInfo.describe;
         this.riderCount = demandInfo.riderCount;
-        this.demandId = demandInfo.demandId;
+        this.demandId = this.$route.query.demandId;
+
+
     },
     beforeDestroy: function () {
         bus.$off("routesInfo");
