@@ -190,7 +190,8 @@ export default {
       let that = this
       apiHandler.queryAddress({}, (data) => {
         // console.log(data)
-        if (data.length === undefined) {
+        if (data === undefined) {
+          console.log('我是查询为空的情况！')
           return
         } else {
           for (let i = 0; i < data.length; i++) {
@@ -228,8 +229,9 @@ export default {
     saveSearchHisPlace(placeObj) {
       let hasRecord = false
       let placeList = Store.fetch('seachPlaceList')
-      if(!placeList){
+      if(placeList === null){
         Store.save('seachPlaceList', [placeObj])
+        return
       }
       for (let i = 0; i < placeList.length; i++) {  // 不为，先判断是否重复
         if (placeList[i].id === placeObj.id) {  // 我是重复
