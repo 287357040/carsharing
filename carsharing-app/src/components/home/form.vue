@@ -80,10 +80,10 @@ import routeService from '@/api/services/route.service'
 import sharedStateMixin from '@/utils/amapValue'
 import waitOrder from '@/components/public/waitOrder.vue'
 import Store from '@/utils/store'
-
+import { MessageBox } from 'mint-ui'
 export default {
   mixins: [sharedStateMixin],
-  components:{
+  components: {
     waitOrder
   },
   data() {
@@ -93,8 +93,8 @@ export default {
       seatsCounts: '',
       seatsDescription: '同行的几人？',
       dateTime: '',
-      identity : '',
-      userInfo:'',
+      identity: '',
+      userInfo: '',
       isMoveDate: false,
       isMoveHour: false,
       isCarry: false,
@@ -146,12 +146,57 @@ export default {
     }
   },
   created: function () {
-     bus.$on('switchIdentify', (arg) => {
-        self.identity= arg; // 接收
+    var self = this;
+    bus.$on('switchIdentify', (arg) => {
+      self.identity = arg; // 接收
     });
-    this.computedDatetime();
-    this.isLocation()  //是否采用定位还是手动
+    //this.isLocation()  //是否采用定位还是手动
+    this.computedDate();
+    this.computedMinutes();
+    this.computedHours();
     this.endPlace = this.getEndMapInfo()
+  },
+  watch: {
+    locationInfo: function () {
+      let temp = this.getStartMapInfo()
+      if (temp.id !== undefined) { //我是不定位
+        console.log('我是不定位')
+        this.startPlace = this.getStartMapInfo()
+        console.log(this.startPlace)
+        this.startPlaceShow = this.startPlace.name
+        return
+      } else { //我是定位
+        console.log('我是定位')
+        this.startPlace = this.locationInfo
+        this.startPlaceShow = this.placeSlice(this.locationInfo)[1]
+        // this.startPlace = this.locationInfo.formattedAddress
+      }
+    },
+    isMoveDate: function() {
+      var allHours = null;
+      this.datetimeSlots[1].values = [];
+      if (this.isMoveDate) {
+        for (let i = 0; i < 24; i++) {
+          allHours = i + '点';
+          this.datetimeSlots[1].values.push(allHours);
+        }
+      } else {
+        this.computedHours();
+      }
+    },
+    isMoveHour: function () {
+      var allMinutes = null;
+      var allMinutesArry = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
+      this.datetimeSlots[2].values = [];
+      if (this.isMoveHour || this.isMoveDate) {
+        for (let i = 0; i < allMinutesArry.length; i++) {
+          allMinutes = allMinutesArry[i] + '分';
+          this.datetimeSlots[2].values.push(allMinutes);
+        }
+      } else {
+        this.computedMinutes();
+      }
+    }
   },
   methods: {
     show_suggest(key) {
@@ -192,6 +237,7 @@ export default {
       var currentDate = values[0],
         currentHour = values[1],
         currentMinute = values[2];
+
       if (!values.includes(undefined)) {
         if (!isNaN(values[1].substring(1, 2))) {
           this.dateTime = currentDate + ' ' + currentHour.substring(0, 2) + ':' + currentMinute.substring(0, 2);
@@ -204,12 +250,9 @@ export default {
           this.selectedHours = currentHour.substring(0, 1);
           this.selectedMinutes = currentMinute.substring(0, 2);
         }
-        if (currentDate != '今天')
-          this.isMoveDate = true;
-        else this.isMoveDate = false;
+        if (currentDate != '今天') { this.isMoveDate = true; } else { this.isMoveDate = false; }
         if (currentHour.substring(0, currentHour.length - 1) != (new Date).getHours())
-          this.isMoveHour = true;
-        else this.isMoveHour = false;
+        { this.isMoveHour = true; } else { this.isMoveHour = false; }
       } else {
         this.dateTime = currentDate + ' ' + (new Date).getHours() + ':' +
           (new Date).getMinutes();
@@ -249,6 +292,7 @@ export default {
         }
         this.datetimeSlots[0].values.push(someDates);
       }
+      return this.datetimeSlots[0].values;
     },
     computedMinutes() {
       //处理分钟
@@ -273,6 +317,7 @@ export default {
         }
         this.datetimeSlots[2].values.push(newStr);
       }
+      return this.datetimeSlots[2].values;
     },
     issueRoute: function () {
       this.publishInfo();
@@ -289,6 +334,7 @@ export default {
         }
         this.datetimeSlots[1].values.push(someHours);
       }
+      return this.datetimeSlots[1].values;
     },
     getFormatDate(selectedDate, selectedHours, selectedMinutes) {
       var date = new Date();
@@ -338,24 +384,24 @@ export default {
     },
     // 点击发布
     publishInfo() {
-       this.userInfo = Store.fetch('user');
-       let data = {}
-      if(this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined){ //我是不定位
-        data= {
-           startArea: this.startPlace.district, // 起始区县
-           startPlace: this.startPlace.name, // 起始地址
-           startLongitude: this.startPlace.location.lng, // 起始经度
-           startLatitude: this.startPlace.location.lat, // 起始纬度
-           endArea: this.endPlace.district, // 终点区县
-           endPlace: this.endPlace.name, // 终点地址
-           endLongitude: this.endPlace.location.lng, // 终点经度
-           endLatitude: this.endPlace.location.lng, // 终点纬度
-           startTime: '2017-08-02 12:10:12', // 发车时间
-           riderCount: 4, // 车座位数量 默认4
-           waitTime: 10, // 能够等待时间
-           describe: '无', // 备注
-           rewards: 5, // 打赏金 
-           isHome: 0 // 是否到家服务 默认 0
+      this.userInfo = Store.fetch('user');
+      let data = {}
+      if (this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined) { //我是不定位
+        data = {
+          startArea: this.startPlace.district, // 起始区县
+          startPlace: this.startPlace.name, // 起始地址
+          startLongitude: this.startPlace.location.lng, // 起始经度
+          startLatitude: this.startPlace.location.lat, // 起始纬度
+          endArea: this.endPlace.district, // 终点区县
+          endPlace: this.endPlace.name, // 终点地址
+          endLongitude: this.endPlace.location.lng, // 终点经度
+          endLatitude: this.endPlace.location.lng, // 终点纬度
+          startTime: this.startTime, // 发车时间
+          riderCount: this.riderCount, // 车座位数量 默认4
+          waitTime: 10, // 能够等待时间
+          describe: this.describe, // 备注
+          rewards: 5, // 打赏金 
+          isHome: 0 // 是否到家服务 默认 0
         }
       }
       else {
@@ -378,78 +424,38 @@ export default {
       }
       if (self.identity == '司机') {
         routeService.publishNewRoute(data, (data) => {
-            console.log(data.routeId);
-          this.$router.push({ path: '/driverwaitStatus',query:{
-           routeId:data.routeId
-          } });
+          console.log(data.routeId);
+          this.$router.push({
+            path: '/driverwaitStatus', query: {
+              routeId: data.routeId
+            }
+          });
         }, (err) => {
           console.log('服务器有误！')
         })
       }
       else {
         apiHandler.publishRideDemand(data, (data) => {
-         console.log('我是发布成功');
-        Store.save('demandInfo', data);
-        let demandId = data.demandId;
-        this.$router.push({ path: '/awaitStatus', query: { demandId: demandId } });
+          console.log('我是发布成功');
+          Store.save('demandInfo', data);
+          let demandId = data.demandId;
+          this.$router.push({ path: '/awaitStatus', query: { demandId: demandId } });
         }, (err) => {
-          console.log('服务器有误！')
+          MessageBox('信息发布失败！');
         })
       }
-    },
-    //是否采用定位或者手动地址
-    // isLocation() {
-    //   this.isLocationFlag = this.$route.query.params
-    //   if (this.$route.query.params === undefined) { //起始地址采用定位
-    //   }
-    //   if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
-    //     this.startPlace = this.getStartMapInfo()
-    //     console.log(this.startPlace)
-    //   }
-    // }
-  },
-  // 定位消息获得以后
-  watch: {
-    locationInfo: function () {
-      let temp = this.getStartMapInfo()
-      if (temp.id !== undefined) { //我是不定位
-        console.log('我是不定位')
-        this.startPlace = this.getStartMapInfo()
-        console.log(this.startPlace)
-        this.startPlaceShow = this.startPlace.name
-        return
-      } else { //我是定位
-        console.log('我是定位')
-        this.startPlace = this.locationInfo
-        this.startPlaceShow = this.placeSlice(this.locationInfo)[1]
-        // this.startPlace = this.locationInfo.formattedAddress
-      }
-    },
-    isMoveDate: function () {
-      var allHours = null;
-      this.datetimeSlots[1].values = [];
-      if (this.isMoveDate) {
-        for (let i = 0; i < 24; i++) {
-          allHours = i + '点';
-          this.datetimeSlots[1].values.push(allHours);
-        }
-      } else {
-        this.computedHours();
-      }
-    },
-    isMoveHour: function () {
-      var allMinutes = null;
-      var allMinutesArry = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55'];
-      this.datetimeSlots[2].values = [];
-      if (this.isMoveHour || this.isMoveDate) {
-        for (let i = 0; i < allMinutesArry.length; i++) {
-          allMinutes = allMinutesArry[i] + '分';
-          this.datetimeSlots[2].values.push(allMinutes);
-        }
-      } else {
-        this.computedMinutes();
-      }
+      //是否采用定位或者手动地址
+      // isLocation() {
+      //   this.isLocationFlag = this.$route.query.params
+      //   if (this.$route.query.params === undefined) { //起始地址采用定位
+      //   }
+      //   if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
+      //     this.startPlace = this.getStartMapInfo()
+      //     console.log(this.startPlace)
+      //   }
+      // }
     }
+    // 定位消息获得以后
   }
 }
 </script>
