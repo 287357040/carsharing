@@ -7,7 +7,7 @@ export default {
     isLoginIn: (success,err) => {
         Vue.http.post(addCommentUrl,
             {
-                remandId: comment.remandId,
+                demandId: comment.demandId,
                 content: comment.content
             })
             .then(
@@ -21,7 +21,7 @@ export default {
     delComment: (commendId,success,err) => {
         Vue.http.post(delCommentUrl,
             {
-                remandId: commendId
+                demandId: commendId
             })
             .then(
             (response) => {

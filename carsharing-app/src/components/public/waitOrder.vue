@@ -54,7 +54,7 @@ export default {
                 });
             }
             else {
-                this.$router.push({ path: '/awaitStatus', query: item.remandId });
+                this.$router.push({ path: '/awaitStatus', query: item.demandId });
             }
         }
     }

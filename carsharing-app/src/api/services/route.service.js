@@ -120,11 +120,11 @@ export default {
             })
     },
     joinRoute: (obj, success, err) => {
-        // 调用此接口前 如果用户没有创建remandId，则创建之后在调用
+        // 调用此接口前 如果用户没有创建demandId，则创建之后在调用
         Vue.http.post(
             joinRouteUrl,
             {
-                remandId: obj.remandId,
+                demandId: obj.demandId,
                 routeId: obj.routeId
             }
         ).then(
@@ -136,7 +136,7 @@ export default {
             })
     },
     getRideRoutes: (isDriverRoute, success, err) => {
-        // 调用此接口前 如果用户没有创建remandId，则创建之后在调用
+        // 调用此接口前 如果用户没有创建demandId，则创建之后在调用
         Vue.http.post(
             getRideRoutesUrl,
             {

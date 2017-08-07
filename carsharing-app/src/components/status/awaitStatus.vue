@@ -88,7 +88,6 @@ export default {
         }
     },
     created: function () {
-        //console.log(Store.fetch("demandInfo"));
         var demandInfo = bus.$on("demandInfo");
         this.startTime = demandInfo.startTime;
         this.startPlace = demandInfo.startPlace;
@@ -98,7 +97,7 @@ export default {
         this.demandId = this.$route.query.demandId;
     },
     beforeDestroy: function () {
-        bus.$off("demandInfo");
+        bus.$off("routesInfo");
     },
 }
 </script>
