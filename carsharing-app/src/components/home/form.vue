@@ -237,7 +237,8 @@ export default {
         currentHour = values[1],
         currentMinute = values[2];
 
-      if (!values.includes(undefined)) {
+      if (!(values[1]==undefined || values[2] == undefined)) {
+        console.log(values);
         if (!isNaN(values[1].substring(1, 2))) {
           this.dateTime = currentDate + ' ' + currentHour.substring(0, 2) + ':' + currentMinute.substring(0, 2);
 
