@@ -86,7 +86,6 @@ export default {
         this.center = [120.1552070000, 30.2736900000];
         this.markers.push([120.1552070000, 30.2736900000])
         this.isShowMap = this.isFinished ? 'none' : 'block';
-        console.log(this.passageComment.isFinished);
     },
     components: {
         OHeader,

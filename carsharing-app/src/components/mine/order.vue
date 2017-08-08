@@ -84,8 +84,7 @@ export default {
           endPlace: "垃圾街",
           describe: "没有重物",
           orderStatus: 3
-        }
-        ,
+        } ,
         {
           startTime: "2017年08月09日 21::00:00",
           startPlace: "萧山",
