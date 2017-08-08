@@ -37,7 +37,7 @@
                 <li>
                     <i class="icon-Stroke01 icon-location"></i>
                     <span>{{describe}}</span>
-                    <span>{{riderCount}}</span>
+                    <span>人数：{{riderCount}}</span>
                 </li>
             </ul>
             <div class="await-notice clearfix">
@@ -60,11 +60,11 @@ export default {
     data: () => {
         return {
             awaitText: '等待车主接单',
-            startTime: '***',
-            startPlace: '***',
-            endPlace: '***',
-            describe: '******',
-            riderCount: '*',
+            startTime: null,
+            startPlace: null,
+            endPlace: null,
+            describe: null,
+            riderCount: null,
             demandId: null
         }
     },
