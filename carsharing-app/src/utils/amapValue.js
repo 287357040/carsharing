@@ -17,9 +17,14 @@ export const mapData = {
 // export const getMapInfo = () => { return mapData.amapInfo }
 export const setStartMapInfo = (value) => mapData.startAmapInfo = value
 export const getStartMapInfo = () => { 
+    // console.log("________________________")
+    // console.log(mapData.startAmapInfo.userNo)
+    // console.log("________________________")
   if(mapData.startAmapInfo.userNo === undefined){  //是存的选中后的地址
+    // console.log('我是保存的地址')
     return mapData.startAmapInfo
   } else{ // 从数据库查出的对象
+    // console.log('我是查地址')
       mapData.transAmapInfo.district = mapData.startAmapInfo.address
       mapData.transAmapInfo.name = mapData.startAmapInfo.name
       mapData.transAmapInfo.location.lat = mapData.startAmapInfo.latitude
