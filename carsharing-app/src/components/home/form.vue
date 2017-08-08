@@ -108,19 +108,22 @@ export default {
           flex: 1,
           values: [],
           className: 'slot1',
-          textAlign: 'center'
+          textAlign: 'center',
+          defaultIndex: 0
         },
         {
           flex: 1,
           values: [],
           className: 'slot2',
-          textAlign: 'center'
+          textAlign: 'center',
+           defaultIndex: 0
         },
         {
           flex: 1,
           values: [],
           className: 'slot3',
-          textAlign: 'center'
+          textAlign: 'center',
+           defaultIndex: 0
         }
       ],
       locationInfo: {}, //存储定位的信息

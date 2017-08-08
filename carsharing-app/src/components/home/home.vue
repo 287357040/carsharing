@@ -5,20 +5,23 @@
     <v-header v-on:identityName="switchIdentity"></v-header>
     <v-form></v-form>
     <div v-if="showAwaitOrderStatus">
-    <section class="await-handle-order" :key="item" v-for="item in demandCounts">
-      <h1>待处理行程</h1>
-      <div class="handle-order-content clearfix">
-         <i class="timerWrap icon-Countdown await-icon-location"></i>
-        <div class="handle-order-text">
-          <h2>{{item.startTime}}</h2>
-          <p><span>{{item.startPlace}}</span>-<span>{{item.endPlace}}</span></p>
+      <section class="await-handle-order" :key="item" v-for="item in demandCounts">
+        <h1>待处理行程</h1>
+        <div class="handle-order-content clearfix">
+          <i class="timerWrap icon-Countdown await-icon-location"></i>
+          <div class="handle-order-text">
+            <h2>{{item.startTime}}</h2>
+            <p>
+              <span>{{item.startPlace}}</span>-
+              <span>{{item.endPlace}}</span>
+            </p>
+          </div>
+          <a class="await-details-arrow" @click="goWaitOrderDetail(item)">
+            <span>等待接单</span>
+            <i class="icon-Level-Down"></i>
+          </a>
         </div>
-        <a class="await-details-arrow" @click="goWaitOrderDetail(item)">
-          <span>等待接单</span>
-          <i class="icon-Level-Down"></i>
-        </a>
-      </div>
-    </section>
+      </section>
     </div>
   
     <driver-info-card v-if="isSwitch"></driver-info-card>
@@ -81,18 +84,34 @@ export default {
       else if (val == '乘客') this.isSwitch = true;
       this.showStatus();
     },
-    toStatusPage: function (demandId) {
-
-      this.$router.push({ path: '/awaitStatus' ,query: {demandId:demandId }});
-    },
     showStatus() {
-       var idef = this.isSwitch ? 0 : 1;
-       routeService.getRideRoutes(idef, data => {
-            this.demandCounts = data;
-            this.showAwaitOrderStatus = true;
+      var idef = this.isSwitch ? 0 : 1;
+      if (idef == 1) {
+        routeService.getRideRoutes(idef, data => {
+          this.demandCounts = data;
+          this.showAwaitOrderStatus = true;
         }, err => {
-            MessageBox('服务器请求失败！');
+          MessageBox('服务器请求失败！');
         });
+      } else if (idef == 0) {
+        demandService.getRideDemands(
+          this.state,
+          (res) => {
+            this.demandCounts = res;
+            console.log(res);
+            if (res) {
+              this.showAwaitOrderStatus = true;
+              this.startTime = res[0].startTime;
+              this.startPlace = res[0].startPlace;
+              this.endPlace = res[0].endPlace;
+            }
+          },
+          (err) => {
+            console.log(err);
+          }
+        )
+      }
+
     },
     goWaitOrderDetail: function (item) {
       if (this.isSwitch == false) {
@@ -103,7 +122,7 @@ export default {
         });
       }
       else {
-        this.$router.push({ path: '/awaitStatus', query: item.remandId });
+        this.$router.push({ path: '/awaitStatus', query: item.demandId });
       }
     }
   },

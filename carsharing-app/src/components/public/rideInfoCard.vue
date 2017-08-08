@@ -104,9 +104,12 @@ export default {
                 routeId: this.routeId
             }, function (data) {
                  MessageBox("添加成功");
+                 self.$router.go(0);
                  this.$router.go(0);
             }, function (err) {
                  MessageBox("添加失败");
+                  //self.$router.go(0);
+                 //this.$router.go(0);
             });
         }
     }

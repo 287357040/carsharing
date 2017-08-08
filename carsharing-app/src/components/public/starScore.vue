@@ -30,7 +30,8 @@ export default {
                 halfScore = temScore
                 temScore -= count;
             }
-            return halfScore >= 0.5 ? count : -1;
+            //console.log(halfScore >= 0.5 ? count : -1);
+            return 1;
         }
     }
 }

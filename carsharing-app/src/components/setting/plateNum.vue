@@ -16,7 +16,7 @@
     </div>
     <div class="plate-number-wrapper">
       <span class="plate-number">车牌号</span>
-      <a class="select-plate" @click="openPlate">{{plateNumber}}</a>
+      <a class="select-plate" @click="openPlate">{{plateNumber || '请选择'}}</a>
       <input type="txt" v-model="plateNumberTail" class="input-plate"  placeholder="请输入车牌号"/>
   
       <mt-popup v-model="popupPlate" position="bottom" class="mint-popup">
@@ -50,13 +50,15 @@ export default {
           flex: 1,
           values: ['京', '津', '冀', '晋', '蒙', '辽', '吉', '黑', '沪', '苏', '浙', '皖', '闽', '赣', '鲁', '豫', '鄂', '湘', '粤', '桂', '琼', '渝', '川', '黔', '滇', '藏', '陕', '甘', '青', '宁', '新', '台', '港', '澳'],
           className: 'slot1',
-          textAlign: 'center'
+          textAlign: 'center',
+          defaultIndex: 0
         },
         {
           flex: 1,
           values: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'I', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
           className: 'slot2',
-          textAlign: 'center'
+          textAlign: 'center',
+          defaultIndex: 0
         }
       ]
     }
@@ -87,8 +89,8 @@ export default {
     },
     savePlateNum: function () {
      var car =  Store.fetch("newDriverInfo");
-     car.carNo =this.plateNumber;
-     car.region =this.plateNumberTail;
+     car.carNo =this.plateNumberTail;
+     car.region =this.plateNumber;
      Store.save("newDriverInfo",car);
      MessageBox('保存成功！');
     }

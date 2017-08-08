@@ -1,47 +1,50 @@
 <template>
-    <div class="driver-issue">
-        <div class="msg-more">
-            <h3>{{listTitle}}</h3>
-            <a class="more" v-show="isShowMore" @click="moreInfo">更多>></a>
+    <div>
+        <div class="driver-issue">
+            <div class="msg-more" v-if="isShowListTitle">
+                <h3>{{listTitle}}</h3>
+                <a class="more" v-show="isShowMore" @click="moreInfo">更多>></a>
+            </div>
+            <ul class="driver-message clearfix">
+                <li class="message-li" :key="route" v-for="route in routes">
+                    <div class="message-photo">
+                        <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
+                    </div>
+                    <div class="message-info">
+                        <div class="info-row1">
+                            <span>{{route.userName}}</span>
+                            <i v-if="route.sex==0" class="icon-boy"></i>
+                            <i v-if="route.sex==1" class="icon-girl"></i>
+                            <i class="icon-add add-location" @click="addToCar"></i>
+                        </div>
+                        <div class="info-row2">
+                            <ul class="completeness">
+                                <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
+                            </ul>
+                            <p class="completeness-text">
+                                <span>{{route.remainCount}}</span>/
+                                <span>{{route.takeCount}}</span>
+                            </p>
+                        </div>
+                        <div class="info-row3">
+                            <p>{{route.startTime}}</p>
+                            <p>
+                                <span>{{route.startPlace}}</span> 至
+                                <span>{{route.endPlace}}</span>
+                            </p>
+                        </div>
+                        <div class="info-row4">
+                            <span>{{getNowFormatDate}}</span>
+                            <p>
+                                <i class="icon-Information02"></i>
+                                <span>信息</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <ul class="driver-message clearfix">
-            <li class="message-li" :key="route" v-for="route in routes">
-                <div class="message-photo">
-                    <img src="../../assets/img/touxiang.jpg" alt="photo"></img>
-                </div>
-                <div class="message-info">
-                    <div class="info-row1">
-                        <span>{{route.userName}}</span>
-                        <i v-if="route.sex==0" class="icon-boy"></i>
-                        <i v-if="route.sex==1" class="icon-girl"></i>
-                        <i class="icon-add add-location" @click="addToCar"></i>
-                    </div>
-                    <div class="info-row2">
-                        <ul class="completeness">
-                            <li class="single" :class="{'single-selected': index == numIsSeclect}" :key="item" v-for="(item,index) in seats"></li>
-                        </ul>
-                        <p class="completeness-text">
-                            <span>{{route.remainCount}}</span>/
-                            <span>{{route.takeCount}}</span>
-                        </p>
-                    </div>
-                    <div class="info-row3">
-                        <p>{{route.startTime}}</p>
-                        <p>
-                            <span>{{route.startPlace}}</span> 至
-                            <span>{{route.endPlace}}</span>
-                        </p>
-                    </div>
-                    <div class="info-row4">
-                        <span>{{getNowFormatDate}}</span>
-                        <p>
-                            <i class="icon-Information02"></i>
-                            <span>信息</span>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <p class="warning-text" v-if="isShowWarning">没有匹配到司机列表！</p>
     </div>
 </template>
 <script>
@@ -61,13 +64,16 @@ export default {
             isShowMore: true,
             demandId: -1,
             routeId: null,
-            routes: {}
+            routes: {},
+            isShowListTitle: false,
+            isShowWarning: false
         }
     },
     created: function () {
         var that = this;
         bus.$on("routesInfo", function (val) {
             console.log(val);
+            this.isShowListTitle = true;
             var demand = val;
             that.matchDriverInfoList(demand);
         })
@@ -109,7 +115,7 @@ export default {
                                     riderCount: value
                                 }, (res) => {
                                     Store.save("routesOrderInfo", res);
-                                    this.$router.push({ path: '/order'});
+                                    this.$router.push({ path: '/order' });
                                 }, (err) => {
 
                                 })
@@ -135,9 +141,13 @@ export default {
                     rewards: demand.rewards
                 }, (res) => {
                     // this.isShowDriverList = true;
+                    console.log("res:", res);
                     this.routes = res;
+                    if (this.routes == 'undefined') this.isShowWarning = true;
+                    else this.isShowWarning = false;
                 }, (err) => {
                     console.log(匹配失败);
+                    MessageBox.alert('没有查询到数据');
                 }
             )
         }
@@ -146,6 +156,13 @@ export default {
 </script>
 
 <style scoped>
+.warning-text {
+    padding-top: 20px;
+    font-size: 16px;
+    color: #FE872B;
+    background: #F4F4F4;
+}
+
 .mint-msgbox {
     border-radius: 12px !important;
 }
