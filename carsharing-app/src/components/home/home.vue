@@ -84,10 +84,6 @@ export default {
       else if (val == '乘客') this.isSwitch = true;
       this.showStatus();
     },
-    toStatusPage: function (demandId) {
-
-      this.$router.push({ path: '/awaitStatus', query: { demandId: demandId } });
-    },
     showStatus() {
       var idef = this.isSwitch ? 0 : 1;
       if (idef == 1) {
@@ -126,7 +122,7 @@ export default {
         });
       }
       else {
-        this.$router.push({ path: '/awaitStatus', query: item.remandId });
+        this.$router.push({ path: '/awaitStatus', query: item.demandId });
       }
     }
   },
