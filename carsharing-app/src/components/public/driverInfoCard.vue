@@ -72,7 +72,6 @@ export default {
     created: function () {
         var that = this;
         bus.$on("routesInfo", function (val) {
-            console.log(val);
             this.isShowListTitle = true;
             var demand = val;
             that.matchDriverInfoList(demand);
@@ -126,7 +125,6 @@ export default {
                 });
         },
         moreInfo: function () {
-            console.log('没有更多信息了。');
         },
         matchDriverInfoList: function (demand) {
             routeService.matchRideRoutesByDemand(
@@ -141,12 +139,10 @@ export default {
                     rewards: demand.rewards
                 }, (res) => {
                     // this.isShowDriverList = true;
-                    console.log("res:", res);
                     this.routes = res;
                     if (this.routes == 'undefined') this.isShowWarning = true;
                     else this.isShowWarning = false;
                 }, (err) => {
-                    console.log(匹配失败);
                     MessageBox.alert('没有查询到数据');
                 }
             )

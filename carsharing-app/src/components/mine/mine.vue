@@ -129,7 +129,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.telephone)
   },
   created:function(){
    this.userInfo = Store.fetch("user");

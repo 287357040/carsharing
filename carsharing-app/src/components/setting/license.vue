@@ -125,7 +125,6 @@ export default {
             this.date1 = driverInfo.licenseDate;
             this.date2 = driverInfo.validDate;
             this.carNumber = driverInfo.carLicense;
-            console.log(driverInfo);
     }
 }
 </script>

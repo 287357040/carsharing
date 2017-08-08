@@ -71,7 +71,6 @@ export default {
             self.routeId = arg.routeId;
             demandService.matchRideDemandsByRoute(arg, function (data) {
                 self.waitPassangeList = data.obj;
-                console.log(data.obj);
             }, function (err) {
                
             });

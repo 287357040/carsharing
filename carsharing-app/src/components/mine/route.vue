@@ -90,7 +90,6 @@ export default {
     this.origin.address = err[i].address;
     this.origin.longitude = err[i].longitude;
     this.origin.latitude = err[i].latitude; 
-    console.log(err[i]);
       }
       if(err[i].addressType ==1)
       {
@@ -99,7 +98,6 @@ export default {
     this.destination.address = err[i].address;
     this.destination.longitude = err[i].longitude;
     this.destination.latitude = err[i].latitude; 
-    console.log(err[i]);
       }
     }
       });

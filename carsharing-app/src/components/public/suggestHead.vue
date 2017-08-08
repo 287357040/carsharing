@@ -43,7 +43,6 @@ export default {
     },
     watch:{
         suggestInputValue(newVal,odlVal){
-            // console.log(newVal)
             if(newVal != odlVal) {
                 this.$store.dispatch('autocomplete', newVal)
             }

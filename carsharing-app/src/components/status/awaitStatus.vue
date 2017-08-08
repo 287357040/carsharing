@@ -74,7 +74,6 @@ export default {
     },
 
     created: function () {
-        //console.log(this.$route.query.demandInfo);
         var demandInfo = Store.fetch("demandInfo");
 
         this.demandId = this.$route.query.demandId;
@@ -91,7 +90,6 @@ export default {
             //取消订单，返回首页
             demandService.deleteRideDemand(this.demandId,
                 (res) => {
-                    console.log(res);
 
                     this.$router.push({ name: 'home' });
                 }, (err) => {

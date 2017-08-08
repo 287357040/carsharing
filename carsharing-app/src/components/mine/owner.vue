@@ -116,7 +116,6 @@ export default {
         }
     },
     created:function(){
-                console.log(Store.fetch("user").isDriver);
        if(!Store.fetch("newDriverInfo"))
         {
             var model = Store.fetch("user");
@@ -143,7 +142,6 @@ export default {
                  this.color = this.colorSlots[i].name;
             }
         }
-         console.log(this.driverInfo);
     }
 }
 </script>
