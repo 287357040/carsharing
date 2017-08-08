@@ -1,6 +1,8 @@
 package com.carsharing.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -9,6 +11,8 @@ import java.util.Map;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
+    @NotEmpty(message="员工号不能为空！")
+    @Length(min=5,message="请输入5位员工号！")
    @Id private String userNo;
 
     private  String userName;

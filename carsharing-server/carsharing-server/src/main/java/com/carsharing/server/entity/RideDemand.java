@@ -16,6 +16,10 @@ public class RideDemand implements Serializable {
 
     private String userNo;
 
+    private String userName;
+
+    private  Integer sex;
+
     private Integer routeId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -79,6 +83,22 @@ public class RideDemand implements Serializable {
 
     public void setUserNo(String userNo) {
         this.userNo = userNo;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public Integer getRouteId() {

@@ -42,7 +42,7 @@ export const queryAddressUrl = API_ROOT + '/front/useraddress/queryAddress';
 export const regToDriverUrl = API_ROOT + '/front/driver/regToDriver';
 
 //邀请乘客加入路线
-export const inviteToRouteUrl = API_ROOT + '/front/driver/inviteToRoute';
+export const inviteToRouteUrl = API_ROOT + '/front/route/inviteToRoute';
 
 //更新司机车辆信息
 export const updateDriverInfoUrl = API_ROOT + '/front/driver/updateDriverInfo';

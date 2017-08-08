@@ -42,7 +42,7 @@
             </ul>
             <div class="await-notice clearfix" style="display: inline-block;">
                 <i class="icon-Countdown icon-location timerWrap"></i>
-                <a>已发布需求，请等待乘客加入({{riderCount}} / {{riderCount}})
+                <a>已发布需求，请等待乘客加入({{havePassangeList.length}} / {{riderCount}})
                     <div class="right" @click="startOrder">开始行程></div>
                     <div style="float:left;margin-top: 10px;margin-left: 40px;">
                     <span v-for="item in havePassangeList" :key="item">
@@ -70,11 +70,11 @@ export default {
     data: () => {
         return {
             awaitText: '等待乘客加入',
-            startTime: '***',
-            startPlace: '***',
-            endPlace: '***',
-            describe: '******',
-            riderCount: '*',
+            startTime: '2017-08-07',
+            startPlace: '恒生电子',
+            endPlace: '垃圾街',
+            describe: '没有重物',
+            riderCount: '3',
             routeId: null,
             havePassangeList:[],
             waitPassangeList:[]
@@ -98,7 +98,6 @@ export default {
                     MessageBox(err);
                     this.$router.go(0);
                 })
-            //console.log('sss');
         },
         startOrder:function(){
             routeService.startRoute(this.routeId,
@@ -122,6 +121,7 @@ export default {
         for(var i=0;i<data.length;i++)
          if(data[i].routeId == routeInfoId)
          {
+             console.log(data[i]);
              tmp = data[i];
          }
         this.startTime = tmp.startTime;
@@ -131,18 +131,20 @@ export default {
         this.riderCount = tmp.takeCount;
         this.routeId = tmp.routeId;
          bus.$emit('getPassangerList', {
-              endArea: tmp.endArea,
+                endArea: tmp.endArea,
                 endLongitude: tmp.endLongitude,
                 endLatitude: tmp.endLatitude,
                 startTime: tmp.startTime,
                 riderCount: tmp.remainCount,
-                waitTime: tmp.waitTime
+                waitTime: tmp.waitTime,
+                routeId : this.routeId
         });
         },err=>{
             MessageBox("获取服务失败！");
         });
         demandService.getRideDemandsByRouteId(routeInfoId, data => {
             this.havePassangeList = data;
+            console.log(data);
         }, err => {
             MessageBox("获取服务失败！");
         });

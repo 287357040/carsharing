@@ -257,15 +257,17 @@ export default {
     // 点击在地图下方的地址
     clickExistPlace(lng, lat,placeObj) {
       this.addMarker(lng, lat)
-      console.log(placeObj)
+      // console.log('+++++++111+++++++++')
+      // console.log(placeObj)
+      // console.log('+++++111+++++++++++')
       if (this.placeFlage === 'getOn') { //起始地
         this.setStartMapInfo(placeObj)
-        console.log('起始地')
+        // console.log('起始地')
         console.log(this.getStartMapInfo())
       }
       if(this.placeFlage ==='getOff'){ //目的地
         this.setEndMapInfo(placeObj)
-        console.log('目的地')
+        // console.log('目的地')
         console.log(this.getEndMapInfo())
       }
       this.$router.go(-1)

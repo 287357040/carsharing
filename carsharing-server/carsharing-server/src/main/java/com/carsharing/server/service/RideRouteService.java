@@ -12,11 +12,17 @@ public interface RideRouteService extends BaseService<RideRoute> {
 
     /**
      *
-     * @param userNo 员工号
+     * @param userNo 乘客员工号
      * @return 路线路由列表
      */
     public List<RideRoute> getRideRoutesByUserNo(String userNo);
 
+    /**
+     *
+     * @param userNo 司机员工号
+     * @return 路线路由列表
+     */
+    public List<RideRoute> getRideRoutesByDriverNo(String No);
     /**
      * @param demand 乘车需求
      * @return

@@ -162,7 +162,8 @@ export default {
   watch: {
     locationInfo: function () {
       let temp = this.getStartMapInfo()
-      if (temp.id !== undefined) { //我是不定位
+      console.log(temp)
+      if (temp.id !== undefined || temp.userNo !== undefined) { //我是不定位
         console.log('我是不定位')
         this.startPlace = this.getStartMapInfo()
         console.log(this.startPlace)
@@ -171,7 +172,7 @@ export default {
       } else { //我是定位
         console.log('我是定位')
         this.startPlace = this.locationInfo
-        this.startPlaceShow = this.placeSlice(this.locationInfo)[1]
+        this.startPlaceShow = this.placeSlice(this.locationInfo)
         // this.startPlace = this.locationInfo.formattedAddress
       }
     },
@@ -361,11 +362,12 @@ export default {
         + seperator2 + seconds;
       return currentdate;
     },
-    // 地址过长截取函数 如：浙江省杭州市滨江区浦沿街道火炬大道恒生大厦(园支一路)--》火炬大道恒生大厦(园支一路)
+    // 地址过长截取函数 如：浙江省杭州市滨江区浦沿街道火炬大道恒生大厦(园支一路)---》浦沿街道火炬大道恒生大厦(园支一路)
     placeSlice(locationInfo) {
       if (locationInfo) {
         this.startPlace = locationInfo
-        let placeShow = locationInfo.formattedAddress.split(locationInfo.addressComponent.street)
+        let w = locationInfo.formattedAddress.indexOf('区') 
+        let placeShow = locationInfo.formattedAddress.substring(w+1,locationInfo.formattedAddress.length)
         return placeShow
       }
     },
@@ -387,9 +389,29 @@ export default {
     },
     // 点击发布
     publishInfo() {
-      this.userInfo = Store.fetch('user');
+      let sign = Store.fetch('identity');
       let data = {}
-      if (this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined) { //我是不定位
+      if (this.getStartMapInfo().id !== undefined) { //我是不定位
+        console.log('我是历史')
+        data = {
+          startArea: this.startPlace.district, // 起始区县
+          startPlace: this.startPlace.name, // 起始地址
+          startLongitude: this.startPlace.location.lng, // 起始经度
+          startLatitude: this.startPlace.location.lat, // 起始纬度
+          endArea: this.endPlace.district, // 终点区县
+          endPlace: this.endPlace.name, // 终点地址
+          endLongitude: this.endPlace.location.lng, // 终点经度
+          endLatitude: this.endPlace.location.lng, // 终点纬度
+          startTime: this.startTime, // 发车时间
+          riderCount: this.riderCount, // 车座位数量 默认4
+          waitTime: 10, // 能够等待时间
+          describe: this.describe, // 备注
+          rewards: 5, // 打赏金 
+          isHome: 0 // 是否到家服务 默认 0
+        }
+      }
+      else if (this.getStartMapInfo().userNo !== undefined) { //不定位，是家的地址
+        console.log('我是家庭')
         data = {
           startArea: this.startPlace.district, // 起始区县
           startPlace: this.startPlace.name, // 起始地址
@@ -425,7 +447,8 @@ export default {
           isHome: 0 // 是否到家服务 默认 0
         }
       }
-      if (self.identity == '司机') {
+      if (sign == '司机') {
+        console.log(111);
         routeService.publishNewRoute(data, (data) => {
           console.log(data.routeId);
           this.$router.push({
@@ -448,18 +471,7 @@ export default {
           MessageBox('信息发布失败！');
         })
       }
-      //是否采用定位或者手动地址
-      // isLocation() {
-      //   this.isLocationFlag = this.$route.query.params
-      //   if (this.$route.query.params === undefined) { //起始地址采用定位
-      //   }
-      //   if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
-      //     this.startPlace = this.getStartMapInfo()
-      //     console.log(this.startPlace)
-      //   }
-      // }
     }
-    // 定位消息获得以后
   }
 }
 </script>
