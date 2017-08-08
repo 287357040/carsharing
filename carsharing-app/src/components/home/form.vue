@@ -116,14 +116,14 @@ export default {
           values: [],
           className: 'slot2',
           textAlign: 'center',
-           defaultIndex: 0
+          defaultIndex: 0
         },
         {
           flex: 1,
           values: [],
           className: 'slot3',
           textAlign: 'center',
-           defaultIndex: 0
+          defaultIndex: 0
         }
       ],
       locationInfo: {}, //存储定位的信息
@@ -176,7 +176,7 @@ export default {
         // this.startPlace = this.locationInfo.formattedAddress
       }
     },
-    isMoveDate: function() {
+    isMoveDate: function () {
       var allHours = null;
       this.datetimeSlots[1].values = [];
       if (this.isMoveDate) {
@@ -366,8 +366,8 @@ export default {
     placeSlice(locationInfo) {
       if (locationInfo) {
         this.startPlace = locationInfo
-        let w = locationInfo.formattedAddress.indexOf('区') 
-        let placeShow = locationInfo.formattedAddress.substring(w+1,locationInfo.formattedAddress.length)
+        let w = locationInfo.formattedAddress.indexOf('区')
+        let placeShow = locationInfo.formattedAddress.substring(w + 1, locationInfo.formattedAddress.length)
         return placeShow
       }
     },
@@ -464,9 +464,11 @@ export default {
         apiHandler.publishRideDemand(data, (data) => {
           console.log('我是发布成功');
           let demandId = data.demandId;
-          Store.save("demandInfo",data);
-          this.$router.push({ path: '/awaitStatus',query: {
-              demandId: demandId}});
+          this.$router.push({
+            path: '/awaitStatus', query: {
+              demandId: demandId
+            }
+          });
         }, (err) => {
           MessageBox('信息发布失败！');
         })

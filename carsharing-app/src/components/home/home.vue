@@ -122,7 +122,7 @@ export default {
         });
       }
       else {
-        this.$router.push({ path: '/awaitStatus', query: item.demandId });
+        this.$router.push({ path: '/awaitStatus', query: {demandId:item.demandId} });
       }
     }
   },
