@@ -162,15 +162,11 @@ export default {
   watch: {
     locationInfo: function () {
       let temp = this.getStartMapInfo()
-      console.log(temp)
       if (temp.id !== undefined || temp.userNo !== undefined) { //我是不定位
-        console.log('我是不定位')
         this.startPlace = this.getStartMapInfo()
-        console.log(this.startPlace)
         this.startPlaceShow = this.startPlace.name
         return
       } else { //我是定位
-        console.log('我是定位')
         this.startPlace = this.locationInfo
         this.startPlaceShow = this.placeSlice(this.locationInfo)
         // this.startPlace = this.locationInfo.formattedAddress
@@ -232,7 +228,6 @@ export default {
       this.datetimePopup = false;
       this.departureTime = this.dateTime;
       this.startTime = this.getFormatDate(this.selectedDate, this.selectedHours, this.selectedMinutes);
-      console.log(this.startTime);
     },
     onNumberOfPeopleChange: function (picker, values) {
       this.riderCount = values[0];
@@ -392,7 +387,6 @@ export default {
       let sign = Store.fetch('identity');
       let data = {}
       if (this.getStartMapInfo().id !== undefined) { //我是不定位
-        console.log('我是历史')
         data = {
           startArea: this.startPlace.district, // 起始区县
           startPlace: this.startPlace.name, // 起始地址
@@ -411,7 +405,6 @@ export default {
         }
       }
       else if (this.getStartMapInfo().userNo !== undefined) { //不定位，是家的地址
-        console.log('我是家庭')
         data = {
           startArea: this.startPlace.district, // 起始区县
           startPlace: this.startPlace.name, // 起始地址
@@ -448,9 +441,7 @@ export default {
         }
       }
       if (sign == '司机') {
-        console.log(111);
         routeService.publishNewRoute(data, (data) => {
-          console.log(data.routeId);
           this.$router.push({
             path: '/driverwaitStatus', query: {
               routeId: data.routeId
@@ -462,7 +453,6 @@ export default {
       }
       else {
         apiHandler.publishRideDemand(data, (data) => {
-          console.log('我是发布成功');
           let demandId = data.demandId;
           this.$router.push({
             path: '/awaitStatus', query: {

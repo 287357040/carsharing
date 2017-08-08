@@ -89,8 +89,8 @@ export default {
     },
     savePlateNum: function () {
      var car =  Store.fetch("newDriverInfo");
-     car.carNo =this.plateNumber;
-     car.region =this.plateNumberTail;
+     car.carNo =this.plateNumberTail;
+     car.region =this.plateNumber;
      Store.save("newDriverInfo",car);
      MessageBox('保存成功！');
     }

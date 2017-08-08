@@ -9,7 +9,7 @@
   
       </div>
       <div class="haed-title">共有
-        <strong>{{commentTotal}}</strong>条评论</div>
+        <strong>{{commentList.length}}</strong>条评论</div>
     </div>
     <div class="header" :style="{backgroundImage: 'url(' + img + ')'}" />
     <div class="valuation">
@@ -55,9 +55,38 @@ export default {
       headerText: "我的评价",
       valueDisabled: 2,
       img: require('../../assets/img/toper.png'),
-      compositeScore:0,
-      commentTotal :0,
-      commentList: [],
+      compositeScore:3,
+      commentTotal :2,
+      commentList: [
+        {
+            "nickname": "赵二狗",
+            "comment": "秋名山车神，二狗子赛高！",
+            "imgSrc": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAABkCAYAAABXTBS8AAABV0lEQVR4nO3ZQQrCQBQFQSd4iOT+p8xqJAsvMCqGpmr/RGgZkD+O45gPMrZ/fwG+S9AYQWMEjRE0RtAYQWO2Odf/hl5b+3vtt/M8lz702lxb+3vtPbkxY9/3OcZYGr9/Gfb32T9XP+yTL2L/u70nN0bQGEFjBI0RNEbQGEFjBI0RNEbQGEFj3ENje/fQ2N6TG+MeGtu7h8b2ntwYQWMEjRE0RtAYQWMEjRE0RtAYQWMEjXEPje3dQ2N7T26Me2hs7x4a23tyYwSNETRG0BhBYwSNETRG0BhBYwSNETTGPTS2dw+N7T25Me6hsb17aGzvyY0RNEbQGEFjBI0RNEbQGEFjBI0RNEbQGPfQ2N49NLb35Ma4h8b27qGxvSc3RtAYQWMEjRE0RtAYQWMEjRE0RtAYQWPcQ2N799DY3pMb4x4a27uHxvae3BhBYwSNETRG0BhBYwSNeQHglqkTdh98+gAAAABJRU5ErkJggg==",
+            "isShowDetail": "none",
+            "detailScore": [
+                {
+                    "time": 3,
+                    "clean": 5,
+                    "words": 3,
+                    "cartech": 3
+                }
+            ]
+        },
+        {
+            "nickname": "赵三胖",
+            "comment": "秦岭盘山老司机，三胖子最牛逼！",
+            "imgSrc": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHQAAABkCAYAAABXTBS8AAABV0lEQVR4nO3ZQQrCQBQFQSd4iOT+p8xqJAsvMCqGpmr/RGgZkD+O45gPMrZ/fwG+S9AYQWMEjRE0RtAYQWO2Odf/hl5b+3vtt/M8lz702lxb+3vtPbkxY9/3OcZYGr9/Gfb32T9XP+yTL2L/u70nN0bQGEFjBI0RNEbQGEFjBI0RNEbQGEFj3ENje/fQ2N6TG+MeGtu7h8b2ntwYQWMEjRE0RtAYQWMEjRE0RtAYQWMEjXEPje3dQ2N7T26Me2hs7x4a23tyYwSNETRG0BhBYwSNETRG0BhBYwSNETTGPTS2dw+N7T25Me6hsb17aGzvyY0RNEbQGEFjBI0RNEbQGEFjBI0RNEbQGPfQ2N49NLb35Ma4h8b27qGxvSc3RtAYQWMEjRE0RtAYQWMEjRE0RtAYQWPcQ2N799DY3pMb4x4a27uHxvae3BhBYwSNETRG0BhBYwSNeQHglqkTdh98+gAAAABJRU5ErkJggg==",
+            "isShowDetail": "none",
+            "detailScore": [
+                {
+                    "time": 1,
+                    "clean": 2,
+                    "words": 1,
+                    "cartech": 5
+                }
+            ]
+        }
+    ],
     }
   },
   components: {

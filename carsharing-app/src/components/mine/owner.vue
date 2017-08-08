@@ -28,7 +28,7 @@
                 <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
-                        <span>{{driverInfo.carNo}}{{driverInfo.region}}</span>
+                        <span>{{driverInfo.region}}{{driverInfo.carNo}}</span>
                         <span class="icon-Level-Down ico right"></span>
                     </router-link>
     
@@ -116,7 +116,6 @@ export default {
         }
     },
     created:function(){
-                console.log(Store.fetch("user").isDriver);
        if(!Store.fetch("newDriverInfo"))
         {
             var model = Store.fetch("user");

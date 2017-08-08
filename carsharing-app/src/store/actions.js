@@ -59,7 +59,6 @@ export default {
       
       geolocation.getCurrentPosition(function (status, result) {
         if(result.aois && result.aois.length>0 ){
-          console.log(result)
           commit('SET_POSITON', result)
            map.addControl(geolocation);
         }else {

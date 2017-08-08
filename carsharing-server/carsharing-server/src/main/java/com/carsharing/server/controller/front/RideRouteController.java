@@ -64,7 +64,7 @@ public class RideRouteController extends AbstractController {
             return result;
         }
         // check the user publish route can not lg 2 num
-        List<RideRoute> routes = rideRouteService.getRideRoutesByUserNo(user.getUserNo());
+        List<RideRoute> routes = rideRouteService.getRideRoutesByDriverNo(user.getUserNo());
         if (routes != null && routes.size() > 2) {
             result.setRes(SystemCode.FAILURE);
             result.setMsg("当天不能发布超过两条路线！");
@@ -72,8 +72,8 @@ public class RideRouteController extends AbstractController {
         }
         try {
             route.setUserNo(user.getUserNo());
-            Integer routeId = rideRouteService.insertSelective(route);
-            route.setRouteId(routeId);
+            route.setRemainCount(route.getTakeCount());
+            rideRouteService.insertSelective(route);
             result.setObj(route);
             result.setRes(SystemCode.SUCCESS);
         } catch (Exception e) {

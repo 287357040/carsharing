@@ -64,13 +64,11 @@ export default {
     // http://localhost:8080/ 要替换为服务器地址，全局常量
     // var sock = new SockJS('http://localhost:8080/endpointSang');
     // sock.onopen = function () {
-    //   console.log('open');
+
     // };
     // sock.onmessage = function (e) {
-    //   console.log('message', e.data);
     // };
     // sock.onclose = function () {
-    //   console.log('close');
     // };
 
     // sock.send('test');
@@ -98,7 +96,6 @@ export default {
           this.state,
           (res) => {
             this.demandCounts = res;
-            console.log(res);
             if (res) {
               this.showAwaitOrderStatus = true;
               this.startTime = res[0].startTime;
@@ -107,7 +104,6 @@ export default {
             }
           },
           (err) => {
-            console.log(err);
           }
         )
       }

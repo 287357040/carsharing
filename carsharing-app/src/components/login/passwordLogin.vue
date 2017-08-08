@@ -37,7 +37,6 @@ export default {
         },
         submitByPassword: function () {
             auth.login({ userNo: this.userNo, password: this.password }, (res) => {
-                console.log(res);
             });
         }
     }
