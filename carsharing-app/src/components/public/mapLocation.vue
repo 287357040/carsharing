@@ -162,7 +162,6 @@ export default {
         // 根据起终点经纬度规划驾车导航路线
         // driving.search(new AMap.LngLat(121.59996, 31.297646), new AMap.LngLat(121.59996, 30.197646))
         driving.search([{keyword: '恒生电子', city: '杭州'}, {keyword: '电化场'}], function (status, result) {
-          console.log(result)
         })
       })
     },
@@ -189,7 +188,6 @@ export default {
     getAddress () {
       let that = this
       apiHandler.queryAddress({}, (data) => {
-        // console.log(data)
         if (data === undefined) { // 我是为空的情况
           return
         } else {
@@ -251,24 +249,15 @@ export default {
     // 获得历史地点
     getSearchHisPlace() {
       this.historyPlace = Store.fetch('seachPlaceList')
-      //  console.log('我是历史地点')
-       console.log(this.historyPlace)
     },
     // 点击在地图下方的地址
     clickExistPlace(lng, lat,placeObj) {
       this.addMarker(lng, lat)
-      // console.log('+++++++111+++++++++')
-      // console.log(placeObj)
-      // console.log('+++++111+++++++++++')
       if (this.placeFlage === 'getOn') { //起始地
         this.setStartMapInfo(placeObj)
-        // console.log('起始地')
-        console.log(this.getStartMapInfo())
       }
       if(this.placeFlage ==='getOff'){ //目的地
         this.setEndMapInfo(placeObj)
-        // console.log('目的地')
-        console.log(this.getEndMapInfo())
       }
       this.$router.go(-1)
     },
