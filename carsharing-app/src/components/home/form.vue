@@ -169,7 +169,7 @@ export default {
       } else { //我是定位
         console.log('我是定位')
         this.startPlace = this.locationInfo
-        this.startPlaceShow = this.placeSlice(this.locationInfo)[1]
+        this.startPlaceShow = this.placeSlice(this.locationInfo)
         // this.startPlace = this.locationInfo.formattedAddress
       }
     },
@@ -363,7 +363,8 @@ export default {
     placeSlice(locationInfo) {
       if (locationInfo) {
         this.startPlace = locationInfo
-        let placeShow = locationInfo.formattedAddress.split('区')
+        let w = locationInfo.formattedAddress.indexOf('区') 
+        let placeShow = locationInfo.formattedAddress.substring(w+1,locationInfo.formattedAddress.length)
         return placeShow
       }
     },
@@ -387,7 +388,27 @@ export default {
     publishInfo() {
       let sign = Store.fetch('identity');
       let data = {}
-      if (this.isLocationFlag === 'LocationFlag' || this.getStartMapInfo().id !== undefined) { //我是不定位
+      if (this.getStartMapInfo().id !== undefined) { //我是不定位
+        console.log('我是历史')
+        data = {
+          startArea: this.startPlace.district, // 起始区县
+          startPlace: this.startPlace.name, // 起始地址
+          startLongitude: this.startPlace.location.lng, // 起始经度
+          startLatitude: this.startPlace.location.lat, // 起始纬度
+          endArea: this.endPlace.district, // 终点区县
+          endPlace: this.endPlace.name, // 终点地址
+          endLongitude: this.endPlace.location.lng, // 终点经度
+          endLatitude: this.endPlace.location.lng, // 终点纬度
+          startTime: this.startTime, // 发车时间
+          riderCount: this.riderCount, // 车座位数量 默认4
+          waitTime: 10, // 能够等待时间
+          describe: this.describe, // 备注
+          rewards: 5, // 打赏金 
+          isHome: 0 // 是否到家服务 默认 0
+        }
+      }
+      else if (this.getStartMapInfo().userNo !== undefined) { //不定位，是家的地址
+        console.log('我是家庭')
         data = {
           startArea: this.startPlace.district, // 起始区县
           startPlace: this.startPlace.name, // 起始地址
@@ -447,18 +468,7 @@ export default {
           MessageBox('信息发布失败！');
         })
       }
-      //是否采用定位或者手动地址
-      // isLocation() {
-      //   this.isLocationFlag = this.$route.query.params
-      //   if (this.$route.query.params === undefined) { //起始地址采用定位
-      //   }
-      //   if (this.$route.query.params === 'LocationFlag') { //目的地址采用手动选择地点
-      //     this.startPlace = this.getStartMapInfo()
-      //     console.log(this.startPlace)
-      //   }
-      // }
     }
-    // 定位消息获得以后
   }
 }
 </script>
