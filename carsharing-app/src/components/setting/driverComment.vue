@@ -88,7 +88,7 @@ export default {
         }
     },
     created: function () {
-        this.center = [120.1552070000, 30.2736900000];
+        this.center = [120.155207, 30.2736900000];
         this.markers.push([120.1552070000, 30.2736900000])
         this.isShowMap = this.isFinished ? 'none' : 'block';
         this.routeId =  this.$route.query.routeId;
@@ -116,7 +116,6 @@ export default {
             });
         },
         show_position:function(item){
-         //console.log(item.endLongitude+"--"+item.endLatitude);
            this.markers = [];
            this.center = [item.endLongitude, item.endLatitude];
            this.markers.push([item.endLongitude, item.endLatitude]);

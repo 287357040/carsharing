@@ -31,6 +31,7 @@ import OHeader from '@/components/mine/header.vue'
 import apiHandler from '@/api/services/employee.service'
 import { MessageBox } from 'mint-ui';
 import sharedStateMixin from '@/utils/amapValue'
+import Store from '@/utils/store'
 export default {
    mixins: [sharedStateMixin],
   data(){
@@ -77,10 +78,34 @@ export default {
     }
   },
   created:function(){
+    let sign = Store.fetch("routeAddress");
+    if(sign==null || sign == 0){
+    apiHandler.queryAddress((res) => {
+      },err=>{
+
+      for(var i=0;i<err.length;i++){
+      if(err[i].addressType ==0){
+    this.origin.addressType = 0;
+    this.origin.area = err[i].district;
+    this.origin.address = err[i].address;
+    this.origin.longitude = err[i].longitude;
+    this.origin.latitude = err[i].latitude; 
+    console.log(err[i]);
+      }
+      if(err[i].addressType ==1)
+      {
+    this.destination.addressType = 1;
+    this.destination.area = err[i].district;
+    this.destination.address = err[i].address;
+    this.destination.longitude = err[i].longitude;
+    this.destination.latitude = err[i].latitude; 
+    console.log(err[i]);
+      }
+    }
+      });
+    }
+    else{
     let  tmp = this.getStartMapInfo()
-    console.log("11111________________________")
-    console.log(tmp)
-    console.log("11________________________")
     this.origin.addressType = 0;
     this.origin.area = tmp.district;
     this.origin.address = tmp.name;
@@ -89,9 +114,10 @@ export default {
 
     this.destination.addressType = 1;
     this.destination.area = this.getEndMapInfo().district;
-    this.destination.address = this.getEndMapInfo().address;
+    this.destination.address = this.getEndMapInfo().name;
     this.destination.longitude = this.getEndMapInfo().location.lng;
     this.destination.latitude = this.getEndMapInfo().location.lat; 
+    }
   }
 }
 </script>

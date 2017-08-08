@@ -145,7 +145,6 @@ export default {
         Vue.http.get(
             queryAddressUrl,
             {
-                
             }
         ).then(
             (response) => {

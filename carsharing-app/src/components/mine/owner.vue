@@ -28,7 +28,7 @@
                 <li class="car-info-list border-bottom-style" @click="choicePlate">
                     <span>车牌号</span>
                     <router-link to="/plateNum">
-                        <span>{{driverInfo.carNo}}{{driverInfo.region}}</span>
+                        <span>{{driverInfo.region}}{{driverInfo.carNo}}</span>
                         <span class="icon-Level-Down ico right"></span>
                     </router-link>
     
@@ -143,6 +143,7 @@ export default {
                  this.color = this.colorSlots[i].name;
             }
         }
+         console.log(this.driverInfo);
     }
 }
 </script>

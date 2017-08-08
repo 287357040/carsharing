@@ -39,7 +39,7 @@ export default {
     savePassword: function () {
       if (this.password === this.again_password) {
         apiHandler.changePassword({ password: this.password }, (res) => {
-          console.log(res);
+           MessageBox('修改成功');
         })
       } else {
         MessageBox('两次输入密码不一致，请重新输入');

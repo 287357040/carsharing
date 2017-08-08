@@ -54,7 +54,7 @@
                 </a>
             </div>
         </div>
-        <ride-info-card></ride-info-card>
+        <ride-info-card v-if="havePassangeList.length < riderCount"></ride-info-card>
     </div>
 </template>
 <script>
@@ -123,6 +123,11 @@ export default {
          {
              console.log(data[i]);
              tmp = data[i];
+             if(tmp.state === 4){
+                     this.$router.push({path:'driverComment',query:{
+                        routeId:this.routeId
+              }});
+             }
          }
         this.startTime = tmp.startTime;
         this.startPlace = tmp.startPlace;
@@ -130,7 +135,7 @@ export default {
         this.describe = tmp.describe;
         this.riderCount = tmp.takeCount;
         this.routeId = tmp.routeId;
-         bus.$emit('getPassangerList', {
+        bus.$emit('getPassangerList', {
                 endArea: tmp.endArea,
                 endLongitude: tmp.endLongitude,
                 endLatitude: tmp.endLatitude,

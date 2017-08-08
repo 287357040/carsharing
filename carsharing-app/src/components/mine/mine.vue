@@ -10,7 +10,7 @@
             </div>
             <span class="name">{{userInfo.userName}}</span>
             <span class="telphone">{{userInfo.mobile}}</span>
-            <div>
+            <div class="mine-star">
               <Star disabled v-model="valueDisabled"></Star>
             </div>
           </div>

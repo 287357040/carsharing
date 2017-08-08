@@ -26,7 +26,7 @@
                     </div>
                 </li>
                 <li class="car-info-list border-bottom-style clearfix">
-                    <span>{{userInfo.nickName}}</span>
+                    <span>{{userInfo.userName}}</span>
                     <div class="info-title clearfix">
                         <span @click="modifyNickName">修改昵称</span>
                         <span class="icon-Level-Down ico right"></span>
@@ -121,6 +121,7 @@ export default {
             Store.save("newUserInfo", model);
         }
         this.userInfo = Store.fetch("newUserInfo");
+       
     }
 }
 </script>

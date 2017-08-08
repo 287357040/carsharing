@@ -88,7 +88,7 @@ export default {
             Store.save("newDriverInfo",driverInfo);
             var userInfo = Store.fetch("user");
 
-            if(userInfo.isDriver){
+            if(userInfo.isDriver == 0){
 
             userInfo.isDriver = 1;
 
@@ -100,6 +100,7 @@ export default {
 
             driverService.regToDriver(driverInfo, (msg) => {
                 Store.save("newUserInfo", driverInfo);
+                MessageBox("注册成功！");
             }, (err) => {
                 Store.save("newUserInfo", null);
                 MessageBox(err);
@@ -110,6 +111,7 @@ export default {
             {
                 driverService.regToDriver(driverInfo, (msg) => {
                 Store.save("newUserInfo", driverInfo);
+                MessageBox("修改成功！");
                 this.$router.path("/home");
                 }, (err) => {
                 MessageBox(err);
@@ -123,6 +125,7 @@ export default {
             this.date1 = driverInfo.licenseDate;
             this.date2 = driverInfo.validDate;
             this.carNumber = driverInfo.carLicense;
+            console.log(driverInfo);
     }
 }
 </script>
