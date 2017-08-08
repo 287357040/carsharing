@@ -65,11 +65,23 @@ export default {
             endPlace: null,
             describe: null,
             riderCount: null,
-            demandId: null
+            demandId: null,
+            routesAll: []
         }
     },
     components: {
         driverInfoCard
+    },
+
+    created: function () {
+        //console.log(this.$route.query.demandInfo);
+        var demandInfo = Store.fetch("demandInfo");
+
+        this.demandId = this.$route.query.demandId;
+        this.showRoutesInfo(this.demandId, demandInfo);
+    },
+    beforeDestroy: function () {
+        bus.$off("demandInfo");
     },
     methods: {
         goBack: function () {
@@ -85,22 +97,14 @@ export default {
                 }, (err) => {
                     MessageBox("获取服务失败！");
                 })
+        },
+        showRoutesInfo(demandId, demandInfo) {
+            this.startTime = demandInfo.startTime;
+            this.startPlace = demandInfo.startPlace;
+            this.endPlace = demandInfo.endPlace;
+            this.describe = demandInfo.describe;
+            this.riderCount = demandInfo.riderCount;
         }
-    },
-    created: function () {
-        //console.log(this.$route.query.demandInfo);
-        let demandInfo = Store.fetch("demandInfo");
-        this.startTime = demandInfo.startTime;
-        this.startPlace = demandInfo.startPlace;
-        this.endPlace = demandInfo.endPlace;
-        this.describe = demandInfo.describe;
-        this.riderCount = demandInfo.riderCount;
-        this.demandId = this.$route.query.demandId;
-
-
-    },
-    beforeDestroy: function () {
-        bus.$off("routesInfo");
-    },
+    }
 }
 </script>
