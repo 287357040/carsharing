@@ -49,10 +49,17 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    logout: () => {
+    logout: (success,err) => {
         Vue.http.get(
             logoutUrl
-        ).then()
+        ).then(
+            (response) => {
+                HttpResHelper.resHandle(response, success, err);
+            }, (response) => {
+                // 响应错误回调
+                HttpResHelper.resHandle(response, success, err);
+            }
+            )
     },
     updateUserInfo: (user, success, err) => {
         Vue.http.post(
@@ -141,7 +148,7 @@ export default {
                 HttpResHelper.resHandle(response, success, err);
             })
     },
-    queryAddress:(query, success, err) =>{ //查询家和公司的地址
+    queryAddress: (query, success, err) => { //查询家和公司的地址
         Vue.http.get(
             queryAddressUrl,
             {
