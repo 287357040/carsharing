@@ -10,13 +10,15 @@ import com.carsharing.server.util.JsonResponse;
 import com.carsharing.server.util.SessionUtil;
 import org.apache.log4j.Logger;
 import org.omg.CORBA.Request;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,4 +85,9 @@ public class DriverController extends AbstractController {
         }
         return result;
     }
+    @InitBinder
+    @Override
+    protected  void initBinder(WebDataBinder binder) {
+    }
+
 }
