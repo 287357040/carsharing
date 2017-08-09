@@ -66,7 +66,8 @@ export default {
             describe: null,
             riderCount: null,
             demandId: null,
-            routesAll: []
+            routesAll: [],
+            state: 0
         }
     },
     components: {
@@ -74,10 +75,10 @@ export default {
     },
 
     created: function () {
-        var demandInfo = Store.fetch("demandInfo");
-
+        //console.log(this.$route.query.demandInfo);
         this.demandId = this.$route.query.demandId;
-        this.showRoutesInfo(this.demandId, demandInfo);
+
+        this.showRoutesInfo(this.demandId);
     },
     beforeDestroy: function () {
         bus.$off("demandInfo");
@@ -90,18 +91,36 @@ export default {
             //取消订单，返回首页
             demandService.deleteRideDemand(this.demandId,
                 (res) => {
+                    console.log(res);
 
                     this.$router.push({ name: 'home' });
                 }, (err) => {
                     MessageBox("获取服务失败！");
                 })
         },
-        showRoutesInfo(demandId, demandInfo) {
-            this.startTime = demandInfo.startTime;
-            this.startPlace = demandInfo.startPlace;
-            this.endPlace = demandInfo.endPlace;
-            this.describe = demandInfo.describe;
-            this.riderCount = demandInfo.riderCount;
+        showRoutesInfo(demandId) {
+            var that = this;
+            demandService.getRideDemands(
+                this.state,
+                (res) => {
+                    that.routesAll = res;
+                    for (let i = 0; i < res.length; i++) {
+                        if (res[i].demandId == demandId) {
+                            this.startTime = res[i].startTime;
+                            this.startPlace = res[i].startPlace;
+                            this.endPlace = res[i].endPlace;
+                            this.describe = res[i].describe;
+                            this.riderCount = res[i].riderCount;
+                        }
+
+                    }
+                },
+                (err) => {
+                    console.log(err);
+                }
+            )
+
+
         }
     }
 }

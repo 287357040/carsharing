@@ -25,6 +25,9 @@ import driverComment from '@/components/setting/driverComment'
 import passengerComment from '@/components/setting/passengerComment'
 import LocalStorage from '../utils/store' 
 import driverwaitStatus from '@/components/status/driverwaitStatus'
+
+import { MessageBox } from 'mint-ui'
+import employeeService from '@/api/services/employee.service'
 Vue.use(Router);
 
 var router = new Router({
@@ -186,7 +189,17 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!LocalStorage.fetch("user")) {
-      next({
+      next(
+        MessageBox("您已退出，请重新登录！").then(action => {
+          if (action == 'confirm') {
+            employeeService.logout((res) => { 
+              console.log(res);
+            }, (err) => {
+
+             })
+          }
+        }),
+        {
         path: '/login',
         query: { redirect: to.fullPath }
       })
