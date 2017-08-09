@@ -37,8 +37,8 @@ public abstract class AbstractController {
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateTime, true));
         binder.registerCustomEditor(Double.class, new CustomNumberEditor(Double.class, true));
     }
 }

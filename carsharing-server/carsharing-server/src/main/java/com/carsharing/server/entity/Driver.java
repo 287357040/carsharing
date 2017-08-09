@@ -1,5 +1,8 @@
 package com.carsharing.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,7 +17,11 @@ public class Driver implements Serializable {
     private String region;
     private String carLicense;
     private String userLicense;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date licenseDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date validDate;
     private String carNo;
     private String color;
