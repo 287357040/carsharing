@@ -118,11 +118,6 @@ export default {
          if(data[i].routeId == routeInfoId)
          {
              tmp = data[i];
-             if(tmp.state === 4){
-                     this.$router.push({path:'driverComment',query:{
-                        routeId:this.routeId
-              }});
-             }
          }
         this.startTime = tmp.startTime;
         this.startPlace = tmp.startPlace;

@@ -12,6 +12,7 @@ export default{
         window.localStorage.removeItem('user'||"[]");
         window.localStorage.removeItem('newDriverInfo'||"[]");
         window.localStorage.removeItem('newUserInfo'||"[]");
+         window.localStorage.removeItem('identify'||"[]");
     },
     remove:(key) => {
         window.localStorage.removeItem(key)        

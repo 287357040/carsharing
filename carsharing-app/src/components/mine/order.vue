@@ -109,7 +109,8 @@ export default {
   created: function () {
     var model = Store.fetch('user');
     this.routeOrder = Store.fetch("routesOrderInfo");
-    routeService.getRideRoutes(model.isDriver, (data) => {
+    let identify = Store.fetch("identity");
+    routeService.getRideRoutes(identify == '司机'?1:0, (data) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].state < 5)
           this.currentOrder = data[i];
@@ -125,10 +126,9 @@ export default {
   },
   methods: {
     show_detail(item) {
-      var model = Store.fetch('user');
-      if (model.isDriver) {
-        console.log(item.state);
-        if (item.state < 5)
+      let idef=Store.fetch('identity');
+      if (idef=='司机') {
+        if (item.state < 4)
           this.$router.push({
             path: '/driverwaitStatus', query: {
               routeId: item.routeId

@@ -100,10 +100,7 @@ export default {
         this.isShowMap = this.isFinished ? 'none' : 'block';
         this.routeId = this.$route.query.routeId;
         var model = Store.fetch('user');
-        if (model.isDriver != 1)
-            this.isDriver = true;
-        else
-            this.isDriver = false;
+        let identify = Store.fetch("identity");
         demandService.getRideDemandsByRouteId(this.routeId, data => {
             this.passagesList = data;
 
@@ -113,13 +110,14 @@ export default {
             MessageBox("获取服务失败！");
         });
 
-        routeService.getRideRoutes(model.isDriver, (data) => {
+        routeService.getRideRoutes(identify=='司机'?1:0, (data) => {
             for (let i = 0; i < data.length; i++) {
                 if (data[i].state < 5)
                    this.routeInfo = data[i];
             }
-            if (this.routeInfo.state < 5 && this.isDriver)
-                this.isDriver = false;
+            if (this.routeInfo.state == 4 && identify == '司机'){
+                this.isDriver = true;
+            }
         },
             (res) => {
                 if (res.status == '404') {
