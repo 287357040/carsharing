@@ -33,10 +33,15 @@ margin-bottom: 20px;
     display: inline-block;
     vertical-align: top;
     padding-top: 10px;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 .comment-person-datail-content .comment-person-datail
 {
     display: block;
+    margin-bottom: 5px;
 }
 
  .comment-datail .icon-telephone

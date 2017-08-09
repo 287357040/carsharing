@@ -91,11 +91,9 @@ export default {
             //取消订单，返回首页
             routeService.deleteRoute(this.routeId,
                 (res) => {
-
                     this.$router.push({path:'home'});
                 }, (err) => {
-                    MessageBox(err);
-                    this.$router.go(0);
+                    MessageBox(err.msg);
                 })
         },
         startOrder:function(){
@@ -106,7 +104,7 @@ export default {
                         routeId:this.routeId
                     }});
                 }, (err) => {
-                    MessageBox(err);
+                    MessageBox(err.msg);
                     this.$router.go(0);
                 })
         }

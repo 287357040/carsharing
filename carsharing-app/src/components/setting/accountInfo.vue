@@ -56,6 +56,9 @@
         <div class="submit-btn" @click="saveUserInfo">提交</div>
         <mt-actionsheet cancel-text="关闭" :actions="actions" v-model="sheetVisible">
         </mt-actionsheet>
+    <div class="password-btn">
+        <mt-button @click.stop="loginOut">注销</mt-button>
+    </div>
     </div>
 </template>
 
@@ -113,6 +116,13 @@ export default {
                 MessageBox(err);
                 Store.save("newUserInfo", null);
             });
+        },
+        loginOut:function(){
+            apiHandler.logout((success)=>{
+                this.$router.push({ path: '/login' });
+            },(err=>{
+                 MessageBox('注销失败！');
+            }))
         }
     },
     created: function () {

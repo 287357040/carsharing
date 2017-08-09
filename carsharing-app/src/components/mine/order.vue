@@ -3,7 +3,7 @@
     <!--begin 订单头部-->
     <div class="order-container order-container-bgcolor">
       <OHeader v-bind:headerText="headerText" />
-      <div @click="show_detail('currentOrder')">
+      <div @click="show_detail(currentOrder)">
         <div class="order-content">
           <!-- <Icon type="ios-clock" class="ico"></Icon> -->
           <span class="icon-date ico">
@@ -84,7 +84,7 @@ export default {
           endPlace: "垃圾街",
           describe: "没有重物",
           orderStatus: 3
-        } ,
+        },
         {
           startTime: "2017年08月09日 21::00:00",
           startPlace: "萧山",
@@ -98,7 +98,7 @@ export default {
         startPlace: "恒生电子",
         endPlace: "垃圾街",
         describe: "没有重物",
-
+        routeId: ''
       },
       routeOrder: {}
     }
@@ -109,14 +109,10 @@ export default {
   created: function () {
     var model = Store.fetch('user');
     this.routeOrder = Store.fetch("routesOrderInfo");
-
-    
     routeService.getRideRoutes(model.isDriver, (data) => {
-      if (data.status) {
-        this.historyOrderList = data;
-      }
-      else {
-        this.routeOrder = data[0];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].state < 5)
+          this.currentOrder = data[i];
       }
     },
       (res) => {
@@ -130,10 +126,30 @@ export default {
   methods: {
     show_detail(item) {
       var model = Store.fetch('user');
-      if (model.isDriver)
-        this.$router.push({ path: '/driverComment', query: item });
-      else
-        this.$router.push({ path: '/passengerComment', query: item });
+      if (model.isDriver) {
+        console.log(item.state);
+        if (item.state < 5)
+          this.$router.push({
+            path: '/driverwaitStatus', query: {
+              routeId: item.routeId
+            }
+          });
+        else {
+          this.$router.push({
+            path: '/driverComment', query: {
+              routeId: item.routeId
+            }
+          });
+        }
+      }
+      else {
+        if (item.state == 4)
+          this.$router.push({
+            path: '/driverComment', query: {
+              routeId: item.routeId
+            }
+          });
+      }
     }
   }
 }

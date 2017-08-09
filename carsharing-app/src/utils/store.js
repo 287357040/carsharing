@@ -6,5 +6,14 @@ export default{
     },
     save: (key,items) => {
         window.localStorage.setItem(key,JSON.stringify(items))
+    },
+    clear:()=>{
+        //清理缓存个人信息
+        window.localStorage.removeItem('user'||"[]");
+        window.localStorage.removeItem('newDriverInfo'||"[]");
+        window.localStorage.removeItem('newUserInfo'||"[]");
+    },
+    remove:(key) => {
+        window.localStorage.removeItem(key)        
     }
 }
