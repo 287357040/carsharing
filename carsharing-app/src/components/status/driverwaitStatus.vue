@@ -91,11 +91,9 @@ export default {
             //取消订单，返回首页
             routeService.deleteRoute(this.routeId,
                 (res) => {
-
                     this.$router.push({path:'home'});
                 }, (err) => {
-                    MessageBox(err);
-                    this.$router.go(0);
+                    MessageBox(err.msg);
                 })
         },
         startOrder:function(){
@@ -106,7 +104,7 @@ export default {
                         routeId:this.routeId
                     }});
                 }, (err) => {
-                    MessageBox(err);
+                    MessageBox(err.msg);
                     this.$router.go(0);
                 })
         }
@@ -120,11 +118,6 @@ export default {
          if(data[i].routeId == routeInfoId)
          {
              tmp = data[i];
-             if(tmp.state === 4){
-                     this.$router.push({path:'driverComment',query:{
-                        routeId:this.routeId
-              }});
-             }
          }
         this.startTime = tmp.startTime;
         this.startPlace = tmp.startPlace;

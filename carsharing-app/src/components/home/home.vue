@@ -41,6 +41,7 @@ import vMine from '@/components/mine/mine.vue'
 import SockJS from 'sockjs-client'
 import demandService from '@/api/services/demand.service'
 import routeService from '@/api/services/route.service'
+import Store from '@/utils/store'
 
 export default {
   data: () => {
@@ -78,15 +79,25 @@ export default {
   },
   methods: {
     switchIdentity: function (val) {
-      if (val == '司机') this.isSwitch = false;
-      else if (val == '乘客') this.isSwitch = true;
+      if (val == '司机') {
+        this.isSwitch = false;
+        Store.save('identity', '司机');
+      }
+      else if (val == '乘客') {
+        this.isSwitch = true;
+        Store.save('identity', '乘客');
+      }
       this.showStatus();
     },
     showStatus() {
       var idef = this.isSwitch ? 0 : 1;
       if (idef == 1) {
         routeService.getRideRoutes(idef, data => {
-          this.demandCounts = data;
+          this.demandCounts = [];
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].state < 5)
+              this.demandCounts.push(data[i]);
+          }
           this.showAwaitOrderStatus = true;
         }, err => {
           MessageBox('服务器请求失败！');
@@ -111,14 +122,23 @@ export default {
     },
     goWaitOrderDetail: function (item) {
       if (this.isSwitch == false) {
+        if (item.state === 4) {
+          this.$router.push({
+            path: 'driverComment', query: {
+              routeId: item.routeId
+            }
+          });
+        }
+        else{
         this.$router.push({
           path: '/driverwaitStatus', query: {
             routeId: item.routeId
           }
         });
+        }
       }
       else {
-        this.$router.push({ path: '/awaitStatus', query: {demandId:item.demandId} });
+        this.$router.push({ path: '/awaitStatus', query: { demandId: item.demandId } });
       }
     }
   },

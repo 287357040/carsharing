@@ -14,16 +14,16 @@ import feedback from '@/components/mine/feedback'
 import route from '@/components/mine/route'
 import valuation from '@/components/mine/valuation'
 import order from '@/components/mine/order'
-import message  from '@/components/message/info'
-import details  from '@/components/message/details'
-import accountInfo  from '@/components/setting/accountInfo'
-import mobileNum  from '@/components/setting/mobileNum'
-import nickName  from '@/components/setting/nickName'
-import license  from '@/components/setting/license'
-import finishEvaluate  from '@/components/status/finishEvaluate'
+import message from '@/components/message/info'
+import details from '@/components/message/details'
+import accountInfo from '@/components/setting/accountInfo'
+import mobileNum from '@/components/setting/mobileNum'
+import nickName from '@/components/setting/nickName'
+import license from '@/components/setting/license'
+import finishEvaluate from '@/components/status/finishEvaluate'
 import driverComment from '@/components/setting/driverComment'
 import passengerComment from '@/components/setting/passengerComment'
-import LocalStorage from '../utils/store' 
+import LocalStorage from '../utils/store'
 import driverwaitStatus from '@/components/status/driverwaitStatus'
 
 import { MessageBox } from 'mint-ui'
@@ -181,25 +181,35 @@ var router = new Router({
       component: driverwaitStatus,
       meta: { requiresAuth: true }
     }
-        
+
   ]
 })
 router.beforeEach((to, from, next) => {
+
+  if (to.path == '/login' && LocalStorage.fetch("user")) {
+    MessageBox({ title: '确认退出！', showCancelButton: true }).then(action => {
+      console.log(action);
+      if (action == "confirm") {
+        LocalStorage.remove("user");
+        employeeService.logout((res) => {
+          console.log(res);
+        }, (err) => {
+
+        })
+      } else {
+      next({
+        path: from.path,
+        query: { redirect: to.fullPath }
+      })
+      }
+    })
+  }
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!LocalStorage.fetch("user")) {
-      next(
-        MessageBox("您已退出，请重新登录！").then(action => {
-          if (action == 'confirm') {
-            employeeService.logout((res) => { 
-              console.log(res);
-            }, (err) => {
-
-             })
-          }
-        }),
-        {
+      next({
         path: '/login',
         query: { redirect: to.fullPath }
       })

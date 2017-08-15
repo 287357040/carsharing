@@ -101,10 +101,10 @@ export default {
             driverService.regToDriver(driverInfo, (msg) => {
                 Store.save("newUserInfo", driverInfo);
                 MessageBox("注册成功！");
+                this.$router.path("/home");
             }, (err) => {
                 Store.save("newUserInfo", null);
-                MessageBox(err);
-               this.$router.path("/home");
+                MessageBox("注册失败！");
             });
             }
             else
@@ -112,9 +112,8 @@ export default {
                 driverService.regToDriver(driverInfo, (msg) => {
                 Store.save("newUserInfo", driverInfo);
                 MessageBox("修改成功！");
-                this.$router.path("/home");
                 }, (err) => {
-                MessageBox(err);
+                MessageBox("修改失败！");
                 });
             }
         }

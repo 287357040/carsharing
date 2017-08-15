@@ -83,6 +83,11 @@ export default {
   created: function () {
     this.userInfo = Store.fetch('user');
     this.isDriver = this.userInfo.isDriver;
+    let idef = Store.fetch('identity');
+    if(idef!==null)
+    {
+      this.identity = idef;
+    }
     Store.save('identity',this.identity);
   }
 }

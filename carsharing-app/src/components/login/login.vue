@@ -15,6 +15,7 @@
 import auth from '@/api/services/employee.service'
 import passwordLogin from './passwordLogin'
 import mobileLogin from './mobileLogin'
+import Store from '@/utils/store'
 //没有考虑信息缓存
 export default {
     data() {
@@ -30,6 +31,9 @@ export default {
     components: {
         passwordLogin,
         mobileLogin
+    },
+    created:function(){
+        Store.clear();
     }
 }
 </script>

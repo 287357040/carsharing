@@ -271,26 +271,3 @@ export default {
 }
 </script>
 
-<style>
-/* .amap-wrapper {
-  height: 350px
-}
-
-.search-box {
-  position: absolute;
-  margin: 0px 10px 0px 0px;
-  width: 100%;
-}
-.amap-demo {
-  height: 300px;
-}
-.panel {
-  position: fixed;
-  background-color: white;
-  max-height: 90%;
-  overflow-y: auto;
-  top: 10px;
-  right: 10px;
-  width: 280px;
-} */
-</style>

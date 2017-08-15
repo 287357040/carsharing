@@ -396,7 +396,7 @@ export default {
           endArea: this.endPlace.district, // 终点区县
           endPlace: this.endPlace.name, // 终点地址
           endLongitude: this.endPlace.location.lng, // 终点经度
-          endLatitude: this.endPlace.location.lng, // 终点纬度
+          endLatitude: this.endPlace.location.lat, // 终点纬度
           startTime: this.startTime, // 发车时间
           riderCount: this.riderCount, // 车座位数量 默认4
           waitTime: 10, // 能够等待时间
@@ -414,7 +414,7 @@ export default {
           endArea: this.endPlace.district, // 终点区县
           endPlace: this.endPlace.name, // 终点地址
           endLongitude: this.endPlace.location.lng, // 终点经度
-          endLatitude: this.endPlace.location.lng, // 终点纬度
+          endLatitude: this.endPlace.location.lat, // 终点纬度
           startTime: this.startTime, // 发车时间
           riderCount: this.riderCount, // 车座位数量 默认4
           waitTime: 10, // 能够等待时间
@@ -432,7 +432,7 @@ export default {
           endArea: this.endPlace.district, // 终点区县
           endPlace: this.endPlace.name, // 终点地址
           endLongitude: this.endPlace.location.lng, // 终点经度
-          endLatitude: this.endPlace.location.lng, // 终点纬度
+          endLatitude: this.endPlace.location.lat, // 终点纬度
           startTime: this.startTime, // 发车时间
           riderCount: this.riderCount, // 车座位数量 默认4
           waitTime: 10, // 能够等待时间

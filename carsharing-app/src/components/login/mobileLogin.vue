@@ -13,7 +13,7 @@
                 </div>
             </div>
     
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <span class="icon-yanzhengma form-icon margin-left-icon"></span>
                 <div class="form-input">
                     <input class="code-input" placeholder="请输入验证码" name="code" type="tel" autocomplete="off" v-model="code" required maxlength="4">
@@ -21,8 +21,8 @@
                         <a href="#">获取验证码</a>
                     </div>
                 </div>
-            </div>
-            <mt-button type="default" class="login-btn linear-gradient-bg" submit>验证并登录</mt-button>
+            </div> -->
+            <mt-button type="default" class="login-btn linear-gradient-bg" submit>登录</mt-button>
         </form>
         <div class="change-login-style" v-show="isHavePassword">
             <a href="javascript:void(0)" v-on:click="changeLoginType">密码登录</a>
