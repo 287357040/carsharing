@@ -25,6 +25,7 @@ import driverComment from '@/components/setting/driverComment'
 import passengerComment from '@/components/setting/passengerComment'
 import LocalStorage from '../utils/store'
 import driverwaitStatus from '@/components/status/driverwaitStatus'
+import addFirend from '@/components/setting/addFirend'
 
 import { MessageBox } from 'mint-ui'
 import employeeService from '@/api/services/employee.service'
@@ -180,7 +181,14 @@ var router = new Router({
       name: 'driverwaitStatus',
       component: driverwaitStatus,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/addFirend',
+      name: 'addFirend',
+      component: addFirend,
+      meta: { requiresAuth: true }
     }
+
 
   ]
 })
