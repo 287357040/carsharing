@@ -95,7 +95,7 @@ export default {
         routeService.getRideRoutes(idef, data => {
           this.demandCounts = [];
           for (let i = 0; i < data.length; i++) {
-            if (data[i].state < 5)
+            if (data[i].state < 5&&data[i].state!==3)
               this.demandCounts.push(data[i]);
           }
           this.showAwaitOrderStatus = true;

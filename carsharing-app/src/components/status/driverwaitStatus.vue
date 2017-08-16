@@ -70,11 +70,11 @@ export default {
     data: () => {
         return {
             awaitText: '等待乘客加入',
-            startTime: '2017-08-07',
-            startPlace: '恒生电子',
-            endPlace: '垃圾街',
-            describe: '没有重物',
-            riderCount: '3',
+            startTime: '',
+            startPlace: '',
+            endPlace: '',
+            describe: '',
+            riderCount: '',
             routeId: null,
             havePassangeList:[],
             waitPassangeList:[]
@@ -112,9 +112,10 @@ export default {
     created: function () {
         this.routeId =  this.$route.query.routeId;
         var routeInfoId =  this.$route.query.routeId;
+        
         routeService.getRideRoutes(1,data=>{
             let tmp ={};
-        for(var i=0;i<data.length;i++)
+        for(var i=0;data!=undefined && i<data.length;i++)
          if(data[i].routeId == routeInfoId)
          {
              tmp = data[i];
@@ -125,7 +126,8 @@ export default {
         this.describe = tmp.describe;
         this.riderCount = tmp.takeCount;
         this.routeId = tmp.routeId;
-        bus.$emit('getPassangerList', {
+        Store.save("routeId",tmp.routeId);
+        Store.save("getPassangerList",{
                 endArea: tmp.endArea,
                 endLongitude: tmp.endLongitude,
                 endLatitude: tmp.endLatitude,
@@ -133,11 +135,21 @@ export default {
                 riderCount: tmp.remainCount,
                 waitTime: tmp.waitTime,
                 routeId : this.routeId
-        });
+        })
+        // bus.$emit('getPassangerList', {
+        //         endArea: tmp.endArea,
+        //         endLongitude: tmp.endLongitude,
+        //         endLatitude: tmp.endLatitude,
+        //         startTime: tmp.startTime,
+        //         riderCount: tmp.remainCount,
+        //         waitTime: tmp.waitTime,
+        //         routeId : this.routeId
+        // });
         },err=>{
             MessageBox("获取服务失败！");
         });
         demandService.getRideDemandsByRouteId(routeInfoId, data => {
+            if(data!=undefined)
             this.havePassangeList = data;
         }, err => {
             MessageBox("获取服务失败！");

@@ -149,6 +149,9 @@ export default {
             for (var i = 0; i < this.passagesList.length; i++)
                 this.passagesList[i].isShowDetail = 'none';
             item.isShowDetail = 'block'
+        },
+        show_telphoe:function(item){
+            MessageBox("请拨打电话:xxxxxxxxxxxx");
         }
     }
 }

@@ -118,11 +118,16 @@ export default {
             });
         },
         loginOut:function(){
-            apiHandler.logout((success)=>{
-                this.$router.push({ path: '/login' });
-            },(err=>{
-                 MessageBox('注销失败！');
-            }))
+      MessageBox({ title: '确认退出！', showCancelButton: true }).then(action => {
+                console.log(action);
+                if (action == "confirm") {
+                    apiHandler.logout((success) => {
+                        this.$router.push({ path: '/login' });
+                    }, (err => {
+                        MessageBox('注销失败！');
+                    }));
+                }
+            });
         }
     },
     created: function () {
