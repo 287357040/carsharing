@@ -449,7 +449,7 @@ export default {
             }
           });
         }, (err) => {
-          MessageBox("发布信息失败！");
+          MessageBox(err.errorMsg);
         })
       }
       else {

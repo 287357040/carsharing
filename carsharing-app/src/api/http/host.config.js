@@ -115,3 +115,12 @@ export const UpdateMessageUrl = API_ROOT + '/front/message/UpdateMessage';
 //用户是否登陆
 export const isLoginInUrl = API_ROOT + '/front/user/isLoginIn';
 
+//获取用户最新信息
+export const getUserByNoUrl = API_ROOT + '/front/user/getUserByNo';
+//获取用户最新信息
+export const getFriendsUrl = API_ROOT + '/front/user/getFriends';
+//获取用户最新信息
+export const addFriendUrl = API_ROOT + '/front/user/addFriend';
+//获取用户最新信息
+export const delFriendUrl = API_ROOT + '/front/user/delFriend';
+

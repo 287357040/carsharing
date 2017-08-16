@@ -1,7 +1,7 @@
 //乘客未评价
 <template>
     <div class="setting-container">
-        <OHeader v-bind:headerText="headerText" />
+        <OHeader v-bind:headerText="headerText"  v-bind:isClose="isClose" />
         <!--地址定位  -->
         <el-amap :zoom="zoom" :center="center" class="comment-map" style="height:314px;" :style="{display:isShowMap}">
             <el-amap-marker :key="marker.lng" v-for="marker in markers" :position="marker"></el-amap-marker>
@@ -13,13 +13,13 @@
                 </span>
                 <span class="txt-content txt-content-color">{{routeInfo.startTime}}</span>
             </div>
-            <div class="comment-datail-txt">
+            <div class="comment-datail-txt" @click="show_position(routeInfo)">
                 <span style="margin-left:30px" class="txt-content txt-content-color">{{routeInfo.startPlace}}-{{routeInfo.endPlace}}</span>
             </div>
-            <div @click="show_position(item)" v-bind:key="item" v-for="item in passagesList">
+            <div v-bind:key="item" v-for="item in passagesList">
                 <div class="horline"></div>
                 <div>
-                    <img width="97px" height="81px" src="../../assets/img/photo.png" />
+                    <img width="97px" height="81px" src="../../assets/img/photo.png" @click="addFriend(item)" />
                     <div class="comment-person-datail-content ">
                         <span class="comment-person-datail ">{{item.userName}}</span>
                         <span class="comment-person-datail ">
@@ -27,9 +27,9 @@
                         <span class="comment-person-datail ">
                             <strong>乘客终:</strong>{{item.endPlace}}</span>
                     </div>
-                    <span class="icon-telephone right" @click="show_model"></span>
-                    <span class="icon-telephone right"></span>
-                    <span class="icon-telephone right"></span>
+                    <span class="icon-telephone right" @click="show_telphoe(item)"></span>
+                    <span class="icon-Search right" @click="show_position(item)"></span>
+                   
                 </div>
                 <div class="passages-comment-list-bg" :style="{display:item.isShowDetail}">
                     <div class="has-passanger-comment">
@@ -91,13 +91,14 @@ export default {
             ],
             isDriver: false
             ,
-            routeInfo: {}
+            routeInfo: {},
+            isClose :true
         }
     },
     created: function () {
         this.center = [120.155207, 30.2736900000];
         this.markers.push([120.1552070000, 30.2736900000])
-        this.isShowMap = this.isFinished ? 'none' : 'block';
+         this.isShowMap = this.isFinished ? 'none' : 'block';
         this.routeId = this.$route.query.routeId;
         var model = Store.fetch('user');
         let identify = Store.fetch("identity");
@@ -115,6 +116,10 @@ export default {
                 if (data[i].state < 5)
                    this.routeInfo = data[i];
             }
+            console.log(this.routeInfo.endLongitude);
+            console.log(this.routeInfo.endLatitude);
+            this.center = [this.routeInfo.endLongitude, this.routeInfo.endLatitude];
+            this.markers.push([this.routeInfo.endLongitude, this.routeInfo.endLatitude]);
             if (this.routeInfo.state == 4 && identify == '司机'){
                 this.isDriver = true;
             }
@@ -151,7 +156,14 @@ export default {
             item.isShowDetail = 'block'
         },
         show_telphoe:function(item){
-            MessageBox("请拨打电话:xxxxxxxxxxxx");
+            MessageBox("请拨打电话:"+item.mobile);
+        },
+        addFriend(item){
+            this.$router.push({
+            path: '/addFirend', query: {
+              userNo: item.userNo
+            }
+          });
         }
     }
 }

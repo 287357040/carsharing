@@ -1,7 +1,7 @@
 //乘客未评价
 <template>
     <div class="setting-container">
-        <OHeader v-bind:headerText="headerText" />
+        <OHeader v-bind:headerText="headerText" v-bind:isClose="isClose" />
         <!--地址定位  -->
         <el-amap :zoom="zoom" :center="center" class="comment-map" style="height:314px;" :style="{display:isShowMap}">
             <el-amap-marker :key="marker.lng" v-for="marker in markers" :position="marker"></el-amap-marker>
@@ -13,7 +13,7 @@
                 </span>
                 <span class="txt-content txt-content-color">{{passagesList.startTime}}</span>
             </div>
-            <div class="comment-datail-txt">
+            <div class="comment-datail-txt" @click="show_position(passagesList.endLongitude,passagesList.endLatitude)">
                 <span style="margin-left:30px" class="txt-content txt-content-color">{{placeSlice(passagesList.startPlace)}}-{{passagesList.endPlace}}</span>
             </div>
             <div>
@@ -25,13 +25,12 @@
                         <span class="comment-carInfo" >{{driverInfo.region}}{{driverInfo.carLicense}}</span>
                         <span class="comment-person-datail ">{{driverInfo.color}}&nbsp;&nbsp;{{driverInfo.brand}}</span>
                         <span class="comment-person-datail ">
-                            <strong>起:</strong>{{startPlaceShow}}</span>      <!-- 司机起点 -->
+                            <strong>司机起:</strong>{{startPlaceShow}}</span>      <!-- 司机起点 -->
                         <span class="comment-person-datail ">
-                            <strong>终:</strong>{{routeInfo.endPlace}}</span>  <!-- 司机终点 -->
+                            <strong>司机终:</strong>{{routeInfo.endPlace}}</span>  <!-- 司机终点 -->
                     </div>
-                    <span class="icon-telephone right" @click="show_model"></span>
-                    <span class="icon-telephone right"></span>
-                    <span class="icon-telephone right"></span>
+                   <span class="icon-telephone right" @click="show_telphoe"></span>
+                    <span class="icon-Search right" @click="show_position(endLongitude,endLatitude)"></span>
                 </div>
                 <!-- <div class="passages-comment-list-bg" :style="{display:item.isShowDetail}">
                     <div class="has-passanger-comment">
@@ -99,7 +98,10 @@ export default {
             isDriver: false
             ,
             routeInfo: {},
-            startPlaceShow: ''
+            startPlaceShow: '',
+            endLongitude:"",
+            endLatitude:"",
+            isClose : true
         }
     },
     created: function () {
@@ -116,6 +118,8 @@ export default {
                    this.routeInfo = data[i];
                     if(data){
                     this.startPlaceShow = this.placeSlice(data[i].startPlace)
+                    this.endLongitude = data[i].endLongitude;
+                    this.endLatitude = data[i].endLatitude;
                 } else{
                        console.log('为空')
                 }
@@ -158,6 +162,7 @@ export default {
         getDriverInfo(){ //得到司机相关信息
              let model = Store.fetch('user');
              apiDriverHandler.getDriverByNo(model,data=>{
+                 console.log(data);
                 this.driverInfo = data
             },err=>{
                 console.log('请求错误')
@@ -184,6 +189,16 @@ export default {
             return placeShow
       }
     },
+        show_telphoe:function(){
+            MessageBox("请拨打电话:"+this.passagesList.mobile);
+        },
+        addFriend(item){
+            this.$router.push({
+            path: '/addFirend', query: {
+              userNo: item.userNo
+            }
+          });
+        }
     }
 }
 </script>

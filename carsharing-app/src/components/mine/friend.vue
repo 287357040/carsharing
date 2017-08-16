@@ -246,6 +246,7 @@ export default {
     },
     created: function () {
         friendService.getFriendList((data) => {
+                //console.log(data);
                 this.friendlist = data;
             });
     }

@@ -67,7 +67,14 @@ export default {
         }
     },
     created: function () {
-        this.getPassangerList = Store.fetch("getPassangerList");
+        self = this;
+        let getPassangerList = Store.fetch("getPassangerList");
+        this.routeId = getPassangerList.routeId;
+        demandService.matchRideDemandsByRoute(getPassangerList, function (data) {
+            self.waitPassangeList = data.obj;
+            }, function (err) {
+               
+            });
     },
     computed: {
         getNowFormatDate: function () {
@@ -101,8 +108,6 @@ export default {
                  this.$router.go(0);
             }, function (err) {
                  MessageBox("添加失败");
-                  //self.$router.go(0);
-                 //this.$router.go(0);
             });
         }
     }

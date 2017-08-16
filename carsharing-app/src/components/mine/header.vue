@@ -4,7 +4,8 @@
       <div class="nav-wrapper" :class ="{shadow:shadowActive}">
         <div  class="avatar-wrapper " @click="telephone_input">
           <!-- <Icon type="chevron-left" class="backto"></Icon> -->
-          <span class="icon-return backto" @click.stop=" backto_homepage()">
+           <span class="icon-close backto" @click.stop="close"  v-if="isClose"></span>
+           <span class="icon-return backto" @click.stop=" backto_homepage()"  v-else></span>
                 
           </span>
         </div>
@@ -19,7 +20,8 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props :{
-    headerText : ""
+    headerText : "",
+    isClose:false
   }
   ,
   computed: {
@@ -37,6 +39,9 @@ export default {
     ]),
     backto_homepage(key) {
       this.$router.go(-1);
+    },
+    close(){
+      this.$router.push({path:"/home"});
     }
   }
 }

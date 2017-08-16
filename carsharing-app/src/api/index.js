@@ -9,7 +9,7 @@ var HttpResHelper = {
             if (errorFunc) {
                 errorFunc({
                     "code": response.data.res,
-                    "errorMsg": ""
+                    "errorMsg": response.data.msg
                 });
             }
         }
