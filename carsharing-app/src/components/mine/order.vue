@@ -94,11 +94,6 @@ export default {
         }
       ],
       currentOrder: {
-        startTime: "2017年08月09日 21::00:00",
-        startPlace: "恒生电子",
-        endPlace: "垃圾街",
-        describe: "没有重物",
-        routeId: ''
       },
       routeOrder: {}
     }
@@ -111,8 +106,8 @@ export default {
     this.routeOrder = Store.fetch("routesOrderInfo");
     let identify = Store.fetch("identity");
     routeService.getRideRoutes(identify == '司机'?1:0, (data) => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].state < 5)
+      for (let i = 0;  data!==undefined && i<data.length; i++) {
+        if (data[i].state < 5 &&data[i].state!==3)
           this.currentOrder = data[i];
       }
     },
@@ -145,7 +140,7 @@ export default {
       else {
         if (item.state == 4)
           this.$router.push({
-            path: '/driverComment', query: {
+            path: '/passagesRoute', query: {
               routeId: item.routeId
             }
           });

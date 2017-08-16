@@ -86,7 +86,12 @@ export default {
     let idef = Store.fetch('identity');
     if(idef!==null)
     {
-      this.identity = idef;
+      if(this.identity !== idef)
+      {
+         let temp = this.identity;
+        this.identity = this.secondIdentity;
+        this.secondIdentity = temp;
+      }
     }
     Store.save('identity',this.identity);
   }

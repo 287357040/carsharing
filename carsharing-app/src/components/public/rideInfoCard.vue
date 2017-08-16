@@ -51,6 +51,7 @@ import demandService from '@/api/services/demand.service'
 import routeService from '@/api/services/route.service'
 import driverService from '@/api/services/driver.service'
 import { MessageBox } from 'mint-ui'
+import Store from '@/utils/store'
 import bus from '@/utils/eventBus'
 export default {
     data() {
@@ -66,15 +67,7 @@ export default {
         }
     },
     created: function () {
-        self = this;
-        bus.$on('getPassangerList', (arg) => {
-            self.routeId = arg.routeId;
-            demandService.matchRideDemandsByRoute(arg, function (data) {
-                self.waitPassangeList = data.obj;
-            }, function (err) {
-               
-            });
-        });
+        this.getPassangerList = Store.fetch("getPassangerList");
     },
     computed: {
         getNowFormatDate: function () {
@@ -98,9 +91,10 @@ export default {
     },
     methods: {
         add_passanger:function(item,item2){
+            var routeidTmp=Store.fetch("routeId");
             routeService.inviteToRoute({
                 demandId: item,
-                routeId: this.routeId
+                routeId: routeidTmp
             }, function (data) {
                  MessageBox("添加成功");
                  self.$router.go(0);

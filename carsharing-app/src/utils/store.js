@@ -12,7 +12,9 @@ export default{
         window.localStorage.removeItem('user'||"[]");
         window.localStorage.removeItem('newDriverInfo'||"[]");
         window.localStorage.removeItem('newUserInfo'||"[]");
-         window.localStorage.removeItem('identify'||"[]");
+         window.localStorage.removeItem('identity'||"[]");
+         window.localStorage.removeItem('routeId'||"[]");//
+         window.localStorage.removeItem('getPassangerList'||"[]");
     },
     remove:(key) => {
         window.localStorage.removeItem(key)        

@@ -11,27 +11,29 @@
                 <span class="icon-date ico">
     
                 </span>
-                <span class="txt-content txt-content-color">{{routeInfo.startTime}}</span>
+                <span class="txt-content txt-content-color">{{passagesList.startTime}}</span>
             </div>
             <div class="comment-datail-txt">
-                <span style="margin-left:30px" class="txt-content txt-content-color">{{routeInfo.startPlace}}-{{routeInfo.endPlace}}</span>
+                <span style="margin-left:30px" class="txt-content txt-content-color">{{placeSlice(passagesList.startPlace)}}-{{passagesList.endPlace}}</span>
             </div>
-            <div @click="show_position(item)" v-bind:key="item" v-for="item in passagesList">
+            <div>
                 <div class="horline"></div>
                 <div>
                     <img width="97px" height="81px" src="../../assets/img/photo.png" />
                     <div class="comment-person-datail-content ">
-                        <span class="comment-person-datail ">{{item.userName}}</span>
+                        <span class="comment-person-datail ">{{driverInfo.userName}}</span>
+                        <span class="comment-carInfo" >{{driverInfo.region}}{{driverInfo.carLicense}}</span>
+                        <span class="comment-person-datail ">{{driverInfo.color}}&nbsp;&nbsp;{{driverInfo.brand}}</span>
                         <span class="comment-person-datail ">
-                            <strong>乘客起:</strong>{{item.startPlace}}</span>
+                            <strong>起:</strong>{{startPlaceShow}}</span>      <!-- 司机起点 -->
                         <span class="comment-person-datail ">
-                            <strong>乘客终:</strong>{{item.endPlace}}</span>
+                            <strong>终:</strong>{{routeInfo.endPlace}}</span>  <!-- 司机终点 -->
                     </div>
                     <span class="icon-telephone right" @click="show_model"></span>
                     <span class="icon-telephone right"></span>
                     <span class="icon-telephone right"></span>
                 </div>
-                <div class="passages-comment-list-bg" :style="{display:item.isShowDetail}">
+                <!-- <div class="passages-comment-list-bg" :style="{display:item.isShowDetail}">
                     <div class="has-passanger-comment">
                         <div class="passanger-comment-spiltline"></div>
                         <div>Ta对我的评价</div>
@@ -55,7 +57,7 @@
                             <input placeholder="有什么相对ta讲的吗" />
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     
@@ -70,6 +72,7 @@ import Star from '@/components/public/starScore.vue'
 import apiHandler from '@/api/services/route.service'
 import demandService from '@/api/services/demand.service'
 import routeService from '@/api/services/route.service'
+import apiDriverHandler from '@/api/services/driver.service'
 import { MessageBox } from 'mint-ui';
 import Store from '@/utils/store'
 export default {
@@ -84,14 +87,19 @@ export default {
             isFinished: false,
             isShowMap: 'block',
             compositeScore: 3,
-            passagesList: [
+            driverInfo: [
                 {
                     isShowDetail: 'none'
                 }
             ],
+            passagesList: {
+                    isShowDetail: 'none'
+            }
+            ,
             isDriver: false
             ,
-            routeInfo: {}
+            routeInfo: {},
+            startPlaceShow: ''
         }
     },
     created: function () {
@@ -99,21 +107,18 @@ export default {
         this.markers.push([120.1552070000, 30.2736900000])
         this.isShowMap = this.isFinished ? 'none' : 'block';
         this.routeId = this.$route.query.routeId;
-        var model = Store.fetch('user');
         let identify = Store.fetch("identity");
-        demandService.getRideDemandsByRouteId(this.routeId, data => {
-            this.passagesList = data;
-
-            for (var i = 0; i < this.passagesList.length; i++)
-                this.passagesList[i].isShowDetail = 'none';
-        }, err => {
-            MessageBox("获取服务失败！");
-        });
-
+        this.getDriverInfo() // 得到司机相关信息
+        this.getPassgeerInfo() // 得到用户路线相关信息
         routeService.getRideRoutes(identify=='司机'?1:0, (data) => {
             for (let i = 0; i < data.length; i++) {
-                if (data[i].state < 5)
+                if (data[i].state < 5 && data[i].state!=3)
                    this.routeInfo = data[i];
+                    if(data){
+                    this.startPlaceShow = this.placeSlice(data[i].startPlace)
+                } else{
+                       console.log('为空')
+                }
             }
             if (this.routeInfo.state == 4 && identify == '司机'){
                 this.isDriver = true;
@@ -140,23 +145,52 @@ export default {
                 MessageBox("取消失败!");
             });
         },
-        show_position: function (item) {
+        show_position: function (endLongitude,endLatitude) {
             this.markers = [];
-            this.center = [item.endLongitude, item.endLatitude];
-            this.markers.push([item.endLongitude, item.endLatitude]);
+            this.center = [endLongitude, endLatitude];
+            this.markers.push([endLongitude, endLatitude]);
         },
         show_model: function (item) {
             for (var i = 0; i < this.passagesList.length; i++)
                 this.passagesList[i].isShowDetail = 'none';
-            item.isShowDetail = 'block'
+                item.isShowDetail = 'block'
         },
-        show_telphoe:function(item){
-            MessageBox("请拨打电话:xxxxxxxxxxxx");
-        }
+        getDriverInfo(){ //得到司机相关信息
+             let model = Store.fetch('user');
+             apiDriverHandler.getDriverByNo(model,data=>{
+                this.driverInfo = data
+            },err=>{
+                console.log('请求错误')
+            });
+        },
+        getPassgeerInfo(){ //得到用户路线相关信息
+            let model = Store.fetch('user');
+            demandService.getRideDemandsByRouteId(this.routeId, data => {
+            for (let i = 0; i < data.length; i++){
+                if(model.userNo === data[i].userNo){
+                    this.passagesList = data[i];
+                    this.show_position(this.passagesList.endLongitude,this.passagesList.endLatitude)
+                }
+            }
+            }, err => {
+                MessageBox("获取服务失败！");
+            });
+        },
+        // 地址过长截取函数 如：浙江省杭州市滨江区浦沿街道火炬大道恒生大厦(园支一路)---》浦沿街道火炬大道恒生大厦(园支一路)
+        placeSlice(palceStr) {
+            if (palceStr) {
+            let w = palceStr.indexOf('区')
+            let placeShow = palceStr.substring(w + 1, palceStr.length)
+            return placeShow
+      }
+    },
     }
 }
 </script>
 
 <style>
-
+.comment-carInfo{
+    background: #EFEFEF ;
+    margin-bottom: 20px;
+}
 </style>

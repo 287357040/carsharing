@@ -449,7 +449,7 @@ export default {
             }
           });
         }, (err) => {
-          console.log('服务器有误！')
+          MessageBox("发布信息失败！");
         })
       }
       else {
