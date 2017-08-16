@@ -145,7 +145,7 @@ export default {
       else {
         if (item.state == 4)
           this.$router.push({
-            path: '/driverComment', query: {
+            path: '/passagesRoute', query: {
               routeId: item.routeId
             }
           });
