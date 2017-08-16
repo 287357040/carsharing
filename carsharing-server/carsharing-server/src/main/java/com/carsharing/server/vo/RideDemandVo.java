@@ -16,6 +16,8 @@ public class RideDemandVo implements Serializable {
 
     private String userName;
 
+    private String mobile;
+
     private Integer sex;
 
     private Integer routeId;
@@ -89,6 +91,14 @@ public class RideDemandVo implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public Integer getSex() {

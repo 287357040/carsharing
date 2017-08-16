@@ -128,18 +128,33 @@
 		</set>
 		where user_no = #{userNo,jdbcType=VARCHAR}
 	</update>
-	<!--<update id="updatePhone">-->
-		<!--update t_user-->
-		<!--set phone = #{phone,jdbcType=VARCHAR}-->
-		<!--where openid = #{openid,jdbcType=VARCHAR}-->
-	<!--</update>-->
-	<!--&lt;!&ndash; 查询所有的前端用户 程序内部使用 &ndash;&gt;-->
-	<!--<select id="getAllFrontUser" resultType="java.lang.String">-->
-		<!--select-->
-		<!--GROUP_CONCAT(user_id)-->
-		<!--from t_user-->
-		<!--where state= 1-->
-	<!--</select>-->
-	<!-- 开启基于redis的二级缓存 -->
-	<!--<cache type="com.carsharing.server.util.RedisCache"/>-->
+	<select id="getFriends" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where user_no in (select friend_no from t_friends where user_no = #{userNo,jdbcType=VARCHAR})
+	</select>
+	<insert id="insertFriend">
+		insert into t_friends
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userNo != null">
+				user_no,
+			</if>
+			<if test="friendNo != null">
+				friend_no,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userNo != null">
+				#{userNo,jdbcType=VARCHAR},
+			</if>
+			<if test="friendNo != null">
+				#{friendNo,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</insert>
+	<update id="deleteFriend">
+		delete from t_friends
+		where user_no=#{userNo} and friend_no = #{friendNo}
+	</update>
 </mapper>

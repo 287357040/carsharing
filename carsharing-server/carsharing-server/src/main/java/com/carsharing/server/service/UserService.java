@@ -11,4 +11,10 @@ public interface UserService extends BaseService<User> {
     public User getOneByPhone(String mobile);
 
     public int addCommonAddress(UserAddress address);
+
+    public List<User> getFriends(String userNo);
+
+    public int insertFriend(String userNo,String friendNo);
+
+    public int deleteFriend(String userNo,String friendNo);
 }

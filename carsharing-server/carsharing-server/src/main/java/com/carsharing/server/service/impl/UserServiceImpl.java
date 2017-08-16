@@ -42,6 +42,21 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         return 0;
     }
 
+    @Override
+    public List<User> getFriends(String userNo) {
+        return userMapper.getFriends(userNo);
+    }
+
+    @Override
+    public int insertFriend(String userNo, String friendNo) {
+        return userMapper.insertFriend(userNo,friendNo);
+    }
+
+    @Override
+    public int deleteFriend(String userNo, String friendNo) {
+        return userMapper.deleteFriend(userNo,friendNo);
+    }
+
     public UserMapper getUserMapper() {
         return userMapper;
     }

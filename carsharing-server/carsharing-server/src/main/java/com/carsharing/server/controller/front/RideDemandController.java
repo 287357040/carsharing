@@ -36,6 +36,7 @@ public class RideDemandController extends AbstractController {
 
     @Resource
     private UserService userService;
+
     /**
      * 发布乘车需求
      */
@@ -115,7 +116,7 @@ public class RideDemandController extends AbstractController {
     /**
      * 需要用户登录之后才有权限查看自己发布的需求
      *
-     * @param state  需求状态
+     * @param state 需求状态
      * @return
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getRideDemands")
@@ -126,7 +127,7 @@ public class RideDemandController extends AbstractController {
             result.setRes(SystemCode.NO_LOGIN);
             return result;
         }
-        List<RideDemand> demands = rideDemandService.getRideDemandsByUserNo(user.getUserNo(),state);
+        List<RideDemand> demands = rideDemandService.getRideDemandsByUserNo(user.getUserNo(), state);
         if (null != demands) {
             result.setRes(SystemCode.SUCCESS);
             result.setObj(demands);
@@ -141,17 +142,21 @@ public class RideDemandController extends AbstractController {
      * @return
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getRideDemandsByRouteId")
-    public JsonResponse<List<RideDemand>> getRideDemandsByRouteId(Integer routeId, HttpServletRequest request) {
-        JsonResponse<List<RideDemand>> result = new JsonResponse<List<RideDemand>>(SystemCode.FAILURE);
-        User user = SessionUtil.getUser(request);
-        if (null == user) {
-            result.setRes(SystemCode.NO_LOGIN);
-            return result;
-        }
+    public JsonResponse<List<RideDemandVo>> getRideDemandsByRouteId(Integer routeId, HttpServletRequest request) {
+        JsonResponse<List<RideDemandVo>> result = new JsonResponse<>(SystemCode.FAILURE);
+        List<RideDemandVo> demadVos = new ArrayList<>();
+
         List<RideDemand> demands = rideDemandService.getRideDemandsByRouteId(routeId);
+        for (RideDemand demand : demands) {
+            RideDemandVo demandVo = new RideDemandVo(demand);
+            User user = userService.selectByPrimaryKey(demand.getUserNo());
+            demandVo.setMobile(user.getMobile());
+            demandVo.setUserName(user.getUserName());
+            demadVos.add(demandVo);
+        }
         if (null != demands) {
             result.setRes(SystemCode.SUCCESS);
-            result.setObj(demands);
+            result.setObj(demadVos);
         }
         return result;
     }
@@ -166,9 +171,9 @@ public class RideDemandController extends AbstractController {
     public JsonResponse<List<RideDemandVo>> matchRideDemandsByRoute(RideRoute route, HttpServletRequest request) {
         JsonResponse<List<RideDemandVo>> result = new JsonResponse<List<RideDemandVo>>(SystemCode.FAILURE);
 
-        User user = userService.selectByPrimaryKey( SessionUtil.getUser(request).getUserNo());
+        User user = userService.selectByPrimaryKey(SessionUtil.getUser(request).getUserNo());
         // 先不从服务器去判断用户是否是司机
-        if(!user.getIsDriver()){
+        if (!user.getIsDriver()) {
             result.setRes(SystemCode.NO_PRI);
             return result;
         }
@@ -196,7 +201,7 @@ public class RideDemandController extends AbstractController {
             }
         }
         // 排序
-        if(resDemandList.size()>0) {
+        if (resDemandList.size() > 0) {
             Collections.sort(resDemandList, new Comparator<RideDemandVo>() {
                 public int compare(RideDemandVo arg0, RideDemandVo arg1) {
                     return arg1.getMatchDegree().compareTo(arg0.getMatchDegree());

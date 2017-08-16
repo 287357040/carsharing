@@ -2,10 +2,13 @@ package com.carsharing.server.controller.front;
 
 import com.carsharing.server.constant.SystemCode;
 import com.carsharing.server.controller.AbstractController;
+import com.carsharing.server.entity.Driver;
 import com.carsharing.server.entity.User;
+import com.carsharing.server.service.DriverService;
 import com.carsharing.server.service.UserService;
 import com.carsharing.server.util.JsonResponse;
 import com.carsharing.server.util.SessionUtil;
+import com.carsharing.server.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -26,6 +29,8 @@ public class UserController extends AbstractController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private DriverService driverService;
 
     /*
     * 通过手机验证码的方式登录
@@ -33,7 +38,7 @@ public class UserController extends AbstractController {
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/loginByCode")
 //    @SendTo("/topic/callback")
     public JsonResponse<User> loginByCode(@Valid User frmUser,
-                                          HttpServletRequest request,BindingResult bResult) {
+                                          HttpServletRequest request, BindingResult bResult) {
 
         if (bResult.hasErrors()) {
 
@@ -211,34 +216,83 @@ public class UserController extends AbstractController {
      * 获取用户详情
      */
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET}, value = "/getUserByNo")
-    public JsonResponse<User> getUserInfo(HttpServletRequest request) {
-        JsonResponse<User> result = new JsonResponse<User>(SystemCode.FAILURE);
+    public Object getUserInfo(String userNo, HttpServletRequest request) {
+        JsonResponse<UserVo> result = new JsonResponse<>(SystemCode.FAILURE);
         lo.info("getUserByNo...");
-        User user = SessionUtil.getUser(request);
-        if (null == user) {
+        if (userNo == null)
+            userNo = SessionUtil.getUser(request).getUserNo();
+
+        Driver driver = null;
+        if (null == SessionUtil.getUser(request)) {
             result.setRes(SystemCode.NO_LOGIN);
             return result;
         } else {
-            user = userService.selectByPrimaryKey(user.getUserNo());
+            User user = userService.selectByPrimaryKey(userNo);
+            if (user.getIsDriver()) {
+                driver = driverService.selectByPrimaryKey(userNo);
+            }
             if (user != null) {
                 result.setRes(SystemCode.SUCCESS);
-                result.setObj(user);
+                UserVo userVo = new UserVo(user, driver);
+                result.setObj(userVo);
             }
         }
         return result;
     }
 
+    /**
+     * 获取朋友
+     */
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/getFriends")
+    public JsonResponse<List<User>> getFriends(HttpServletRequest request) {
+        JsonResponse<List<User>> result = new JsonResponse<>();
+
+        List<User> users = userService.getFriends(SessionUtil.getUser(request).getUserNo());
+        result.setObj(users);
+        result.setRes(SystemCode.SUCCESS);
+        return result;
+    }
 
     /**
      * 增加朋友
      */
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/addFriend")
-    public JsonResponse<String> addFriend() {
+    public Object addFriend(String friendNo,HttpServletRequest request) {
+        JsonResponse<Integer> result = new JsonResponse<>(SystemCode.FAILURE);
 
-        JsonResponse<String> result = new JsonResponse<String>();
-
+        String userNo = SessionUtil.getUser(request).getUserNo();
+        if(null == friendNo){
+            return result;
+        }
+        if(null == userService.selectByPrimaryKey(friendNo)){
+            return result;
+        }
+        try {
+            userService.insertFriend(userNo, friendNo);
+            result.setRes(SystemCode.SUCCESS);
+        }catch (Exception e){
+            return result;
+        }
         return result;
     }
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value = "/delFriend")
+    public Object delFriend(String friendNo,HttpServletRequest request) {
+        JsonResponse<Integer> result = new JsonResponse<>(SystemCode.FAILURE);
 
+        String userNo = SessionUtil.getUser(request).getUserNo();
+        if(null == friendNo){
+            return result;
+        }
+        if(null == userService.selectByPrimaryKey(friendNo)){
+            return result;
+        }
+        try {
+            userService.deleteFriend(userNo, friendNo);
+            result.setRes(SystemCode.SUCCESS);
+        }catch (Exception e){
+            return result;
+        }
+        return result;
+    }
 
 }
