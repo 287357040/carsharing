@@ -26,6 +26,8 @@ import passengerComment from '@/components/setting/passengerComment'
 import LocalStorage from '../utils/store'
 import driverwaitStatus from '@/components/status/driverwaitStatus'
 import addFirend from '@/components/setting/addFirend'
+import passagesRoute from '@/components/setting/passagesRoute'
+
 
 import { MessageBox } from 'mint-ui'
 import employeeService from '@/api/services/employee.service'
@@ -168,6 +170,12 @@ var router = new Router({
       path: '/driverComment',
       name: 'driverComment',
       component: driverComment,
+      meta: { requiresAuth: true }
+    },
+     {
+      path: '/passagesRoute',
+      name: 'passagesRoute',
+      component: passagesRoute,
       meta: { requiresAuth: true }
     },
     {
